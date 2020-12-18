@@ -1,0 +1,65 @@
+.introSelect {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    right: -100%;
+    margin: 0;
+    padding: 0;
+    animation-name: select;
+    animation-duration: 50ms;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+.cube {
+    position: absolute;
+    width: 20vw;
+    height: auto;
+    bottom: 5%;
+    right: 5%;
+}
+
+.intro_yellow {
+    position: absolute;
+    left: -20%;
+    top: -15%;
+}
+
+.journey {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 15%;
+}
+
+.slogan {
+    position: absolute;
+    top: 20%;
+    z-index: 2;
+}
+
+.slogan h2 {
+    text-align: center;
+    padding: 0 30px;
+}
+
+.slogan h3 {
+    text-align: right;
+    padding: 0 30px;
+}
+
+.alreadyAccount {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 1%;
+    width: 70vw;
+    text-align: center;
+}
+
+@keyframes select {
+    0% { opacity: 0; }
+    70% { opacity: .5; }
+    80% { right: -100%; opacity: .7; }
+    100% { right: 0%; opacity: 1; }
+}

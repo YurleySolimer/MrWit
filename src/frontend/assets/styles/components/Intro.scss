@@ -1,0 +1,40 @@
+.intro {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: white;
+    display: block;
+    opacity: 1;
+    animation-name: intro;
+    animation-duration: 30ms;
+    animation-fill-mode: forwards;
+}
+
+.intro_blue {
+    position: absolute;
+    left: -65%;
+    top: -3%
+}
+
+.intro_red {
+    position: absolute;
+    left: 37%;
+    top: 30%
+}
+
+.intro_logo {
+    position: absolute;
+    width: 227px;
+    height: 145px;
+    left: 89px;
+    top: 393px;
+}
+
+@keyframes intro {
+    0% { opacity: 1; display: block; }
+    60% { opacity: 1; display: block; }
+    70% { opacity: .95; display: block; }
+    80% { opacity: .9; display: block; }
+    90% { opacity: .5; display: block; }
+    100% { opacity: 0; display: none; }
+}

@@ -1,0 +1,75 @@
+@font-face {
+    font-family: 'Axiforma';
+    src:
+        url(./fonts/axiforma-thin.woff) format('woff'),
+        url(./fonts/axiforma-thin.ttf) format('ttf');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Arial Narrow';
+    src:
+        url(./fonts/arial-narrow-regular.woff) format('woff'), 
+        url(./fonts/arial-narrow-regular.ttf) format('ttf');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Arial Narrow Bold';
+    src:
+        url(./fonts/arial-narrow-bold.woff) format('woff'),
+        url(./fonts/arial-narrow-bold.ttf) format('ttf');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Verdana';
+    src:
+        url(./fonts/verdana-regular.woff) format('woff'),
+        url(./fonts/verdana-regular.ttf) format('ttf');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Verdana Bold';
+    src:
+        url(./fonts/verdana-bold.woff) format('woff'),
+        url(./fonts/verdana-bold.ttf) format('ttf');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+$font-special: 'Axiforma';
+$h-regular: 'Arial Narrow';
+$h-bold: 'Arial Narrow Bold';
+$p-regular: 'Verdana';
+$p-bold: 'Verdana Bold';
+$red: #B5143F;
+$red-70: #CB5B79;
+$red-50: #DA899F;
+$red-30: #E9B9C5;
+$red-10: #F8E7EC;
+$blue: #00f7ff;
+$blue-70: #4DF9FF;
+$blue-50: #80FBFF;
+$blue-30: #B3FDFF;
+$blue-10: #E5FEFF;
+$yellow: #FFDB00;
+$yellow-70: #FFE64D;
+$yellow-50: #FFED80;
+$yellow-30: #FFF4B3;
+$yellow-10: #FFFBE5;
+$green: #BFEB80;
+$gray: #7c7c7b;
+$gradiant: linear-gradient(91.81deg, #B5143F 0%, #697490 50.45%, #00F7FF 100%);
+$outter-shadow: 0 4px 8px rgba(0, 0, 0, .08);
+$inner-shadow: inset 0px 0px 5px rgba(120, 120, 120, 0.15);

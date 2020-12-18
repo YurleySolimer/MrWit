@@ -1,0 +1,28 @@
+@import './Vars.scss';
+@import './Media.scss';
+
+body {
+    margin: 0px;
+    background-color: white;
+    font-family: $p-regular, sans-serif;
+    color: $gray;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h1 {
+    font-family: $h-bold, sans-serif;
+}
+
+h2 {
+    font-family: $font-special, sans-serif;
+}
+
+h3 {
+    font-family: $h-regular, sans-serif;
+}
+
+// Components
+
