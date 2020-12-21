@@ -12,7 +12,7 @@ const SelectionIntro = ({ children }) => (
       <h2>Te conectamos con el consultor a tu medida y paga por minuto.</h2>
       <h3>Mr. Wit</h3>
     </div>
-    {childrenc}
+    {children}
     <img className='cube' src={cube} alt='cube' />
     <p className='alreadyAccount'>
       ¿Ya tienes cuenta?

@@ -12,7 +12,7 @@ const Home = () => {
       <Intro />
       <SelectionIntro>
         <CardButton name='Clientes' obj='CardClientSelection' msg='¡Consultar ahora!' dir='/consulta' />
-        <CardButton name='Consultores' obj='CardConsultorSelection' msg='¡Registro consultores!' dir='/registro/consultores' />
+        <CardButton name='Consultores' obj='CardConsultorSelection' msg='¡Registrate!' dir='/registro/consultores' />
       </SelectionIntro>
     </div>
   );
