@@ -1,17 +1,18 @@
 import React from 'react';
+
+import '../assets/styles/containers/Search.scss';
 import yellow from '../assets/static/intro-yellow.svg';
 import blue from '../assets/static/intro-blue.svg';
 import one from '../assets/static/signal-one.svg';
 import two from '../assets/static/signal-two.svg';
 import three from '../assets/static/signal-three.svg';
-import Search from '../components/Search';
+
+import Searcher from '../components/Searcher';
 import CircleCarousel from '../components/CircleCarousel';
 import SearchElements from '../components/SearchElements';
 import Feedback from '../components/Feedback';
-import '../assets/styles/containers/SearchConsultant.scss';
 
-const SearchConsultant = () => {
-
+const Search = () => {
   return (
     <div className='searchConsultant'>
       <div className='searchName__title'>
@@ -26,13 +27,13 @@ const SearchConsultant = () => {
       <div className='signal__three'>
         <img src={three} alt='signal search' />
       </div>
-      <div className='searchObj__Yellow'>
+      <div className='searchObj__yellow'>
         <img src={yellow} alt='signal search' />
       </div>
-      <div className='searchObj__Blue'>
+      <div className='searchObj__blue'>
         <img src={blue} alt='signal search' />
       </div>
-      <Search />
+      <Searcher />
       <CircleCarousel>
         <SearchElements />
       </CircleCarousel>
@@ -41,4 +42,4 @@ const SearchConsultant = () => {
   );
 };
 
-export default SearchConsultant;
+export default Search;
