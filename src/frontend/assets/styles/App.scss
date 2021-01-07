@@ -17,11 +17,16 @@ h1 {
 }
 
 h2 {
+    font-weight: 100;
     font-family: $font-special, sans-serif;
 }
 
 h3 {
     font-family: $h-regular, sans-serif;
+}
+
+p {
+    font-size: 11px;
 }
 
 // Components

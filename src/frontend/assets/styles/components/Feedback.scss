@@ -1,11 +1,47 @@
 @import '../Vars.scss';
 
-.Feedback {}
-.Feedback__left {}
-.Feedback__left__img {}
-.Feedback__left__score {}
-.Feedback__left__score .star {}
-.Feedback__right {}
-.Feedback__right__name {}
-.Feedback__right__country {}
-.Feedback__right__description {}
+.Feedback {
+    position: absolute;
+    width: 350px;
+    height: 130px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: $outter-shadow;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 30px;
+    display: flex;
+}
+
+.Feedback__left {
+    display: flex;
+    margin: 20px 20px 10px 20px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 67px;
+}
+
+.Feedback__left__img {
+    width: 67px;
+    height: auto;
+    border-radius: 50%;
+}
+
+.Feedback__right {
+    flex-direction: column;
+}
+
+.Feedback__right__name {
+    margin: 10px 10px 5px 10px;
+}
+
+.Feedback__right__country {
+    margin: 0 10px;
+    font-weight: 100;
+    font-family: $font-special;
+}
+
+.Feedback__right__description {
+    margin: 5px 10px;
+}

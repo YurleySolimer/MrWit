@@ -5,7 +5,10 @@
 }
 
 .Consultants__background {
-
+    position: absolute;
+    top: 30%;
+    transform: rotate(30deg);
+    z-index: -3;
 }
 
 .Consultants__others {

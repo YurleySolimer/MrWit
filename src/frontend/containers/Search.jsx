@@ -34,10 +34,17 @@ const Search = () => {
         <img src={blue} alt='signal search' />
       </div>
       <Searcher />
-      <CircleCarousel>
-        <SearchElements />
+      <CircleCarousel searchTerm='Category'>
+        <SearchElements link='/resultados' className='one' title='Category' />
+        <SearchElements link='/resultados' className='two' title='Category' />
+        <SearchElements link='/resultados' className='three' title='Category' />
+        <SearchElements link='/resultados' className='four' title='Category' />
+        <SearchElements link='/resultados' className='five' title='Category' />
+        <SearchElements link='/resultados' className='six' title='Category' />
+        <SearchElements link='/resultados' className='seven' title='Category' />
+        <SearchElements link='/resultados' className='eight' title='Category' />
       </CircleCarousel>
-      <Feedback />
+      <Feedback name='Luis Fernando Méndez' country='Medellín, CO' description='“Me encantó la experiencia, pude resolver los problemas de contabilidad de mi empresa con una sola llamada, es súper práctico”' />
     </div>
   );
 };

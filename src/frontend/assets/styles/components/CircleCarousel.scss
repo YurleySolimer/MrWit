@@ -1,5 +1,31 @@
 @import '../Vars.scss';
 
 .CircleCarousel {
-    
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.CircleCarousel__carousel {
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 10% 20% 30% 20% 10%;
+    grid-template-rows: 10% 20% 30% 20% 10%;
+    gap: 0px 0px;
+    grid-template-areas:
+      ". . one . ."
+      ". eight . two ."
+      "seven . Search-Item . three"
+      ". six . four ."
+      ". . five . .";
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0;
+      transform: translateX(-9px);
+}
+
+.Search-Item { 
+    grid-area: Search-Item; 
 }
