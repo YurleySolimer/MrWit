@@ -3,7 +3,9 @@
 .OtherResults {}
 .OtherResults__category {}
 .OtherResults__category__name {}
-.OtherResults__category__img {}
+.OtherResults__category__img {
+    max-width: 100px
+}
 .OtherResults__profiles {}
 .OtherResults__profiles__profile {}
 .OtherResults__profiles__profile .profile__img {}

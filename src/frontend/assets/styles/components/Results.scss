@@ -1,14 +1,34 @@
 @import '../Vars';
 
-.Results {}
-.Results__headline {}
-.Results__headline__word {}
-.Results__headline__type {}
-.Results__headline__search {}
-.Results__headline__search .icon {}
+.Results {
+    position: relative;
+    height: 37%;
+    width: 100%;
+    margin: 0;
+    padding: 100px 10px 20px 10px;
+    background-color: white;
+    box-shadow: $outter-shadow;
+    border-radius: 0 0 25px 25px;
+    z-index: -1;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
 .Results__title {}
-.Results__profiles {}
-.Results__profiles__profile {}
+
+.Results__profiles {
+    display: flex;
+    flex-direction: row;
+    white-space: nowrap;
+}
+
+.Results__profiles__profile {
+    margin: 0 50px;
+}
+
 .profile__img {}
+
 .profile__name {}
+
 .profile__title {}

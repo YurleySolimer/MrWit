@@ -1,7 +1,11 @@
 @import '../Vars';
 
 .Consultants {
-
+    max-width: 100vw;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
 }
 
 .Consultants__background {
@@ -19,3 +23,41 @@
 
 }
 
+.Results__headlineSearch__word p {
+    position: absolute;
+    left: 15px;
+    top: 40px;
+}
+
+.Results__headlineSearch__word img {
+    position: absolute;
+    left: 0;
+    top: 40px;
+    z-index: -1;
+}
+
+.Results__headlineSearch__type img {
+    position: absolute;
+    left: 140px;
+    top: 44px;
+    z-index: -1;
+}
+
+.Results__headlineSearch__type p {
+    position: absolute;
+    top: 40px;
+    left: 160px;
+}
+
+.Results__headlineSearch__search {
+    width: 50px;
+    height: 30px;
+    background-color: $gray;
+    position: absolute;
+    top: 44px;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px 0 0 5px;
+}

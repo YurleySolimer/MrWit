@@ -12,18 +12,18 @@ const Consultants = () => (
   <div className='Consultants'>
     <div className='Consultants__headlin'>
       <div className='Results__headlineSearch__word'>
-        Palabra buscada
+        <p>Palabra buscada</p>
         <img src={darkArrow} alt='' />
       </div>
       <div className='Results__headlineSearch__type'>
-        tipo de busqueda
+        <p>tipo de busqueda</p>
         <img src={lightArrow} alt='' />
       </div>
-      <div className='Results__headlineSearch__search'>
-        <Link to='/buscar'>
+      <Link to='/buscar'>
+        <div className='Results__headlineSearch__search'>
           <img src={lupa} alt='' />
-        </Link>
-      </div>
+        </div>
+      </Link>
     </div>
     <img src={background} alt='' className='Consultants__background' />
     <Results />
