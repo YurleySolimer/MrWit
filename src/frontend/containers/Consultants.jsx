@@ -28,7 +28,10 @@ const Consultants = () => (
     <img src={background} alt='' className='Consultants__background' />
     <Results />
     <span className='Consultants__others'>Otros consultores activos</span>
-    <OtherResults />
+    <OtherResults top={true} category='Top' results={true} />
+    <OtherResults category='Finanzas' results={true} />
+    <OtherResults category='Liderazgo' results={false} />
+    <OtherResults category='Economía  ' results={true} />
   </div>
 );
 
