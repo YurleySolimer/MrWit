@@ -1,20 +1,29 @@
 import React from 'react';
 import '../assets/styles/components/Results.scss';
+import { Link } from 'react-router-dom';
 import prof1 from '../assets/static/profile_1.jpg';
 import prof2 from '../assets/static/profile_2.jpg';
 import prof3 from '../assets/static/profile_3.jpg';
 import prof4 from '../assets/static/profile_4.jpg';
 
 const Results = () => {
+
+  const logged = {
+    pathname: '/signup',
+    isLogged: true,
+  };
+
   return (
     <div className='Results'>
       <h3 className='Results__title'>Resultados</h3>
       <div className='Results__profiles'>
-        <div className='Results__profiles__profile'>
-          <img src={prof1} alt='' className='profile__img' />
-          <p className='profile__name'>Rosalinda Mendoza</p>
-          <p className='profile__title'>Digital Marketer</p>
-        </div>
+        <Link to={logged}>
+          <div className='Results__profiles__profile'>
+            <img src={prof1} alt='' className='profile__img' />
+            <p className='profile__name'>Rosalinda Mendoza</p>
+            <p className='profile__title'>Digital Marketer</p>
+          </div>
+        </Link>
         <div className='Results__profiles__profile'>
           <img src={prof3} alt='' className='profile__img' />
           <p className='profile__name'>Jhon Doe</p>
