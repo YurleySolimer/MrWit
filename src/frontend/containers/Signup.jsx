@@ -14,13 +14,17 @@ class Signup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      id: '',
-      tel: '',
-      gender: '',
-      country: '',
-      email: '',
-      password: '',
+      input: {
+        name: '',
+        id: '',
+        tel: '',
+        gender: '',
+        country: '',
+        email: '',
+        password: '',
+        confirm_password: '',
+      },
+      errors: {},
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -30,34 +34,40 @@ class Signup extends React.Component {
 
   handleChange(event) {
     // eslint-disable-next-line prefer-destructuring
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    // eslint-disable-next-line prefer-destructuring
-    const name = target.name;
+    const input = this.state.input;
+    input[event.target.name] = event.target.value;
 
     this.setState({
-      [name]: value,
+      input,
     });
   }
 
   handleSubmit(event) {
-    console.log(`form submitted:
-      name: ${this.state.name}
-      id: ${this.state.id}
-      tel: ${this.state.tel}
-      gender: ${this.state.gender}
-      country: ${this.state.country}
-      email: ${this.state.email}
-      password: ${this.state.password}
-    `);
     event.preventDefault();
+
+    if (this.validate()) {
+      console.log(this.state);
+
+      const input = {};
+      input['name'] = '';
+      input['id'] = '';
+      input['tel'] = '';
+      input['gender'] = '';
+      input['country'] = '';
+      input['email'] = '';
+      input['password'] = '';
+      input['confirm_password'] = '';
+      this.setState({ input });
+
+      alert('Te has registrado');
+    }
   }
 
   handleSignup(event) {
     const formContent = document.getElementById('signup__form__content');
     const otherButtons = document.getElementsByClassName('signup__button');
 
-    if (this.state.name && this.state.id && this.state.tel && this.state.gender && this.state.country) {
+    if (this.state.input.name && this.state.input.id && this.state.input.tel && this.state.input.gender && this.state.input.country) {
       for (let i = 0; i < otherButtons.length; i++) {
         otherButtons[i].classList.add('hidden');
       }
@@ -70,6 +80,76 @@ class Signup extends React.Component {
     event.preventDefault();
   }
 
+  validate() {
+    // eslint-disable-next-line prefer-destructuring
+    const input = this.state.input;
+    const errors = {};
+    let isValid = true;
+
+    if (!input['name']) {
+      isValid = false;
+      errors['name'] = 'Please enter your name.';
+    }
+
+    if (!input['id']) {
+      isValid = false;
+      errors['id'] = 'Please enter your name.';
+    }
+
+    if (!input['tel']) {
+      isValid = false;
+      errors['tel'] = 'Please enter your name.';
+    }
+
+    if (!input['gender']) {
+      isValid = false;
+      errors['gender'] = 'Please enter your name.';
+    }
+
+    if (!input['country']) {
+      isValid = false;
+      errors['country'] = 'Please enter your name.';
+    }
+
+    if (!input['email']) {
+      isValid = false;
+      errors['email'] = 'Please enter your email Address.';
+    }
+
+    if (typeof input['email'] !== 'undefined') {
+
+      const pattern = new RegExp(/^(('[\w-\s]+')|([\w-]+(?:\.[\w-]+)*)|('[\w-\s]+')([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+      if (!pattern.test(input['email'])) {
+        isValid = false;
+        errors['email'] = 'Please enter valid email address.';
+      }
+    }
+
+    if (!input['password']) {
+      isValid = false;
+      errors['password'] = 'Please enter your password.';
+    }
+
+    if (!input['confirm_password']) {
+      isValid = false;
+      errors['confirm_password'] = 'Please enter your confirm password.';
+    }
+
+    if (typeof input['password'] !== 'undefined' && typeof input['confirm_password'] !== 'undefined') {
+
+      if (input['password'] !== input['confirm_password']) {
+        isValid = false;
+        errors['password'] = "Passwords don't match.";
+      }
+    }
+
+    this.setState({
+      errors,
+    });
+
+    return isValid;
+  }
+
   render() {
 
     return (
@@ -80,21 +160,29 @@ class Signup extends React.Component {
           <form onSubmit={this.handleSubmit} id='signup__client__form' className='signup__form'>
             <div id='signup__form__content' className='signup__form__content'>
               <fieldset className='signup__form__fieldset left'>
-                <input required type='text' placeholder='Nombre' name='name' id='name' className='signup__input name' value={this.state.name} onChange={this.handleChange} />
-                <input required type='text' placeholder='Cédula' name='id' id='id' className='signup__input id' value={this.state.id} onChange={this.handleChange} />
-                <input required type='tel' placeholder='Teléfono' name='tel' id='tel' className='signup__input tel' value={this.state.tel} onChange={this.handleChange} />
-                <select required name='gender' id='gender' className='signup__input gender' value={this.state.gender} onChange={this.handleChange}>
+                <input required type='text' placeholder='Nombre' name='name' id='name' className='signup__input name' value={this.state.input.name} onChange={this.handleChange} />
+                <div><small className='signup__error'>{this.state.errors.name}</small></div>
+                <input required type='number' placeholder='Cédula' name='id' id='id' className='signup__input id' value={this.state.input.id} onChange={this.handleChange} />
+                <div><small className='signup__error'>{this.state.errors.id}</small></div>
+                <input required type='tel' placeholder='Teléfono' name='tel' id='tel' className='signup__input tel' value={this.state.input.tel} onChange={this.handleChange} />
+                <div><small className='signup__error'>{this.state.errors.tel}</small></div>
+                <select required name='gender' id='gender' className='signup__input gender' value={this.state.input.gender} onChange={this.handleChange}>
                   <option value=''>Género</option>
                   <option value='male'>Masculino</option>
                   <option value='female'>Femenino</option>
                   <option value='undefined'>Prefiero no decir</option>
                 </select>
-                <input required type='text' placeholder='País' name='country' id='country' className='signup__input country' value={this.state.country} onChange={this.handleChange} />
+                <div><small className='signup__error'>{this.state.errors.gender}</small></div>
+                <input required type='text' placeholder='País' name='country' id='country' className='signup__input country' value={this.state.input.country} onChange={this.handleChange} />
+                <div><small className='signup__error'>{this.state.errors.country}</small></div>
               </fieldset>
               <fieldset className='signup__form__fieldset right'>
-                <input type='email' placeholder='Correo electrónico' name='email' id='email' className='signup__input email' value={this.state.email} onChange={this.handleChange} />
-                <input type='password' placeholder='Contraseña' name='password' id='password' className='signup__input password' value={this.state.password} onChange={this.handleChange} />
-                <input type='password' placeholder='Repetir contraseña' name='password2' id='password2' className='signup__input password' onChange={this.handleChange} />
+                <input type='email' placeholder='Correo electrónico' name='email' id='email' className='signup__input email' value={this.state.input.email} onChange={this.handleChange} />
+                <div><small className='signup__error'>{this.state.errors.email}</small></div>
+                <input type='password' placeholder='Contraseña' name='password' id='password' className='signup__input password' value={this.state.input.password} onChange={this.handleChange} />
+                <div><small className='signup__error'>{this.state.errors.password}</small></div>
+                <input type='password' placeholder='Repetir contraseña' name='confirm_password' id='confirm_password' className='signup__input password' value={this.state.input.confirm_password} onChange={this.handleChange} />
+                <div><small className='signup__error'>{this.state.errors.confirm_password}</small></div>
                 <button type='submit' onClick={this.handleSubmit} className='signup__submit'>Ir a la llamada</button>
               </fieldset>
             </div>
