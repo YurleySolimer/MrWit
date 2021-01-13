@@ -60,6 +60,7 @@ class Signup extends React.Component {
       this.setState({ input });
 
       alert('Te has registrado');
+      window.location = '/recargar';
     }
   }
 
@@ -183,7 +184,7 @@ class Signup extends React.Component {
                 <div><small className='signup__error'>{this.state.errors.password}</small></div>
                 <input type='password' placeholder='Repetir contraseña' name='confirm_password' id='confirm_password' className='signup__input password' value={this.state.input.confirm_password} onChange={this.handleChange} />
                 <div><small className='signup__error'>{this.state.errors.confirm_password}</small></div>
-                <button type='submit' onClick={this.handleSubmit} className='signup__submit'>Ir a la llamada</button>
+                <button type='submit' onClick={this.handleSubmit} className='signup__submit'>Registrarme</button>
               </fieldset>
             </div>
             <button type='button' onClick={this.handleSignup} className='signup__submit signup__button'>Registrarme por mi cuenta</button>

@@ -1,0 +1,50 @@
+@import '../Vars';
+
+.Recharge {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Recharge__header {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Recharge__img {
+    margin: 20px auto 8px auto;
+    max-width: 127px;
+}
+
+.Recharge__header__text {
+    text-align: center;
+    max-height: 92px;
+}
+
+.Recharge__payu {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 15px;
+    position: relative;
+}
+
+.Recharge__payu small {
+    font-family: $font-special;
+    color: $half-gray;
+    font-weight: 100;
+    padding-top: 10px;
+}
+
+.Recharge__symbol {
+    position: absolute;
+    width: 79px;
+    top: 85%;
+    right: 10%;
+}
