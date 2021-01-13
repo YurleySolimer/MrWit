@@ -1,7 +1,8 @@
 import React from 'react';
 import '../assets/styles/components/WalletRecharge.scss';
 
-const WalletRecharge = ({ amount, balance }) => {
+const WalletRecharge = ({ amount, balance, method }) => {
+
   return (
     <div className='WalletRecharge'>
       <div className='WalletRecharge__header'>
@@ -27,7 +28,7 @@ const WalletRecharge = ({ amount, balance }) => {
             COP
           </span>
         </div>
-        <button type='button' className='WalletRecharge__body__payment'>Pagar</button>
+        <button type='button' onClick={method} className='WalletRecharge__body__payment'>Pagar</button>
         <br />
         <small className='WalletRecharge__footer'>Recarga mínima: 10 minutos</small>
       </div>

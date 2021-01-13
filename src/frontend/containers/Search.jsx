@@ -1,11 +1,11 @@
 import React from 'react';
 
 import '../assets/styles/containers/Search.scss';
-import yellow from '../assets/static/intro-yellow.svg';
-import blue from '../assets/static/intro-blue.svg';
-import one from '../assets/static/signal-one.svg';
-import two from '../assets/static/signal-two.svg';
-import three from '../assets/static/signal-three.svg';
+import yellow from '../assets/static/assets/intro-yellow.svg';
+import blue from '../assets/static/assets/intro-blue.svg';
+import one from '../assets/static/assets/signal-one.svg';
+import two from '../assets/static/assets/signal-two.svg';
+import three from '../assets/static/assets/signal-three.svg';
 
 import Searcher from '../components/Searcher';
 import CircleCarousel from '../components/CircleCarousel';

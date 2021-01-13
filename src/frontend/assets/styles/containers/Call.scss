@@ -1,0 +1,187 @@
+@import '../Vars';
+
+.call {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.call__view {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    top: 0;
+    left: 0;
+}
+
+.call__view__video {
+    position: absolute;
+    width: auto;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    margin: auto;
+    z-index: 2;
+}
+
+.call__view__controls {
+    position: absolute;
+    background-color: #00000080;
+    width: 100%;
+    height: 185px;
+    z-index: 3;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.call__controls__top {
+    margin-top: 10px;
+    text-align: center;
+    color: white;
+}
+
+.call__duration {
+    font-size: .75em;
+}
+
+.call__controls__bottom {
+    margin-top: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.call__controls__hangup {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: $outter-shadow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    margin-right: 40px;
+    margin-left: 40px;
+}
+
+.call__controls__camera {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: $outter-shadow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    margin-left: 30px;
+}
+
+.call__controls__audio {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: $outter-shadow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    margin-left: 30px;
+}
+
+.call__controls__recharge {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.call__controls__recharge__info {
+    font-size: 11px;
+    margin-top: 3px;
+    margin-bottom: 5px;
+}
+
+.call__controls__recharge__button {
+    background-color: $green;
+    border-radius: 5px;
+    font-size: 1.125em;
+    font-family: $h-regular;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.call__chat {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: white;
+    z-index: 4;
+    border-radius: 15px;
+    width: 100vw;
+    height: 100vh;
+    transform: translateY(calc(100% - 87px));
+}
+
+.chat__header__icon {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+    margin-bottom: 38px;
+}
+
+.chat__toggle #chat {
+    display: block;
+}
+
+.chat__toggle #camera {
+    display: none;
+}
+
+.chat__toggle.active #chat {
+    display: none;
+}
+
+.chat__toggle.active #camera {
+    display: block;
+}
+
+.toggle__arrow #up {
+    display: block;
+}
+
+.toggle__arrow #down {
+    display: none;
+}
+
+.toggle__arrow.active #up {
+    display: none;
+}
+
+.toggle__arrow.active #down {
+    display: block;
+}
+
+
+
+.chat__toggle {
+    background-color: transparent;
+    border: none;
+    margin: 5px;
+}
+
+.chat__toggle img {
+    min-height: 38px;
+    width: auto;
+}

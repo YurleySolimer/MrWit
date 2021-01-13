@@ -1,8 +1,8 @@
 import React from 'react';
 import '../assets/styles/components/Intro.scss';
-import introBlue from '../assets/static/intro-blue.svg';
-import introRed from '../assets/static/intro-red.svg';
-import logo from '../assets/static/mrwit-logo.png';
+import introBlue from '../assets/static/assets/intro-blue.svg';
+import introRed from '../assets/static/assets/intro-red.svg';
+import logo from '../assets/static/logo/mrwit-logo.png';
 
 const Intro = () => {
   return (

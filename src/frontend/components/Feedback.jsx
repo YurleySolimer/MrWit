@@ -1,7 +1,7 @@
 import React from 'react';
 import '../assets/styles/components/Feedback.scss';
 import star from '../assets/static/icons/star.svg';
-import profile from '../assets/static/profile_pic.png';
+import profile from '../assets/static/images/profile_pic.png';
 
 const Feedback = ({ name, country, description }) => {
   return (

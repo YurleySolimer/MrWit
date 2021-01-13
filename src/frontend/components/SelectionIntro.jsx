@@ -1,7 +1,7 @@
 import React from 'react';
-import introYellow from '../assets/static/intro-yellow.svg';
-import journey from '../assets/static/intro-journey.svg';
-import cube from '../assets/static/symbol.png';
+import introYellow from '../assets/static/assets/intro-yellow.svg';
+import journey from '../assets/static/assets/intro-journey.svg';
+import cube from '../assets/static/logo/symbol.png';
 import '../assets/styles/components/SelectionIntro.scss';
 
 const SelectionIntro = ({ children }) => {

@@ -1,12 +1,12 @@
 import React from 'react';
 import '../assets/styles/containers/Consultants.scss';
 import { Link } from 'react-router-dom';
-import background from '../assets/static/intro-blue.svg';
+import background from '../assets/static/assets/intro-blue.svg';
 import Results from '../components/Results';
 import OtherResults from '../components/OtherResults';
 import lupa from '../assets/static/icons/lupa.svg';
-import darkArrow from '../assets/static/darkgrey_arrow.svg';
-import lightArrow from '../assets/static/lightgrey_arrow.svg';
+import darkArrow from '../assets/static/assets/darkgrey_arrow.svg';
+import lightArrow from '../assets/static/assets/lightgrey_arrow.svg';
 
 const Consultants = () => (
   <div className='Consultants'>

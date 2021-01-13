@@ -1,11 +1,11 @@
 import React from 'react';
 import '../assets/styles/components/OtherResults.scss';
-import minimal from '../assets/static/mrwit-logo-minimal.png';
+import minimal from '../assets/static/logo/mrwit-logo-minimal.png';
 import noresults from '../assets/static/icons/noresults.svg';
-import prof1 from '../assets/static/profile_1.jpg';
-import prof2 from '../assets/static/profile_2.jpg';
-import prof3 from '../assets/static/profile_3.jpg';
-import prof4 from '../assets/static/profile_4.jpg';
+import prof1 from '../assets/static/images/profile_1.jpg';
+import prof2 from '../assets/static/images/profile_2.jpg';
+import prof3 from '../assets/static/images/profile_3.jpg';
+import prof4 from '../assets/static/images/profile_4.jpg';
 
 const OtherResults = ({ category, top, results }) => {
 

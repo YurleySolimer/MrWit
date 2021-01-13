@@ -1,10 +1,10 @@
 import React from 'react';
 import '../assets/styles/components/Results.scss';
 import { Link } from 'react-router-dom';
-import prof1 from '../assets/static/profile_1.jpg';
-import prof2 from '../assets/static/profile_2.jpg';
-import prof3 from '../assets/static/profile_3.jpg';
-import prof4 from '../assets/static/profile_4.jpg';
+import prof1 from '../assets/static/images/profile_1.jpg';
+import prof2 from '../assets/static/images/profile_2.jpg';
+import prof3 from '../assets/static/images/profile_3.jpg';
+import prof4 from '../assets/static/images/profile_4.jpg';
 
 const Results = () => {
 

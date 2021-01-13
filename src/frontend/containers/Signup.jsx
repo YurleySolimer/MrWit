@@ -2,10 +2,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../assets/styles/containers/Signup.scss';
-import icon from '../assets/static/mrwit-logo.png';
-import symbol from '../assets/static/symbol.png';
-import yellow from '../assets/static/intro-yellow.svg';
-import red from '../assets/static/intro-red.svg';
+import icon from '../assets/static/logo/mrwit-logo.png';
+import symbol from '../assets/static/logo/symbol.png';
+import yellow from '../assets/static/assets/intro-yellow.svg';
+import red from '../assets/static/assets/intro-red.svg';
 import facebook from '../assets/static/icons/facebook.svg';
 import linkedin from '../assets/static/icons/linkedin.svg';
 import google from '../assets/static/icons/google.svg';
