@@ -295,6 +295,7 @@
 }
 
 .message__body {
+    font-size: 12px;
     display: block;
     padding: 10px;
     margin: 5px;
@@ -307,4 +308,5 @@
     padding: 0 10px;
     margin: 5px;
     color: $half-gray;
+    font-size: 10px;
 }
