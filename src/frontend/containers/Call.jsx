@@ -126,15 +126,15 @@ class Call extends React.Component {
                 <span className='message__timer'>some hour</span>
               </div>
             </div>
-            <div className="space__footer"></div>
+            <div className='space__footer'>{' '}</div>
             <div className='chat__footer'>
-              <div className="chat__footer__input">
-                <input type="text" name="message" placeholder='Nuevo mensaje...' id="message" className='chat__input__message' />
+              <div className='chat__footer__input'>
+                <input type='text' name='message' placeholder='Nuevo mensaje...' id='message' className='chat__input__message' />
                 <button type='button' className='button__chat__input' aria-label='button attachment'>
-                  <img src={clip} alt="attach" />
+                  <img src={clip} alt='attach' />
                 </button>
                 <button type='button' className='button__chat__input' aria-label='button send'>
-                  <img src={send} alt="send" />
+                  <img src={send} alt='send' />
                 </button>
               </div>
             </div>

@@ -1,7 +1,38 @@
+@import '../Vars';
+
 .home {
     width: 100vw;
     height: 100vh;
     margin: 0;
     padding: 0;
     position: fixed;
+}
+
+.dashboard {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    position: fixed;
+}
+
+.dashboard__body {
+    padding: 20px;
+}
+
+.dashboard__message {
+    text-align: center;
+}
+
+.dashboard__CTA {
+    text-align: center;
+}
+
+.dashboard__CTA__button {
+    padding: 10px 30px;
+    background: $gradiant;
+    border: none;
+    border-radius: 5px;
+    font-size: 22px;
+    font-family: $h-regular;
+    color: white;
 }

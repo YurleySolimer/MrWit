@@ -1,0 +1,89 @@
+@import '../Vars';
+
+.menu {
+    display: flex;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 80px;
+    border-radius: 5px 5px 0 0;
+    background-color: white;
+    box-shadow: 0 -4px 8px rgba(0,0,0,0.08);
+    align-items: center;
+    justify-content: space-around;
+}
+
+.menu__item {
+    text-decoration: none;
+    color: $gray;
+    width: 25vw;
+    border-right: 1px solid $gray;
+}
+
+.menu__item:hover {
+    text-decoration: underline;
+}
+
+.menu__item span {
+    font-size: 16px;
+    font-family: $font-special;
+}
+
+.menu__item__inner {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu__more {
+    width: 25vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+    font-family: $font-special;
+}
+
+.menu__more__toggle {
+    position: absolute;
+    border-radius: 5px 0 0 5px;
+    background-color: white;
+    box-shadow: $outter-shadow;
+    text-align: center;
+    right: 0;
+    bottom: 80px;
+    transform: translateX(100%);
+    z-index: 4;
+    transition: .5s transform;
+}
+
+.menu__more__toggle.active {
+    transform: translateX(0);
+}
+
+.menu__more__toggle ul {
+    padding: 0;
+    margin: 0;
+}
+
+.menu__more__toggle li {
+    list-style: none;
+    width: 25vw;
+    padding: 14px 25px;
+    color: $gray;
+}
+
+.menu__more__toggle__first {
+    border-bottom: 1px solid $gray;
+}
+
+.menu__more__toggle a {
+    text-decoration: none;
+}
