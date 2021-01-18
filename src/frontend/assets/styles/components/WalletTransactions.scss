@@ -1,0 +1,16 @@
+@import '../Vars';
+
+.WalletTransaction {
+    margin: 30px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: $outter-shadow;
+    overflow: scroll;
+    max-height: 28vh;
+}
+
+.WalletTransactions__title {
+    font-size: 16px;
+    font-family: $font-special;
+    margin: 20px;
+}
