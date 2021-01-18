@@ -1,0 +1,22 @@
+@import '../Vars';
+
+.History {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: fixed;
+}
+
+.history__body {
+    margin: 20px;
+    width: calc(100% - 40px);
+    height: 70vh;
+    background-color: white;
+    box-shadow: $outter-shadow;
+}
+
+.history__body__title {
+    margin: 20px 20px 30px;
+    font-size: 22px;
+    font-family: $h-bold;
+}
