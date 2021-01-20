@@ -1,0 +1,21 @@
+@import '../Vars';
+
+.Blog {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    overflow: hidden;
+}
+
+.blog__content {
+    padding: 20px 0;
+    height: 100%;
+    width: 100%;
+}
+
+.blog__title {
+    margin: 20px;
+    font-family: $font-special;
+    font-size: 24px;
+    font-weight: 100;
+}
