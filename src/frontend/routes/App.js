@@ -9,6 +9,7 @@ import Layout from '../components/Layout';
 import Search from '../containers/Search';
 import Recharge from '../containers/Recharge';
 import Blog from '../containers/Blog';
+import Post from '../containers/Post';
 import Schedule from '../containers/Schedule';
 import Wallet from '../containers/Wallet';
 import History from '../containers/History';
@@ -28,6 +29,7 @@ const App = () => (
         <Route exact path='/buscar' component={Search} />
         <Route exact path='/recargar' component={Recharge} />
         <Route exact path='/blog' component={Blog} />
+        <Route exact path='/blog/post' component={Post} />
         <Route exact path='/agenda' component={Schedule} />
         <Route exact path='/wallet' component={Wallet} />
         <Route exact path='/historial' component={History} />

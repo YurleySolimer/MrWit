@@ -6,7 +6,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    overflow: hidden;
+    position: absolute;
+    z-index: 4;
 }
 
 .header__container {

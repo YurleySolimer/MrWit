@@ -5,11 +5,12 @@
     height: 100vh;
     position: fixed;
     overflow: hidden;
-    padding: 20px;
 }
 
 .schedule__body {
     border-radius: 5px;
+    margin: 20px;
+    margin-top: 80px;
     background-color: white;
     box-shadow: $outter-shadow;
     padding: 20px;
