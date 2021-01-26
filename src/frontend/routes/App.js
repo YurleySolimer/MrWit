@@ -14,6 +14,7 @@ import Schedule from '../containers/Schedule';
 import Wallet from '../containers/Wallet';
 import History from '../containers/History';
 import Help from '../containers/Help';
+import HelpArticle from '../containers/HelpArticle';
 import Call from '../containers/Call';
 import Consultant from '../containers/Consultant';
 import Consultants from '../containers/Consultants';
@@ -34,6 +35,7 @@ const App = () => (
         <Route exact path='/wallet' component={Wallet} />
         <Route exact path='/historial' component={History} />
         <Route exact path='/ayuda' component={Help} />
+        <Route exact path='/ayuda/pregunta' component={HelpArticle} />
         <Route exact path='/llamada' component={Call} />
         <Route exact path='/consultor' component={Consultant} />
         <Route exact path='/resultados' component={Consultants} />

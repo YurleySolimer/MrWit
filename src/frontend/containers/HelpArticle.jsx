@@ -1,29 +1,29 @@
-import React from 'react';
-import '../assets/styles/containers/Post.scss';
+import React, { Component } from 'react';
+import '../assets/styles/containers/HelpArticle.scss';
 import Header from '../components/Header';
 import Menu from '../components/Menu';
-import img from '../assets/static/images/post_background.jpg';
+import img from '../assets/static/images/faq_article.jpg';
 
-class Post extends React.Component {
+class HelpArticle extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { };
   }
 
   render() {
     return (
-      <div className='Post__article'>
+      <div className='HelpArticle'>
         <Header user='client' />
         <article className='post__content'>
           <section className='post__header'>
             <div className='post__header--img'>
-              <img src={img} alt='' className='post__header--img--img' />
+              <img src={img} alt='Imagen de la categoría' className='post__header--img--img' />
             </div>
             <div className='post__header__info'>
-              <h1 className='post__header__title'>Post Title</h1>
+              <h1 className='post__header__title'>Título del articulo</h1>
               <div className='info__post__card'>
-                <span className='breadcrumb'>Blog > Category</span>
-                <span className='article__info'>Luis Fernando Méndez <br /> 04 - 02 - 2021</span>
+                <span className='breadcrumb'>FAQ &gt; Category</span>
+                <span className='article__info'>04 - 02 - 2021</span>
               </div>
             </div>
           </section>
@@ -35,8 +35,8 @@ class Post extends React.Component {
               <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores ratione delectus vitae possimus, distinctio rerum quos sint id sed sequi eaque debitis quis, consequuntur maiores incidunt quod veniam pariatur exercitationem ipsa nisi ipsam quibusdam! Nam, dicta aliquid. Rerum repellendus fuga dignissimos eveniet enim, quos perspiciatis iure possimus voluptates temporibus quas atque eligendi cum optio, error, sequi saepe fugiat mollitia porro accusantium officiis dolor inventore. Ducimus cum aut fugit tenetur, nihil aliquam animi! Hic ipsa, iusto at aspernatur tempore ex ipsam deleniti, tempora laboriosam dolore commodi, ab repellendus inventore cum. Facere consectetur illo dignissimos perspiciatis incidunt reprehenderit laudantium tenetur exercitationem fuga.</p>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quisquam voluptatibus consectetur iste incidunt voluptatum temporibus accusamus, velit neque quasi numquam eaque, perspiciatis doloremque ad, dignissimos quod quidem harum soluta vitae enim explicabo excepturi vel. Mollitia ex magni, voluptates numquam dolorum nostrum possimus assumenda voluptas amet facilis accusamus quisquam nihil atque velit adipisci nam delectus earum tenetur sed obcaecati commodi? Esse suscipit incidunt, sapiente ducimus nulla iure nesciunt minus doloribus tenetur repellendus quas molestias possimus, optio quo architecto praesentium corrupti autem obcaecati pariatur, exercitationem eius quod dolorem et totam. Autem laborum mollitia, dolorem hic ex molestias molestiae non porro minus quas labore ratione accusamus id atque minima sequi odio quisquam quo aliquid obcaecati eveniet veniam vitae. Nisi officia velit nulla.</p>
               <div className='post__footer'>
-                <h2 className='post__footer--title'>¿Aún no formas parte de la plataforma #1 de consultores?</h2>
-                <button type='button' className='post__footer--CAT'>¡Inscríbete!</button>
+                <h2 className='post__footer--title'>¿No estás contento con esta respuesta?</h2>
+                <button type='button' className='post__footer--CAT'>¡Escríbenos!</button>
               </div>
             </div>
           </section>
@@ -47,4 +47,4 @@ class Post extends React.Component {
   }
 }
 
-export default Post;
+export default HelpArticle;

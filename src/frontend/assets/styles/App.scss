@@ -29,6 +29,11 @@ p {
     font-size: 11px;
 }
 
+a {
+    color: $gray;
+    text-decoration: none;
+}
+
 // Components
 
 button:focus {

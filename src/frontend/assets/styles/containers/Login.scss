@@ -1,2 +1,75 @@
 @import '../Vars';
 
+.login {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+
+.login__logo {
+    width: 135px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 60px;
+}
+
+.login__simbolo {
+    position: absolute;
+    width: 80px;
+    bottom: 50px;
+    right: 30px;
+}
+
+.login__yellow {
+    position: absolute;
+    left: -125%;
+    top: 15%;
+    transform: rotate(24deg);
+    z-index: -1;
+}
+
+.login__blue {
+    position: absolute;
+    top: 40%;
+    left: -10%;
+    z-index: -2;
+}
+
+.login__container {
+    margin: 30px;
+    padding: 135px 20px 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: $outter-shadow;
+    display: flex;
+    flex-direction: column;
+}
+
+.login__container h2 {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 100;
+    color: $gray;
+    margin: 25px;
+}
+
+.login__container .signup__input {
+    margin-bottom: 10px;
+}
+
+.signup__link {
+    display: block;
+    text-align: center;
+    font-family: $p-regular;
+    font-size: 11px;
+    color: $half-gray;
+    margin-bottom: 10px;
+}
+
+.login__footer {
+    width: 100%;
+    margin-top: 35px;
+}
