@@ -2,10 +2,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setUserType } from '../actions';
 import SelectionIntro from '../components/SelectionIntro';
 import Intro from '../components/Intro';
 import CardButton from '../components/CardButton';
+import NextDates from '../components/NextDates';
 import '../assets/styles/containers/Home.scss';
 import Header from '../components/Header';
 import Menu from '../components/Menu';
@@ -18,17 +18,6 @@ import starE from '../assets/static/icons/emptyStar.svg';
 const Home = (props) => {
 
   const { isOnline, name, user } = props;
-  const handleSetUserTypeClient = () => {
-    props.setUserType({
-      user: 'client',
-    });
-  };
-
-  const handleSetUserTypeConsultant = () => {
-    props.setUserType({
-      user: 'consultant',
-    });
-  };
 
   if (isOnline && user === 'consultant') {
     return (
@@ -41,29 +30,42 @@ const Home = (props) => {
             {name}
             !
           </h2>
-          <button type='button' className='editProfile'>
-            <Link to='buscar'>
-              <img src={pen} alt='editar perfil' />
-            </Link>
-          </button>
           <div className="dashboard__profile">
+            <button type='button' className='editProfile'>
+              <Link to='#'>
+                <img src={pen} alt='editar perfil' />
+              </Link>
+            </button>
             <div className="dashboard__profile--left">
-              <img src={profile} alt="imagen de perfil" />
+              <img src={profile} className='profile__pic' alt="imagen de perfil" />
               <div className="profile__rating">
-                <img src={star} alt=""/>
-                <img src={star} alt=""/>
-                <img src={star} alt=""/>
-                <img src={star} alt=""/>
-                <img src={starE} alt=""/>
+                <img src={star} alt="" />
+                <img src={star} alt="" />
+                <img src={star} alt="" />
+                <img src={star} alt="" />
+                <img src={starE} alt="" />
               </div>
               <h3 className="profile__profession">Profesión</h3>
-              <h4 className="profile_speciality">Especialidad</h4>
+              <p className="profile__speciality">Especialidad</p>
             </div>
-            <div className="dashboard__profile--right"></div>
+            <div className="dashboard__profile--right">
+              <div className="profile__card--header">
+                <span className="card__header--category">Categoría</span>
+                <span className="card__header--subcategory">Sub - categoría</span>
+              </div>
+              <p>¡Aún no has escrito una descripción! Por favor haz click en editar en el botón con forma de lapiz arriba.</p>
+              <div className="profile__card--footer">
+                <span className="card__footer--ability">#Habilidad 1</span>
+                <span className="card__footer--ability">#Habilidad 2</span>
+                <span className="card__footer--ability">#Habilidad 3</span>
+              </div>
+            </div>
           </div>
         </div>
-        <OtherResults category='Mis Favoritos' results={true} />
-        <OtherResults category='Últimas consultas' results={true} />
+        <NextDates />
+        <h3 className='otherResults__title'>Consultores destacados en tu área</h3>
+        <OtherResults category='Habilidad1' results={true} />
+        <OtherResults category='Habilidad2' results={true} />
         <Menu />
       </div>
     );
@@ -98,8 +100,8 @@ const Home = (props) => {
     <div className='home'>
       <Intro />
       <SelectionIntro>
-        <CardButton name='Clientes' onClick={handleSetUserTypeClient} obj='CardClientSelection' msg='¡Consultar ahora!' dir='/buscar' />
-        <CardButton name='Consultores' onClick={handleSetUserTypeConsultant} obj='CardConsultorSelection' msg='¡Registrate!' dir='/signup' />
+        <CardButton name='Clientes' obj='CardClientSelection' msg='¡Consultar ahora!' dir='/buscar' />
+        <CardButton name='Consultores' obj='CardConsultorSelection' msg='¡Registrate!' dir='/signup' />
       </SelectionIntro>
     </div>
   );
@@ -113,8 +115,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = {
-  setUserType,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, null)(Home);

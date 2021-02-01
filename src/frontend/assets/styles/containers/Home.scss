@@ -39,7 +39,104 @@
 }
 
 .editProfile {
+    background: transparent;
+    border: none;
     float: right;
     background: transparent;
     border: none;
+    position: absolute;
+    top: -10px;
+    right: 5px;
+}
+
+.dashboard__profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.dashboard__profile--left {
+    width: 125px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    & .profile__pic {
+        width: 85px;
+        height: 85px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: auto;
+    }
+}
+
+.profile__rating {
+    height: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & img {
+        height: 14px;
+        width: auto;
+    }
+}
+
+.profile__profession {
+    margin: 5px 0 0;
+    text-align: center;
+    color: $gray;
+    font-size: 18px;
+}
+
+.profile__speciality {
+    margin: 5px 0 0;
+    text-align: center;
+    color: $gray;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.dashboard__profile--right {
+    margin: 10px;
+    padding: 5px;
+    background-color: white;
+    box-shadow: $outter-shadow;
+    border-radius: 5pxe;
+}
+
+.profile__card--header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card__header--category {
+    font-family: $font-special;
+    color: $gray;
+    font-size: 14px;
+}
+
+.card__header--subcategory {
+    font-family: $font-special;
+    color: $gray;
+    font-size: 14px;
+}
+
+.profile__card--footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.card__footer--ability {
+    font-family: $font-special;
+    font-size: 11px;
+    color: $gray;
+    font-style: italic;
+}
+
+.otherResults__title {
+    margin: 5px 20px;
 }

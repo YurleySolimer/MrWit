@@ -15,11 +15,11 @@ const Recharge = ({ isOnline, user }) => {
     window.location = '/llamada';
   }
 
-  if (!isOnline || user === 'consultant') {
+  if (isOnline || user === 'consultant') {
     return (<Redirect to='/' />);
   }
 
-  if (user === 'client') {
+  if (user === 'client' && !isOnline) {
     return (
       <div className='Recharge'>
         <div className='Recharge__header'>

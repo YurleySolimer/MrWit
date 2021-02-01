@@ -5,8 +5,9 @@
     background-color: white;
     display: block;
     opacity: 1;
+    z-index: 10;
     animation-name: intro;
-    animation-duration: 30ms;
+    animation-duration: 2000ms;
     animation-fill-mode: forwards;
 }
 
@@ -31,10 +32,10 @@
 }
 
 @keyframes intro {
-    0% { opacity: 1; display: block; }
-    60% { opacity: 1; display: block; }
-    70% { opacity: .95; display: block; }
-    80% { opacity: .9; display: block; }
-    90% { opacity: .5; display: block; }
-    100% { opacity: 0; display: none; }
+    0% { opacity: 1; }
+    60% { opacity: 1; }
+    70% { opacity: .95; }
+    80% { opacity: .9; }
+    90% { opacity: .5; visibility: visible;}
+    100% { opacity: 0; visibility: hidden; }
 }

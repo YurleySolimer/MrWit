@@ -32,16 +32,23 @@ const Signup = ({ isOnline, input, errors, user }) => {
   //   });
   // }
 
-  function handleSignup(event) {
+  function handleSignupConsultant(event) {
+    const formContent = document.getElementById('signup__form__content');
+    const status = document.getElementById('signup__form__indicator__inner');
+
+    status.classList.add('active');
+    formContent.classList.add('active');
+    event.preventDefault();
+  }
+
+  function handleSignupClient(event) {
     const formContent = document.getElementById('signup__form__content');
     const otherButtons = document.getElementsByClassName('signup__button');
-    const status = document.getElementById('signup__form__indicator__inner');
 
     for (let i = 0; i < otherButtons.length; i++) {
       otherButtons[i].classList.add('hidden');
     }
 
-    status.classList.add('active');
     formContent.classList.add('active');
     event.preventDefault();
   }
@@ -190,7 +197,7 @@ const Signup = ({ isOnline, input, errors, user }) => {
                 <div><small className='signup__error'>{errors.email}</small></div>
                 <input type='password' placeholder='Repetir contraseña' name='confirm_password' id='confirm_password' className='signup__input password' />
                 <div><small className='signup__error'>{errors.confirm_password}</small></div>
-                <button type='button' onClick={handleSignup} className='signup__consultant__submit'><img src={arrowR} alt='siguiente parte del cuestionario' /></button>
+                <button type='button' onClick={handleSignupConsultant} className='signup__consultant__submit'><img src={arrowR} alt='siguiente parte del cuestionario' /></button>
               </fieldset>
               <fieldset className='signup__form__fieldset right'>
                 <div className='signup__title__header'>
@@ -227,7 +234,7 @@ const Signup = ({ isOnline, input, errors, user }) => {
                   <input type="checkbox" name="policy" id="policy" />
                   <p className="signup__policy__info">Con esta casilla indica que está de acuerdo con nuestras <Link>Políticas de privacidad</Link> y <Link>Términos y condiciones</Link></p>
                 </label>
-                <button type='submit' className='signup__consultant__submit'><img src={check} alt='termina el cuestionario' /></button>
+                <Link to='/'><button className='signup__consultant__submit'><img src={check} alt='termina el cuestionario' /></button></Link>
               </fieldset>
             </div>
             <br />
@@ -276,10 +283,10 @@ const Signup = ({ isOnline, input, errors, user }) => {
                 <div><small className='signup__error'>{errors.password}</small></div>
                 <input type='password' placeholder='Repetir contraseña' name='confirm_password' id='confirm_password' className='signup__input password' />
                 <div><small className='signup__error'>{errors.confirm_password}</small></div>
-                <button type='submit' className='signup__submit'>Registrarme</button>
+                <Link to='/recargar'><button className='signup__submit'>Registrarme</button></Link>
               </fieldset>
             </div>
-            <button type='button' onClick={handleSignup} className='signup__submit signup__button'>Registrarme por mi cuenta</button>
+            <button type='button' onClick={handleSignupClient} className='signup__submit signup__button'>Registrarme por mi cuenta</button>
             <button type='button' className='signup__facebook signup__button'>
               <img src={facebook} alt='icon' />
               Registrarme con Facebook

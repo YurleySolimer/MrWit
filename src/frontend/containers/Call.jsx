@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../assets/styles/containers/Call.scss';
 import sample from '../assets/static/video/sample.mp4';
 import audio from '../assets/static/icons/audio.svg';
@@ -37,7 +38,7 @@ const Call = () => {
           <div className='call__controls__bottom'>
             <button type='button' aria-label='audio' className='call__controls__audio'><img src={audio} alt='' /></button>
             <button type='button' aria-label='camera' className='call__controls__camera'><img src={camera} alt='' /></button>
-            <button type='button' aria-label='hangup' className='call__controls__hangup'><img src={hangup} alt='' /></button>
+            <button type='button' aria-label='hangup' className='call__controls__hangup'><Link to='/'><img src={hangup} alt='' /></Link></button>
             <div className='call__controls__recharge'>
               <small className='call__controls__recharge__info'>
                 Restante: 00:29:46

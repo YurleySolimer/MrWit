@@ -11,11 +11,11 @@ import lightArrow from '../assets/static/assets/lightgrey_arrow.svg';
 
 const Consultants = ({ isOnline, user }) => {
 
-  if (!isOnline || user === 'consultant') {
+  if (user === 'consultant') {
     return (<Redirect to='/' />);
   }
 
-  if (user === 'client') {
+  if (user === 'client' || !isOnline) {
     return (
       <div className='Consultants'>
         <div className='Consultants__headlin'>
