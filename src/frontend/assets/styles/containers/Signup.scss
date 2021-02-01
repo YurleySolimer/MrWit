@@ -60,6 +60,7 @@
 .signup__form__content {
     display: flex;
     flex-direction: row;
+    transition: transform 1s;
 }
 
 .signup__form {
@@ -98,6 +99,10 @@
 }
 
 .gender {
+    color: $half-gray;
+}
+
+.signup__input.date {
     color: $half-gray;
 }
 
@@ -183,7 +188,7 @@
 
 .signup__form__content.active {
     transform: translateX(-100%);
-    transition: 1s;
+    transition: transform 1s;
 }
 
 .signup__button.hidden {
@@ -195,4 +200,126 @@
 .signup__error {
     color: #c55d5d;
     margin: 8px 10px;
+}
+
+.signup__consultant__submit {
+    width: 45px;
+    height: 45px;
+    background: white;
+    box-shadow: $outter-shadow;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    margin: 10px auto;
+}
+
+.signup__input__file {
+    width: 0px;
+    height: 0px;
+}
+
+.input_photo_label {
+    width: 100px;
+    height: 100px;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: $outter-shadow;
+    border-radius: 50%;
+    margin: 0 auto 10px;
+}
+
+.input_photo_label img {
+    width: 60px;
+}
+
+.signup__form__consultant__title {
+    font-size: 16px;
+    font-weight: 100;
+    margin: 0 10px 0 10px;
+}
+
+.signup__back__button {
+    background-color: transparent;
+    border: none;
+    padding-left: 8px;
+}
+
+.signup__title__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.signup__form__indicator {
+    height: 5px;
+    width: calc(100% - 20px);
+    background-color: #ECF9D9;
+    border-radius: 5px;
+    position: relative;
+    margin: 10px;
+}
+
+.signup__form__indicator__inner {
+    height: 5px;
+    width: 5%;
+    background-color: $green;
+    border-radius: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: width 1s ease;
+}
+
+.signup__form__indicator__inner.active {
+    width: 60%;
+    transition: width 1s ease;
+}
+
+.signup__input.textarea {
+    height: 65px;
+}
+
+.signup__input__cv, .signup__input__schedule {
+    display: flex;
+    justify-content: space-around;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow:$outter-shadow;
+    height: 40px;
+    align-items: center;
+    margin: 10px;
+}
+
+.signup__policy {
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+    margin: 0 10px;
+    align-items: center;
+}
+
+.signup__policy__info {
+    color: $half-gray;
+    margin-left: 20px;
+    & a {
+        color: $gray;
+        font-weight: bold;
+    }
+}
+
+.signupConsultant__text__h2 {
+    margin: 40px 0 0 0;
+}
+
+.signupConsultant__text__p {
+    font-size: 16px;
+    font-family: 'Axiforma';
+    margin: 0 40px;
+    text-align: center;
+    font-weight: 100;
 }

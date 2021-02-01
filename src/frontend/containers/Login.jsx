@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
 import '../assets/styles/containers/Login.scss';
 import icon from '../assets/static/logo/mrwit-logo.png';
 import symbol from '../assets/static/logo/symbol.png';
@@ -10,7 +11,10 @@ import facebook from '../assets/static/icons/facebook.svg';
 import linkedin from '../assets/static/icons/linkedin.svg';
 import google from '../assets/static/icons/google.svg';
 
-const Login = () => {
+const Login = ({ isOnline }) => {
+  if (isOnline) {
+    return (<Redirect to='/' />);
+  };
 
   return (
     <section className='login'>
@@ -35,13 +39,25 @@ const Login = () => {
           <img src={google} alt='icon' />
           Registrarme con Google
         </button>
-        <div className="login__footer">
-          <span className='signup__link'>¿No tienes cuenta? <Link to='/signup'>Regístrate</Link></span>
-          <span className='signup__link'>¿Quieres ser consultor? <Link to='/signup'>Volverme consultor</Link></span>
+        <div className='login__footer'>
+          <span className='signup__link'>
+            ¿No tienes cuenta?
+            <Link to='/signup'>Regístrate</Link>
+          </span>
+          <span className='signup__link'>
+            ¿Quieres ser consultor?
+            <Link to='/signup'>Volverme consultor</Link>
+          </span>
         </div>
       </div>
     </section>
   );
 };
 
-export default Login;
+const mapStateToProps = (state) => {
+  return {
+    isOnline: state.isOnline,
+  };
+};
+
+export default connect(mapStateToProps, null)(Login);

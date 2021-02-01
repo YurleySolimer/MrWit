@@ -16,9 +16,7 @@ import History from '../containers/History';
 import Help from '../containers/Help';
 import HelpArticle from '../containers/HelpArticle';
 import Call from '../containers/Call';
-import Consultant from '../containers/Consultant';
 import Consultants from '../containers/Consultants';
-import Client from '../containers/Client';
 
 const App = () => (
   <BrowserRouter>
@@ -37,9 +35,7 @@ const App = () => (
         <Route exact path='/ayuda' component={Help} />
         <Route exact path='/ayuda/pregunta' component={HelpArticle} />
         <Route exact path='/llamada' component={Call} />
-        <Route exact path='/consultor' component={Consultant} />
         <Route exact path='/resultados' component={Consultants} />
-        <Route exact path='/cliente' component={Client} />
         <Route component={NotFound} />
       </Switch>
     </Layout>
