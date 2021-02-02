@@ -8,7 +8,7 @@ import './assets/styles/App.scss';
 
 const initialState = {
   'user': 'client',
-  'isOnline': true,
+  'isOnline': false,
   'name': 'Luis Fernando',
   'input': {
     'name': '',

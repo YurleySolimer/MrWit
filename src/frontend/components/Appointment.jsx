@@ -1,16 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import profile from '../assets/static/images/profile_1.jpg';
 
-class Appointment extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+const Appointment = (props) => {
 
-  render() {
+  const { name, date, hour, user } = props;
 
-    const { name, date, hour } = this.props;
-
+  if (user === 'client') {
     return (
       <div className='appointment'>
         <div className='appointment__img'>
@@ -25,7 +21,27 @@ class Appointment extends Component {
         </div>
       </div>
     );
-  }
-}
+  };
 
-export default Appointment;
+  if (user === 'consultant') {
+    return (
+      <div className='appointment'>
+        <div className='appointment__name'>
+          <span>{name}</span>
+        </div>
+        <div className='appointment__info'>
+          <span aria-label='información fecha'>{date}</span>
+          <span aria-label='información hora'>{hour}</span>
+        </div>
+      </div>
+    );
+  };
+};
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
+export default connect(mapStateToProps, null)(Appointment);

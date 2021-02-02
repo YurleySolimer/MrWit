@@ -23,12 +23,12 @@ const Wallet = ({ user, isOnline }) => {
       </div>
     );
   }
-  
+
   if (user === 'consultant') {
     return (
       <div className='Wallet'>
         <Header user='client' />
-        <WalletRecharge balance='30.000' amount='10.000' />
+        <WalletRecharge balance='30.000'/>
         <WalletTransactions />
         <Menu user='client' />
       </div>

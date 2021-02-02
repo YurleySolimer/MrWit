@@ -26,7 +26,7 @@ const Recharge = ({ isOnline, user }) => {
           <img src={logo} alt='' className='Recharge__img' />
           <h2 className='Recharge__header__text'>Ahora debes recargar saldo para ingresar a la llamada</h2>
         </div>
-        <WalletRecharge amount='10.000' balance='34.000' method={handlePayment} />
+        <WalletRecharge amount='10.000' balance='0' method={handlePayment} />
         <div className='Recharge__payu'>
           <small>Powered by: </small>
           <img src={payu} alt='' className='Recharge__payuIcon' />

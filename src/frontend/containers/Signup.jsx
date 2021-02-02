@@ -232,7 +232,7 @@ const Signup = ({ isOnline, input, errors, user }) => {
                 </Link>
                 <label htmlFor="policy" className='signup__policy'>
                   <input type="checkbox" name="policy" id="policy" />
-                  <p className="signup__policy__info">Con esta casilla indica que está de acuerdo con nuestras <Link>Políticas de privacidad</Link> y <Link>Términos y condiciones</Link></p>
+                  <p className="signup__policy__info">Con esta casilla indica que está de acuerdo con nuestras <Link to='#'>Políticas de privacidad</Link> y <Link to='#'>Términos y condiciones</Link></p>
                 </label>
                 <Link to='/'><button className='signup__consultant__submit'><img src={check} alt='termina el cuestionario' /></button></Link>
               </fieldset>

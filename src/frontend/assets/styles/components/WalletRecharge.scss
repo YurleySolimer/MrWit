@@ -7,6 +7,13 @@
     background-color: white;
 }
 
+.WalletRechargeOffline {
+    margin: 0px 30px;
+    border-radius: 5px; 
+    box-shadow: $outter-shadow;
+    background-color: white;
+}
+
 .WalletRecharge__header {
     position: relative;
     padding: 20px;
@@ -115,4 +122,42 @@
     font-weight: 100;
     width: 100%;
     text-align: center;
+}
+
+.WalletRecharge__footerOffline {
+    margin-top: 10px;
+    margin-bottom: 0px; 
+    opacity: .3;
+    font-family: $font-special;
+    font-weight: 100;
+    width: 100%;
+    text-align: center;
+}
+
+.WalletRecharge__body--newAccount {
+    text-align: center;
+
+    & span {
+        color: $gray;
+        font-size: 11px;
+        font-family: $p-regular;
+        
+        & a {
+            text-decoration: none;
+            font-weight: bold;
+            color: $gray;
+        }
+    }
+}
+
+.WalletRecharge__body--buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    & .icon {
+        border: none;
+        background-color: transparent;
+        margin-top: 30px;
+    }
 }

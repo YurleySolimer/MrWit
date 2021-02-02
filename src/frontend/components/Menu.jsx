@@ -1,17 +1,35 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setIsOnline, setUser } from '../actions';
 import '../assets/styles/components/Menu.scss';
 import wallet from '../assets/static/icons/wallet.svg';
 import history from '../assets/static/icons/history.svg';
 import schedule from '../assets/static/icons/schedule.svg';
 import more from '../assets/static/icons/more.svg';
 
-const Menu = () => {
+const Menu = (props) => {
 
   function handleMore() {
     const menuMore = document.getElementById('menu__more');
     menuMore.classList.toggle('active');
   }
+
+  // const handleClient = (event) => {
+  //   event.preventDefault();
+  //   props.setUser('client');
+  //   props.setIsOnline(true);
+  // };
+  // const handleOffline = (event) => {
+  //   event.preventDefault();
+  //   props.setUser('client');
+  //   props.setIsOnline(false);
+  // };
+  // const handleConsultant = (event) => {
+  //   event.preventDefault();
+  //   props.setUser('consultant');
+  //   props.setIsOnline(true);
+  // };
 
   return (
     <>
@@ -47,10 +65,31 @@ const Menu = () => {
           <Link to='/blog'>
             <li>Blog</li>
           </Link>
+          {/* <button onClick={handleOffline} type='button'>
+            <li>Offline</li>
+          </button>
+          <button onClick={handleConsultant} type='button'>
+            <li>Consultor</li>
+          </button>
+          <button onClick={handleClient} type='button'>
+            <li>Cliente</li>
+          </button> */}
         </ul>
       </nav>
     </>
   );
 };
 
-export default Menu;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+    isOnline: state.isOnline,
+  };
+};
+
+// const mapDispatchToProps = {
+//   setIsOnline,
+//   setUser,
+// };
+
+export default connect(mapStateToProps, null)(Menu);

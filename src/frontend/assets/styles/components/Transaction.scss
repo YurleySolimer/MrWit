@@ -26,7 +26,14 @@
 .transaction__info__price {
     font-family: $p-bold;
     font-size: 12px;
+}
+
+.transaction__info__price.cost {
     color: $red;
+}
+
+.transaction__info__price.revenue {
+    color: $green;
 }
 
 .transaction__info__date {

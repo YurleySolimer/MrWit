@@ -92,3 +92,19 @@
     border-radius: 50%;
     transform: translate(15px, -7px);
 }
+
+.Schedule__appointments--header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.schedule__block {
+    border: none;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: $outter-shadow;
+    color: $red;
+    width: 135px;
+    height: 25px;
+}

@@ -65,7 +65,6 @@ const Home = (props) => {
         <NextDates />
         <h3 className='otherResults__title'>Consultores destacados en tu área</h3>
         <OtherResults category='Habilidad1' results={true} />
-        <OtherResults category='Habilidad2' results={true} />
         <Menu />
       </div>
     );

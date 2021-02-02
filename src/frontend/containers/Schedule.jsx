@@ -26,7 +26,30 @@ const Schedule = ({ user, isOnline }) => {
   }
 
   if (user === 'consultant') {
-    return (<div>Hola, soy consultor</div>);
+    return (
+      <div className='Schedule'>
+        <Header user='client' />
+        <div className='schedule__body'>
+          <h1 className='schedule__title'>Agenda</h1>
+          <Calendar
+            onChange={onChange}
+            value={value}
+            className=''
+            next2Label={null}
+            prev2Label={null}
+            nextLabel={<Next />}
+            prevLabel={<Prev />}
+            tileContent={hasContent}
+          />
+          <div className="Schedule__appointments--header">
+            <h2 className='schedule__appointments'>Citas</h2>
+            <button type='button' className='schedule__block'>Bloquear día</button>
+          </div>
+          <Appointments />
+        </div>
+        <Menu user='client' />
+      </div>
+    );
   }
 
   if (user === 'client') {
