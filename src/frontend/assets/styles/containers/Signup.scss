@@ -33,15 +33,6 @@
     transition: 1s;
 }
 
-.signup__symbol {
-    position: absolute;
-    z-index: -1;
-    top: 85%;
-    width: 80px;
-    height: auto;
-    right: 5%;
-}
-
 .signup__red {
     position: absolute;
     z-index: -2;
@@ -96,10 +87,6 @@
 .signup__input::placeholder {
     color: $half-gray;
     padding-left: 5px;
-}
-
-.gender {
-    color: $half-gray;
 }
 
 .signup__input.date {
@@ -284,15 +271,21 @@
     height: 65px;
 }
 
+.signup__input__cv img {
+    margin: 0 10px;
+}
+
 .signup__input__cv, .signup__input__schedule {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     border-radius: 5px;
     background-color: white;
     box-shadow:$outter-shadow;
     height: 40px;
     align-items: center;
     margin: 10px;
+    border: none;
+    color: $gray;
 }
 
 .signup__policy {

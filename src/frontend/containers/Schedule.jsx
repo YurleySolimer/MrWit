@@ -4,8 +4,6 @@ import { Redirect } from 'react-router-dom';
 import '../assets/styles/containers/Schedule.scss';
 import Calendar from 'react-calendar';
 import Appointments from '../components/Appointments';
-import Header from '../components/Header';
-import Menu from '../components/Menu';
 import Next from '../components/Next';
 import Prev from '../components/Prev';
 
@@ -28,7 +26,6 @@ const Schedule = ({ user, isOnline }) => {
   if (user === 'consultant') {
     return (
       <div className='Schedule'>
-        <Header user='client' />
         <div className='schedule__body'>
           <h1 className='schedule__title'>Agenda</h1>
           <Calendar
@@ -47,7 +44,6 @@ const Schedule = ({ user, isOnline }) => {
           </div>
           <Appointments />
         </div>
-        <Menu user='client' />
       </div>
     );
   }
@@ -55,7 +51,6 @@ const Schedule = ({ user, isOnline }) => {
   if (user === 'client') {
     return (
       <div className='Schedule'>
-        <Header user='client' />
         <div className='schedule__body'>
           <h1 className='schedule__title'>Agenda</h1>
           <Calendar
@@ -71,7 +66,6 @@ const Schedule = ({ user, isOnline }) => {
           <h2 className='schedule__appointments'>Citas</h2>
           <Appointments />
         </div>
-        <Menu user='client' />
       </div>
     );
   };

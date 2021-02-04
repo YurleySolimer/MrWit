@@ -15,12 +15,10 @@ const History = ({ isOnline, user }) => {
   if (user === 'client') {
     return (
       <div className='History'>
-        <Header />
         <div className='history__body'>
           <h1 className='history__body__title'>Historial</h1>
           <HistoryList />
         </div>
-        <Menu />
       </div>
     );
   };
@@ -28,12 +26,10 @@ const History = ({ isOnline, user }) => {
   if (user === 'consultant') {
     return (
       <div className='History'>
-        <Header />
         <div className='history__body'>
           <h1 className='history__body__title'>Historial</h1>
           <HistoryList />
         </div>
-        <Menu />
       </div>
     );
   }

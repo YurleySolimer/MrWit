@@ -1,15 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../assets/styles/components/OtherResults.scss';
 import minimal from '../assets/static/logo/mrwit-logo-minimal.png';
 import noresults from '../assets/static/icons/noresults.svg';
-import prof1 from '../assets/static/images/profile_1.jpg';
-import prof2 from '../assets/static/images/profile_2.jpg';
-import prof3 from '../assets/static/images/profile_3.jpg';
-import prof4 from '../assets/static/images/profile_4.jpg';
 
 const OtherResults = ({ category, top, results }) => {
 
-  if (top && results) {
+  if (top) {
 
     return (
       <div className='OtherResults'>
@@ -20,46 +17,19 @@ const OtherResults = ({ category, top, results }) => {
           <img src={minimal} alt='profile' className='OtherResults__category__img' />
         </div>
         <div className='OtherResults__profiles'>
-          <div className='OtherResults__profiles__profile'>
-            <img src={prof1} alt='profile' className='profile__img' />
-            <p className='profile__name'>Eva Lunger</p>
-            <p className='profile__title'>Graphic Designer</p>
-          </div>
-          <div className='OtherResults__profiles__profile'>
-            <img src={prof3} alt='profile' className='profile__img' />
-            <p className='profile__name'>Adam Gray</p>
-            <p className='profile__title'>Accountant</p>
-          </div>
-          <div className='OtherResults__profiles__profile'>
-            <img src={prof2} alt='profile' className='profile__img' />
-            <p className='profile__name'>Elisa Graham</p>
-            <p className='profile__title'>Attorney</p>
-          </div>
-          <div className='OtherResults__profiles__profile'>
-            <img src={prof4} alt='profile' className='profile__img' />
-            <p className='profile__name'>Jhon Hancock</p>
-            <p className='profile__title'>Creative Director</p>
-          </div>
-          <div className='OtherResults__profiles__profile'>
-            <img src={prof1} alt='profile' className='profile__img' />
-            <p className='profile__name'>Eva Lunger</p>
-            <p className='profile__title'>Graphic Designer</p>
-          </div>
-          <div className='OtherResults__profiles__profile'>
-            <img src={prof3} alt='profile' className='profile__img' />
-            <p className='profile__name'>Adam Gray</p>
-            <p className='profile__title'>Accountant</p>
-          </div>
-          <div className='OtherResults__profiles__profile'>
-            <img src={prof2} alt='profile' className='profile__img' />
-            <p className='profile__name'>Elisa Graham</p>
-            <p className='profile__title'>Attorney</p>
-          </div>
-          <div className='OtherResults__profiles__profile'>
-            <img src={prof4} alt='profile' className='profile__img' />
-            <p className='profile__name'>Jhon Hancock</p>
-            <p className='profile__title'>Creative Director</p>
-          </div>
+          {results.map((consultant) => {
+            return (
+              <div className='profileOtherResults' key={consultant.id}>
+                <Link to={`/resultados/${consultant.id}`}>
+                  <div className='OtherResults__profiles__profile'>
+                    <img src={consultant.avatar} alt={consultant.name} className='profile__img' />
+                    <p className='profile__name'>{consultant.name}</p>
+                    <p className='profile__title'>{consultant.profession}</p>
+                  </div>
+                </Link>
+              </div>
+            );
+          })}
         </div>
       </div>
     );
@@ -73,26 +43,19 @@ const OtherResults = ({ category, top, results }) => {
           <span className='OtherResults__category__name'>{category}</span>
         </div>
         <div className='OtherResults__profiles'>
-          <div className='OtherResults__profiles__profile'>
-            <img src={prof1} alt='profile' className='profile__img' />
-            <p className='profile__name'>Eva Lunger</p>
-            <p className='profile__title'>Graphic Designer</p>
-          </div>
-          <div className='OtherResults__profiles__profile'>
-            <img src={prof4} alt='profile' className='profile__img' />
-            <p className='profile__name'>Jhon Hancock</p>
-            <p className='profile__title'>Creative Director</p>
-          </div>
-          <div className='OtherResults__profiles__profile'>
-            <img src={prof2} alt='profile' className='profile__img' />
-            <p className='profile__name'>Elisa Graham</p>
-            <p className='profile__title'>Attorney</p>
-          </div>
-          <div className='OtherResults__profiles__profile'>
-            <img src={prof3} alt='profile' className='profile__img' />
-            <p className='profile__name'>Adam Gray</p>
-            <p className='profile__title'>Accountant</p>
-          </div>
+          {results.map((consultant) => {
+            return (
+              <div className='profileOtherResults' key={consultant.id}>
+                <Link to={`/resultados/${consultant.id}`}>
+                  <div className='OtherResults__profiles__profile'>
+                    <img src={consultant.avatar} alt={consultant.name} className='profile__img' />
+                    <p className='profile__name'>{consultant.name}</p>
+                    <p className='profile__title'>{consultant.profession}</p>
+                  </div>
+                </Link>
+              </div>
+            );
+          })}
         </div>
       </div>
     );

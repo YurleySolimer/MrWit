@@ -7,8 +7,6 @@ import Intro from '../components/Intro';
 import CardButton from '../components/CardButton';
 import NextDates from '../components/NextDates';
 import '../assets/styles/containers/Home.scss';
-import Header from '../components/Header';
-import Menu from '../components/Menu';
 import OtherResults from '../components/OtherResults';
 import pen from '../assets/static/icons/pen.svg';
 import profile from '../assets/static/images/profile_4.jpg';
@@ -22,7 +20,6 @@ const Home = (props) => {
   if (isOnline && user === 'consultant') {
     return (
       <div className='dashboard'>
-        <Header />
         <div className='dashboard__body'>
           <h2 className='dashboard__message'>
             ¡Bienvenido de vuelta,
@@ -65,7 +62,6 @@ const Home = (props) => {
         <NextDates />
         <h3 className='otherResults__title'>Consultores destacados en tu área</h3>
         <OtherResults category='Habilidad1' results={true} />
-        <Menu />
       </div>
     );
   }
@@ -73,7 +69,6 @@ const Home = (props) => {
   if (isOnline && user === 'client') {
     return (
       <div className='dashboard'>
-        <Header user='client' />
         <div className='dashboard__body'>
           <h2 className='dashboard__message'>
             Bienvenido, {name}.
@@ -90,7 +85,6 @@ const Home = (props) => {
         </div>
         <OtherResults category='Mis Favoritos' results={true} />
         <OtherResults category='Últimas consultas' results={true} />
-        <Menu user='client' />
       </div>
     );
   }

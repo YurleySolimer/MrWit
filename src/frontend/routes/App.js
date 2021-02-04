@@ -17,6 +17,7 @@ import Help from '../containers/Help';
 import HelpArticle from '../containers/HelpArticle';
 import Call from '../containers/Call';
 import Consultants from '../containers/Consultants';
+import Consultant from '../containers/Consultant';
 
 const App = () => (
   <BrowserRouter>
@@ -36,6 +37,7 @@ const App = () => (
         <Route exact path='/ayuda/pregunta' component={HelpArticle} />
         <Route exact path='/llamada' component={Call} />
         <Route exact path='/resultados' component={Consultants} />
+        <Route exact path='/resultados/:id' component={Consultant} />
         <Route component={NotFound} />
       </Switch>
     </Layout>

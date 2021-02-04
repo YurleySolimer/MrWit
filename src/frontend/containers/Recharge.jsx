@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import '../assets/styles/containers/Recharge.scss';
-import symbol from '../assets/static/logo/symbol.png';
 import logo from '../assets/static/logo/mrwit-logo.png';
 import WalletRecharge from '../components/WalletRecharge';
 import payu from '../assets/static/logo/payu-logo.svg';
@@ -31,7 +30,6 @@ const Recharge = ({ isOnline, user }) => {
           <small>Powered by: </small>
           <img src={payu} alt='' className='Recharge__payuIcon' />
         </div>
-        <img src={symbol} alt='' className='Recharge__symbol' />
       </div>
     );
   };

@@ -9,7 +9,7 @@ import lupa from '../assets/static/icons/lupa.svg';
 import darkArrow from '../assets/static/assets/darkgrey_arrow.svg';
 import lightArrow from '../assets/static/assets/lightgrey_arrow.svg';
 
-const Consultants = ({ isOnline, user }) => {
+const Consultants = ({ isOnline, user, consultants1, consultants2, consultants3 }) => {
 
   if (user === 'consultant') {
     return (<Redirect to='/' />);
@@ -36,10 +36,10 @@ const Consultants = ({ isOnline, user }) => {
         <img src={background} alt='' className='Consultants__background' />
         <Results />
         <span className='Consultants__others'>Otros consultores activos</span>
-        <OtherResults top={true} category='Top' results={true} />
-        <OtherResults category='Finanzas' results={true} />
+        <OtherResults top={true} category='Top' results={consultants1} />
+        <OtherResults category='Finanzas' results={consultants2} />
         <OtherResults category='Liderazgo' results={false} />
-        <OtherResults category='Economía  ' results={true} />
+        <OtherResults category='Economía  ' results={consultants3} />
       </div>
     );
   };
@@ -49,6 +49,9 @@ const mapStateToProps = (state) => {
   return {
     user: state.user,
     isOnline: state.isOnline,
+    consultants1: state.consultants1,
+    consultants2: state.consultants2,
+    consultants3: state.consultants3,
   };
 };
 

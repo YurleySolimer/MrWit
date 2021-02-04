@@ -1,7 +1,6 @@
 import React from 'react';
 import introYellow from '../assets/static/assets/intro-yellow.svg';
 import journey from '../assets/static/assets/intro-journey.svg';
-import cube from '../assets/static/logo/symbol.png';
 import '../assets/styles/components/SelectionIntro.scss';
 
 const SelectionIntro = ({ children }) => {
@@ -14,7 +13,6 @@ const SelectionIntro = ({ children }) => {
         <h3>Mr. Wit</h3>
       </div>
       {children}
-      <img className='cube' src={cube} alt='cube' />
       <p className='alreadyAccount'>
         ¿Ya tienes cuenta?
         <b>Inicia sesión</b>

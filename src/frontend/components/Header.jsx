@@ -10,13 +10,17 @@ class Header extends React.Component {
   // eslint-disable-next-line class-methods-use-this
   handleClick() {
     const menu = document.getElementById('configMenu');
+    const icon = document.getElementById('headerOpenMenu');
     menu.classList.add('active');
+    icon.classList.add('hidden');
   };
 
   // eslint-disable-next-line class-methods-use-this
   handleClose() {
+    const icon = document.getElementById('headerOpenMenu');
     const menu = document.getElementById('configMenu');
     menu.classList.remove('active');
+    icon.classList.remove('hidden');
   }
 
   render() {
@@ -29,7 +33,7 @@ class Header extends React.Component {
         </div>
         <div className='header__container'>
           <button type='button' className='header__container__button' onClick={this.handleClick}>
-            <img src={config} alt='Abrir menú secundario' />
+            <img id='headerOpenMenu' src={config} alt='Abrir menú secundario' />
           </button>
         </div>
 

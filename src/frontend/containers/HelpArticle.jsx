@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import '../assets/styles/containers/HelpArticle.scss';
-import Header from '../components/Header';
-import Menu from '../components/Menu';
 import img from '../assets/static/images/faq_article.jpg';
 
 class HelpArticle extends Component {
@@ -13,7 +11,6 @@ class HelpArticle extends Component {
   render() {
     return (
       <div className='HelpArticle'>
-        <Header user='client' />
         <article className='post__content'>
           <section className='post__header'>
             <div className='post__header--img'>
@@ -41,7 +38,6 @@ class HelpArticle extends Component {
             </div>
           </section>
         </article>
-        <Menu user='client' />
       </div>
     );
   }

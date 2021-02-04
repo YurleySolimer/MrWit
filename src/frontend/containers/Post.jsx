@@ -1,7 +1,5 @@
 import React from 'react';
 import '../assets/styles/containers/Post.scss';
-import Header from '../components/Header';
-import Menu from '../components/Menu';
 import img from '../assets/static/images/post_background.jpg';
 
 class Post extends React.Component {
@@ -13,7 +11,6 @@ class Post extends React.Component {
   render() {
     return (
       <div className='Post__article'>
-        <Header user='client' />
         <article className='post__content'>
           <section className='post__header'>
             <div className='post__header--img'>
@@ -41,7 +38,6 @@ class Post extends React.Component {
             </div>
           </section>
         </article>
-        <Menu user='client' />
       </div>
     );
   }
