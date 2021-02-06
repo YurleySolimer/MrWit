@@ -37,9 +37,9 @@ const Consultants = ({ isOnline, user, consultants1, consultants2, consultants3 
         <Results />
         <span className='Consultants__others'>Otros consultores activos</span>
         <OtherResults top={true} category='Top' results={consultants1} />
-        <OtherResults category='Finanzas' results={consultants2} />
-        <OtherResults category='Liderazgo' results={false} />
-        <OtherResults category='Economía  ' results={consultants3} />
+        <OtherResults top={false} category='Finanzas' results={consultants2} />
+        <OtherResults top={false} category='Liderazgo' results={false} />
+        <OtherResults top={false} category='Economía  ' results={consultants3} />
       </div>
     );
   };

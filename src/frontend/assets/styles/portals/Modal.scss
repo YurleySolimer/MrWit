@@ -15,12 +15,13 @@
   
   .Modal__container {
     position: relative;
-    top: 10rem;
+    top: 50%;
     border-radius: 5px;
     box-shadow: $outter-shadow;
     background-color: #ffffff;
     padding: 1rem;
     max-width: 400px;
+    transform: translateY(-50%);
   }
   
   .Modal__close--button {

@@ -1,0 +1,67 @@
+@import '../Vars';
+@import './Calling.scss';
+
+.hangUpModal__buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.CallingModal__button__hangUpBack {
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: $outter-shadow;
+    padding: 5px 30px;
+    color: $gray;
+}
+
+.CallingModal__button__hangup {
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: $outter-shadow;
+    padding: 5px 30px;
+    color: $red;
+}
+
+.rateCall {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.rateCall img {
+    max-width: 120px;
+    height: auto;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.rateCall__question {
+    color: $gray;
+    margin: 1em 1.5em;
+}
+
+.rateCall__stars {
+    transform: scale(1.5);
+    margin: 20px 30px 30px;
+}
+
+.rateCall__add label {
+    font-size: 1em;
+    font-family: $font-special;
+    color: $gray;
+    font-weight: 100;
+}
+
+.rateCall a {
+    padding: 12px 28px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: $outter-shadow;
+    margin: 20px;
+    color: $green;
+}

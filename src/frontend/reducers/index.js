@@ -1,19 +1,34 @@
 const reducer = (state, action) => {
+
   switch (action.type) {
     case 'SET_IS_ONLINE':
       return {
         ...state,
-        isOnline: [...state.user, action.payload],
+        isOnline: [...state.isOnline, action.payload],
       };
     case 'SET_USER':
+      if (action.payload === 'client') {
+        return {
+          ...state,
+          user: 'client',
+        };
+      }
+      if (action.payload === 'consultant') {
+        return {
+          ...state,
+          user: 'consultant',
+        };
+      }
+    case 'SET_SEARCH':
       return {
         ...state,
-        user: [...state.user, action.payload],
+        isSearch: [...state.isSearch, action.payload],
       };
-    case 'LOGIN_REQUEST':
-    case 'REGISTER_REQUEST':
-    case 'LOGOUT_REQUEST':
-    case 'GET_CONSULTANT':
+    case 'SET_CALL':
+      return {
+        ...state,
+        isCall: [...state.isCall, action.payload],
+      };
     default:
       return state;
   }

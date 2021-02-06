@@ -36,6 +36,7 @@ class Signup extends React.Component {
       },
       errors: {},
       modalIsOpen: false,
+      scheduleDefined: false,
     };
 
     this.handleChange = this.handleChange.bind(this);

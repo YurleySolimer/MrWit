@@ -52,7 +52,7 @@
 .call__controls__bottom {
     margin-top: 8px;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 }
 
@@ -67,8 +67,6 @@
     align-items: center;
     margin: 0;
     border: none;
-    margin-right: 40px;
-    margin-left: 40px;
 }
 
 .call__controls__camera {
@@ -82,7 +80,6 @@
     align-items: center;
     margin: 0;
     border: none;
-    margin-left: 30px;
 }
 
 .call__controls__audio {
@@ -96,7 +93,6 @@
     align-items: center;
     margin: 0;
     border: none;
-    margin-left: 30px;
 }
 
 .call__controls__recharge {
@@ -133,7 +129,7 @@
     border-radius: 5px;
     width: 100vw;
     height: 100vh;
-    transform: translateY(calc(100% - 87px));
+    transform: translateY(calc(100% - 70px));
     transition: transform .4s;
 }
 
@@ -183,6 +179,10 @@
     display: block;
 }
 
+.toggle__arrow {
+    transform: translateX(10px);
+}
+
 .toggle__arrow #up {
     display: block;
 }
@@ -205,6 +205,7 @@
     background-color: transparent;
     border: none;
     margin: 5px;
+    transform: translateX(10px);
 }
 
 .chat__toggle img {

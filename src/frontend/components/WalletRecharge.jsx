@@ -1,14 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import '../assets/styles/components/WalletRecharge.scss';
 import payu from '../assets/static/logo/payu-logo.svg';
 import pen from '../assets/static/icons/pen.svg';
 import question from '../assets/static/icons/question.svg';
+import Modal from '../portals/Modal';
+import WalletHelpModal from '../portals/WalletHelpModal';
+import WalletNewAccountModal from '../portals/WalletNewAccountModal';
+import WalletNewWithdraw from '../portals/WalletNewWithdraw';
 
 const WalletRecharge = (props) => {
 
   const { amount, balance, method, isOnline, user } = props;
+
+  const [isOpenHelp, setIsOpenHelp] = useState(false);
+  const [isOpenAccount, setIsOpenAccount] = useState(false);
+  const [isOpenEditAccount, setIsOpenEditAccount] = useState(false);
+  const [isOpenWithdraw, setIsOpenWithdraw] = useState(false);
+
+  function handleOpenModalHelp(e) {
+    setIsOpenHelp({ isOpen: true });
+  };
+
+  function handleCloseModalHelp(newValue) {
+    setIsOpenHelp(false);
+  };
+
+  function handleOpenModalWithdraw(e) {
+    setIsOpenWithdraw({ isOpenWithdraw: true });
+  };
+
+  function handleCloseModalWithdraw(newValue) {
+    setIsOpenWithdraw(false);
+  };
+
+  function handleOpenModalNewAccount(e) {
+    setIsOpenAccount({ isOpen: true });
+  };
+
+  function handleCloseModalNewAccount(newValue) {
+    setIsOpenAccount(false);
+  };
+
+  function handleOpenModalEditAccount(e) {
+    setIsOpenEditAccount({ isOpen: true });
+  };
+
+  function handleCloseModalEditAccount(newValue) {
+    setIsOpenEditAccount(false);
+  };
 
   if (isOnline && user === 'client') {
     return (
@@ -59,13 +99,25 @@ const WalletRecharge = (props) => {
         </div>
         <div className='WalletRecharge__body'>
           <div className='WalletRecharge__body--buttons'>
-            <button className='icon' type='button'><img src={question} alt='Ayuda'/></button>
-            <button type='button' onClick={method} className='WalletRecharge__body__payment'>Retirar</button>
-            <button className='icon' type='button'><img src={pen} alt='editar'/></button>
+            <button onClick={handleOpenModalHelp} className='icon' type='button'><img src={question} alt='Ayuda'/></button>
+            <Modal isOpen={isOpenHelp} onClose={handleCloseModalHelp}>
+              <WalletHelpModal />
+            </Modal>
+            <button type='button' onClick={handleOpenModalWithdraw} className='WalletRecharge__body__payment'>Retirar</button>
+            <Modal onClose={handleCloseModalWithdraw} isOpen={isOpenWithdraw}>
+              <WalletNewWithdraw onClose={handleCloseModalWithdraw} hasAccount={true} />
+            </Modal>
+            <button className='icon' onClick={handleOpenModalEditAccount} type='button'><img src={pen} alt='editar'/></button>
+            <Modal onClose={handleCloseModalEditAccount} isOpen={isOpenEditAccount}>
+              <WalletNewAccountModal onClose={handleCloseModalEditAccount} isEdit={true} />
+            </Modal>
           </div>
           <hr />
           <div className='WalletRecharge__body--newAccount'>
-            <span>¿No tienes cuenta? <Link to='#'>Registra una cuenta bancaria.</Link></span>
+            <span>¿No tienes cuenta? <button onClick={handleOpenModalNewAccount} type='button' className='wallet__noneButton'>Registra una cuenta bancaria.</button></span>
+            <Modal onClose={handleCloseModalNewAccount} isOpen={isOpenAccount}>
+              <WalletNewAccountModal onClose={handleCloseModalNewAccount} />
+            </Modal>
           </div>
           <div className='Recharge__payu'>
             <small>Powered by: </small>

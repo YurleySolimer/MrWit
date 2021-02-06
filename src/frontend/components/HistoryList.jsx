@@ -9,20 +9,32 @@ class HistoryList extends React.Component {
   };
 
   render() {
+
+    const { amount } = this.props;
+
+    if (amount) {
+      const ratings = [];
+      for (let i = 0; i < amount; i++) {
+        ratings.push(<HistoryElement key={i} name='Nombre del usuario' duration='0:03:12' score={5} price='19.000' date='04 - 11 - 2021' />);
+      }
+
+      return (<div className='history__body__elements'>{ratings}</div>);
+    }
+
     return (
       <div className='history__body__elements'>
-        <HistoryElement name='Nombre del consultor' duration='0:03:12' score={5} price='19.000' date='04 - 11 - 2021' />
-        <HistoryElement name='Nombre del consultor' duration='0:03:12' score={5} price='19.000' date='04 - 11 - 2021' />
-        <HistoryElement name='Nombre del consultor' duration='0:03:12' score={5} price='19.000' date='04 - 11 - 2021' />
-        <HistoryElement name='Nombre del consultor' duration='0:03:12' score={5} price='19.000' date='04 - 11 - 2021' />
-        <HistoryElement name='Nombre del consultor' duration='0:03:12' score={5} price='19.000' date='04 - 11 - 2021' />
-        <HistoryElement name='Nombre del consultor' duration='0:03:12' score={5} price='19.000' date='04 - 11 - 2021' />
-        <HistoryElement name='Nombre del consultor' duration='0:03:12' score={5} price='19.000' date='04 - 11 - 2021' />
-        <HistoryElement name='Nombre del consultor' duration='0:03:12' score={5} price='19.000' date='04 - 11 - 2021' />
-        <HistoryElement name='Nombre del consultor' duration='0:03:12' score={5} price='19.000' date='04 - 11 - 2021' />
-        <HistoryElement name='Nombre del consultor' duration='0:03:12' score={5} price='19.000' date='04 - 11 - 2021' />
-        <HistoryElement name='Nombre del consultor' duration='0:03:12' score={5} price='19.000' date='04 - 11 - 2021' />
-        <HistoryElement name='Nombre del consultor' duration='0:03:12' score={5} price='19.000' date='04 - 11 - 2021' />
+        <HistoryElement name='Nombre del usuario' duration='0:03:12' score={5} price='19.000' date='04 - 11 - 2021' />
+        <HistoryElement name='Nombre del usuario' duration='0:03:12' score={5} price='19.000' date='04 - 11 - 2021' />
+        <HistoryElement name='Nombre del usuario' duration='0:03:12' score={5} price='19.000' date='04 - 11 - 2021' />
+        <HistoryElement name='Nombre del usuario' duration='0:03:12' score={5} price='19.000' date='04 - 11 - 2021' />
+        <HistoryElement name='Nombre del usuario' duration='0:03:12' score={5} price='19.000' date='04 - 11 - 2021' />
+        <HistoryElement name='Nombre del usuario' duration='0:03:12' score={5} price='19.000' date='04 - 11 - 2021' />
+        <HistoryElement name='Nombre del usuario' duration='0:03:12' score={5} price='19.000' date='04 - 11 - 2021' />
+        <HistoryElement name='Nombre del usuario' duration='0:03:12' score={5} price='19.000' date='04 - 11 - 2021' />
+        <HistoryElement name='Nombre del usuario' duration='0:03:12' score={5} price='19.000' date='04 - 11 - 2021' />
+        <HistoryElement name='Nombre del usuario' duration='0:03:12' score={5} price='19.000' date='04 - 11 - 2021' />
+        <HistoryElement name='Nombre del usuario' duration='0:03:12' score={5} price='19.000' date='04 - 11 - 2021' />
+        <HistoryElement name='Nombre del usuario' duration='0:03:12' score={5} price='19.000' date='04 - 11 - 2021' />
       </div>
     );
   }

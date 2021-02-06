@@ -8,3 +8,13 @@ export const setUser = (payload) => ({
   type: 'SET_USER',
   payload,
 });
+
+export const setIsSearch = (payload) => ({
+  type: 'SET_SEARCH',
+  payload,
+});
+
+export const setIsCall = (payload) => ({
+  type: 'SET_CALL',
+  payload,
+});
