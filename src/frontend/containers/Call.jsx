@@ -58,9 +58,6 @@ const Call = () => {
               <HangUpModal onClose={handleCloseModal} />
             </Modal>
             <div className='call__controls__recharge'>
-              <small className='call__controls__recharge__info'>
-                Restante: 00:29:46
-              </small>
               <button type='button' aria-label='recharge' className='call__controls__recharge__button'>Recargar</button>
             </div>
           </div>

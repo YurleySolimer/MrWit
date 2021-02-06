@@ -5,7 +5,7 @@
     min-height: 37%;
     width: 100%;
     margin: 0;
-    padding: 70px 10px 0px 10px;
+    padding: 75px 10px 0px 10px;
     background-color: white;
     box-shadow: $outter-shadow;
     border-radius: 0 0 25px 25px;
@@ -15,8 +15,20 @@
     overflow: auto;
 }
 
-.Results__title {
+.profile__time {
+    font-size: .75em;
     color: $half-gray;
+    maring-top: 0;
+    margin-bottom: 8px;
+}
+
+.profile__phrase {
+    font-size: .8em;
+    white-space: normal;
+}
+
+.Results__title {
+    color: $gray;
     margin-bottom: 30px;
 }
 
@@ -29,6 +41,7 @@
 .Results__profiles__profile {
     margin: 0 5px;
     padding: 10px;
+    width: 250px;
     text-align: center;
     padding-bottom: 0;
 }
@@ -43,16 +56,21 @@
 
 .profile__name {
     font-family: $h-regular;
-    font-size: 14px;
+    font-size: 1.5em;
     margin-bottom: 5px;
-    margin-top: 3px;
+    margin-top: 4px;
     color: $gray;
 }
 
 .profile__title {
     font-family: $h-regular;
-    font-size: 12px;
+    font-size: 1.25em;
     color: $half-gray;
     margin-bottom: 0;
-    margin-top: 0;
+    margin-top: 4px;
+}
+
+.Consultant__result {
+    padding: 10px;
+    text-align: center;
 }

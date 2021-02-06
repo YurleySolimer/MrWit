@@ -121,7 +121,7 @@ const Home = (props) => {
           <div className='dashboard__CTA'>
             <Link to='buscar'>
               <button type='button' className='dashboard__CTA__button'>
-                Consultar ahora
+                Llamar ahora
               </button>
             </Link>
           </div>

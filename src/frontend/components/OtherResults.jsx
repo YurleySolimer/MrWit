@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import '../assets/styles/components/OtherResults.scss';
 import minimal from '../assets/static/logo/mrwit-logo-minimal.png';
 import noresults from '../assets/static/icons/noresults.svg';
+import star from '../assets/static/icons/star.svg';
 
 const OtherResults = ({ category, top, results, isFavorite }) => {
 
@@ -22,9 +23,17 @@ const OtherResults = ({ category, top, results, isFavorite }) => {
               <div className='profileOtherResults' key={consultant.id}>
                 <Link to={`/resultados/${consultant.id}`}>
                   <div className='OtherResults__profiles__profile'>
-                    <img src={consultant.avatar} alt={consultant.name} className='profile__img' />
                     <p className='profile__name'>{consultant.name}</p>
+                    <img src={consultant.avatar} alt={consultant.name} className='profile__img' />
+                    <div className="rating">
+                      <img src={star} alt="rating" />
+                      <img src={star} alt="rating" />
+                      <img src={star} alt="rating" />
+                      <img src={star} alt="rating" />
+                      <img src={star} alt="rating" />
+                    </div>
                     <p className='profile__title'>{consultant.profession}</p>
+                    <p className='profile__time'>{consultant.hoursGive} hrs dadas</p>
                   </div>
                 </Link>
               </div>
@@ -48,10 +57,18 @@ const OtherResults = ({ category, top, results, isFavorite }) => {
               <div className='profileOtherResults' key={consultant.id}>
                 <Link to={`/favorito/${consultant.id}`}>
                   <div className='OtherResults__profiles__profile'>
-                    <img src={consultant.avatar} alt={consultant.name} className='profile__img' />
                     <p className='profile__name'>{consultant.name}</p>
+                    <img src={consultant.avatar} alt={consultant.name} className='profile__img' />
+                    <div className="rating">
+                      <img src={star} alt="rating" />
+                      <img src={star} alt="rating" />
+                      <img src={star} alt="rating" />
+                      <img src={star} alt="rating" />
+                      <img src={star} alt="rating" />
+                    </div>
                     <p className='profile__title'>{consultant.profession}</p>
-                  </div>
+                    <p className='profile__time'>{consultant.hoursGive} hrs dadas</p>
+                     </div>
                 </Link>
               </div>
             );
@@ -74,9 +91,17 @@ const OtherResults = ({ category, top, results, isFavorite }) => {
               <div className='profileOtherResults' key={consultant.id}>
                 <Link to={`/resultados/${consultant.id}`}>
                   <div className='OtherResults__profiles__profile'>
-                    <img src={consultant.avatar} alt={consultant.name} className='profile__img' />
                     <p className='profile__name'>{consultant.name}</p>
+                    <img src={consultant.avatar} alt={consultant.name} className='profile__img' />
+                    <div className="rating">
+                      <img src={star} alt="rating" />
+                      <img src={star} alt="rating" />
+                      <img src={star} alt="rating" />
+                      <img src={star} alt="rating" />
+                      <img src={star} alt="rating" />
+                    </div>
                     <p className='profile__title'>{consultant.profession}</p>
+                    <p className='profile__time'>{consultant.hoursGive} hrs dadas</p>
                   </div>
                 </Link>
               </div>

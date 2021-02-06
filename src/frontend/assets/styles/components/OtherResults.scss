@@ -57,7 +57,7 @@
 
 .OtherResults__profiles__profile .profile__name {
     font-family: $h-regular;
-    font-size: 12px;
+    font-size: 1.1em;
     margin-bottom: 5px;
     margin-top: 3px;
     color: $gray;
@@ -65,10 +65,15 @@
 
 .OtherResults__profiles__profile .profile__title {
     font-family: $h-regular;
-    font-size: 10px;
-    color: $half-gray;
+    font-size: 1em;
+    color: $gray;
     margin-top: 0;
     margin-bottom: 0;
+}
+
+.OtherResults__profiles__profile .profile__time {
+    color: $half-gray;
+    margin-top: 4px;
 }
 
 .OtherResults__noresults__img {
