@@ -4,7 +4,7 @@ import '../assets/styles/components/OtherResults.scss';
 import minimal from '../assets/static/logo/mrwit-logo-minimal.png';
 import noresults from '../assets/static/icons/noresults.svg';
 
-const OtherResults = ({ category, top, results }) => {
+const OtherResults = ({ category, top, results, isFavorite }) => {
 
   if (top) {
 
@@ -21,6 +21,32 @@ const OtherResults = ({ category, top, results }) => {
             return (
               <div className='profileOtherResults' key={consultant.id}>
                 <Link to={`/resultados/${consultant.id}`}>
+                  <div className='OtherResults__profiles__profile'>
+                    <img src={consultant.avatar} alt={consultant.name} className='profile__img' />
+                    <p className='profile__name'>{consultant.name}</p>
+                    <p className='profile__title'>{consultant.profession}</p>
+                  </div>
+                </Link>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  if (isFavorite) {
+    return (
+      <div className='OtherResults'>
+        <div className='OtherResults__category'>
+          <span className='OtherResults__category__name'># </span>
+          <span className='OtherResults__category__name'>{category}</span>
+        </div>
+        <div className='OtherResults__profiles'>
+          {results.map((consultant) => {
+            return (
+              <div className='profileOtherResults' key={consultant.id}>
+                <Link to={`/favorito/${consultant.id}`}>
                   <div className='OtherResults__profiles__profile'>
                     <img src={consultant.avatar} alt={consultant.name} className='profile__img' />
                     <p className='profile__name'>{consultant.name}</p>

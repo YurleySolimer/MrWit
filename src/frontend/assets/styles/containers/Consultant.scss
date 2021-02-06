@@ -147,19 +147,20 @@
     font-size: 1.5em;
     background-color: white;
     color: $green;
+    margin: 0 10px;
     transition: background-color .75s ease;
 }
 
-.consultant__call__button:hover {
+.consultant__call__button:hover, .consultant__schedule__button:hover {
     background-color: $green;
     color: $gray;
 } 
-.consultant__call__button:focus {
+.consultant__call__button:focus, .consultant__schedule__button:hover {
     background-color: $green;
     color: $gray;
     outline: none;
 } 
-.consultant__call__button:active {
+.consultant__call__button:active, .consultant__schedule__button:hover {
     background-color: $green;
     color: $gray;
     outline: none;
@@ -264,4 +265,27 @@
 .consultant__ratings {
     width: calc(100vw - 40px);
     margin: 12px 20px;
+}
+
+.consultant__favorite {
+    display: block;
+    text-align: center;
+    margin-top: 40px;
+    padding: 10px 20px;
+    border-radius: 50px;
+    background: white;
+    box-shadow: $outter-shadow;
+    color: gold;
+}
+
+.consultant__schedule__button {
+    border: none;
+    border-radius: 5px;
+    box-shadow: $outter-shadow;
+    padding: 12px 20px;
+    font-size: 1.5em;
+    background-color: white;
+    color: $gray;
+    margin: 0 10px;
+    transition: background-color .75s ease;
 }

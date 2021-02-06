@@ -6,10 +6,13 @@ import Calendar from 'react-calendar';
 import Appointments from '../components/Appointments';
 import Next from '../components/Next';
 import Prev from '../components/Prev';
+import Modal from '../portals/Modal';
+import BlockDay from '../portals/BlockDay';
 
 const Schedule = ({ user, isOnline }) => {
 
   const [value, onChange] = useState(new Date(), []);
+  const [blockDay, setBlockDay] = useState(true);
 
   function hasContent(value) {
     // Se verifica la fecha con el formato estabecido "día de la semana (Day) / mes (Mon) / día en número (dd) / año (yyyy)" por ejemplo "Fri Jan 22 2021"
@@ -17,6 +20,16 @@ const Schedule = ({ user, isOnline }) => {
       // eslint-disable-next-line react/self-closing-comp
       return (<div aria-label='Día con eventos' className='schedule__date__withData'></div>);
     }
+    return null;
+
+  }
+
+  function handleBlockDay() {
+    setBlockDay(true);
+  }
+
+  function handleBlockDayClose() {
+    setBlockDay(false);
   }
 
   if (!isOnline) {
@@ -38,9 +51,12 @@ const Schedule = ({ user, isOnline }) => {
             prevLabel={<Prev />}
             tileContent={hasContent}
           />
-          <div className="Schedule__appointments--header">
+          <div className='Schedule__appointments--header'>
             <h2 className='schedule__appointments'>Citas</h2>
-            <button type='button' className='schedule__block'>Bloquear día</button>
+            <button onClick={handleBlockDay} type='button' className='schedule__block'>Bloquear día</button>
+            <Modal isOpne={blockDay} onClose={handleBlockDayClose} noButton={true}>
+              <BlockDay onClose={handleBlockDayClose} />
+            </Modal>
           </div>
           <Appointments />
         </div>

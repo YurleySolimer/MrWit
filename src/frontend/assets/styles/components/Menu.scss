@@ -38,6 +38,12 @@
     align-items: center;
 }
 
+.menu__item__inner.search {
+    & img {
+        width: 30px;
+    }
+}
+
 .menu__more {
     width: 25vw;
     display: flex;

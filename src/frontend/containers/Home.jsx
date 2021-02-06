@@ -126,7 +126,7 @@ const Home = (props) => {
             </Link>
           </div>
         </div>
-        <OtherResults category='Mis Favoritos' results={consultants2} />
+        <OtherResults category='Mis Favoritos' isFavorite={true} results={consultants2} />
         <OtherResults category='Últimas consultas' results={consultants3} />
       </div>
     );

@@ -1,0 +1,49 @@
+@import '../Vars';
+
+.ScheduleConsultant {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 10px;
+
+    & .hourAvailable {
+        width: 100%;
+        border-radius: 5px;
+        box-shadow: $outter-shadow;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: 40px;
+        background-color: white;
+        color: $gray;
+        margin: 10px;
+    }
+
+    & .hourAvailable.active {
+        background-color: $gray;
+        color: white;
+    }
+
+    & .continueSchedule {
+        padding: 10px 15px;
+        margin: 10px;
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: $outter-shadow;
+        border: none;
+        font-size: 1em;
+        font-family: $font-special;
+    }
+
+    & .continueSchedule:active, .continueSchedule:focus, .continueSchedule:hover {
+        transition: all .5s ease;
+        background-color: $gray;
+        color: white;
+    }
+
+    & .ScheduleStar {
+        width: 40px;
+        height: auto;
+    }
+}

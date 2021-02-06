@@ -18,6 +18,7 @@ import HelpArticle from '../containers/HelpArticle';
 import Call from '../containers/Call';
 import Consultants from '../containers/Consultants';
 import Consultant from '../containers/Consultant';
+import ConsultantFavorite from '../containers/ConsultantFavorite';
 
 const App = () => (
   <BrowserRouter>
@@ -38,6 +39,7 @@ const App = () => (
         <Route exact path='/llamada' component={Call} />
         <Route exact path='/resultados' component={Consultants} />
         <Route exact path='/resultados/:id' component={Consultant} />
+        <Route exact path='/favorito/:id' component={ConsultantFavorite} />
         <Route component={NotFound} />
       </Switch>
     </Layout>

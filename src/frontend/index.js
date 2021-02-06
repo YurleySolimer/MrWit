@@ -7,7 +7,7 @@ import App from './routes/App';
 import './assets/styles/App.scss';
 
 const initialState = {
-  'user': 'consultant',
+  'user': 'client',
   'isOnline': true,
   'isSearch': false,
   'isCall': false,
