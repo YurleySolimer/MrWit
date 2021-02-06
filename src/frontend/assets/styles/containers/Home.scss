@@ -147,3 +147,24 @@
 .otherResults__title {
     margin: 5px 20px;
 }
+
+.dashboard__profile--left--pic__co {
+    position: relative;
+}
+
+.profile__pic__status__dashboard {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+.profile__pic__status__dashboard.true {
+    background-color: $green;
+}
+
+.profile__pic__status__dashboard.false {
+    background-color: $red;
+}

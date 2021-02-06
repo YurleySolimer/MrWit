@@ -23,14 +23,15 @@ const Home = (props) => {
   const { isOnline, name, user, consultants2, consultants3 } = props;
 
   const [edit, setEdit] = useState(false);
-  const [status, setStatus] = useState(false);
+  const [status, setStatus] = useState(true);
+  const [busy, setBusy] = useState(false);
 
   function handleInactive() {
-    setStatus({ status: true });
+    setBusy({ status: true });
   }
 
   function handleCloseInactive(e) {
-    setStatus(false);
+    setBusy(false);
   }
 
   function handlEditProfile() {
@@ -63,8 +64,8 @@ const Home = (props) => {
             <button onClick={handleInactive} type='button' className='changeStatus'>
               <img src={inactive} alt='Cambiar a ocupado' />
             </button>
-            <Modal isOpen={status} onClose={handleCloseInactive}>
-              <Inactive onClose={handleCloseInactive} />
+            <Modal isOpen={busy} onClose={handleCloseInactive}>
+              <Inactive onClose={handleCloseInactive} status={status} setStatus={setStatus} />
             </Modal>
             <button onClick={handlEditProfile} type='button' className='editProfile'>
               <img src={pen} alt='editar perfil' />
@@ -73,7 +74,10 @@ const Home = (props) => {
               <EditProfile onClose={handleCloseEdit} />
             </Modal>
             <div className='dashboard__profile--left'>
-              <img src={profile} className='profile__pic' alt='imagen de perfil' />
+              <div className="dashboard__profile--left--pic__co">
+                <img src={profile} className='profile__pic' alt='imagen de perfil' />
+                <div className={`profile__pic__status__dashboard ${status}`}>{' '}</div>
+              </div>
               <div className='profile__rating'>
                 <img src={star} alt='' />
                 <img src={star} alt='' />
