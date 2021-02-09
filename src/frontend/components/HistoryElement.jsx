@@ -3,35 +3,11 @@ import { connect } from 'react-redux';
 import '../assets/styles/components/HistoryElement.scss';
 import profile from '../assets/static/images/profile_1.jpg';
 import star from '../assets/static/icons/star.svg';
+// eslint-disable-next-line no-unused-vars
+import statusReducers from '../reducers/statusReducers';
 // import empty from '../assets/static/icons/emptyStar.svg';
 
 const HistoryElement = (props) => {
-
-  //   // eslint-disable-next-line class-methods-use-this
-  //   handleStars(score) {
-  //     if (score === 5) {
-  //       for (let i = 0; i < score; i++) {
-  //         const img = document.createElement('img');
-  //         img.src = star;
-  //         img.alt = `Este consultor tiene ${score} estrellas`;
-  //         document.getElementById('scoreDiv').appendChild(img);
-  //       }
-  //     } else {
-  //       for (let i = 0; i < score; i++) {
-  //         const img = document.createElement('img');
-  //         img.src = star;
-  //         img.alt = `Este consultor tiene ${score} estrellas`;
-  //         scoreDiv.appendChild(img);
-  //       }
-  //       const waste = 5 - score;
-  //       for (let i = 0; i < waste; i++) {
-  //         const img = document.createElement('img');
-  //         img.src = empty;
-  //         img.alt = `Este consultor tiene ${score} estrellas`;
-  //         scoreDiv.appendChild(img);
-  //       }
-  //     }
-  //   }
   const { name, duration, price, date, user, isSearch } = props;
 
   if (user === 'client' && !isSearch) {
@@ -109,11 +85,8 @@ const HistoryElement = (props) => {
   };
 };
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-    isSearch: state.isSearch,
-  };
+const mapStateToProps = (reducers) => {
+  return reducers.statusReducers;
 };
 
 export default connect(mapStateToProps, null)(HistoryElement);

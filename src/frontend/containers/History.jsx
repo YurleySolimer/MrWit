@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import statusReducers from '../reducers/statusReducers';
 import '../assets/styles/containers/History.scss';
-import Header from '../components/Header';
-import Menu from '../components/Menu';
 import HistoryList from '../components/HistoryList';
+
 
 const History = ({ isOnline, user }) => {
 
@@ -36,11 +36,8 @@ const History = ({ isOnline, user }) => {
 
 };
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-    isOnline: state.isOnline,
-  };
+const mapStateToProps = (reducers) => {
+  return reducers.statusReducers;
 };
 
 export default connect(mapStateToProps, null)(History);

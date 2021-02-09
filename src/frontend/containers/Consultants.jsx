@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
+import statusReducers from '../reducers/statusReducers';
+import * as actionsStatus from '../actions';
 import '../assets/styles/containers/Consultants.scss';
 import background from '../assets/static/assets/intro-blue.svg';
 import Results from '../components/Results';
@@ -9,8 +11,10 @@ import lupa from '../assets/static/icons/lupa.svg';
 import darkArrow from '../assets/static/assets/darkgrey_arrow.svg';
 import lightArrow from '../assets/static/assets/lightgrey_arrow.svg';
 
-const Consultants = ({ isOnline, user, consultants1, consultants2, consultants3 }) => {
+const Consultants = (props) => {
 
+  const { isOnline, user, consultants1, consultants2, consultants3 } = props;
+  console.log(props);
   if (user === 'consultant') {
     return (<Redirect to='/' />);
   }
@@ -45,14 +49,8 @@ const Consultants = ({ isOnline, user, consultants1, consultants2, consultants3 
   };
 };
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-    isOnline: state.isOnline,
-    consultants1: state.consultants1,
-    consultants2: state.consultants2,
-    consultants3: state.consultants3,
-  };
+const mapStateToProps = (reducers) => {
+  return reducers.statusReducers;
 };
 
-export default connect(mapStateToProps, null)(Consultants);
+export default connect(mapStateToProps, actionsStatus)(Consultants);

@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import statusReducers from '../reducers/statusReducers';
+import * as actionsStatus from '../actions';
 import '../assets/styles/portals/HangUpModals.scss';
 import profile from '../assets/static/images/profile_3.jpg';
 import phone from '../assets/static/icons/phone.svg';
@@ -8,6 +11,7 @@ import starE from '../assets/static/icons/borderStar.svg';
 
 const CallingModal = (props) => {
 
+    const history = useHistory();
     const { onClose } = props;
     const [hangUp, setHangUp] = useState(false);
 
@@ -19,8 +23,21 @@ const CallingModal = (props) => {
         setHangUp({ hangUp: true });
     }
 
+    function handleContinue() {
+        
+        if (props.isSearch) {
+            props.setIsSearch(props.isSearch);
+        }
+
+        props.setIsCall(props.isCall);
+        history.push('/');
+    }
+
     if (hangUp) {
         return (
+
+            // Agregar una calificación secundaria opcional: Conocimiento, servicio, calidad de la llamada
+
             <div className="rateCall">
                 <h3 className="rateCall__title">¡Llamada finalizada!</h3>
                 <img src={profile} alt="Foto de perfil" />
@@ -38,7 +55,7 @@ const CallingModal = (props) => {
                       Agregar a favoritos
                   </label>
                 </div>
-                <Link to='/'>Continuar</Link>
+                <button type='button' onClick={handleContinue}>Continuar</button>
             </div>
         );
     }
@@ -55,4 +72,8 @@ const CallingModal = (props) => {
     );
 };
 
-export default CallingModal;
+const mapStateToProps = (reducers) => {
+    return reducers.statusReducers;
+}
+
+export default connect(mapStateToProps, actionsStatus)(CallingModal);

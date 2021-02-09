@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import statusReducers from '../reducers/statusReducers';
 import '../assets/styles/components/Results.scss';
 import { Link } from 'react-router-dom';
 import star from '../assets/static/icons/star.svg';
@@ -70,11 +71,8 @@ const Results = ({ isOnline, consultants }) => {
   );
 };
 
-const mapDispatchToProps = (state) => {
-  return {
-    isOnline: state.isOnline,
-    consultants: state.consultants,
-  };
+const mapDispatchToProps = (reducers) => {
+  return reducers.statusReducers;
 };
 
 export default connect(mapDispatchToProps, null)(Results);

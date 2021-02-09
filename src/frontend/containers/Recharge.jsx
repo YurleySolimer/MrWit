@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import statusReducers from '../reducers/statusReducers';
+import * as actionsStatus from '../actions';
 import '../assets/styles/containers/Recharge.scss';
 import logo from '../assets/static/logo/mrwit-logo.png';
 import WalletRecharge from '../components/WalletRecharge';
+import Modal from '../portals/Modal';
+import CallingModal from '../portals/Calling';
 import payu from '../assets/static/logo/payu-logo.svg';
 
-const Recharge = ({ isOnline, user }) => {
+const Recharge = (props) => {
 
+  const { isOnline, user } = props;
+  const [isOpen, setIsOpen] = useState(false);
+  console.log(props);
   // eslint-disable-next-line class-methods-use-this
   function handlePayment() {
-    alert('your payment was completed');
-    window.location = '/llamada';
+    setIsOpen(true);
+  }
+
+  function handleCloseModal(e) {
+    setIsOpen(false);
   }
 
   if (isOnline || user === 'consultant') {
@@ -26,6 +36,9 @@ const Recharge = ({ isOnline, user }) => {
           <h2 className='Recharge__header__text'>Ahora debes recargar saldo para ingresar a la llamada</h2>
         </div>
         <WalletRecharge amount='10.000' balance='0' method={handlePayment} />
+        <Modal onClose={handleCloseModal} noButton={true} isOpen={isOpen}>
+          <CallingModal value={Math.random()} />
+        </Modal>
         <div className='Recharge__payu'>
           <small>Powered by: </small>
           <img src={payu} alt='' className='Recharge__payuIcon' />
@@ -36,11 +49,8 @@ const Recharge = ({ isOnline, user }) => {
 
 };
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-    isOnline: state.isOnline,
-  };
+const mapStateToProps = (reducers) => {
+  return reducers.statusReducers;
 };
 
-export default connect(mapStateToProps, null)(Recharge);
+export default connect(mapStateToProps, actionsStatus)(Recharge);

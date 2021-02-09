@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+// eslint-disable-next-line no-unused-vars
+import statusReducers from '../reducers/statusReducers';
 import '../assets/styles/containers/Consultant.scss';
 import star from '../assets/static/icons/star.svg';
 import starE from '../assets/static/icons/emptyStar.svg';
@@ -11,6 +13,7 @@ import CallingModal from '../portals/Calling';
 
 const Consultant = (props) => {
 
+  const history = useHistory();
   const { consultants, isOnline } = props;
   const [isOpen, setIsOpen] = useState(false);
 
@@ -21,6 +24,10 @@ const Consultant = (props) => {
   function handleCloseModal(newValue) {
     setIsOpen(false);
   };
+
+  function handleSignUpClient(e) {
+    history.push('/signup');
+  }
 
   const data = consultants.filter((consultant) => {
     return consultant.id === props.match.params.id;
@@ -56,11 +63,8 @@ const Consultant = (props) => {
           <button type='button' className='consultant__Reel'>Video Reel</button>
         </div>
         <div className='consultant__callNow'>
-          <button type='button' onClick={handleOpenModal} className='consultant__call__button'>Llamar ahora</button>
+          <button type='button' onClick={handleSignUpClient} className='consultant__call__button'>Llamar ahora</button>
         </div>
-        <Modal onClose={handleCloseModal} isOpen={isOpen}>
-          <CallingModal value={Math.random()} onClose={handleCloseModal} />
-        </Modal>
         <div className='consultant__data'>
           <div className='consultant__hours'>
             <div className='consultant__given__hours'>{data[0].hoursGive}</div>
@@ -70,9 +74,9 @@ const Consultant = (props) => {
             <div className='consultant__main__topic'>{data[0].category}</div>
             <span>
               Tema
-            <br />
-            principal
-          </span>
+              <br />
+              principal
+            </span>
           </div>
         </div>
         <div className='consultant__description'>
@@ -97,6 +101,7 @@ const Consultant = (props) => {
 
   return (
     <div className='consultant__page'>
+      <Link to='/resultados' className='consultant__back__button'><img src={back} alt='Volver a los resultados' /></Link>
       <span className='consultant__profession'>{`${data[0].profession} | ${data[0].category}`}</span>
       <div className='consultant__avatar__container'>
         <img src={data[0].avatar} alt='imágen de perfil' className='consultant__avatar' />
@@ -133,9 +138,9 @@ const Consultant = (props) => {
           <div className='consultant__main__topic'>{data[0].category}</div>
           <span>
             Tema
-              <br />
-              principal
-            </span>
+            <br />
+            principal
+          </span>
         </div>
       </div>
       <div className='consultant__description'>
@@ -158,11 +163,8 @@ const Consultant = (props) => {
   );
 };
 
-const mapDispatchToProps = (state) => {
-  return {
-    consultants: state.consultants,
-    isOnline: state.isOnline,
-  };
+const mapDispatchToProps = (reducers) => {
+  return reducers.statusReducers;
 };
 
 export default connect(mapDispatchToProps, null)(Consultant);

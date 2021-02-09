@@ -1,24 +1,43 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+
+// Redux
+
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { setUser, setIsSearch } from '../actions';
+// eslint-disable-next-line no-unused-vars
+import statusReducers from '../reducers/statusReducers';
+import * as actionsStatus from '../actions';
+
+// Components
+
 import SelectionIntro from '../components/SelectionIntro';
 import Intro from '../components/Intro';
-import CardButton from '../components/CardButton';
 import NextDates from '../components/NextDates';
-import '../assets/styles/containers/Home.scss';
 import OtherResults from '../components/OtherResults';
+
+// Styles
+
+import '../assets/styles/containers/Home.scss';
+import '../assets/styles/components/CardButton.scss';
+
+// Assets
+
 import pen from '../assets/static/icons/pen.svg';
 import profile from '../assets/static/images/profile_4.jpg';
 import star from '../assets/static/icons/star.svg';
 import starE from '../assets/static/icons/emptyStar.svg';
 import inactive from '../assets/static/icons/inactive.svg';
+
+// Modals
+
 import Modal from '../portals/Modal';
 import EditProfile from '../portals/EditProfile';
 import Inactive from '../portals/Inactive';
 
 const Home = (props) => {
+
+  // Agregar botón de compartir al perfil de MrWit del consultor
 
   const { isOnline, name, user, consultants2, consultants3 } = props;
 
@@ -42,13 +61,19 @@ const Home = (props) => {
     setEdit(false);
   }
 
-  const handleClient = () => {
-    props.setUser('client');
-  };
+  const history = useHistory();
 
-  const handleConsultant = (e) => {
+  function handleClickClients() {
+    props.setUser('client');
+    history.push('/buscar');
+  }
+
+  function handleClickConsultants() {
     props.setUser('consultant');
-  };
+    history.push('/signup');
+  }
+
+  console.log(props);
 
   if (isOnline && user === 'consultant') {
     return (
@@ -136,26 +161,25 @@ const Home = (props) => {
     <div className='home'>
       <Intro />
       <SelectionIntro>
-        <CardButton name='Clientes' onClick={handleClient} obj='CardClientSelection' msg='¡Consultar ahora!' dir='/buscar' />
-        <CardButton name='Consultores' onClick={handleConsultant} obj='CardConsultorSelection' msg='¡Registrate!' dir='/signup' />
+        <div className='cardButton'>
+          <h2 className='cardButton__title'>Clientes</h2>
+          <button type='button' className='CardClientSelection' onClick={handleClickClients}>
+            ¡Consultar ahora!
+          </button>
+        </div>
+        <div className='cardButton'>
+          <h2 className='cardButton__title'>Consultores</h2>
+          <button type='button' className='CardConsultorSelection' onClick={handleClickConsultants}>
+            ¡Registrate!
+          </button>
+        </div>
       </SelectionIntro>
     </div>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    isOnline: state.isOnline,
-    name: state.name,
-    user: state.user,
-    consultants2: state.consultants2,
-    consultants3: state.consultants3,
-  };
+const mapStateToProps = (reducers) => {
+  return reducers.statusReducers;
 };
 
-const mapDispatchToProps = {
-  setUser,
-  setIsSearch,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, actionsStatus)(Home);

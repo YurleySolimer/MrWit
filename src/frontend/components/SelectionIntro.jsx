@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import introYellow from '../assets/static/assets/intro-yellow.svg';
 import journey from '../assets/static/assets/intro-journey.svg';
 import '../assets/styles/components/SelectionIntro.scss';
@@ -15,7 +16,7 @@ const SelectionIntro = ({ children }) => {
       {children}
       <p className='alreadyAccount'>
         ¿Ya tienes cuenta?
-        <b>Inicia sesión</b>
+        <Link to='/login'><b>Inicia sesión</b></Link>
       </p>
     </div>
   );

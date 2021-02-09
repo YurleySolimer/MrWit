@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import statusReducers from '../reducers/statusReducers';
 import profile from '../assets/static/images/profile_1.jpg';
 
 const Appointment = (props) => {
@@ -38,10 +39,8 @@ const Appointment = (props) => {
   };
 };
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-  };
+const mapStateToProps = (reducers) => {
+  return reducers.statusReducers;
 };
 
 export default connect(mapStateToProps, null)(Appointment);

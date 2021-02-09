@@ -85,6 +85,14 @@
     font-family: $h-regular;
 }
 
+.config__menu__body ul li button {
+    color: white;
+    background-color: transparent;
+    border: none;
+    font-family: 'Arial Narrow';
+    font-size: 24px;
+}
+
 .config__menu__body ul li:nth-child(2) {
     border-top: 1px solid white; 
     border-bottom: 1px solid white; 

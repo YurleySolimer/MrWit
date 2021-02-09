@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import statusReducers from '../reducers/statusReducers';
 import '../assets/styles/components/WalletRecharge.scss';
 import payu from '../assets/static/logo/payu-logo.svg';
 import pen from '../assets/static/icons/pen.svg';
@@ -161,11 +162,8 @@ const WalletRecharge = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-    isOnline: state.isOnline,
-  };
+const mapStateToProps = (reducers) => {
+  return reducers.statusReducers;
 };
 
 export default connect(mapStateToProps)(WalletRecharge);

@@ -124,7 +124,6 @@ const OtherResults = ({ category, top, results, isFavorite }) => {
       </div>
     </div>
   );
-
 };
 
 export default OtherResults;

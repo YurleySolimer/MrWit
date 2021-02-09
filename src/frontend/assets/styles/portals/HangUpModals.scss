@@ -57,9 +57,10 @@
     font-weight: 100;
 }
 
-.rateCall a {
+.rateCall button {
     padding: 12px 28px;
     border-radius: 5px;
+    border: none;
     background-color: white;
     box-shadow: $outter-shadow;
     margin: 20px;

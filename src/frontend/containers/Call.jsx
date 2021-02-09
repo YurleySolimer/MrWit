@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import statusReducers from '../reducers/statusReducers';
+import * as actionsStatus from '../actions'; 
 import '../assets/styles/containers/Call.scss';
 
 import Modal from '../portals/Modal';
@@ -16,8 +19,9 @@ import down from '../assets/static/icons/arrowdown.svg';
 import clip from '../assets/static/icons/clip.svg';
 import send from '../assets/static/icons/send.svg';
 
-const Call = () => {
+const Call = (props) => {
 
+  console.log(props);
   const [isOpen, setIsOpen] = useState(false);
 
   function handleOpenModal(e) {
@@ -151,4 +155,8 @@ const Call = () => {
   );
 };
 
-export default Call;
+const mapStateToProps = (reducers) => {
+  return reducers.statusReducers;
+};
+
+export default connect(mapStateToProps, actionsStatus)(Call);

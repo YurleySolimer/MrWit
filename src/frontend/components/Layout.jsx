@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Header from './Header';
 import Menu from './Menu';
+import statusReducers from '../reducers/statusReducers';
 
 const Layout = ({ children, isOnline, isSearch, isCall }) => {
 
@@ -26,12 +27,8 @@ const Layout = ({ children, isOnline, isSearch, isCall }) => {
   }
 };
 
-const mapStateToProps = (state) => {
-  return {
-    isOnline: state.isOnline,
-    isSearch: state.isSearch,
-    isCall: state.isCall,
-  };
+const mapStateToProps = (reducers) => {
+  return reducers.statusReducers;
 };
 
 export default connect(mapStateToProps, null)(Layout);

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import statusReducers from '../reducers/statusReducers';
 import '../assets/styles/components/WalletTransactions.scss';
 import Transaction from './Transaction';
 
@@ -39,10 +40,8 @@ const WalletTransactions = ({ user }) => {
 
 };
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-  };
+const mapStateToProps = (reducers) => {
+  return reducers.statusReducers;
 };
 
 export default connect(mapStateToProps, null)(WalletTransactions);

@@ -53,5 +53,5 @@ class HelpCategory extends Component {
     );
   }
 }
- 
+
 export default HelpCategory;

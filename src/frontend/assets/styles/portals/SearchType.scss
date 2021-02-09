@@ -1,0 +1,27 @@
+@import '../Vars';
+
+.SearchType {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    & h2 {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    & button {
+        border: none;
+        border-radius: 5px;
+        background-color: white;
+        box-shadow: $outter-shadow;
+        padding: 10px 0px;
+        width: calc(100% - 20px);
+        color: $gray;
+        margin: 10px;
+
+    }
+}

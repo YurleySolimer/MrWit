@@ -64,9 +64,20 @@
     display: block;
     text-align: center;
     font-family: $p-regular;
-    font-size: 11px;
+    font-size: .8em;
     color: $half-gray;
     margin-bottom: 10px;
+
+    & a {
+        font-weight: bold;
+    }
+
+    & button {
+        border: none;
+        background-color: transparent;
+        color: $gray;
+        font-weight: bold;
+    }
 }
 
 .login__footer {

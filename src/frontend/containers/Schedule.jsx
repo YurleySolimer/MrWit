@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import '../assets/styles/containers/Schedule.scss';
 import Calendar from 'react-calendar';
+import statusReducers from '../reducers/statusReducers';
+import '../assets/styles/containers/Schedule.scss';
 import Appointments from '../components/Appointments';
 import Next from '../components/Next';
 import Prev from '../components/Prev';
@@ -12,7 +13,7 @@ import BlockDay from '../portals/BlockDay';
 const Schedule = ({ user, isOnline }) => {
 
   const [value, onChange] = useState(new Date(), []);
-  const [blockDay, setBlockDay] = useState(true);
+  const [blockDay, setBlockDay] = useState(false);
 
   function hasContent(value) {
     // Se verifica la fecha con el formato estabecido "día de la semana (Day) / mes (Mon) / día en número (dd) / año (yyyy)" por ejemplo "Fri Jan 22 2021"
@@ -54,7 +55,7 @@ const Schedule = ({ user, isOnline }) => {
           <div className='Schedule__appointments--header'>
             <h2 className='schedule__appointments'>Citas</h2>
             <button onClick={handleBlockDay} type='button' className='schedule__block'>Bloquear día</button>
-            <Modal isOpne={blockDay} onClose={handleBlockDayClose} noButton={true}>
+            <Modal isOpen={blockDay} onClose={handleBlockDayClose} noButton={true}>
               <BlockDay onClose={handleBlockDayClose} />
             </Modal>
           </div>
@@ -87,11 +88,8 @@ const Schedule = ({ user, isOnline }) => {
   };
 };
 
-const mapStateToProps = (state) => {
-  return {
-    isOnline: state.isOnline,
-    user: state.user,
-  };
+const mapStateToProps = (reducers) => {
+  return reducers.statusReducers;
 };
 
 export default connect(mapStateToProps, null)(Schedule);

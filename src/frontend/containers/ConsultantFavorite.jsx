@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import statusReducers from '../reducers/statusReducers';
 import '../assets/styles/containers/Consultant.scss';
 import star from '../assets/static/icons/star.svg';
 import starE from '../assets/static/icons/emptyStar.svg';
@@ -106,10 +107,8 @@ const ConsultantFavorite = (props) => {
   );
 };
 
-const mapDispatchToProps = (state) => {
-  return {
-    consultants: state.consultants,
-  };
+const mapDispatchToProps = (reducers) => {
+  return reducers.statusReducers;
 };
 
 export default connect(mapDispatchToProps, null)(ConsultantFavorite);

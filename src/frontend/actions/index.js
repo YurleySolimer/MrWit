@@ -1,20 +1,26 @@
 // eslint-disable-next-line import/prefer-default-export
-export const setIsOnline = (payload) => ({
-  type: 'SET_IS_ONLINE',
-  payload,
-});
+export const setIsOnline = (value) => (dispatch) => {
+  dispatch({
+    type: 'SET_IS_ONLINE',
+    payload: !value,
+  });
+};
+export const setIsCall = (value) => (dispatch) => {
+  dispatch({
+    type: 'SET_CALL',
+    payload: !value,
+  });
+};
+export const setIsSearch = (value) => (dispatch) => {
+  dispatch({
+    type: 'SET_SEARCH',
+    payload: !value,
+  });
+};
 
-export const setUser = (payload) => ({
-  type: 'SET_USER',
-  payload,
-});
-
-export const setIsSearch = (payload) => ({
-  type: 'SET_SEARCH',
-  payload,
-});
-
-export const setIsCall = (payload) => ({
-  type: 'SET_CALL',
-  payload,
-});
+export const setUser = (value) => (dispatch) => {
+  dispatch({
+    type: 'SET_USER',
+    payload: value,
+  });
+};
