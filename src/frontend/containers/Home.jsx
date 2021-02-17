@@ -24,14 +24,17 @@ import '../assets/styles/components/CardButton.scss';
 // Assets
 
 import pen from '../assets/static/icons/pen.svg';
+import background from '../assets/static/images/background1.png';
 import profile from '../assets/static/images/profile_4.jpg';
 import star from '../assets/static/icons/star.svg';
+import lupa from '../assets/static/icons/lupaDark.svg';
 import starE from '../assets/static/icons/emptyStar.svg';
 import inactive from '../assets/static/icons/inactive.svg';
 
 // Modals
 
 import Modal from '../portals/Modal';
+import SearchType from '../portals/SearchType';
 import EditProfile from '../portals/EditProfile';
 import Inactive from '../portals/Inactive';
 
@@ -39,11 +42,20 @@ const Home = (props) => {
 
   // Agregar botón de compartir al perfil de MrWit del consultor
 
-  const { isOnline, name, user, consultants2, consultants3 } = props;
+  const { isOnline, name, user, consultants2, consultants3, currency } = props;
 
   const [edit, setEdit] = useState(false);
   const [status, setStatus] = useState(true);
   const [busy, setBusy] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  function handleClose(e) {
+    setIsOpen(false);
+  }
+
+  function handleOpen(e) {
+    setIsOpen(true);
+  }
 
   function handleInactive() {
     setBusy({ status: true });
@@ -78,6 +90,7 @@ const Home = (props) => {
   if (isOnline && user === 'consultant') {
     return (
       <div className='dashboard'>
+        <img className='background' src={background} alt='background' />
         <div className='dashboard__body'>
           <h2 className='dashboard__message'>
             ¡Bienvenido de vuelta,
@@ -99,7 +112,7 @@ const Home = (props) => {
               <EditProfile onClose={handleCloseEdit} />
             </Modal>
             <div className='dashboard__profile--left'>
-              <div className="dashboard__profile--left--pic__co">
+              <div className='dashboard__profile--left--pic__co'>
                 <img src={profile} className='profile__pic' alt='imagen de perfil' />
                 <div className={`profile__pic__status__dashboard ${status}`}>{' '}</div>
               </div>
@@ -137,22 +150,28 @@ const Home = (props) => {
   if (isOnline && user === 'client') {
     return (
       <div className='dashboard'>
+        <img className='background' src={background} alt='background' />
         <div className='dashboard__body'>
           <h2 className='dashboard__message'>
             Bienvenido, {name}.
-            <br />
-            ¡Que bueno saber de tí!
           </h2>
+          <span className="dashboard__balance">
+            <b>Saldo: </b>14.000 { currency }
+          </span>
           <div className='dashboard__CTA'>
-            <Link to='buscar'>
-              <button type='button' className='dashboard__CTA__button'>
-                Llamar ahora
+            <div className='Search'>
+              <input type='text' placeholder='¿Qué necesitas?' className='Search__input' />
+              <button type='submit' onClick={handleOpen} className='Search__submit'>
+                <img src={lupa} alt='Buscador' />
               </button>
-            </Link>
+              <Modal isOpen={isOpen} onClose={handleClose}>
+                <SearchType onClose={handleClose} />
+              </Modal>
+            </div>
           </div>
         </div>
         <OtherResults category='Mis Favoritos' isFavorite={true} results={consultants2} />
-        <OtherResults category='Últimas consultas' results={consultants3} />
+        <OtherResults category='Últimos consultores' results={consultants3} />
       </div>
     );
   }
@@ -162,16 +181,16 @@ const Home = (props) => {
       <Intro />
       <SelectionIntro>
         <div className='cardButton'>
-          <h2 className='cardButton__title'>Clientes</h2>
           <button type='button' className='CardClientSelection' onClick={handleClickClients}>
-            ¡Consultar ahora!
+            Clientes
           </button>
+          <h3 className='cardButton__title'>¡CONSULTAR AHORA!</h3>
         </div>
         <div className='cardButton'>
-          <h2 className='cardButton__title'>Consultores</h2>
           <button type='button' className='CardConsultorSelection' onClick={handleClickConsultants}>
-            ¡Registrate!
+            Consultores
           </button>
+          <h3 className='cardButton__title'>¡REGÍSTRATE!</h3>
         </div>
       </SelectionIntro>
     </div>

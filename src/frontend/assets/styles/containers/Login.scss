@@ -5,42 +5,27 @@
     height: 100vh;
     overflow: hidden;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & .background {
+        position: absolute;
+        z-index: -1;
+    }
 }
 
 
 .login__logo {
     width: 135px;
-    position: absolute;
+    position: relative;
     left: 50%;
     transform: translateX(-50%);
-    top: 60px;
-}
-
-.login__simbolo {
-    position: absolute;
-    width: 80px;
-    bottom: 50px;
-    right: 30px;
-}
-
-.login__yellow {
-    position: absolute;
-    left: -125%;
-    top: 15%;
-    transform: rotate(24deg);
-    z-index: -1;
-}
-
-.login__blue {
-    position: absolute;
-    top: 40%;
-    left: -10%;
-    z-index: -2;
 }
 
 .login__container {
     margin: 30px;
-    padding: 135px 20px 20px;
+    padding: 20px;
     background-color: white;
     border-radius: 5px;
     box-shadow: $outter-shadow;

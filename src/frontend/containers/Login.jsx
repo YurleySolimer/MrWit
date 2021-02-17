@@ -6,8 +6,7 @@ import statusReducers from '../reducers/statusReducers';
 import * as actionsStatus from '../actions';
 import '../assets/styles/containers/Login.scss';
 import icon from '../assets/static/logo/mrwit-logo.png';
-import yellow from '../assets/static/assets/intro-yellow.svg';
-import blue from '../assets/static/assets/intro-blue.svg';
+import background from '../assets/static/images/background1.png';
 import facebook from '../assets/static/icons/facebook.svg';
 import linkedin from '../assets/static/icons/linkedin.svg';
 import google from '../assets/static/icons/google.svg';
@@ -34,10 +33,9 @@ const Login = (props) => {
 
   return (
     <section className='login'>
-      <img className='login__logo' src={icon} alt='logo MrWit' />
-      <img className='login__yellow' src={yellow} alt='' />
-      <img className='login__blue' src={blue} alt='' />
+      <img className='background' src={background} alt='' />
       <div className='login__container'>
+        <img className='login__logo' src={icon} alt='logo MrWit' />
         <h2>¡Hola! Bienvenido de nuevo, que bueno verte por aquí, antes de continuar recuerda identificarte.</h2>
         <input type='email' name='email' id='email' placeholder='Correo electrónico' className='signup__input' />
         <input type='password' name='country' id='country' placeholder='Contraseña' className='signup__input' />

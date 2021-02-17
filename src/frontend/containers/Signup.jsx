@@ -4,14 +4,15 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect, useHistory } from 'react-router-dom';
+import ReactFlagsSelect from 'react-flags-select';
+// eslint-disable-next-line no-unused-vars
 import statusReducers from '../reducers/statusReducers';
 import * as actionsStatus from '../actions';
 
 import '../assets/styles/containers/Signup.scss';
 
 import icon from '../assets/static/logo/mrwit-logo.png';
-import yellow from '../assets/static/assets/intro-yellow.svg';
-import red from '../assets/static/assets/intro-red.svg';
+import background from '../assets/static/images/background1.png';
 import facebook from '../assets/static/icons/facebook.svg';
 import linkedin from '../assets/static/icons/linkedin.svg';
 import google from '../assets/static/icons/google.svg';
@@ -36,7 +37,7 @@ const Signup = (props) => {
     password: '',
     confirmPassword: '',
   });
-
+  const [selected, setSelected] = useState('');
   const [errors, setErrors] = useState({});
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [scheduleDefined, setScheduleDefined] = useState(false);
@@ -44,7 +45,7 @@ const Signup = (props) => {
 
   function handleChange(event) {
     input[event.target.name] = event.target.value;
-    setInput({ input })
+    setInput({ input });
   }
 
   function handleSubmit(event) {
@@ -172,7 +173,6 @@ const Signup = (props) => {
     setModalIsOpen(false);
   };
 
-  console.log(props);
   const { isOnline, user } = props;
   // eslint-disable-next-line react/destructuring-assignment
   const { name, email, id, country, tel, password, confirmPassword } = input;
@@ -184,8 +184,7 @@ const Signup = (props) => {
   if (user === 'consultant') {
     return (
       <section className='Signup'>
-        <h2 className='signupConsultant__text__h2'>¡Bienvenido a la familia!</h2>
-        <p className='signupConsultant__text__p'>Nos alegra mucho que quieres unirte a la red de consultores de MrWit. Para continuar por favor culmina el registro.</p>
+        <h2 className='signupConsultant__text__h2'>¡Lleva tu talento a todo el mundo!</h2>
         <div className='signup__container'>
           <div className='signup__form__indicator'>
             <div id='signup__form__indicator__inner' className='signup__form__indicator__inner'>{' '}</div>
@@ -198,13 +197,20 @@ const Signup = (props) => {
                   <img src={camera} alt='Escoge tu imágen de perfil' />
                   <input type='file' name='picture' id='picture' className='signup__input__file' />
                 </label>
+                <span className='input_photo_label_text'>Agregar foto</span>
                 <input required type='text' placeholder='Nombre' name='name' id='name' className='signup__input name' />
                 <div><small className='signup__error'>{errors.name}</small></div>
                 <input required type='tel' placeholder='Teléfono' name='tel' id='tel' className='signup__input tel' />
                 <div><small className='signup__error'>{errors.tel}</small></div>
                 <input required type='date' placeholder='Fecha de nacimiento' name='date' id='date' className='signup__input date' />
                 <div><small className='signup__error'>{errors.date}</small></div>
-                <input required type='text' placeholder='País' name='country' id='country' className='signup__input country' />
+                <ReactFlagsSelect
+                  placeholder='Seleccionar país'
+                  selected={selected}
+                  className='signup__input'
+                  onSelect={(e) => { setSelected(e); }}
+                  countries={["AR", "AG", "BB", "BM", "BO", "BR", "BS", "BZ", "CL", "CO", "CR", "CU", "CW", "DM", "DO", "EC", "SV", "GT", "JM", "MX", "PA", "PY", "PE", "PR", "UY", "VE"]}
+                />
                 <div><small className='signup__error'>{errors.country}</small></div>
                 <input type='email' placeholder='Correo electrónico' name='email' id='email' className='signup__input email' />
                 <div><small className='signup__error'>{errors.email}</small></div>
@@ -270,6 +276,7 @@ const Signup = (props) => {
             </div>
           </form>
         </div>
+        <img src={background} alt='icon' className='signup__background' />
       </section>
     );
   }
@@ -289,8 +296,13 @@ const Signup = (props) => {
                 <div><small className='signup__error'>{errors.id}</small></div>
                 <input required type='tel' placeholder='Teléfono' name='tel' id='tel' className='signup__input tel' value={tel} onChange={handleChange} />
                 <div><small className='signup__error'>{errors.tel}</small></div>
-                <input required type='text' placeholder='País' name='country' id='country' className='signup__input country' value={country} onChange={handleChange} />
-                <div><small className='signup__error'>{errors.country}</small></div>
+                <ReactFlagsSelect
+                  placeholder='Seleccionar país'
+                  selected={selected}
+                  className='signup__input'
+                  onSelect={(e) => { setSelected(e); }}
+                  countries={["AR", "AG", "BB", "BM", "BO", "BR", "BS", "BZ", "CL", "CO", "CR", "CU", "CW", "DM", "DO", "EC", "SV", "GT", "JM", "MX", "PA", "PY", "PE", "PR", "UY", "VE"]}
+                />
               </fieldset>
               <fieldset className='signup__form__fieldset right'>
                 <input type='email' placeholder='Correo electrónico' name='email' id='email' className='signup__input email' value={email} onChange={handleChange} />
@@ -305,29 +317,26 @@ const Signup = (props) => {
             <button type='button' onClick={handleSignupClient} className='signup__submit signup__button'>Registrarme por mi cuenta</button>
             <button type='button' onClick={handleSignupClient} className='signup__facebook signup__button'>
               <img src={facebook} alt='icon' />
-                Registrarme con Facebook
-              </button>
+              Registrarme con Facebook
+            </button>
             <button type='button' onClick={handleSignupClient} className='signup__linkedin signup__button'>
               <img src={linkedin} alt='icon' />
-                Registrarme con LinkedIn
-              </button>
+              Registrarme con LinkedIn
+            </button>
             <button type='button' onClick={handleSignupClient} className='signup__google signup__button'>
               <img src={google} alt='icon' />
-                Registrarme con Google
-              </button>
-
-            <br />
-
-            <div className='signup__login'>
-              <small>
-                ¿Ya tienes cuenta?
-                  <Link to='/login'>  Inicia sesión</Link>
-              </small>
-            </div>
+              Registrarme con Google
+            </button>
           </form>
         </div>
-        <img src={yellow} alt='icon' className='signup__yellow' />
-        <img src={red} alt='icon' className='signup__red' />
+
+        <div className='signup__login'>
+          <small>
+            ¿Ya tienes cuenta?
+            <Link to='/login'>  Inicia sesión</Link>
+          </small>
+        </div>
+        <img src={background} alt='icon' className='signup__background' />
       </section>
     );
   };

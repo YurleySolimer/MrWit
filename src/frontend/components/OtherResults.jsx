@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Co } from 'react-flags-select';
 import '../assets/styles/components/OtherResults.scss';
 import minimal from '../assets/static/logo/mrwit-logo-minimal.png';
 import noresults from '../assets/static/icons/noresults.svg';
@@ -25,6 +26,7 @@ const OtherResults = ({ category, top, results, isFavorite }) => {
                   <div className='OtherResults__profiles__profile'>
                     <p className='profile__name'>{consultant.name}</p>
                     <img src={consultant.avatar} alt={consultant.name} className='profile__img' />
+                    <Co />
                     <div className="rating">
                       <img src={star} alt="rating" />
                       <img src={star} alt="rating" />
@@ -59,6 +61,7 @@ const OtherResults = ({ category, top, results, isFavorite }) => {
                   <div className='OtherResults__profiles__profile'>
                     <p className='profile__name'>{consultant.name}</p>
                     <img src={consultant.avatar} alt={consultant.name} className='profile__img' />
+                    <Co />
                     <div className="rating">
                       <img src={star} alt="rating" />
                       <img src={star} alt="rating" />
@@ -93,6 +96,7 @@ const OtherResults = ({ category, top, results, isFavorite }) => {
                   <div className='OtherResults__profiles__profile'>
                     <p className='profile__name'>{consultant.name}</p>
                     <img src={consultant.avatar} alt={consultant.name} className='profile__img' />
+                    <Co />
                     <div className="rating">
                       <img src={star} alt="rating" />
                       <img src={star} alt="rating" />

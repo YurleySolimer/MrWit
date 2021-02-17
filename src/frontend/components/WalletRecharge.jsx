@@ -12,7 +12,7 @@ import WalletNewWithdraw from '../portals/WalletNewWithdraw';
 
 const WalletRecharge = (props) => {
 
-  const { amount, balance, method, isOnline, user } = props;
+  const { amount, balance, method, isOnline, user, currency } = props;
 
   const [isOpenHelp, setIsOpenHelp] = useState(false);
   const [isOpenAccount, setIsOpenAccount] = useState(false);
@@ -59,13 +59,13 @@ const WalletRecharge = (props) => {
           <h3 className='WalletRecharge__header__balance'>
             <span>Saldo actual: </span>
             <span className='WalletRechage__header__balance__clarify'>{balance}</span>
-            <span className='WalletRechage__header__balance__clarify'> COP</span>
+            <span className='WalletRechage__header__balance__clarify'> { currency }</span>
           </h3>
         </div>
         <div className='WalletRecharge__body'>
           <h1 className='WalletRecharge__body__title'>Recargar</h1>
           <div className='WalletRecharge__body__minutes'>
-            <input type='number' name='minutes' id='minutes' placeholder='10' className='WalletRecharge__body__input' />
+            <input type='number' name='minutes' id='minutes' min='10' placeholder='10' className='WalletRecharge__body__input' />
             <span className='WalletRecharge__body__text'>Minutos</span>
           </div>
           <hr />
@@ -74,7 +74,7 @@ const WalletRecharge = (props) => {
             <span className='WalletRecharge__body__total'>
               {amount}
               {' '}
-              COP
+              { currency }
             </span>
           </div>
           <button type='button' onClick={method} className='WalletRecharge__body__payment'>Pagar</button>
@@ -95,7 +95,7 @@ const WalletRecharge = (props) => {
           <h3 className='WalletRecharge__header__balance'>
             <span>Saldo actual: </span>
             <span className='WalletRechage__header__balance__clarify'>{balance}</span>
-            <span className='WalletRechage__header__balance__clarify'> COP</span>
+            <span className='WalletRechage__header__balance__clarify'> { currency }</span>
           </h3>
         </div>
         <div className='WalletRecharge__body'>
@@ -136,13 +136,13 @@ const WalletRecharge = (props) => {
         <h3 className='WalletRecharge__header__balance'>
           <span>Saldo actual: </span>
           <span className='WalletRechage__header__balance__clarify'>{balance}</span>
-          <span className='WalletRechage__header__balance__clarify'> COP</span>
+          <span className='WalletRechage__header__balance__clarify'> { currency }</span>
         </h3>
       </div>
       <div className='WalletRecharge__body'>
         <h1 className='WalletRecharge__body__title'>Recargar</h1>
         <div className='WalletRecharge__body__minutes'>
-          <input type='number' name='minutes' id='minutes' placeholder='10' className='WalletRecharge__body__input' />
+          <input type='number' name='minutes' id='minutes' min='10' placeholder='10' className='WalletRecharge__body__input' />
           <span className='WalletRecharge__body__text'>Minutos</span>
         </div>
         <hr />
@@ -151,7 +151,7 @@ const WalletRecharge = (props) => {
           <span className='WalletRecharge__body__total'>
             {amount}
             {' '}
-            COP
+            { currency }
           </span>
         </div>
         <button type='button' onClick={method} className='WalletRecharge__body__payment'>Pagar</button>

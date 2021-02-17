@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import statusReducers from '../reducers/statusReducers';
-import * as actionsStatus from '../actions'; 
+import * as actionsStatus from '../actions';
 import '../assets/styles/containers/Call.scss';
 
 import Modal from '../portals/Modal';
 import HangUpModal from '../portals/HangUpModal';
+import RechargeModal from '../portals/RechargeModal';
+import CancelRecharge from '../portals/CancelRecharge';
+import FinishedCall from '../portals/FinishedCall';
 
 import sample from '../assets/static/video/sample.mp4';
 import audio from '../assets/static/icons/audio.svg';
 import camera from '../assets/static/icons/camera.svg';
 import cameraDark from '../assets/static/icons/camera_dark.svg';
 import hangup from '../assets/static/icons/hangup.svg';
+import wallet from '../assets/static/icons/wallet.svg';
 import chat from '../assets/static/icons/chat.svg';
-import up from '../assets/static/icons/arrowup.svg';
 import down from '../assets/static/icons/arrowdown.svg';
 import clip from '../assets/static/icons/clip.svg';
 import send from '../assets/static/icons/send.svg';
@@ -23,14 +25,43 @@ const Call = (props) => {
 
   console.log(props);
   const [isOpen, setIsOpen] = useState(false);
+  const [isRecharge, setIsRecharge] = useState(false);
+  const [isCancel, setIsCancel] = useState(false);
+  const [isFinished, setIsFinished] = useState(false);
 
   function handleOpenModal(e) {
-    setIsOpen({ isOpen: true });
+    setIsOpen(true);
   };
 
   function handleCloseModal(newValue) {
     setIsOpen(false);
   };
+
+  function handleOpenRecharge(e) {
+    setIsRecharge(true);
+  }
+
+  function handleCloseRecharge(e) {
+    setIsRecharge(false);
+  }
+
+  function handleCancel(e) {
+    setIsRecharge(false);
+    setIsCancel(true);
+  }
+
+  function handleCancelClose(e) {
+    setIsCancel(false);
+  }
+
+  function handleBackRecharge(e) {
+    setIsCancel(false);
+    setIsRecharge(true);
+  }
+
+  function handleFinish(e) {
+    setIsFinished(true);
+  }
 
   function handleChat() {
     const chatIcon = document.getElementById('chatIcon');
@@ -55,15 +86,11 @@ const Call = (props) => {
             </small>
           </div>
           <div className='call__controls__bottom'>
-            <button type='button' aria-label='audio' className='call__controls__audio'><img src={audio} alt='' /></button>
-            <button type='button' aria-label='camera' className='call__controls__camera'><img src={camera} alt='' /></button>
-            <button type='button' onClick={handleOpenModal} aria-label='hangup' className='call__controls__hangup'><img src={hangup} alt='' /></button>
-            <Modal noButton={true} onClose={handleCloseModal} isOpen={isOpen}>
-              <HangUpModal onClose={handleCloseModal} />
-            </Modal>
-            <div className='call__controls__recharge'>
-              <button type='button' aria-label='recharge' className='call__controls__recharge__button'>Recargar</button>
-            </div>
+            <button type='button' onClick={handleFinish} aria-label='Activar/desactivar audio' className='call__controls'><img src={audio} alt='audio icon' /></button>
+            <button type='button' aria-label='Activar/desactivar cámara' className='call__controls'><img src={camera} alt='camera icon' /></button>
+            <button type='button' onClick={handleOpenModal} aria-label='hangup' className='call__controls__hangup'><img src={hangup} alt='Hangup icon' /></button>
+            <button type='button' aria-label='Abrir chat' onClick={handleChat} className='call__controls'><img src={chat} alt='Chat icon' /></button>
+            <button type='button' aria-label='recharge' onClick={handleOpenRecharge} className='call__controls recharge'><img src={wallet} alt='recarga icon' /></button>
           </div>
         </div>
       </div>
@@ -71,11 +98,9 @@ const Call = (props) => {
         <div className='call__chat__inner'>
           <button id='headerIcon' type='button' onClick={handleChat} aria-label='toggle chat' className='chat__header__icon'>
             <div id='chatIcon' className='chat__toggle'>
-              <img src={chat} alt='icon chat' id='chat' className='chat__toggle__icon' />
               <img src={cameraDark} alt='icon camera' id='camera' className='chat__toggle__icon' />
             </div>
             <div id='arrowIcon' className='toggle__arrow'>
-              <img src={up} alt='icon up' id='up' className='arrow__toggle' />
               <img src={down} alt='icon down' id='down' className='arrow__toggle' />
             </div>
           </button>
@@ -151,6 +176,18 @@ const Call = (props) => {
           </div>
         </div>
       </div>
+      <Modal noButton={true} onClose={handleCloseModal} isOpen={isOpen}>
+        <HangUpModal onClose={handleCloseModal} />
+      </Modal>
+      <Modal onClose={handleCancel} isOpen={isRecharge}>
+        <RechargeModal onClose={handleCloseRecharge} />
+      </Modal>
+      <Modal isOpen={isCancel} noButton={true}>
+        <CancelRecharge onCancel={handleCancelClose} onBack={handleBackRecharge} />
+      </Modal>
+      <Modal noButton={true} isOpen={isFinished}>
+        <FinishedCall />
+      </Modal>
     </div>
   );
 };

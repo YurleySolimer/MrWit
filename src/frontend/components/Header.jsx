@@ -10,6 +10,7 @@ import close from '../assets/static/icons/close.svg';
 
 const Header = (props) => {
 
+  const { currency } = props;
   const history = useHistory();
 
   // eslint-disable-next-line class-methods-use-this
@@ -37,36 +38,81 @@ const Header = (props) => {
 
   }
 
-  return (
-    <header className='header'>
-      <div className='header__container'>
-        <Link to='/'>
-          <img className='header__container__img' src={logo} alt='Mr Wit, la plataforma donde podrás encontrar a los consultores que necesitas.' />
-        </Link>
-      </div>
-      <div className='header__container'>
-        <button type='button' className='header__container__button' onClick={handleClick}>
-          <img id='headerOpenMenu' src={config} alt='Abrir menú secundario' />
-        </button>
-      </div>
+  const handleUSD = () => {
+    props.setCurrency('USD');
+  };
 
-      <div id='configMenu' className='config__menu'>
-        <button type='button' onClick={handleClose} className='config__menu__close'>
-          <img src={close} alt='Cerrar menú secundario' />
-        </button>
+  const handleCOP = () => {
+    props.setCurrency('COP');
+  };
 
-        <div className='config__menu__body'>
-          <nav aria-label='menú secundario'>
-            <ul>
-              <li><Link to='terms'>Términos y condiciones</Link></li>
-              <li><Link to='policys'>Políticas de privacidad</Link></li>
-              <li><button onClick={handleLogout}>Cerrar sesión</button></li>
-            </ul>
-          </nav>
+  if (currency === 'USD') {
+    return (
+      <header className='header'>
+        <div className='header__container'>
+          <Link to='/'>
+            <img className='header__container__img' src={logo} alt='Mr Wit, la plataforma donde podrás encontrar a los consultores que necesitas.' />
+          </Link>
         </div>
-      </div>
-    </header>
-  );
+        <div className='header__container'>
+          <button type='button' className='header__container__button' onClick={handleClick}>
+            <img id='headerOpenMenu' src={config} alt='Abrir menú secundario' />
+          </button>
+        </div>
+
+        <div id='configMenu' className='config__menu'>
+          <button type='button' onClick={handleClose} className='config__menu__close'>
+            <img src={close} alt='Cerrar menú secundario' />
+          </button>
+
+          <div className='config__menu__body'>
+            <nav aria-label='menú secundario'>
+              <ul>
+                <li><button type='button' onClick={handleCOP}>Manejar transacciones en COP</button></li>
+                <li><Link to='terms'>Términos y condiciones</Link></li>
+                <li><Link to='policys'>Políticas de privacidad</Link></li>
+                <li><button onClick={handleLogout}>Cerrar sesión</button></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </header>
+    );
+  };
+
+  if (currency === 'COP') {
+    return (
+      <header className='header'>
+        <div className='header__container'>
+          <Link to='/'>
+            <img className='header__container__img' src={logo} alt='Mr Wit, la plataforma donde podrás encontrar a los consultores que necesitas.' />
+          </Link>
+        </div>
+        <div className='header__container'>
+          <button type='button' className='header__container__button' onClick={handleClick}>
+            <img id='headerOpenMenu' src={config} alt='Abrir menú secundario' />
+          </button>
+        </div>
+
+        <div id='configMenu' className='config__menu'>
+          <button type='button' onClick={handleClose} className='config__menu__close'>
+            <img src={close} alt='Cerrar menú secundario' />
+          </button>
+
+          <div className='config__menu__body'>
+            <nav aria-label='menú secundario'>
+              <ul>
+                <li><button type='button' onClick={handleUSD}>Manejar transacciones en USD</button></li>
+                <li><Link to='terms'>Términos y condiciones</Link></li>
+                <li><Link to='policys'>Políticas de privacidad</Link></li>
+                <li><button type='button' onClick={handleLogout}>Cerrar sesión</button></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </header>
+    );
+  };
 };
 
 const mapStateToProps = (reducers) => {

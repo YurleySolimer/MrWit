@@ -3,12 +3,12 @@
 .Results {
     position: relative;
     min-height: 37%;
-    width: 100%;
-    margin: 0;
-    padding: 75px 10px 0px 10px;
+    width: calc(100% - 40px);
+    margin: 20px;
+    padding: 10px 10px 0px 10px;
     background-color: white;
     box-shadow: $outter-shadow;
-    border-radius: 0 0 25px 25px;
+    border-radius: 25px;
     z-index: -1;
     display: flex;
     flex-direction: column;
@@ -25,6 +25,7 @@
 .profile__phrase {
     font-size: .8em;
     white-space: normal;
+    text-align: justify;
 }
 
 .Results__title {

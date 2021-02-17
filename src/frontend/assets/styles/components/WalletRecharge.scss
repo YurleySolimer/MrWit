@@ -68,7 +68,16 @@
     box-shadow: $inner-shadow;
     border-radius: 5px;
     border:none;
+    padding: 8px;
+    text-align: center;
+    color: $gray;
     margin-right: 5px;
+}
+
+.WalletRecharge__body__input:focus {
+    outline: none;
+    border: 1px solid $gray;
+    border-radius: 5px;
 }
 
 .WalletRecharge__body__input::placeholder {
@@ -90,7 +99,7 @@
 .WalletRecharge__body__info {
     color: $gray;
     opacity: .7;
-    font-size: .75em;
+    font-size: 1em;
     
 }
 

@@ -3,35 +3,24 @@ import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import statusReducers from '../reducers/statusReducers';
 import * as actionsStatus from '../actions';
-import '../assets/styles/portals/HangUpModals.scss';
+import '../assets/styles/portals/FinishedCall.scss';
 import profile from '../assets/static/images/profile_3.jpg';
-import phone from '../assets/static/icons/phone.svg';
-import star from '../assets/static/icons/star.svg';
 import starE from '../assets/static/icons/borderStar.svg';
+import phone from '../assets/static/icons/phone.svg';
 
-const CallingModal = (props) => {
+const FinishedCall = (props) => {
 
   const history = useHistory();
-  const { onClose } = props;
-  const [hangUp, setHangUp] = useState(false);
+  const [isRating, setIsRating] = useState(false);
 
-  function handleCloseModal(e) {
-    onClose(e);
-  }
-
-  function handleHangUp() {
-    setHangUp({ hangUp: true });
-  }
-
-  function handleContinue() {
-
-    if (props.isSearch) {
-      props.setIsSearch(props.isSearch);
-    }
-
+  const handleContinue = () => {
     props.setIsCall(props.isCall);
     history.push('/');
-  }
+  };
+
+  const handleRating = () => {
+    setIsRating(true);
+  };
 
   const handleSecondRate = () => {
     const first = document.getElementById('firstRate');
@@ -41,7 +30,7 @@ const CallingModal = (props) => {
     second.classList.toggle('active');
   };
 
-  if (hangUp) {
+  if (isRating) {
     return (
       <div className='rateCall'>
         <fieldset id='firstRate' className='active'>
@@ -99,13 +88,10 @@ const CallingModal = (props) => {
   }
 
   return (
-    <div className='CallingModal ended'>
-      <img id='callingImage' className='' src={phone} alt='' />
-      <p className='CallingModal__text'>¿Estás seguro de terminar la llamada?</p>
-      <div className='hangUpModal__buttons'>
-        <button type='button' onClick={handleCloseModal} className='CallingModal__button__hangUpBack'>Volver</button>
-        <button type='button' onClick={handleHangUp} className='CallingModal__button__hangup'>Colgar</button>
-      </div>
+    <div className='FinishedCall'>
+      <img src={phone} alt='Llamada finalizada' />
+      <h2>La llamada se ha cortado por no disponer de saldo disponible.</h2>
+      <button type='button' onClick={handleRating}>Continuar</button>
     </div>
   );
 };
@@ -114,4 +100,4 @@ const mapStateToProps = (reducers) => {
   return reducers.statusReducers;
 };
 
-export default connect(mapStateToProps, actionsStatus)(CallingModal);
+export default connect(mapStateToProps, actionsStatus)(FinishedCall);

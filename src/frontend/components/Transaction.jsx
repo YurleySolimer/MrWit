@@ -1,7 +1,7 @@
 import React from 'react';
 import '../assets/styles/components/Transaction.scss';
 
-const Transaction = ({ name, price, date, type }) => {
+const Transaction = ({ name, price, date, type, currency }) => {
   return (
     <div className='transaction'>
       <span className='transaction__name'>
@@ -11,7 +11,7 @@ const Transaction = ({ name, price, date, type }) => {
         <span className={`transaction__info__price ${type}`}>
           {price}
           {' '}
-          COP
+          { currency }
         </span>
         <span className='transaction__info__date'>
           {date}

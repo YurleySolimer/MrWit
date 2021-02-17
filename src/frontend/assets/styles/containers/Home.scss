@@ -10,6 +10,11 @@
     width: 100vw;
     overflow: scroll;
     position: fixed;
+
+    & .background {
+        position: absolute;
+        z-index: -1;
+    }
 }
 
 .dashboard__body {
@@ -18,6 +23,11 @@
 }
 
 .dashboard__message {
+    text-align: center;
+}
+
+.dashboard__balance {
+    display: block;
     text-align: center;
 }
 

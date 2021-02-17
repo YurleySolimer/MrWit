@@ -45,6 +45,11 @@
     padding: 10px;
     text-align: center;
     padding-bottom: 0;
+
+    & svg {
+        display: block;
+        margin: auto;
+    }
 }
 
 .OtherResults__profiles__profile .profile__img {

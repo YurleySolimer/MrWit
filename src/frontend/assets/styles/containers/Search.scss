@@ -7,58 +7,32 @@
     width: 100vw;
     overflow-y: hidden;
     overflow-x: hidden;
+
+    & .background {
+        position: absolute;
+        z-index: -1;
+    }
+}
+
+.searchConsultant.online .searchName__title{
+    padding-top: 85px;
+    height: 150px;
 }
 
 .searchName__title {
     position: relative;
     width: 100vw;
-    height: 10em;
+    height: 100px;
     border-radius: 0 0 15px 15px;
     background-color: white;
     margin: 0;
-    padding: 2em 10vw;
+    padding: 2em .5em 0;
     text-align: center;
     box-shadow: $outter-shadow;
 }
 
 .searchName__title__message {
-    margin-top: 30px;
+    margin: 0;
     margin-bottom: 0;
     font-weight: 100;
-}
-
-.signal__one, 
-.signal__two,
-.signal__three {
-    position: absolute;
-    z-index: -1;
-}
-
-.signal__one {
-    top: 19%;
-    left: 2%;
-}
-
-.signal__two {
-    left: 52%;
-    top: 20%;
-}
-
-.signal__three {
-    left: 13%;
-    top: 30%;
-}
-
-.searchObj__blue {
-    position: fixed;
-    z-index: -2;
-    left: 43%;
-    top: -12%;
-}
-
-.searchObj__yellow {
-    position: fixed;
-    z-index: -2;
-    left: -93%;
-    top: 61%;
 }

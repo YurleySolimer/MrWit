@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import { Co } from 'react-flags-select';
 // eslint-disable-next-line no-unused-vars
 import statusReducers from '../reducers/statusReducers';
 import '../assets/styles/containers/Consultant.scss';
@@ -41,13 +42,17 @@ const Consultant = (props) => {
     return (
       <div className='consultant__page'>
         <Link to='/resultados' className='consultant__back__button'><img src={back} alt='Volver a los resultados' /></Link>
+        <div className='consultant__since'>
+          <span>{`Registrado el: ${dateString}`}</span>
+        </div>
         <span className='consultant__profession'>{`${data[0].profession} | ${data[0].category}`}</span>
         <div className='consultant__avatar__container'>
           <img src={data[0].avatar} alt='imágen de perfil' className='consultant__avatar' />
           <div className='consultant__status'>{' '}</div>
         </div>
-        <div className='consultant__since'>
-          <span>{`Registrado el: ${dateString}`}</span>
+        <div className="consultant__country">
+          <Co />
+          <span>Colombia</span>
         </div>
         <h1 className='consultant__name'>{data[0].name}</h1>
         <h3 className='consultant__specialization'>Especialización</h3>
@@ -93,7 +98,7 @@ const Consultant = (props) => {
         </div>
         <div className='consultant__ratings'>
           <h2 className='consultant__ratings__title'>Últimas calificaciones</h2>
-          <HistoryList isSearch={true} amount={5} />
+          <HistoryList setSearchRate={true} amount={5} />
         </div>
       </div>
     );
@@ -101,7 +106,6 @@ const Consultant = (props) => {
 
   return (
     <div className='consultant__page'>
-      <Link to='/resultados' className='consultant__back__button'><img src={back} alt='Volver a los resultados' /></Link>
       <span className='consultant__profession'>{`${data[0].profession} | ${data[0].category}`}</span>
       <div className='consultant__avatar__container'>
         <img src={data[0].avatar} alt='imágen de perfil' className='consultant__avatar' />
@@ -111,6 +115,7 @@ const Consultant = (props) => {
         <span>{`Registrado el: ${dateString}`}</span>
       </div>
       <h1 className='consultant__name'>{data[0].name}</h1>
+      <Co />
       <h3 className='consultant__specialization'>Especialización</h3>
       <div className='consultant__rating__stars'>
         <img src={star} alt='rating 4 Estrellas' />
@@ -157,7 +162,7 @@ const Consultant = (props) => {
       </div>
       <div className='consultant__ratings'>
         <h2 className='consultant__ratings__title'>Últimas calificaciones</h2>
-        <HistoryList isSearch={true} amount={5} />
+        <HistoryList setSearchRate={true} amount={5} />
       </div>
     </div>
   );

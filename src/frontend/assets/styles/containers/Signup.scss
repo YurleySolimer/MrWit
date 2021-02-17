@@ -3,7 +3,7 @@
 .Signup {
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
     width: 100vw;
     height: 100vh;
@@ -12,19 +12,19 @@
 }
 
 .signup__icon {
-    max-width: 127px;
+    max-width: 90px;
     height: auto;
-    margin: 30px auto;
+    margin: 20px auto;
 }
 
 .signup__text {
     text-align: center;
-    margin: 0 30px;
-    font-size: 18px;
+    margin: 10px 20px;
+    font-size: 16px;
 }
 
 .signup__container {
-    margin: 20px 25px;
+    margin: 0px 20px 10px;
     width: 80%;
     background-color: white;
     border-radius: 5px;
@@ -33,19 +33,10 @@
     transition: 1s;
 }
 
-.signup__red {
+.signup__background {
     position: absolute;
     z-index: -2;
-    top: 24%;
-    transform: rotate(31deg);
-    left: -20%;
-}
-
-.signup__yellow {
-    position: absolute;
-    z-index: -1;
-    top: 24%;
-    left: -110%;
+    object-fit: cover;
 }
 
 .signup__form__content {
@@ -74,8 +65,20 @@
     box-shadow: $inner-shadow;
     height: 30px;
     border: none;
+    background-color: white;
     padding: 5px;
     color: $gray;
+
+    & .ReactFlagsSelect-module_selectBtn__19wW7 {
+        color: $half-gray;
+        padding: 0;
+        border: none;
+        font-size: 12px !important;
+    }
+
+    & .ReactFlagsSelect-module_selectBtn__19wW7:after {
+        border-top: 5px solid $half-gray;
+    }
 }
 
 .signup__input:focus {
@@ -91,6 +94,9 @@
 
 .signup__input.date {
     color: $half-gray;
+    width: calc(100% - 20px);
+    padding-right: 10px;
+    background-color: white;
 }
 
 .signup__facebook {
@@ -306,20 +312,20 @@
 }
 
 .signupConsultant__text__h2 {
-    margin: 40px 0 0 0;
-}
-
-.signupConsultant__text__p {
-    font-size: 16px;
-    font-family: 'Axiforma';
-    margin: 0 40px;
+    margin: 20px;
     text-align: center;
-    font-weight: 100;
+    font-size: 20px;
 }
 
 .signup__form__fieldset.right small {
     font-size: 11px;
     margin: 15px 30px 0;
     text-align: center;
+    color: $half-gray;
+}
+
+.input_photo_label_text {
+    display: block;
+    margin: 10px auto 20px;
     color: $half-gray;
 }

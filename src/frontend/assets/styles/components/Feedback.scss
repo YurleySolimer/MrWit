@@ -3,7 +3,7 @@
 .Feedback {
     position: absolute;
     width: 350px;
-    height: 130px;
+    height: auto;
     background-color: white;
     border-radius: 5px;
     box-shadow: $outter-shadow;
@@ -11,6 +11,7 @@
     transform: translateX(-50%);
     bottom: 30px;
     display: flex;
+    text-align: center;
 }
 
 .Feedback__left {
@@ -43,5 +44,5 @@
 }
 
 .Feedback__right__description {
-    margin: 5px 10px;
+    margin: 10px;
 }

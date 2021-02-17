@@ -5,12 +5,14 @@ export const setIsOnline = (value) => (dispatch) => {
     payload: !value,
   });
 };
+
 export const setIsCall = (value) => (dispatch) => {
   dispatch({
     type: 'SET_CALL',
     payload: !value,
   });
 };
+
 export const setIsSearch = (value) => (dispatch) => {
   dispatch({
     type: 'SET_SEARCH',
@@ -21,6 +23,13 @@ export const setIsSearch = (value) => (dispatch) => {
 export const setUser = (value) => (dispatch) => {
   dispatch({
     type: 'SET_USER',
+    payload: value,
+  });
+};
+
+export const setCurrency = (value) => (dispatch) => {
+  dispatch({
+    type: 'SET_CURRENCY',
     payload: value,
   });
 };

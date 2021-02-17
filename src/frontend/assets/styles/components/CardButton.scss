@@ -2,17 +2,31 @@
 
 .cardButton {
     position: relative;
-    z-index: 2;
-    width: 90vw;
-    height: 120px;
-    top: 45vh;
-    border-radius: 5px;
-    background-color: white;
     display: flex;
-    box-shadow: $outter-shadow;
-    flex-direction: row;
-    justify-content: space-between;
-    margin: 20px 5vw;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 20px;
+    right: -100%;
+    animation: getInButtons .75s ease forwards 6s;
+
+    & h3 {
+        text-align: center;
+        margin: 0;
+        width: 100%;
+        font-weight: 600;
+        font-size: 16px;
+        color: $half-gray;
+    }
+}
+
+@keyframes getInButtons {
+    from {
+        right: -100%;
+    }
+    to {
+        right: 0;
+    }
 }
 
 .cardButton__title {
@@ -23,21 +37,24 @@
 }
 
 .CardConsultorSelection, .CardClientSelection {
-    margin: auto 20px auto 0;
-    padding: 10px 10px;
+    margin: 10px auto;
+    padding: 10px 20px;
     color: white;
-    width: 45%;
-    text-decoration: none;
+    width: 200px;
     border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: $outter-shadow;
     text-align: center;
+    font-family: $h-regular;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 20px;
     border: none;
 }
 
 .CardConsultorSelection {
-    background-color: $gray;
+    background-color: $blue;
 }
 
 .CardClientSelection {
-    background: $gradiant;
+    background: $yellow;
 }

@@ -9,6 +9,7 @@ import WalletRecharge from '../components/WalletRecharge';
 import Modal from '../portals/Modal';
 import CallingModal from '../portals/Calling';
 import payu from '../assets/static/logo/payu-logo.svg';
+import background from '../assets/static/images/background1.png';
 
 const Recharge = (props) => {
 
@@ -31,6 +32,7 @@ const Recharge = (props) => {
   if (user === 'client' && !isOnline) {
     return (
       <div className='Recharge'>
+        <img className='background' src={background} alt='background' />
         <div className='Recharge__header'>
           <img src={logo} alt='' className='Recharge__img' />
           <h2 className='Recharge__header__text'>Ahora debes recargar saldo para ingresar a la llamada</h2>

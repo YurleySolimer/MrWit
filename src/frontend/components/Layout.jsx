@@ -4,9 +4,9 @@ import Header from './Header';
 import Menu from './Menu';
 import statusReducers from '../reducers/statusReducers';
 
-const Layout = ({ children, isOnline, isSearch, isCall }) => {
+const Layout = ({ children, isOnline, isCall }) => {
 
-  if (!isOnline || isSearch || isCall) {
+  if (!isOnline || isCall) {
 
     return (
       <div className='App'>

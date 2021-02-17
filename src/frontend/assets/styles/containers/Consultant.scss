@@ -46,6 +46,17 @@
     transform: translate(-35%, -35%);
 }
 
+.consultant__country {
+    font-family: $font-special;
+    display: flex;
+    align-items: center;
+
+    & span {
+        margin-left: 10px;
+    }
+
+}
+
 .consultant__name {
     font-size: 2em;
     font-family: $font-special;

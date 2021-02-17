@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Co } from 'react-flags-select';
 import statusReducers from '../reducers/statusReducers';
 import '../assets/styles/containers/Consultant.scss';
 import star from '../assets/static/icons/star.svg';
@@ -42,13 +43,17 @@ const ConsultantFavorite = (props) => {
   return (
     <div className='consultant__page'>
       <span className='consultant__favorite'>Favorito</span>
+      <div className='consultant__since'>
+        <span>{`Registrado el: ${dateString}`}</span>
+      </div>
       <span className='consultant__profession'>{`${data[0].profession} | ${data[0].category}`}</span>
       <div className='consultant__avatar__container'>
         <img src={data[0].avatar} alt='imágen de perfil' className='consultant__avatar' />
         <div className='consultant__status'>{' '}</div>
       </div>
-      <div className='consultant__since'>
-        <span>{`Registrado el: ${dateString}`}</span>
+      <div className='consultant__country'>
+        <Co />
+        <span>Colombia</span>
       </div>
       <h1 className='consultant__name'>{data[0].name}</h1>
       <h3 className='consultant__specialization'>Especialización</h3>

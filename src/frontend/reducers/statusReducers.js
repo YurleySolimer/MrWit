@@ -1,9 +1,9 @@
 const INITIAL_STATE = {
   user: 'client',
   isOnline: false,
-  isSearch: false,
   isCall: false,
   name: 'Luis Fernando',
+  currency: 'COP',
   'consultants': [
     {
       'id': '1',
@@ -1089,6 +1089,11 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isCall: action.payload,
+      };
+    case 'SET_CURRENCY':
+      return {
+        ...state,
+        currency: action.payload,
       };
     default:
       return state;

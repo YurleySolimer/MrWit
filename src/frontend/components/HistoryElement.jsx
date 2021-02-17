@@ -8,9 +8,9 @@ import statusReducers from '../reducers/statusReducers';
 // import empty from '../assets/static/icons/emptyStar.svg';
 
 const HistoryElement = (props) => {
-  const { name, duration, price, date, user, isSearch } = props;
-
-  if (user === 'client' && !isSearch) {
+  const { name, duration, price, date, user, search, currency } = props;
+  console.log('los props de HistoryElement son', props);
+  if (user === 'client' && !search) {
     return (
       <div className='HistoryElement'>
         <div className='HistoryElement__img'>
@@ -28,7 +28,7 @@ const HistoryElement = (props) => {
           </div>
         </div>
         <div className='HistoryElement__consultancy'>
-          <div className={`HistoryElement__consultancy__price ${user}`}>-{price} COP</div>
+          <div className={`HistoryElement__consultancy__price ${user}`}>-{price} { currency }</div>
           <br />
           <div className='HistoryElement__consultancy__date'>{date}</div>
         </div>
@@ -36,7 +36,7 @@ const HistoryElement = (props) => {
     );
   };
 
-  if (user === 'client' && isSearch) {
+  if (user === 'client' && search) {
     return (
       <div className='HistoryElement'>
         <div className='HistoryElement__consultant'>
@@ -48,6 +48,7 @@ const HistoryElement = (props) => {
             <img src={star} alt=""/>
             <img src={star} alt=""/>
           </div>
+          <p className="HistoryElement__consultant__comment">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate asperiores et voluptates ad placeat cum cupiditate dolorum laboriosam qui porro?</p>
         </div>
         <div className='HistoryElement__consultancy'>
           <div className='HistoryElement__consultancy__date'>{date}</div>
@@ -75,7 +76,7 @@ const HistoryElement = (props) => {
           </div>
         </div>
         <div className='HistoryElement__consultancy'>
-          <div className={`HistoryElement__consultancy__price ${user}`}>{price} COP</div>
+          <div className={`HistoryElement__consultancy__price ${user}`}>{price} { currency }</div>
           <div className='HistoryElement__consultancy__date'>{date}</div>
           <div className='HistoryElement__consultant__duration'>{duration}</div>
           <br />

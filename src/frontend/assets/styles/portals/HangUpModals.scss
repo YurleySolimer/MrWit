@@ -28,9 +28,37 @@
 
 .rateCall {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    flex-direction: row;
+    overflow: hidden;
+
+    & fieldset {
+        min-width: 100%;
+        border: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        position: relative;
+        transition: all .5s ease;
+    }
+
+    & #firstRate {
+        left: -100%;
+    }
+
+    & #firstRate.active {
+        left: 0;
+    }
+
+    & #secondRate {
+        right: 0;
+    }
+
+    & #secondRate.active {
+        right: 100%;
+    }
+
 }
 
 .rateCall img {
@@ -43,6 +71,7 @@
 .rateCall__question {
     color: $gray;
     margin: 1em 1.5em;
+    text-align: center;
 }
 
 .rateCall__stars {
@@ -65,4 +94,12 @@
     box-shadow: $outter-shadow;
     margin: 20px;
     color: $green;
+}
+
+.rateCall__comment .comment {
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: $inner-shadow;
+    color: $gray;
 }

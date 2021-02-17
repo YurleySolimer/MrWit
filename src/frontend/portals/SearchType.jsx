@@ -10,13 +10,11 @@ const SearchType = (props) => {
   console.log(props);
 
   function handleProfession(e) {
-    setResults('profession');
-    onClose(e);
+    history.push('/resultados');
   }
 
   function handleCategory(e) {
-    setResults('category');
-    onClose(e);
+    history.push('/resultados');
   }
 
   function handleAbility(e) {

@@ -3,7 +3,7 @@ import '../assets/styles/portals/WalletNewWithdraw.scss';
 import check from '../assets/static/icons/check.svg';
 import error from '../assets/static/icons/error.svg';
 
-const WalletNewWithdraw = ({ onClose, hasAccount }) => {
+const WalletNewWithdraw = ({ onClose, hasAccount, currency }) => {
 
   const [checkIn, setCheckIn] = useState(false);
   const [checkOut, setCheckOut] = useState(false);
@@ -22,11 +22,11 @@ const WalletNewWithdraw = ({ onClose, hasAccount }) => {
 
   if (hasAccount && !checkIn && !checkOut) {
     return (
-      <div className="WalletNewWithdraw">
+      <div className='WalletNewWithdraw'>
         <h3>Nuevo retiro</h3>
         <p>¿Cuánto deseas retirar?</p>
-        <input placeholder='Monto' type="text" name="amount" id="amount" className='signup__input' />
-        <p className='small'>El monto mínimo a retirar es 50.000 COP.</p>
+        <input placeholder='Monto' type='text' name='amount' id='amount' className='signup__input' />
+        <p className='small'>El monto mínimo a retirar es 50.000 { currency }.</p>
         <button type='button' onClick={handleCheckIn}>Retirar</button>
       </div>
     );
@@ -34,7 +34,7 @@ const WalletNewWithdraw = ({ onClose, hasAccount }) => {
 
   if (hasAccount && checkIn && !checkOut) {
     return (
-      <div className="WalletNewWithdraw">
+      <div className='WalletNewWithdraw'>
         <h3>Confirmar retiro</h3>
         <p>Se efectuará un retiro con la siguiente información</p>
         <table>
@@ -42,7 +42,7 @@ const WalletNewWithdraw = ({ onClose, hasAccount }) => {
 
             <tr>
               <th>Monto</th>
-              <td>50.000 COP</td>
+              <td>50.000 { currency }</td>
             </tr>
             <tr>
               <th>Nombre</th>
@@ -77,18 +77,18 @@ const WalletNewWithdraw = ({ onClose, hasAccount }) => {
 
   if (hasAccount && checkIn && checkOut) {
     return (
-      <div className="WalletNewWithdraw">
-        <img src={check} alt="" />
+      <div className='WalletNewWithdraw'>
+        <img src={check} alt='' />
         <h3>Retiro completo</h3>
-        <p>Has completado el retiro con éxito, ahora estamos tramitando el pago, este puede tardar de 24 a 48 horas.</p>
+        <p>Has completado el retiro con éxito, recibiras tu pago el próximo viernes.</p>
         <button onClick={handleCloseModal} type='button'>Continuar</button>
       </div>
     );
   }
 
   return (
-    <div className="WalletNewWithdraw">
-      <img src={error} alt="" />
+    <div className='WalletNewWithdraw'>
+      <img src={error} alt='' />
       <h3>No tienes cuenta</h3>
       <p>Parece que no tienes una cuenta asociada, por favor, registra una cuenta para poder continuar.</p>
     </div>
