@@ -27,7 +27,7 @@ const Search = ({ user, isOnline }) => {
   function handleOpen(e) {
     setIsOpen(true);
   }
-  
+
   if (user === 'client' && !isOnline) {
     return (
       <div className='searchConsultant'>
