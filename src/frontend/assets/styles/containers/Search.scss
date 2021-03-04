@@ -9,8 +9,9 @@
     overflow-x: hidden;
 
     & .background {
-        position: absolute;
+        position: fixed;
         z-index: -1;
+        overflow: hidden;
     }
 }
 

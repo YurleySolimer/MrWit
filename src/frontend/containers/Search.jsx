@@ -49,9 +49,18 @@ const Search = ({ user, isOnline }) => {
     );
   };
 
+  const handleHeader = () => {
+    const d = document.getElementById('searchConsultant');
+    if (d.scrollTop >= 50) {
+      props.setHeader(true);
+    } else {
+      props.setHeader(false);
+    }
+  };
+
   if (user === 'client' && isOnline) {
     return (
-      <div className='searchConsultant online'>
+      <div className='searchConsultant online' onScroll={handleHeader} id='searchConsultant'>
         <div className='searchName__title'>
           <h2 className='searchName__title__message'>Encuentra tu consultor ideal</h2>
         </div>

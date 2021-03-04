@@ -1,9 +1,10 @@
 const INITIAL_STATE = {
   user: 'client',
-  isOnline: false,
+  isOnline: true,
   isCall: false,
   name: 'Luis Fernando',
   currency: 'COP',
+  header: false,
   'consultants': [
     {
       'id': '1',
@@ -1094,6 +1095,11 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         currency: action.payload,
+      };
+    case 'SET_HEADER':
+      return {
+        ...state,
+        header: action.payload,
       };
     default:
       return state;

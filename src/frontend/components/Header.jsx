@@ -10,7 +10,7 @@ import close from '../assets/static/icons/close.svg';
 
 const Header = (props) => {
 
-  const { currency } = props;
+  const { currency, header } = props;
   const history = useHistory();
 
   // eslint-disable-next-line class-methods-use-this
@@ -48,7 +48,7 @@ const Header = (props) => {
 
   if (currency === 'USD') {
     return (
-      <header className='header'>
+      <header className={header ? 'header active' : 'header'}>
         <div className='header__container'>
           <Link to='/'>
             <img className='header__container__img' src={logo} alt='Mr Wit, la plataforma donde podrás encontrar a los consultores que necesitas.' />
@@ -82,7 +82,7 @@ const Header = (props) => {
 
   if (currency === 'COP') {
     return (
-      <header className='header'>
+      <header className={header ? 'header active' : 'header'} id='header'>
         <div className='header__container'>
           <Link to='/'>
             <img className='header__container__img' src={logo} alt='Mr Wit, la plataforma donde podrás encontrar a los consultores que necesitas.' />

@@ -7,7 +7,15 @@
     justify-content: space-between;
     align-items: center;
     position: absolute;
+    background: transparent;
     z-index: 4;
+    box-shadow: none;
+    transition: all .3s ease;
+}
+
+.header.active {
+    background: rgb(241, 241, 241);
+    box-shadow: $outter-shadow;
 }
 
 .header__container {

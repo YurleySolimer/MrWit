@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 // Redux
@@ -85,11 +85,20 @@ const Home = (props) => {
     history.push('/signup');
   }
 
+  const handleHeader = () => {
+    const d = document.getElementById('dashboard');
+    if (d.scrollTop >= 50) {
+      props.setHeader(true);
+    } else {
+      props.setHeader(false);
+    }
+  };
+
   console.log(props);
 
   if (isOnline && user === 'consultant') {
     return (
-      <div className='dashboard'>
+      <div className='dashboard' onScroll={handleHeader} id='dashboard'>
         <img className='background' src={background} alt='background' />
         <div className='dashboard__body'>
           <h2 className='dashboard__message'>
@@ -149,7 +158,7 @@ const Home = (props) => {
 
   if (isOnline && user === 'client') {
     return (
-      <div className='dashboard'>
+      <div className='dashboard' onScroll={handleHeader} id='dashboard'>
         <img className='background' src={background} alt='background' />
         <div className='dashboard__body'>
           <h2 className='dashboard__message'>

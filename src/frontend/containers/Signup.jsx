@@ -1,7 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable class-methods-use-this */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import ReactFlagsSelect from 'react-flags-select';
@@ -23,6 +23,8 @@ import clip from '../assets/static/icons/clip.svg';
 import schedule from '../assets/static/icons/schedule.svg';
 import arrowL from '../assets/static/icons/arrowleft.svg';
 
+import DataJSON from '../../professions';
+
 import ScheduleModal from '../portals/Schedule';
 import Modal from '../portals/Modal';
 
@@ -40,8 +42,9 @@ const Signup = (props) => {
   const [selected, setSelected] = useState('');
   const [errors, setErrors] = useState({});
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [scheduleDefined, setScheduleDefined] = useState(false);
+  const [data, setData] = useState([]);
   const history = useHistory();
+  const [specialities, setSpecialities] = useState([]);
 
   function handleChange(event) {
     input[event.target.name] = event.target.value;
@@ -173,9 +176,23 @@ const Signup = (props) => {
     setModalIsOpen(false);
   };
 
+  function handleSpecialities() {
+    const profSelected = document.getElementById('profesion');
+    const value = profSelected.value;
+    for (let i = 0; i < DataJSON.length; i++) {
+      if (Object.getOwnPropertyNames(DataJSON[i])[0] === value) {
+        const info = DataJSON[i];
+        setSpecialities(info[value]);
+      }
+    }
+  }
+
   const { isOnline, user } = props;
   // eslint-disable-next-line react/destructuring-assignment
   const { name, email, id, country, tel, password, confirmPassword } = input;
+
+  const Professions = DataJSON.map((profesion) => <option key={Object.getOwnPropertyNames(profesion)} value={Object.getOwnPropertyNames(profesion)}>{Object.getOwnPropertyNames(profesion)}</option>);
+  const Speciality = specialities.map((speciality) => <option key={speciality} value={speciality}>{speciality}</option>);
 
   if (isOnline) {
     return (<Redirect to='/' />);
@@ -225,22 +242,16 @@ const Signup = (props) => {
                   <button type='button' className='signup__back__button' onClick={handleBack}><img src={arrowL} alt='volver' /></button>
                   <h2 className='signup__form__consultant__title'>Profesional</h2>
                 </div>
-                <select required name='profesion' id='profesion' className='signup__input profesion'>
+                <select required name='profesion' id='profesion' onChange={handleSpecialities} className='signup__input profesion'>
                   <option value=''>Profesión</option>
+                  {Professions}
                 </select>
                 <div><small className='signup__error'>{errors.profesion}</small></div>
                 <select required name='especialidad' id='especialidad' className='signup__input especialidad'>
                   <option value=''>Especialidad</option>
+                  {Speciality}
                 </select>
                 <div><small className='signup__error'>{errors.especialidad}</small></div>
-                <select required name='categoria' id='categoria' className='signup__input categoria'>
-                  <option value=''>Categoría</option>
-                </select>
-                <div><small className='signup__error'>{errors.categoría}</small></div>
-                <select required name='subcategoria' id='subcategoria' className='signup__input subcategoria'>
-                  <option value=''>Subcategoría</option>
-                </select>
-                <div><small className='signup__error'>{errors.subcategoria}</small></div>
                 <textarea name='habilidades' id='habilidades' cols='30' rows='5' placeholder='Escribe tres habilidades y sepáralas con comas, podrás cambiarlas luego, así que no te preocupes si luego quieres variar.' className='signup__input textarea' />
                 <label htmlFor='cv' className='signup__input__cv'>
                   <h3 className='signup__input__cv__title'>Ajunta tu hoja de vida</h3>
@@ -252,7 +263,7 @@ const Signup = (props) => {
                   <img className='signup__input__schedule__icon' src={schedule} alt='Define tu horario' />
                 </button>
                 <Modal onClose={handleCloseModal} isOpen={modalIsOpen}>
-                  <ScheduleModal />
+                  <ScheduleModal onClose={handleCloseModal} />
                 </Modal>
                 <label htmlFor='policy' className='signup__policy'>
                   <input type='checkbox' name='policy' id='policy' />

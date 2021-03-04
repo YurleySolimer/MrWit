@@ -2,7 +2,11 @@ import React from 'react';
 import '../assets/styles/portals/Schedule.scss';
 import send from '../assets/static/icons/check.svg';
 
-const ScheduleModal = () => {
+const ScheduleModal = ({ onClose }) => {
+
+  function handleClose() {
+    onClose(true);
+  }
 
   return (
     <div className='ScheduleModal'>
@@ -108,7 +112,7 @@ const ScheduleModal = () => {
             <input type='time' name='endSunday' id='endSunday' />
           </label>
         </div>
-        <button type='submit' className='ScheduleModal__save'><img src={send} alt='Enviar calendario' /></button>
+        <button type='submit' onClick={handleClose} className='ScheduleModal__save'><img src={send} alt='Enviar calendario' /></button>
       </form>
     </div>
   );

@@ -20,9 +20,18 @@ const Consultants = (props) => {
     return (<Redirect to='/' />);
   }
 
+  const handleHeader = () => {
+    const d = document.getElementById('consultants');
+    if (d.scrollTop >= 50) {
+      props.setHeader(true);
+    } else {
+      props.setHeader(false);
+    }
+  };
+
   if (user === 'client' && isOnline) {
     return (
-      <div className='Consultants online'>
+      <div className='Consultants online' onScroll={handleHeader} id='consultants'>
         <span className="consultants__balance">
           <b>Saldo: </b>14.000 {currency}
         </span>

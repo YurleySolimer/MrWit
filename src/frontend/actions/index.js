@@ -33,3 +33,10 @@ export const setCurrency = (value) => (dispatch) => {
     payload: value,
   });
 };
+
+export const setHeader = (value) => (dispatch) => {
+  dispatch({
+    type: 'SET_HEADER',
+    payload: value,
+  });
+};
