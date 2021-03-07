@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { Co } from 'react-flags-select';
 // eslint-disable-next-line no-unused-vars
 import statusReducers from '../reducers/statusReducers';
+import * as actionsStatus from '../actions';
 import '../assets/styles/containers/Consultant.scss';
 import star from '../assets/static/icons/star.svg';
 import starE from '../assets/static/icons/emptyStar.svg';
@@ -115,8 +116,17 @@ const Consultant = (props) => {
     );
   };
 
+  const handleHeader = () => {
+    const d = document.getElementById('consultant__page');
+    if (d.scrollTop >= 50) {
+      props.setHeader(true);
+    } else {
+      props.setHeader(false);
+    }
+  };
+
   return (
-    <div className='consultant__page'>
+    <div className='consultant__page' onScroll={handleHeader} id='consultant__page'>
       <span className='consultant__profession'>{`${data[0].profession} | ${data[0].category}`}</span>
       <div className='consultant__avatar__container'>
         <img src={data[0].avatar} alt='imágen de perfil' className='consultant__avatar' />
@@ -183,4 +193,4 @@ const mapDispatchToProps = (reducers) => {
   return reducers.statusReducers;
 };
 
-export default connect(mapDispatchToProps, null)(Consultant);
+export default connect(mapDispatchToProps, actionsStatus)(Consultant);

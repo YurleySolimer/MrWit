@@ -6,6 +6,8 @@ import '../assets/styles/containers/Wallet.scss';
 import WalletRecharge from '../components/WalletRecharge';
 import WalletTransactions from '../components/WalletTransactions';
 
+import * as actionsStatus from '../actions';
+
 const Wallet = ({ user, isOnline }) => {
 
   // Ajustar que se retire solo los viernes, superior a un mínimo, y las veces que quiera (por encima del mínimo)
@@ -14,9 +16,18 @@ const Wallet = ({ user, isOnline }) => {
     return (<Redirect to='/' />);
   }
 
+  const handleHeader = () => {
+    const d = document.getElementById('wallet');
+    if (d.scrollTop >= 50) {
+      props.setHeader(true);
+    } else {
+      props.setHeader(false);
+    }
+  };
+
   if (user === 'client') {
     return (
-      <div className='Wallet'>
+      <div className='Wallet' onScroll={handleHeader} id='wallet'>
         <WalletRecharge balance='30.000' amount='10.000' />
         <WalletTransactions />
       </div>
@@ -37,4 +48,4 @@ const mapStateToProps = (reducers) => {
   return reducers.statusReducers;
 };
 
-export default connect(mapStateToProps, null)(Wallet);
+export default connect(mapStateToProps, actionsStatus)(Wallet);

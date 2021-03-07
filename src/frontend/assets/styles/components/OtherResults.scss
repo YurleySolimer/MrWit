@@ -36,8 +36,12 @@
 
 .OtherResults__profiles {
     display: flex;
-    flex-direction: row;
-    white-space: nowrap;
+    flex-wrap: wrap;
+}
+
+.profileOtherResults {
+    display: inline-block;
+    margin: auto;
 }
 
 .OtherResults__profiles__profile {
@@ -66,6 +70,7 @@
     margin-bottom: 5px;
     margin-top: 3px;
     color: $gray;
+    max-width: 100px;
 }
 
 .OtherResults__profiles__profile .profile__title {

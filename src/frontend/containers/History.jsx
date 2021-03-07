@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import statusReducers from '../reducers/statusReducers';
+import * as actionsStatus from '../actions';
 import '../assets/styles/containers/History.scss';
 import HistoryList from '../components/HistoryList';
 
@@ -12,9 +13,18 @@ const History = ({ isOnline, user }) => {
     return (<Redirect to='/' />);
   }
 
+  const handleHeader = () => {
+    const d = document.getElementById('history');
+    if (d.scrollTop >= 50) {
+      props.setHeader(true);
+    } else {
+      props.setHeader(false);
+    }
+  };
+
   if (user === 'client') {
     return (
-      <div className='History'>
+      <div className='History' onScroll={handleHeader} id='history'>
         <div className='history__body'>
           <h1 className='history__body__title'>Historial</h1>
           <HistoryList />
@@ -25,7 +35,7 @@ const History = ({ isOnline, user }) => {
 
   if (user === 'consultant') {
     return (
-      <div className='History'>
+      <div className='History' onScroll={handleHeader} id='history'>
         <div className='history__body'>
           <h1 className='history__body__title'>Historial</h1>
           <HistoryList />
@@ -40,4 +50,4 @@ const mapStateToProps = (reducers) => {
   return reducers.statusReducers;
 };
 
-export default connect(mapStateToProps, null)(History);
+export default connect(mapStateToProps, actionsStatus)(History);

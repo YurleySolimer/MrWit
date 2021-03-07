@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Co } from 'react-flags-select';
 import statusReducers from '../reducers/statusReducers';
+import * as actionsStatus from '../actions';
 import '../assets/styles/containers/Consultant.scss';
 import star from '../assets/static/icons/star.svg';
 import starE from '../assets/static/icons/emptyStar.svg';
@@ -40,8 +41,17 @@ const ConsultantFavorite = (props) => {
   const date = new Date(data[0].createdAt);
   const dateString = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
 
+  const handleHeader = () => {
+    const d = document.getElementById('consultant__pageFav');
+    if (d.scrollTop >= 50) {
+      props.setHeader(true);
+    } else {
+      props.setHeader(false);
+    }
+  };
+
   return (
-    <div className='consultant__page'>
+    <div className='consultant__page' onScroll={handleHeader} id='consultant__pageFav'>
       <span className='consultant__favorite'>Favorito</span>
       <div className='consultant__since'>
         <span>{`Registrado el: ${dateString}`}</span>
@@ -116,4 +126,4 @@ const mapDispatchToProps = (reducers) => {
   return reducers.statusReducers;
 };
 
-export default connect(mapDispatchToProps, null)(ConsultantFavorite);
+export default connect(mapDispatchToProps, actionsStatus)(ConsultantFavorite);

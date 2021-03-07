@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Calendar from 'react-calendar';
 import statusReducers from '../reducers/statusReducers';
+import * as actionsStatus from '../actions';
 import '../assets/styles/containers/Schedule.scss';
 import Appointments from '../components/Appointments';
 import Next from '../components/Next';
@@ -37,9 +38,18 @@ const Schedule = ({ user, isOnline }) => {
     return (<Redirect to='/' />);
   }
 
+  const handleHeader = () => {
+    const d = document.getElementById('schedule');
+    if (d.scrollTop >= 50) {
+      props.setHeader(true);
+    } else {
+      props.setHeader(false);
+    }
+  };
+
   if (user === 'consultant') {
     return (
-      <div className='Schedule'>
+      <div className='Schedule' id='schedule'>
         <div className='schedule__body'>
           <h1 className='schedule__title'>Agenda</h1>
           <Calendar
@@ -67,7 +77,7 @@ const Schedule = ({ user, isOnline }) => {
 
   if (user === 'client') {
     return (
-      <div className='Schedule'>
+      <div className='Schedule' id='schedule'>
         <div className='schedule__body'>
           <h1 className='schedule__title'>Agenda</h1>
           <Calendar
@@ -92,4 +102,4 @@ const mapStateToProps = (reducers) => {
   return reducers.statusReducers;
 };
 
-export default connect(mapStateToProps, null)(Schedule);
+export default connect(mapStateToProps, actionsStatus)(Schedule);

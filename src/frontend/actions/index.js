@@ -24,3 +24,17 @@ export const setUser = (value) => (dispatch) => {
     payload: value,
   });
 };
+
+export const setCurrency = (value) => (dispatch) => {
+  dispatch({
+    type: 'SET_CURRENCY',
+    payload: value,
+  });
+};
+
+export const setHeader = (value) => (dispatch) => {
+  dispatch({
+    type: 'SET_HEADER',
+    payload: value,
+  });
+};
