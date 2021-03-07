@@ -12,16 +12,27 @@ import HistoryList from '../components/HistoryList';
 import Modal from '../portals/Modal';
 import CallingModal from '../portals/Calling';
 
+
+import Axios from 'axios';
+
+
+
+
 const Consultant = (props) => {
 
   const history = useHistory();
   const { consultants, isOnline } = props;
   const [isOpen, setIsOpen] = useState(false);
 
-  function handleOpenModal(e) {
-    setIsOpen({ isOpen: true });
-  };
 
+
+  function handleOpenModal(e) {
+    Axios.get(`http://localhost:3000/join`).then(res => {
+      window.location.href = `http://localhost:3000/room/${res.data.link}?`
+     })
+   // setIsOpen({ isOpen: true });
+    };
+ 
   function handleCloseModal(newValue) {
     setIsOpen(false);
   };

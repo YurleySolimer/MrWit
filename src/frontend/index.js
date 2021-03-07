@@ -3,17 +3,23 @@ import ReactDOM from 'react-dom';
 import './assets/styles/App.scss';
 
 import { Provider } from 'react-redux';
-import reduxThunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 import reducer from './reducers';
 
 import App from './routes/App';
 
-const store = createStore(
+
+import { composeWithDevTools } from 'redux-devtools-extension'  
+import logger from 'redux-logger'  
+import thunk from 'redux-thunk'  
+  
+  
+const store = createStore(  
   reducer,
-  {},
-  applyMiddleware(reduxThunk),
-);
+    
+  composeWithDevTools(applyMiddleware(logger, thunk))  
+)  
+
 
 ReactDOM.render(
   <Provider store={store}>

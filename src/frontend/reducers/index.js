@@ -1,6 +1,10 @@
 import { combineReducers } from 'redux';
 import statusReducers from './statusReducers';
+import mrwitReducers from './mrwitReducers';
 
-export default combineReducers({
+const reducer =  combineReducers({
   statusReducers,
+  mrwitReducers
 });
+
+export default reducer;

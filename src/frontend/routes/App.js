@@ -19,12 +19,14 @@ import Call from '../containers/Call';
 import Consultants from '../containers/Consultants';
 import Consultant from '../containers/Consultant';
 import ConsultantFavorite from '../containers/ConsultantFavorite';
+import Prueba from '../Prueba';
 
 const App = () => (
   <BrowserRouter>
     <Layout>
       <Switch>
         <Route exact path='/' component={Home} />
+        <Route exact path='/prueba' component={Prueba} />
         <Route exact path='/login' component={Login} />
         <Route exact path='/signup' component={Signup} />
         <Route exact path='/buscar' component={Search} />
