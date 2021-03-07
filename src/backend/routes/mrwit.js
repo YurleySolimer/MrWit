@@ -14,12 +14,10 @@ router.get('/join', (req, res) => {
     res.redirect(`/room/${uuidv4()}`);
 });
 
-
 router.get("/room/:room", (req, res) => {
     console.log(__dirname)
      res.render("room", { roomId: req.params.room });
-});
-      
+});     
 
 router.route('/consultor/:id')
     .get(getConsultor);
