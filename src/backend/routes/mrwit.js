@@ -6,6 +6,33 @@ const { getConsultores, getConsultor, postAgenda, postConsultaFinalizada,
 const authjwt = require ('../middlewares');
 const { v4: uuidv4 } = require("uuid");
 
+router.post('/busqueda', (req, res) => {
+    console.log(req.body)
+
+        if(!req.body.category) { 
+            if(!req.body.proffession) {
+                res.redirect('/resultados')
+            }
+            else if (req.body.proffession) { 
+                if(!req.body.especialidad) { 
+                    res.redirect( `/resultados?proffession=${req.body.proffession}`)
+                }
+                else if(req.body.especialidad) { 
+                    res.redirect( `/resultados?proffession=${req.body.proffession}&especialidad=${req.body.especialidad}`)
+                }
+            }
+        }
+        else if(req.body.category) {
+            if(!req.body.proffession) {
+                res.redirect( `/resultados?category=${req.body.category}`)            
+            }
+            else if (req.body.proffession) { 
+                res.redirect( `/resultados?category=${req.body.category}&proffession=${req.body.proffession}`)
+                }
+                
+        }
+   
+});
 
 router.get('/resultados', getConsultores);
 
