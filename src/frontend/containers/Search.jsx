@@ -11,6 +11,7 @@ import background from '../assets/static/images/background1.png';
 import CircleCarousel from '../components/CircleCarousel';
 import SearchElements from '../components/SearchElements';
 import Feedback from '../components/Feedback';
+import DataJSON from '../../professions';
 
 import Searcher from '../components/Searcher';
 
@@ -18,6 +19,8 @@ const Search = ({ user, isOnline }) => {
 
   const [results, setResults] = useState('');
   const [valueResult, setValueResult] = useState('');
+  const [valueSelection, setValueSelection] = useState('');
+  const [specialities, setSpecialities] = useState([]);
 
   const handleHeader = () => {
     const d = document.getElementById('searchConsultant');
@@ -33,7 +36,19 @@ const Search = ({ user, isOnline }) => {
   };
 
   const handleValue = (e) => {
-    setValueResult(e);
+    for (let i = 0; i < DataJSON.length; i++) {
+      if (Object.getOwnPropertyNames(DataJSON[i])[0] === e) {
+        const info = DataJSON[i];
+        setValueResult(e);
+        setSpecialities(info[e]);
+      } else {
+        i++;
+      }
+    }
+  };
+
+  const handleValueSelection = (e) => {
+    setValueSelection(e);
   };
 
   if (user === 'client' && !isOnline) {
@@ -44,6 +59,8 @@ const Search = ({ user, isOnline }) => {
         </div>
         <img className='background' src={background} alt='' />
         <Searcher setValueResult={handleValue} setResults={handleSearch} />
+        <input type="hidden" name="selection1" value={valueResult} />
+        <input type="hidden" name="selection2" value={valueSelection} />
         <Feedback name='Luis Fernando Méndez' country='Medellín, CO' description='“Me encantó la experiencia, pude resolver los problemas de contabilidad de mi empresa con una sola llamada, es súper práctico”' />
       </div>
     );
@@ -57,7 +74,9 @@ const Search = ({ user, isOnline }) => {
         </div>
         <img className='background' src={background} alt='' />
         <Searcher setValueResult={handleValue} setResults={handleSearch} />
-        <CircleCarousel value={valueResult} searchTerm='Sector' />
+        <input type="hidden" name="selection1" value={valueResult} />
+        <input type="hidden" name="selection2" value={valueSelection} />
+        <CircleCarousel specialities={specialities} setValue={handleValueSelection} value={valueResult} searchTerm='Sector' />
         <Feedback name='Luis Fernando Méndez' country='Medellín, CO' description='“Me encantó la experiencia, pude resolver los problemas de contabilidad de mi empresa con una sola llamada, es súper práctico”' />
       </div>
     );
@@ -71,7 +90,9 @@ const Search = ({ user, isOnline }) => {
         </div>
         <img className='background' src={background} alt='' />
         <Searcher setValueResult={handleValue} setResults={handleSearch} />
-        <CircleCarousel value={valueResult} searchTerm='Profesión' />
+        <input type="hidden" name="selection1" value={valueResult} />
+        <input type="hidden" name="selection2" value={valueSelection} />
+        <CircleCarousel specialities={specialities} setValue={handleValueSelection} value={valueResult} searchTerm='Profesión' />
         {/* <SearchElements link='/resultados' className='eight' title='Especialidad' /> */}
         <Feedback name='Luis Fernando Méndez' country='Medellín, CO' description='“Me encantó la experiencia, pude resolver los problemas de contabilidad de mi empresa con una sola llamada, es súper práctico”' />
       </div>
@@ -86,7 +107,9 @@ const Search = ({ user, isOnline }) => {
         </div>
         <img className='background' src={background} alt='' />
         <Searcher setValueResult={handleValue} setResults={handleSearch} />
-        <CircleCarousel value={valueResult} searchTerm='Sector' />
+        <input type="hidden" name="selection1" value={valueResult} />
+        <input type="hidden" name="selection2" value={valueSelection} />
+        <CircleCarousel specialities={specialities} setValue={handleValueSelection} value={valueResult} searchTerm='Sector' />
       </div>
     );
   };
@@ -99,7 +122,9 @@ const Search = ({ user, isOnline }) => {
         </div>
         <img className='background' src={background} alt='' />
         <Searcher setValueResult={handleValue} setResults={handleSearch} />
-        <CircleCarousel value={valueResult} searchTerm='Profesión' />
+        <input type="hidden" name="selection1" value={valueResult} />
+        <input type="hidden" name="selection2" value={valueSelection} />
+        <CircleCarousel specialities={specialities} setValue={handleValueSelection} value={valueResult} searchTerm='Profesión' />
       </div>
     );
   };
@@ -112,7 +137,8 @@ const Search = ({ user, isOnline }) => {
         </div>
         <img className='background' src={background} alt='' />
         <Searcher setValueResult={handleValue} setResults={handleSearch} />
-        <CircleCarousel value={valueResult} searchTerm='Sector' />
+        <input type="hidden" name="selection1" value={valueResult} />
+        <input type="hidden" name="selection2" value={valueSelection} />
       </div>
     );
   };

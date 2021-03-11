@@ -1,23 +1,10 @@
 import React from 'react';
 import '../assets/styles/components/CircleCarousel.scss';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import DataSectors from '../../sectors';
-import DataJSON from '../../professions';
 import SearchElements from './SearchElements';
 
-const CircleCarousel = ({ valueResult, searchTerm }) => {
-
-  function handleSeeMore(event) {
-    const main = document.getElementById('main');
-    main.classList.add('active');
-    event.preventDefault();
-  }
-
-  function handleBack(event) {
-    const main = document.getElementById('main');
-    main.classList.remove('active');
-    event.preventDefault();
-  }
+const CircleCarousel = ({ value, searchTerm, setValue, specialities }) => {
 
   if (searchTerm === 'Sector') {
     const { professions } = DataSectors;
@@ -33,53 +20,149 @@ const CircleCarousel = ({ valueResult, searchTerm }) => {
     const firstReturn = firstProfessions.map((profession) => {
       return (
         <li key={profession}>
-          <SearchElements link={`/resultados/?sector=${valueResult}?profession=${profession}`} title={profession} />
+          <SearchElements value={profession} handler={setValue} title={profession} />
         </li>
       );
     });
 
     const secondReturn = secondProfessions.map((profession) => {
       return (
-        <Link className='CircleCarousel__list element' to={`/resultados/?sector=${valueResult}?profession=${profession}`} key={profession}>
+        <button type='button' key={profession} className='CircleCarousel__list element'>
           {profession}
-        </Link>
+        </button>
       );
     });
+
+    const handleMore = () => {
+      const main = document.getElementById('main');
+      main.classList.add('active');
+    };
+
+    const handleLess = () => {
+      const main = document.getElementById('main');
+      main.classList.remove('active');
+    };
 
     return (
       <div className='CircleCarousel' id='main'>
         <div className='CircleCarousel__carousel'>
           <ul className='circle-container'>
-            <li onClick={handleSeeMore}>
-              more
+            <li>
+              <SearchElements value='more' handler={handleMore} title='More' more={true} />
             </li>
             {firstReturn}
           </ul>
           <h2 className='Search-Item'>
-            {valueResult}
+            {searchTerm}
             {' '}
             <br />
-            {searchTerm}
+            {value}
           </h2>
         </div>
         <div className='CircleCarousel__list'>
-          <div className='CircleCarousel__list element back' onClick={handleBack}>
+          <button onClick={handleLess} type='button' className='CircleCarousel__list element back'>
             Volver
-          </div>
+          </button>
           {secondReturn}
         </div>
       </div>
     );
   }
 
-  return (
-    <div className='CircleCarousel' id='main'>
-      <div className='CircleCarousel__carousel'>
-        <ul className='circle-container' />
-        <h2 className='Search-Item'>{searchTerm}</h2>
-      </div>
-    </div>
-  );
+  if (searchTerm === 'Profesión') {
+
+    if (specialities.length > 7) {
+
+      const firstSpecialities = [];
+      for (let i = 0; i < 7; i++) {
+        firstSpecialities.push(specialities[i]);
+      }
+      const secondSpecialities = [];
+      for (let i = 7; i < specialities.length; i++) {
+        secondSpecialities.push(specialities[i]);
+      }
+
+      const firstReturn = firstSpecialities.map((profession) => {
+        return (
+          <li key={profession}>
+            <SearchElements value={profession} handler={setValue} title={profession} />
+          </li>
+        );
+      });
+
+      const secondReturn = secondSpecialities.map((profession) => {
+        return (
+          <button type='button' key={profession} className='CircleCarousel__list element'>
+            {profession}
+          </button>
+        );
+      });
+
+      const handleMore = () => {
+        const main = document.getElementById('main');
+        main.classList.add('active');
+      };
+
+      const handleLess = () => {
+        const main = document.getElementById('main');
+        main.classList.remove('active');
+      };
+
+      return (
+        <div className='CircleCarousel' id='main'>
+          <div className='CircleCarousel__carousel'>
+            <ul className='circle-container'>
+              <li>
+                <SearchElements value='more' handler={handleMore} title='More' more={true} />
+              </li>
+              {firstReturn}
+            </ul>
+            <h2 className='Search-Item'>
+              {searchTerm}
+              {' '}
+              <br />
+              {value}
+            </h2>
+          </div>
+          <div className='CircleCarousel__list'>
+            <button onClick={handleLess} type='button' className='CircleCarousel__list element back'>
+              Volver
+            </button>
+            {secondReturn}
+          </div>
+        </div>
+      );
+    } if (specialities.length <= 7 && specialities.length >= 1) {
+
+      const specialitiesReturn = specialities.map((profession) => {
+        return (
+          <li key={profession}>
+            <SearchElements value={profession} handler={setValue} title={profession} />
+          </li>
+        );
+      });
+
+      return (
+        <div className='CircleCarousel' id='main'>
+          <div className='CircleCarousel__carousel'>
+            <ul className='circle-container'>
+              {specialitiesReturn}
+            </ul>
+            <h2 className='Search-Item'>
+              {searchTerm}
+              {' '}
+              <br />
+              {value}
+            </h2>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <Redirect to='/resultados' />
+    );
+  };
 };
 
 export default CircleCarousel;

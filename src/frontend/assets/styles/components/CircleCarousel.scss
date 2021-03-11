@@ -70,40 +70,66 @@
 
 .CircleCarousel {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    
+    & .CircleCarousel__carousel {
+        position: relative;
+        width: 100%;
+    }
+    
+    & .CircleCarousel__list {
+        display: flex;
+        flex-wrap: wrap;
+        display: none;
+        justify-content: center;
+    }
 }
 
-.CircleCarousel__carousel {
-    position: relative;
-    min-width: 100%;
+.CircleCarousel.active {
+    display: flex;
+    flex-direction: column;
+    transition: all .5s ease;
+    
+    & .CircleCarousel__carousel {
+        position: relative;
+        width: 100%;
+        display: none;
+    }
+    
+    & .CircleCarousel__list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 }
 
-.CircleCarousel__carousel.active {
-    transform: translateX(-100%);
-    transition: all 1s ease;
-}
 .Search-Item {
     position: absolute;
     top: 50%;
     left: 50%;
+    text-align: center;
     transform: translate(-50%, -50%);
 }
 
-.CircleCarousel__list {
-    min-width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-}
 
 .CircleCarousel__list.element {
     background: white;
     padding: 10px;
     margin: 5px;
     border-radius: 5px;
+    border: none;
     box-shadow: $outter-shadow;
 }
 
 .CircleCarousel__list.element.back {
-    background: $blue;
+    background-color: $blue;
+}
 
+button.SearchElements {
+    background-color: transparent;
+    border: none;
+}
+
+.SearchElements.more .SearchElements__circle {
+    background-color: $blue;
 }

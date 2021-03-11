@@ -1,18 +1,36 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import '../assets/styles/components/SearchElements.scss';
 import categoryIcon from '../assets/static/icons/category_ex.svg';
+import moreIcon from '../assets/static/icons/more.svg';
 
-const SearchElements = ({ link, title, className }) => {
-  return (
-    <Link to={link} className={className}>
-      <div className='SearchElements'>
+const SearchElements = ({ value, handler, title, more }) => {
+
+  const handleHandler = () => {
+    if (value === 'more') {
+      handler();
+    } else {
+      handler(value);
+    }
+  };
+
+  if (more) {
+    return (
+      <button onClick={handleHandler} type='button' className='SearchElements more'>
         <div className='SearchElements__circle'>
-          <img src={categoryIcon} alt='icon' className='SearchElements__icon' />
+          <img src={moreIcon} alt='icon' className='SearchElements__icon' />
         </div>
         <span className='SearchElements__title'>{title}</span>
+      </button>
+    );
+  }
+
+  return (
+    <button onClick={handleHandler} type='submit' className='SearchElements'>
+      <div className='SearchElements__circle'>
+        <img src={categoryIcon} alt='icon' className='SearchElements__icon' />
       </div>
-    </Link>
+      <span className='SearchElements__title'>{title}</span>
+    </button>
   );
 };
 
