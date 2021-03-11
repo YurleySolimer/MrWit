@@ -20,6 +20,8 @@ import Consultants from '../containers/Consultants';
 import Consultant from '../containers/Consultant';
 import ConsultantFavorite from '../containers/ConsultantFavorite';
 import Prueba from '../Prueba';
+import pruebaRegistro from '../pruebaRegistro';
+
 
 const App = () => (
   <BrowserRouter>
@@ -27,6 +29,8 @@ const App = () => (
       <Switch>
         <Route exact path='/' component={Home} />
         <Route exact path='/prueba' component={Prueba} />
+        <Route exact path='/pruebaRegistro' component={pruebaRegistro} />
+
         <Route exact path='/login' component={Login} />
         <Route exact path='/signup' component={Signup} />
         <Route exact path='/buscar' component={Search} />

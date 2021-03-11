@@ -8,6 +8,7 @@ const Roles = require('../models/Roles');
 
 
 authCtrl.postNewUser = async (req, res) => {
+    console.log(req.body)
 
     //NewUser
     const { name, lastname, email, password, rol } = req.body;
@@ -49,9 +50,18 @@ authCtrl.postNewUser = async (req, res) => {
     //New Consultor
 
     const { phone, date, country, profession, especialidad, category, subcategory, abilities,
-            horario, policy, status } = req.body;
+            horario, policy } = req.body;
     const user = userSaved._id;
     var newConsultor = {};
+    var onPolicy = false;
+    if (policy === 'on') {
+        onPolicy = true;
+    }
+
+    const status = {
+        online: true
+    }
+    
 
     if (req.files) {
         const {path, originalname} = req.files[0];
@@ -70,7 +80,7 @@ authCtrl.postNewUser = async (req, res) => {
             subcategory,
             abilities,
             horario,
-            policy,
+            policy: onPolicy,
             status
 
         });
@@ -89,7 +99,7 @@ authCtrl.postNewUser = async (req, res) => {
             subcategory,
             abilities,
             horario,
-            policy,
+            policy: onPolicy,
             status
         });
     }
@@ -98,10 +108,11 @@ authCtrl.postNewUser = async (req, res) => {
     }
 
 
-    //Token - expira en 24 horas
+    //Token - expira en 10 años
     const token = jwt.sign({id: userSaved._id },'config.SECRET', {
-        expiresIn: 86400
+        expiresIn: 315360000
     })
+    console.log("new user created")
     res.json({token});
 };
 
@@ -114,7 +125,7 @@ authCtrl.postSignIn = async (req, res) => {
    if(!matchPassword) return res.status(401).json({token: null, message: "Invalid password"});
 
    const token = jwt.sign({id: userFound._id}, config.SECRET, {
-       expiresIn: 86400
+       expiresIn: 315360000
    })
 
     res.json({token})
