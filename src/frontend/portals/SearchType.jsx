@@ -4,32 +4,56 @@ import { useHistory } from 'react-router-dom';
 
 const SearchType = (props) => {
 
-  const { setResults, onClose } = props;
+  const { setResults, onClose, setValueResult, value, isHome } = props;
   const history = useHistory();
 
-  console.log(props);
+  const val = value.replace(' - Sector', '').replace(' - Profesión', '');
 
   function handleProfession(e) {
-    history.push('/resultados');
+    setResults('profession');
+    setValueResult(val);
+    onClose(e);
   }
 
-  function handleCategory(e) {
-    history.push('/resultados');
+  function handleSector(e) {
+    setResults('sector');
+    setValueResult(val);
+    onClose(e);
   }
 
   function handleAbility(e) {
-    history.push('/resultados');
+    history.push(`/resultados/?habilidad=${val}`);
+  }
+
+  function handleProfessionHome(e) {
+    history.push(`/resultados/?profesion=${val}`);
+  }
+
+  function handleSectorHome(e) {
+    history.push(`/resultados/?sector=${val}`);
   }
 
   function handleID(e) {
-    history.push('/resultados/1');
+    history.push(`/resultados/${val}`);
+  }
+
+  if (isHome) {
+    return (
+      <div className='SearchType'>
+        <h2>¿Qué quieres buscar?</h2>
+        <button type='button' className='profession' onClick={handleProfessionHome}>Profesión</button>
+        <button type='button' className='sector' onClick={handleSectorHome}>Categoría</button>
+        <button type='button' className='ability' onClick={handleAbility}>Habilidad</button>
+        <button type='button' className='id' onClick={handleID}>ID</button>
+      </div>
+    );
   }
 
   return (
     <div className='SearchType'>
       <h2>¿Qué quieres buscar?</h2>
       <button type='button' className='profession' onClick={handleProfession}>Profesión</button>
-      <button type='button' className='category' onClick={handleCategory}>Categoría</button>
+      <button type='button' className='sector' onClick={handleSector}>Categoría</button>
       <button type='button' className='ability' onClick={handleAbility}>Habilidad</button>
       <button type='button' className='id' onClick={handleID}>ID</button>
     </div>

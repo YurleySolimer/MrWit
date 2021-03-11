@@ -9,7 +9,6 @@ import statusReducers from '../reducers/statusReducers';
 
 const HistoryElement = (props) => {
   const { name, duration, price, date, user, search, currency } = props;
-  console.log('los props de HistoryElement son', props);
   if (user === 'client' && !search) {
     return (
       <div className='HistoryElement'>

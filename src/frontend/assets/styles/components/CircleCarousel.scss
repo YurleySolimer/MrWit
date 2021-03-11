@@ -1,31 +1,109 @@
 @import '../Vars.scss';
 
+@mixin on-circle($item-count, $circle-size, $item-size) {
+    position: relative;
+    width: $circle-size;
+    height: $circle-size;
+    padding: 0;
+    border-radius: 50%;
+    list-style: none;
+
+    >* {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: $item-size;
+        height: $item-size;
+        margin: -($item-size / 2);
+
+        $angle: (360 / $item-count);
+        $rot: 0;
+
+        @for $i from 1 through $item-count {
+            &:nth-of-type(#{$i}) {
+                transform:
+                    rotate($rot * 1deg) translate($circle-size / 2) rotate($rot * -1deg);
+            }
+
+            $rot: $rot+$angle;
+        }
+    }
+}
+
+.circle-container {
+    @include on-circle($item-count: 8, $circle-size: 16em, $item-size: 6em);
+    margin: 5em auto 0;
+
+    img {
+        display: block;
+        max-width: 100%;
+        border-radius: 50%;
+        transition: .15s;
+
+        &:hover,
+        &:active {
+            filter: grayscale(0);
+        }
+    }
+}
+
+@media screen and (min-width: 400px) {
+    .circle-container {
+        @include on-circle($item-count: 8, $circle-size: 20em, $item-size: 6em);
+        margin: 5em auto 0;
+
+        img {
+            display: block;
+            max-width: 100%;
+            border-radius: 50%;
+            transition: .15s;
+
+            &:hover,
+            &:active {
+                filter: grayscale(0);
+            }
+        }
+    }
+
+}
+
 .CircleCarousel {
-    width: 100vw;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: row;
 }
 
 .CircleCarousel__carousel {
     position: relative;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 10% 20% 30% 20% 10%;
-    grid-template-rows: 10% 20% 30% 20% 10%;
-    gap: 0px 0px;
-    grid-template-areas:
-      ". . one . ."
-      ". eight . two ."
-      "seven . Search-Item . three"
-      ". six . four ."
-      ". . five . .";
-      justify-content: center;
-      align-items: center;
-      margin: 20px 0;
-      transform: translateX(-9px);
+    min-width: 100%;
 }
 
-.Search-Item { 
-    grid-area: Search-Item; 
+.CircleCarousel__carousel.active {
+    transform: translateX(-100%);
+    transition: all 1s ease;
+}
+.Search-Item {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.CircleCarousel__list {
+    min-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.CircleCarousel__list.element {
+    background: white;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    box-shadow: $outter-shadow;
+}
+
+.CircleCarousel__list.element.back {
+    background: $blue;
+
 }

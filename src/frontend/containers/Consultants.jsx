@@ -15,7 +15,6 @@ import lightArrow from '../assets/static/assets/lightgrey_arrow.svg';
 const Consultants = (props) => {
   const [selected, setSelected] = useState('');
   const { isOnline, user, consultants1, consultants2, consultants3, currency } = props;
-  console.log(props);
   if (user === 'consultant') {
     return (<Redirect to='/' />);
   }

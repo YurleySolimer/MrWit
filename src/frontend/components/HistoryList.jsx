@@ -4,7 +4,6 @@ import HistoryElement from './HistoryElement';
 
 const HistoryList = (props) => {
 
-  console.log('los props de historyList son: ', props);
   const { amount, setSearchRate } = props;
 
   if (amount) {

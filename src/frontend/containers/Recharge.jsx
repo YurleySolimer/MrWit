@@ -15,7 +15,6 @@ const Recharge = (props) => {
 
   const { isOnline, user } = props;
   const [isOpen, setIsOpen] = useState(false);
-  console.log(props);
   // eslint-disable-next-line class-methods-use-this
   function handlePayment() {
     setIsOpen(true);

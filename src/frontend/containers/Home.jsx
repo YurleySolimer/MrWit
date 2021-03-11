@@ -15,6 +15,7 @@ import SelectionIntro from '../components/SelectionIntro';
 import Intro from '../components/Intro';
 import NextDates from '../components/NextDates';
 import OtherResults from '../components/OtherResults';
+import Searcher from '../components/Searcher';
 
 // Styles
 
@@ -27,14 +28,12 @@ import pen from '../assets/static/icons/pen.svg';
 import background from '../assets/static/images/background1.png';
 import profile from '../assets/static/images/profile_4.jpg';
 import star from '../assets/static/icons/star.svg';
-import lupa from '../assets/static/icons/lupaDark.svg';
 import starE from '../assets/static/icons/emptyStar.svg';
 import inactive from '../assets/static/icons/inactive.svg';
 
 // Modals
 
 import Modal from '../portals/Modal';
-import SearchType from '../portals/SearchType';
 import EditProfile from '../portals/EditProfile';
 import Inactive from '../portals/Inactive';
 
@@ -93,8 +92,6 @@ const Home = (props) => {
       props.setHeader(false);
     }
   };
-
-  console.log(props);
 
   if (isOnline && user === 'consultant') {
     return (
@@ -168,15 +165,7 @@ const Home = (props) => {
             <b>Saldo: </b>14.000 { currency }
           </span>
           <div className='dashboard__CTA'>
-            <div className='Search'>
-              <input type='text' placeholder='¿Qué necesitas?' className='Search__input' />
-              <button type='submit' onClick={handleOpen} className='Search__submit'>
-                <img src={lupa} alt='Buscador' />
-              </button>
-              <Modal isOpen={isOpen} onClose={handleClose}>
-                <SearchType onClose={handleClose} />
-              </Modal>
-            </div>
+            <Searcher isHome={true} />
           </div>
         </div>
         <OtherResults category='Mis Favoritos' isFavorite={true} results={consultants2} />

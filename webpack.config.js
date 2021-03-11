@@ -3,7 +3,7 @@ const HTMLWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  entry: './src/frontend/index.js',
+  entry: ['@babel/polyfill', './src/frontend/index.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.js',
@@ -19,6 +19,9 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
         },
       },
       {
