@@ -37,7 +37,6 @@ const DataJSON =
           'Gerencia de Calidad',
           'Auditoría de Sistemas',
           'Administración de Riesgos y Seguros',
-          'Control Organizacional',
           'Gerencia de Desarrollo Humano(modalidad virtual)',
           'Gerencia Estratégica de Costos',
           'Gerencia de Instituciones de la Salud',

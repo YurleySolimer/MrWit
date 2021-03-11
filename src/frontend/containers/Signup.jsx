@@ -6,10 +6,9 @@ import { connect } from 'react-redux';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import ReactFlagsSelect from 'react-flags-select';
 // eslint-disable-next-line no-unused-vars
+import axios from 'axios';
 import statusReducers from '../reducers/statusReducers';
 import * as actionsStatus from '../actions';
-import axios from 'axios'
-
 
 import '../assets/styles/containers/Signup.scss';
 
@@ -26,6 +25,7 @@ import schedule from '../assets/static/icons/schedule.svg';
 import arrowL from '../assets/static/icons/arrowleft.svg';
 
 import DataJSON from '../../professions';
+import DataSectors from '../../sectors';
 
 import ScheduleModal from '../portals/Schedule';
 import Modal from '../portals/Modal';
@@ -69,51 +69,51 @@ const Signup = (props) => {
     //   props.setIsOnline(props.isOnline);
     //   alert('Te has registrado');
     // }
-    event.preventDefault()
-      const user =  {
-        name: name.value,
-        lastname: lastname.value, 
-        email: email.value, 
-        password: password.value,
-        phone: tel.value,
-        dni: id.value,
-        //country: country.value,
-        rol: rol.value
-      }
-      console.log(user)
-      const res = axios.post('http://localhost:3000/signup', user )          
-          .then ( res =>  {
-            console.log(res.data);
-            history.push('/recargar');
-          })
-          .catch(e => console.log(e))      
+    event.preventDefault();
+    const user = {
+      name: name.value,
+      lastname: lastname.value,
+      email: email.value,
+      password: password.value,
+      phone: tel.value,
+      dni: id.value,
+      //country: country.value,
+      rol: rol.value,
+    };
+    console.log(user);
+    const res = axios.post('http://localhost:3000/signup', user)
+      .then((res) => {
+        console.log(res.data);
+        history.push('/recargar');
+      })
+      .catch((e) => console.log(e));
   }
 
-    function handleSubmitConsultant(event) {
-      event.preventDefault()
-      const user =  {
-        name: name.value,
-        picture: picture.value,
-        lastname: lastname.value, 
-        email: email.value, 
-        password: password.value,
-        tel: tel.value,
-        date: date.value,
-        //country: country.value,
-        profesion: profesion.value,
-        especialidad: especialidad.value,
-        abilities: habilidades.value,
-        policy: policy.value,
-        rol: rol.value
-      }
-      console.log(user)
-      const res = axios.post('http://localhost:3000/signup', user )          
-          .then ( res =>  {
-            console.log(res.data);
-            history.push('/');       
-            })
-          .catch(e => console.log(e))          
-   
+  function handleSubmitConsultant(event) {
+    event.preventDefault();
+    const user = {
+      name: name.value,
+      picture: picture.value,
+      lastname: lastname.value,
+      email: email.value,
+      password: password.value,
+      tel: tel.value,
+      date: date.value,
+      //country: country.value,
+      profesion: profesion.value,
+      especialidad: especialidad.value,
+      abilities: habilidades.value,
+      policy: policy.value,
+      rol: rol.value,
+    };
+    console.log(user);
+    const res = axios.post('http://localhost:3000/signup', user)
+      .then((res) => {
+        console.log(res.data);
+        history.push('/');
+      })
+      .catch((e) => console.log(e));
+
   }
 
   function validate() {
@@ -165,10 +165,10 @@ const Signup = (props) => {
     if (typeof input['password'] !== 'undefined' && typeof input['confirmPassword'] !== 'undefined') {
       if (input['password'] !== input['confirmPassword']) {
         isValid = false;
-        errors['password'] = "Las contraseñas no coinciden.";
+        errors['password'] = 'Las contraseñas no coinciden.';
       }
     }
-    
+
     setErrors({ errors });
     return isValid;
   }
@@ -230,10 +230,12 @@ const Signup = (props) => {
   const { isOnline, user } = props;
   // eslint-disable-next-line react/destructuring-assignment
 
+  const arrayOfSectors = DataSectors.sectors;
+  const Sector = arrayOfSectors.map((sectors) => <option key={sectors} value={sectors}>{sectors}</option>);
   const Professions = DataJSON.map((profesion) => <option key={Object.getOwnPropertyNames(profesion)} value={Object.getOwnPropertyNames(profesion)}>{Object.getOwnPropertyNames(profesion)}</option>);
   const Speciality = specialities.map((speciality) => <option key={speciality} value={speciality}>{speciality}</option>);
 
-/*   if (isOnline) {
+  /*   if (isOnline) {
     return (<Redirect to='/' />);
   }
  */
@@ -254,41 +256,46 @@ const Signup = (props) => {
                   <input type='file' name='picture' id='picture' className='signup__input__file' />
                 </label>
                 <span className='input_photo_label_text'>Agregar foto</span>
-                <input required 
-                  type='text' 
-                  placeholder='Nombre' 
-                  name='name' 
-                  id='name' 
-                  className='signup__input name' 
+                <input
+                  required
+                  type='text'
+                  placeholder='Nombre'
+                  name='name'
+                  id='name'
+                  className='signup__input name'
                 />
 
                 <div><small className='signup__error'>{errors.name}</small></div>
 
-                <input required 
-                  type='text' 
-                  placeholder='Apellido' 
-                  name='lastname' 
-                  id='lastname' 
-                  className='signup__input name' />
+                <input
+                  required
+                  type='text'
+                  placeholder='Apellido'
+                  name='lastname'
+                  id='lastname'
+                  className='signup__input name'
+                />
 
                 <div><small className='signup__error'>{errors.name}</small></div>
 
-                <input required 
-                  type='tel' 
-                  placeholder='Teléfono' 
-                  name='tel' 
-                  id='tel' 
+                <input
+                  required
+                  type='tel'
+                  placeholder='Teléfono'
+                  name='tel'
+                  id='tel'
                   className='signup__input tel'
                 />
 
                 <div><small className='signup__error'>{errors.tel}</small></div>
 
-                <input required 
-                  type='date' 
-                  placeholder='Fecha de nacimiento' 
-                  name='date' 
-                  id='date' 
-                  className='signup__input date' 
+                <input
+                  required
+                  type='date'
+                  placeholder='Fecha de nacimiento'
+                  name='date'
+                  id='date'
+                  className='signup__input date'
                 />
 
                 <div><small className='signup__error'>{errors.date}</small></div>
@@ -298,82 +305,104 @@ const Signup = (props) => {
                   selected={selected}
                   className='signup__input'
                   onSelect={(e) => { setSelected(e); }}
-                  countries={["AR", "AG", "BB", "BM", "BO", "BR", "BS", "BZ", "CL", "CO", "CR", "CU", "CW", "DM", "DO", "EC", "SV", "GT", "JM", "MX", "PA", "PY", "PE", "PR", "UY", "VE"]}
+                  countries={['AR', 'AG', 'BB', 'BM', 'BO', 'BR', 'BS', 'BZ', 'CL', 'CO', 'CR', 'CU', 'CW', 'DM', 'DO', 'EC', 'SV', 'GT', 'JM', 'MX', 'PA', 'PY', 'PE', 'PR', 'UY', 'VE']}
                 />
 
                 <div><small className='signup__error'>{errors.country}</small></div>
 
-                <input 
-                  type='email' 
-                  placeholder='Correo electrónico' 
-                  name='email' 
-                  id='email' 
-                  className='signup__input email' 
+                <input
+                  type='email'
+                  placeholder='Correo electrónico'
+                  name='email'
+                  id='email'
+                  className='signup__input email'
                 />
 
                 <div><small className='signup__error'>{errors.email}</small></div>
 
-                <input 
-                  type='password' 
-                  placeholder='Contraseña' 
-                  name='password' 
-                  id='password' 
-                  className='signup__input password' 
+                <input
+                  type='password'
+                  placeholder='Contraseña'
+                  name='password'
+                  id='password'
+                  className='signup__input password'
                 />
 
                 <div><small className='signup__error'>{errors.password}</small></div>
 
-                <input 
-                  type='password' 
-                  placeholder='Repetir contraseña' 
-                  name='confirmPassword' 
-                  id='confirmPassword' 
-                  className='signup__input password' 
+                <input
+                  type='password'
+                  placeholder='Repetir contraseña'
+                  name='confirmPassword'
+                  id='confirmPassword'
+                  className='signup__input password'
                 />
 
                 <div><small className='signup__error'>{errors.confirmPassword}</small></div>
 
-                <button type='button' 
-                  onClick={handleSignupConsultant} 
-                  className='signup__consultant__submit'>
+                <button
+                  type='button'
+                  onClick={handleSignupConsultant}
+                  className='signup__consultant__submit'
+                >
                   <img src={arrowR} alt='siguiente parte del cuestionario' />
                 </button>
 
               </fieldset>
               <fieldset className='signup__form__fieldset right'>
                 <div className='signup__title__header'>
-                  <button type='button' 
-                    className='signup__back__button' 
-                    onClick={handleBack}><img src={arrowL} 
-                    alt='volver' />
+                  <button
+                    type='button'
+                    className='signup__back__button'
+                    onClick={handleBack}
+                  >
+                    <img
+                      src={arrowL}
+                      alt='volver'
+                    />
                   </button>
 
-                <h2 className='signup__form__consultant__title'>Profesional</h2>
+                  <h2 className='signup__form__consultant__title'>Profesional</h2>
                 </div>
-                <select 
-                  name='profesion' 
-                  id='profesion' 
-                  onChange={handleSpecialities} 
-                  className='signup__input profesion'>
+                <select
+                  name='sector'
+                  id='sector'
+                  className='signup__input sector'
+                >
+                  <option value=''>Sector</option>
+                  {Sector}
+                </select>
+
+                <div><small className='signup__error'>{errors.profesion}</small></div>
+                <select
+                  name='profesion'
+                  id='profesion'
+                  onChange={handleSpecialities}
+                  className='signup__input profesion'
+                >
                   <option value=''>Profesión</option>
                   {Professions}
                 </select>
 
                 <div><small className='signup__error'>{errors.profesion}</small></div>
-                <select 
-                  name='especialidad' id='especialidad' className='signup__input especialidad'>
+                <select
+                  name='especialidad'
+                  id='especialidad'
+                  className='signup__input especialidad'
+                >
                   <option value=''>Especialidad</option>
                   {Speciality}
                 </select>
-               <div><small className='signup__error'>{errors.especialidad}</small></div>
-               
-                <textarea 
-                  name='habilidades' 
-                  id='habilidades' 
-                  name='abilities' 
-                  cols='30' rows='5' 
-                  placeholder='Escribe tres habilidades y sepáralas con comas, podrás cambiarlas luego, así que no te preocupes si luego quieres variar.' 
-                  className='signup__input textarea' 
+                <div><small className='signup__error'>{errors.especialidad}</small></div>
+
+                <textarea
+                  name='habilidades'
+                  id='habilidades'
+                  name='abilities'
+                  cols='30'
+                  rows='5'
+                  placeholder='Escribe tres habilidades y sepáralas con comas, podrás cambiarlas luego, así que no te preocupes si luego quieres variar.'
+                  className='signup__input textarea'
                 />
 
                 <label htmlFor='cv' className='signup__input__cv'>
@@ -401,12 +430,13 @@ const Signup = (props) => {
                   </p>
                 </label>
 
-                <button  
-                  type='submit' 
-                  name= 'rol'
-                  id= 'rol'
-                  value= 'consultant'
-                  className='signup__consultant__submit'>
+                <button
+                  type='submit'
+                  name='rol'
+                  id='rol'
+                  value='consultant'
+                  className='signup__consultant__submit'
+                >
                   <img src={check} alt='termina el cuestionario' />
                 </button>
 
@@ -436,82 +466,89 @@ const Signup = (props) => {
           <form onSubmit={handleSubmit} id='signup__client__form' className='signup__form'>
             <div id='signup__form__content' className='signup__form__content'>
               <fieldset className='signup__form__fieldset left'>
-               
-                <input required 
-                  type='text' 
-                  placeholder='Nombre' 
-                  name='name' 
-                  id='name' 
-                  className='signup__input name' 
+
+                <input
+                  required
+                  type='text'
+                  placeholder='Nombre'
+                  name='name'
+                  id='name'
+                  className='signup__input name'
                 />
 
                 <div><small className='signup__error'>{errors.name}</small></div>
 
-                <input required 
-                  type='text' 
-                  placeholder='Apellido' 
-                  name='lastname' 
-                  id='lastname' 
-                  className='signup__input name' 
+                <input
+                  required
+                  type='text'
+                  placeholder='Apellido'
+                  name='lastname'
+                  id='lastname'
+                  className='signup__input name'
                 />
 
                 <div><small className='signup__error'>{errors.name}</small></div>
 
-                <input required 
+                <input
+                  required
                   type='number'
-                  placeholder='Cédula' 
-                  name='id' 
-                  id='id' 
-                  className='signup__input id' 
+                  placeholder='Cédula'
+                  name='id'
+                  id='id'
+                  className='signup__input id'
                 />
 
                 <div><small className='signup__error'>{errors.id}</small></div>
 
-                <input required 
-                  type='tel' 
-                  placeholder='Teléfono' 
-                  name='tel' id='tel' 
-                  className='signup__input tel' 
+                <input
+                  required
+                  type='tel'
+                  placeholder='Teléfono'
+                  name='tel'
+                  id='tel'
+                  className='signup__input tel'
                 />
                 <div><small className='signup__error'>{errors.tel}</small></div>
-                
+
                 <ReactFlagsSelect
                   placeholder='Seleccionar país'
                   selected={selected}
                   className='signup__input'
                   onSelect={(e) => { setSelected(e); }}
-                  countries={["AR", "AG", "BB", "BM", "BO", "BR", "BS", "BZ", "CL", "CO", "CR", "CU", "CW", "DM", "DO", "EC", "SV", "GT", "JM", "MX", "PA", "PY", "PE", "PR", "UY", "VE"]}
+                  countries={['AR', 'AG', 'BB', 'BM', 'BO', 'BR', 'BS', 'BZ', 'CL', 'CO', 'CR', 'CU', 'CW', 'DM', 'DO', 'EC', 'SV', 'GT', 'JM', 'MX', 'PA', 'PY', 'PE', 'PR', 'UY', 'VE']}
                 />
 
               </fieldset>
               <fieldset className='signup__form__fieldset right'>
-                <input  required
-                  type='email' 
-                  placeholder='Correo electrónico' 
-                  name='email' 
+                <input
+                  required
+                  type='email'
+                  placeholder='Correo electrónico'
+                  name='email'
                   id='email'
-                   className='signup__input email' 
+                  className='signup__input email'
                 />
 
                 <div><small className='signup__error'>{errors.email}</small></div>
 
-                <input required 
-                  type='password' 
-                  placeholder='Contraseña' 
-                  name='password' 
-                  id='password' 
+                <input
+                  required
+                  type='password'
+                  placeholder='Contraseña'
+                  name='password'
+                  id='password'
                   className='signup__input password'
                 />
 
                 <div><small className='signup__error'>{errors.password}</small></div>
 
-                <input 
-                  type='password' 
-                  placeholder='Repetir contraseña' 
-                  name='confirmPassword' 
+                <input
+                  type='password'
+                  placeholder='Repetir contraseña'
+                  name='confirmPassword'
                   id='confirmPassword'
-                  className='signup__input password' 
-                 />
+                  className='signup__input password'
+                />
                 <div><small className='signup__error'>{errors.confirmPassword}</small></div>
 
                 <button type='submit' className='signup__submit' name='rol' value='client' id='rol'>Registrarme</button>
