@@ -5,54 +5,83 @@ const Cliente = require('../models/Client');
 mrwitCtrl.getConsultores = async (req, res) => {
 
   if (req.query) {
-    const { category, proffession, ability, id, country } = req.query;
+    console.log(req.query);
+    const { category, proffession, especialidad, ability, id, country } = req.query;
 
-    if (req.query.category) {
-      const consultores = await Consultor.find(
-        { category: { $in: category } },
+    if (!req.query.category) {
+      if (!req.query.proffession) {
+        const consultores = await Consultor.find();
+        res.status(200).json(consultores);
+      } else if (req.query.proffession) {
+        if (!req.query.especialidad) {
+          const consultores = await Consultor.find(
+            { profession: { $in: proffession } },
+          );
+          res.status(200).json(consultores);
+        } else if (req.query.especialidad) {
+          const consultores = await Consultor.find(
+            {
+              $and: [
+                { profession: { $in: proffession } },
+                { especialidad: { $in: especialidad } },
+              ],
+            },
+          );
+          res.status(200).json(consultores);
+        }
+      }
+    } else if (req.query.category) {
+      if (!req.query.proffession) {
+        const consultores = await Consultor.find(
+          { category: { $in: category } },
 
-      );
-      res.status(200).json(consultores);
+        );
+        res.status(200).json(consultores);
+      } else if (req.query.proffession) {
+        const consultores = await Consultor.find(
+          {
+            $and: [
+              { category: { $in: category } },
+              { profession: { $in: proffession } },
+            ],
+          },
+        );
+        res.status(200).json(consultores);
+
+      }
     }
 
-    if (req.query.proffession) {
-      const consultores = await Consultor.find(
-        { profession: { $in: proffession } },
-      );
+    /*  if (req.query.proffession) {
 
-      res.status(200).json(consultores);
-    }
+     }
 
-    if (req.query.ability) {
-      const consultores = await Consultor.find(
-        { abilities: { $in: ability } },
-      );
+     if (req.query.ability) {
+         const consultores = await Consultor.find(
+             {abilities: {$in: ability}},
+         );
 
-      res.status(200).json(consultores);
-    }
+         res.status(200).json(consultores);
+     }
 
-    if (req.query.id) {
-      const consultores = await Consultor.find(
-        { _id: { $in: id } },
-      );
+     if (req.query.id) {
+         const consultores = await Consultor.find(
+             {_id: {$in: id}},
+         );
 
-      res.status(200).json(consultores);
-    }
+         res.status(200).json(consultores);
+     }
 
-    if (req.query.country) {
-      const consultores = await Consultor.find(
-        { country: { $in: country } },
-      );
+     if (req.query.country) {
+         const consultores = await Consultor.find(
+             {country: {$in: country}},
+         );
 
-      res.status(200).json(consultores);
-    }
+         res.status(200).json(consultores);
+     }
+ }
+
+  */
   }
-
-  if (!req.query.category || !req.query.profession || !req.query.ability || !req.query.id || req.query.country) {
-    const consultores = await Consultor.find();
-    res.status(200).json(consultores);
-  }
-
 };
 
 mrwitCtrl.getConsultor = async (req, res) => {

@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import statusReducers from '../reducers/statusReducers';
 import * as actionsStatus from '../actions';
+import axios from 'axios'
+
 import '../assets/styles/containers/Login.scss';
 import icon from '../assets/static/logo/mrwit-logo.png';
 import background from '../assets/static/images/background1.png';
@@ -26,9 +28,17 @@ const Login = (props) => {
   }
 
   function handleLogin() {
-    props.setUser('client');
-    props.setIsOnline(true);
-    history.push('/');
+    const user =  {
+      email: email.value, 
+      password: password.value   
+    }
+    console.log(user)
+    const res = axios.post('http://localhost:3000/signin', user )          
+        .then ( res =>  {
+          console.log(res.data);
+          history.push('/');
+        })
+        .catch(e => console.log(e))  
   }
 
   return (
@@ -37,9 +47,23 @@ const Login = (props) => {
       <div className='login__container'>
         <img className='login__logo' src={icon} alt='logo MrWit' />
         <h2>¡Hola! Bienvenido de nuevo, que bueno verte por aquí, antes de continuar recuerda identificarte.</h2>
-        <input type='email' name='email' id='email' placeholder='Correo electrónico' className='signup__input' />
-        <input type='password' name='country' id='country' placeholder='Contraseña' className='signup__input' />
+        <input 
+          type='email' 
+          name='email' 
+          id='email' 
+          placeholder='Correo electrónico' 
+          className='signup__input' 
+        />
+
+        <input type='password' 
+          name='password' 
+          id='password' 
+          placeholder='Contraseña' 
+          className='signup__input' 
+        />
+
         <button className='signup__submit signup__button' onClick={handleLogin} type='submit'>Iniciar sersión</button>
+
         <button type='button' onClick={handleLogin} className='signup__facebook signup__button'>
           <img src={facebook} alt='icon' />
           Registrarme con Facebook
