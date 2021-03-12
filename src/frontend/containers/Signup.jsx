@@ -41,8 +41,10 @@ const Signup = (props) => {
     email: '',
     password: '',
     confirmPassword: '',
+    file: null
   });
   const [selected, setSelected] = useState('');
+  const [file, setFile] = useState(null);
   const [errors, setErrors] = useState({});
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [data, setData] = useState([]);
@@ -89,25 +91,41 @@ const Signup = (props) => {
       .catch((e) => console.log(e));
   }
 
+  const handlepic = e => {
+    //console.log(e.target.value);
+    setFile(e.target.files[0]);
+
+  };
+
+
   function handleSubmitConsultant(event) {
     event.preventDefault();
-    const user = {
-      name: name.value,
-      picture: picture.value,
-      lastname: lastname.value,
-      email: email.value,
-      password: password.value,
-      tel: tel.value,
-      date: date.value,
-      //country: country.value,
-      profesion: profesion.value,
-      especialidad: especialidad.value,
-      abilities: habilidades.value,
-      policy: policy.value,
-      rol: rol.value,
+
+    const data = new FormData();
+    data.append('picture', file);
+    data.append('email', email.value);
+    data.append('password', password.value);
+    data.append('name', name.value);
+    data.append('lastname', lastname.append);
+    data.append('tel', tel.append);
+    data.append('date', date.value);
+   // data.append('country', country.append);
+    data.append('profesion', profesion.value);
+    data.append('especialidad', especialidad.value);
+    data.append('abilities', habilidades.value);
+    data.append('policy', policy.value);
+    data.append('rol', rol.value);
+
+
+    const config = {
+      headers: {
+          'content-type': 'multipart/form-data'
+      }
     };
-    console.log(user);
-    const res = axios.post('http://localhost:3000/signup', user)
+    const res = axios.post('http://localhost:3000/signup', 
+              data,
+              config
+              )
       .then((res) => {
         console.log(res.data);
         history.push('/');
@@ -253,7 +271,13 @@ const Signup = (props) => {
                 <h2 className='signup__form__consultant__title'>Personal</h2>
                 <label htmlFor='picture' className='input_photo_label'>
                   <img src={camera} alt='Escoge tu imágen de perfil' />
-                  <input type='file' name='picture' id='picture' className='signup__input__file' />
+                  <input 
+                    type='file' 
+                    name='picture' 
+                    id='picture' 
+                    className='signup__input__file' 
+                    onChange={handlepic}
+                  />
                 </label>
                 <span className='input_photo_label_text'>Agregar foto</span>
                 <input

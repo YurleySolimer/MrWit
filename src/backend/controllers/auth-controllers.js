@@ -8,7 +8,6 @@ const Roles = require('../models/Roles');
 
 
 authCtrl.postNewUser = async (req, res) => {
-    console.log(req.body)
 
     //NewUser
     const { name, lastname, email, password, rol } = req.body;
@@ -61,6 +60,8 @@ authCtrl.postNewUser = async (req, res) => {
     const status = {
         online: true
     }
+
+    console.log(req)
     
 
     if (req.files) {
