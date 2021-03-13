@@ -70,7 +70,7 @@ app.use(require('./routes/blog'));
 app.use(require('./routes/auth'));
 
 //Socket
-/* io.on("connection", (socket) => {
+ io.on("connection", (socket) => {
   socket.on("join-room", (roomId, userId) => {
     socket.join(roomId);
     socket.to(roomId).broadcast.emit("user-connected", userId);
@@ -78,19 +78,9 @@ app.use(require('./routes/auth'));
       io.to(roomId).emit("createMessage", message);
     });
   });
-}); */
+}); 
 
-io.on('connection', socket => {
-  console.log('socket established')
-  socket.on('join-room', (userData) => {
-      const { roomID, userID } = userData;
-      socket.join(roomID);
-      socket.to(roomID).broadcast.emit('new-user-connect', userData);
-      socket.on('disconnect', () => {
-          socket.to(roomID).broadcast.emit('user-disconnected', userID);
-      });
-  });
-});
+
 
 
 //Passport setting
