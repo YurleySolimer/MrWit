@@ -22,6 +22,10 @@ import ConsultantFavorite from '../containers/ConsultantFavorite';
 import Prueba from '../Prueba';
 import pruebaRegistro from '../pruebaRegistro';
 
+import HomeCall from '../videollamada/home';
+import RoomComponent from '../videollamada/roomComponent';
+
+
 
 const App = () => (
   <BrowserRouter>
@@ -30,6 +34,10 @@ const App = () => (
         <Route exact path='/' component={Home} />
         <Route exact path='/prueba' component={Prueba} />
         <Route exact path='/pruebaRegistro' component={pruebaRegistro} />
+
+        <Route exact path='/homeCall' component={HomeCall} />
+        <Route path="/join/:id" component={RoomComponent} />
+
 
         <Route exact path='/login' component={Login} />
         <Route exact path='/signup' component={Signup} />

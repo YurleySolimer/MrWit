@@ -37,8 +37,9 @@ router.post('/busqueda', (req, res) => {
 router.get('/resultados', getConsultores);
 
 router.get('/join', (req, res) => { 
-    console.log('hola')
-    res.redirect(`/room/${uuidv4()}`);
+    //res.redirect(`/room/${uuidv4()}`);
+    res.send({ link: uuidv4() });
+
 });
 
 router.get("/room/:room", (req, res) => {
