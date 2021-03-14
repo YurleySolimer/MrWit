@@ -1,7 +1,7 @@
 @import '../Vars.scss';
 
 .Feedback {
-    position: absolute;
+    position: relative;
     width: 350px;
     height: auto;
     background-color: white;
@@ -9,7 +9,7 @@
     box-shadow: $outter-shadow;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 30px;
+    top: 85px;
     display: flex;
     text-align: center;
 }

@@ -9,7 +9,6 @@ import '../assets/styles/components/Searcher.scss';
 import background from '../assets/static/images/background1.png';
 
 import CircleCarousel from '../components/CircleCarousel';
-import SearchElements from '../components/SearchElements';
 import Feedback from '../components/Feedback';
 import DataJSON from '../../professions';
 
@@ -36,10 +35,10 @@ const Search = ({ user, isOnline }) => {
   };
 
   const handleValue = (e) => {
+    setValueResult(e);
     for (let i = 0; i < DataJSON.length; i++) {
       if (Object.getOwnPropertyNames(DataJSON[i])[0] === e) {
         const info = DataJSON[i];
-        setValueResult(e);
         setSpecialities(info[e]);
       } else {
         i++;
@@ -51,31 +50,17 @@ const Search = ({ user, isOnline }) => {
     setValueSelection(e);
   };
 
-  if (user === 'client' && !isOnline) {
-    return (
-      <div className='searchConsultant'>
-        <div className='searchName__title'>
-          <h2 className='searchName__title__message'>Encuentra tu consultor ideal</h2>
-        </div>
-        <img className='background' src={background} alt='' />
-        <Searcher setValueResult={handleValue} setResults={handleSearch} />
-        <input type="hidden" name="selection1" value={valueResult} />
-        <input type="hidden" name="selection2" value={valueSelection} />
-        <Feedback name='Luis Fernando Méndez' country='Medellín, CO' description='“Me encantó la experiencia, pude resolver los problemas de contabilidad de mi empresa con una sola llamada, es súper práctico”' />
-      </div>
-    );
-  };
-
   if (user === 'client' && !isOnline && results === 'sector') {
+    console.log('entre al escenario del sector y el value es ', valueResult);
     return (
       <div className='searchConsultant'>
         <div className='searchName__title'>
           <h2 className='searchName__title__message'>Encuentra tu consultor ideal</h2>
         </div>
         <img className='background' src={background} alt='' />
-        <Searcher setValueResult={handleValue} setResults={handleSearch} />
-        <input type="hidden" name="selection1" value={valueResult} />
-        <input type="hidden" name="selection2" value={valueSelection} />
+        <Searcher isOffline={true} setValueResult={handleValue} setResults={handleSearch} />
+        <input type='hidden' name='selection1' value={valueResult} />
+        <input type='hidden' name='selection2' value={valueSelection} />
         <CircleCarousel specialities={specialities} setValue={handleValueSelection} value={valueResult} searchTerm='Sector' />
         <Feedback name='Luis Fernando Méndez' country='Medellín, CO' description='“Me encantó la experiencia, pude resolver los problemas de contabilidad de mi empresa con una sola llamada, es súper práctico”' />
       </div>
@@ -83,47 +68,64 @@ const Search = ({ user, isOnline }) => {
   };
 
   if (user === 'client' && !isOnline && results === 'profession') {
+    console.log('entre a este escenario de profesión y el value es: ', valueResult);
     return (
       <div className='searchConsultant'>
         <div className='searchName__title'>
           <h2 className='searchName__title__message'>Encuentra tu consultor ideal</h2>
         </div>
         <img className='background' src={background} alt='' />
-        <Searcher setValueResult={handleValue} setResults={handleSearch} />
-        <input type="hidden" name="selection1" value={valueResult} />
-        <input type="hidden" name="selection2" value={valueSelection} />
+        <Searcher isOffline={true} setValueResult={handleValue} setResults={handleSearch} />
+        <input type='hidden' name='selection1' value={valueResult} />
+        <input type='hidden' name='selection2' value={valueSelection} />
         <CircleCarousel specialities={specialities} setValue={handleValueSelection} value={valueResult} searchTerm='Profesión' />
-        {/* <SearchElements link='/resultados' className='eight' title='Especialidad' /> */}
         <Feedback name='Luis Fernando Méndez' country='Medellín, CO' description='“Me encantó la experiencia, pude resolver los problemas de contabilidad de mi empresa con una sola llamada, es súper práctico”' />
       </div>
     );
   };
 
-  if (user === 'client' && results === 'sector') {
+  if (user === 'client' && !isOnline) {
+    console.log('Estoy sin escoger nada');
+    console.log('El resultado es', results);
+    return (
+      <div className='searchConsultant'>
+        <div className='searchName__title'>
+          <h2 className='searchName__title__message'>Encuentra tu consultor ideal</h2>
+        </div>
+        <img className='background' src={background} alt='' />
+        <Searcher isOffline={true} setValueResult={handleValue} setResults={handleSearch} />
+        <input type='hidden' name='selection1' value={valueResult} />
+        <input type='hidden' name='selection2' value={valueSelection} />
+        <Feedback name='Luis Fernando Méndez' country='Medellín, CO' description='“Me encantó la experiencia, pude resolver los problemas de contabilidad de mi empresa con una sola llamada, es súper práctico”' />
+      </div>
+    );
+  };
+
+  if (user === 'client' && isOnline && results === 'sector') {
     return (
       <div className='searchConsultant online' onScroll={handleHeader} id='searchConsultant'>
         <div className='searchName__title'>
           <h2 className='searchName__title__message'>Encuentra tu consultor ideal</h2>
         </div>
         <img className='background' src={background} alt='' />
-        <Searcher setValueResult={handleValue} setResults={handleSearch} />
-        <input type="hidden" name="selection1" value={valueResult} />
-        <input type="hidden" name="selection2" value={valueSelection} />
+        <Searcher isOffline={false} setValueResult={handleValue} setResults={handleSearch} />
+        <input type='hidden' name='selection1' value={valueResult} />
+        <input type='hidden' name='selection2' value={valueSelection} />
         <CircleCarousel specialities={specialities} setValue={handleValueSelection} value={valueResult} searchTerm='Sector' />
       </div>
     );
   };
 
-  if (user === 'client' && results === 'profession') {
+  if (user === 'client' && isOnline && results === 'profession') {
     return (
       <div className='searchConsultant online' onScroll={handleHeader} id='searchConsultant'>
         <div className='searchName__title'>
           <h2 className='searchName__title__message'>Encuentra tu consultor ideal</h2>
         </div>
         <img className='background' src={background} alt='' />
-        <Searcher setValueResult={handleValue} setResults={handleSearch} />
-        <input type="hidden" name="selection1" value={valueResult} />
-        <input type="hidden" name="selection2" value={valueSelection} />
+        <Searcher isOffline={false} setValueResult={handleValue} setResults={handleSearch} />
+        <input type='hidden' name='selection1' value={valueResult} />
+        <input type='hidden' name='selection2' value={valueSelection} />
         <CircleCarousel specialities={specialities} setValue={handleValueSelection} value={valueResult} searchTerm='Profesión' />
       </div>
     );
@@ -136,9 +138,9 @@ const Search = ({ user, isOnline }) => {
           <h2 className='searchName__title__message'>Encuentra tu consultor ideal</h2>
         </div>
         <img className='background' src={background} alt='' />
-        <Searcher setValueResult={handleValue} setResults={handleSearch} />
-        <input type="hidden" name="selection1" value={valueResult} />
-        <input type="hidden" name="selection2" value={valueSelection} />
+        <Searcher isOffline={false} setValueResult={handleValue} setResults={handleSearch} />
+        <input type='hidden' name='selection1' value={valueResult} />
+        <input type='hidden' name='selection2' value={valueSelection} />
       </div>
     );
   };

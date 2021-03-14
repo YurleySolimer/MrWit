@@ -7,19 +7,22 @@ const SearchType = (props) => {
   const { setResults, onClose, setValueResult, value, isHome } = props;
   const history = useHistory();
 
-  const val = value.replace(' - Sector', '').replace(' - Profesión', '');
+  function handleSector(e) {
+    const val = value.replace(' - Sector', '');
+    setResults('sector');
+    console.log(val);
+    setValueResult(val);
+    onClose(e);
+  }
 
   function handleProfession(e) {
+    const val = value.replace(' - Profesión', '');
     setResults('profession');
+    console.log(val);
     setValueResult(val);
     onClose(e);
   }
 
-  function handleSector(e) {
-    setResults('sector');
-    setValueResult(val);
-    onClose(e);
-  }
 
   function handleAbility(e) {
     history.push(`/resultados/?habilidad=${val}`);
@@ -53,7 +56,7 @@ const SearchType = (props) => {
     <div className='SearchType'>
       <h2>¿Qué quieres buscar?</h2>
       <button type='button' className='profession' onClick={handleProfession}>Profesión</button>
-      <button type='button' className='sector' onClick={handleSector}>Categoría</button>
+      <button type='button' className='sector' onClick={handleSector}>Sector</button>
       <button type='button' className='ability' onClick={handleAbility}>Habilidad</button>
       <button type='button' className='id' onClick={handleID}>ID</button>
     </div>

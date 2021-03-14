@@ -1,6 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable class-methods-use-this */
+/*tslint:disabled*/
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect, useHistory } from 'react-router-dom';
@@ -41,7 +42,7 @@ const Signup = (props) => {
     email: '',
     password: '',
     confirmPassword: '',
-    file: null
+    file: null,
   });
   const [selected, setSelected] = useState('');
   const [file, setFile] = useState(null);
@@ -50,6 +51,7 @@ const Signup = (props) => {
   const [data, setData] = useState([]);
   const history = useHistory();
   const [specialities, setSpecialities] = useState([]);
+  const [country, setCountry] = useState('');
 
   function handleChange(event) {
     input[event.target.name] = event.target.value;
@@ -91,12 +93,21 @@ const Signup = (props) => {
       .catch((e) => console.log(e));
   }
 
-  const handlepic = e => {
-    //console.log(e.target.value);
+  const handlepic = (e) => {
+    const ca = document.getElementById('cameraIcon');
+    const ch = document.getElementById('checkIcon');
+
+    if (e.target.files[0]) {
+      ch.classList.add('active');
+      ca.classList.remove('active');
+    } else {
+      ca.classList.add('active');
+      ch.classList.remove('active');
+    }
+
     setFile(e.target.files[0]);
 
   };
-
 
   function handleSubmitConsultant(event) {
     event.preventDefault();
@@ -109,23 +120,21 @@ const Signup = (props) => {
     data.append('lastname', lastname.append);
     data.append('tel', tel.append);
     data.append('date', date.value);
-   // data.append('country', country.append);
+    data.append('country', country.append);
     data.append('profesion', profesion.value);
     data.append('especialidad', especialidad.value);
     data.append('abilities', habilidades.value);
     data.append('policy', policy.value);
     data.append('rol', rol.value);
 
-
     const config = {
       headers: {
-          'content-type': 'multipart/form-data'
-      }
+        'content-type': 'multipart/form-data',
+      },
     };
-    const res = axios.post('http://localhost:3000/signup', 
-              data,
-              config
-              )
+    const res = axios.post('http://localhost:3000/signup',
+      data,
+      config)
       .then((res) => {
         console.log(res.data);
         history.push('/');
@@ -257,6 +266,17 @@ const Signup = (props) => {
     return (<Redirect to='/' />);
   }
  */
+
+  const ChangeSelect = (e) => {
+    setSelected(e);
+    setCountry(e);
+  };
+
+  const handleDate = () => {
+    const date = document.getElementById('date');
+    date.setAttribute('type', 'date');
+  };
+
   if (user === 'consultant') {
     return (
       <section className='Signup'>
@@ -270,12 +290,13 @@ const Signup = (props) => {
               <fieldset className='signup__form__fieldset left'>
                 <h2 className='signup__form__consultant__title'>Personal</h2>
                 <label htmlFor='picture' className='input_photo_label'>
-                  <img src={camera} alt='Escoge tu imágen de perfil' />
-                  <input 
-                    type='file' 
-                    name='picture' 
-                    id='picture' 
-                    className='signup__input__file' 
+                  <img src={camera} id='cameraIcon' className='active' alt='Escoge tu imágen de perfil' />
+                  <img src={check} id='checkIcon' className='' alt='Escoge tu imágen de perfil' />
+                  <input
+                    type='file'
+                    name='picture'
+                    id='picture'
+                    className='signup__input__file'
                     onChange={handlepic}
                   />
                 </label>
@@ -304,7 +325,7 @@ const Signup = (props) => {
 
                 <input
                   required
-                  type='tel'
+                  type='number'
                   placeholder='Teléfono'
                   name='tel'
                   id='tel'
@@ -315,7 +336,8 @@ const Signup = (props) => {
 
                 <input
                   required
-                  type='date'
+                  type='text'
+                  onFocus={handleDate}
                   placeholder='Fecha de nacimiento'
                   name='date'
                   id='date'
@@ -325,12 +347,14 @@ const Signup = (props) => {
                 <div><small className='signup__error'>{errors.date}</small></div>
 
                 <ReactFlagsSelect
+                  id='CountrySelectList'
                   placeholder='Seleccionar país'
                   selected={selected}
                   className='signup__input'
-                  onSelect={(e) => { setSelected(e); }}
+                  onSelect={(e) => { ChangeSelect(e); }}
                   countries={['AR', 'AG', 'BB', 'BM', 'BO', 'BR', 'BS', 'BZ', 'CL', 'CO', 'CR', 'CU', 'CW', 'DM', 'DO', 'EC', 'SV', 'GT', 'JM', 'MX', 'PA', 'PY', 'PE', 'PR', 'UY', 'VE']}
                 />
+                <input type='hidden' name='country' value={country} id='country' />
 
                 <div><small className='signup__error'>{errors.country}</small></div>
 
@@ -538,7 +562,7 @@ const Signup = (props) => {
                   placeholder='Seleccionar país'
                   selected={selected}
                   className='signup__input'
-                  onSelect={(e) => { setSelected(e); }}
+                  onSelect={(e) => { ChangeSelect(e); }}
                   countries={['AR', 'AG', 'BB', 'BM', 'BO', 'BR', 'BS', 'BZ', 'CL', 'CO', 'CR', 'CU', 'CW', 'DM', 'DO', 'EC', 'SV', 'GT', 'JM', 'MX', 'PA', 'PY', 'PE', 'PR', 'UY', 'VE']}
                 />
 

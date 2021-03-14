@@ -48,7 +48,7 @@ const CircleCarousel = ({ value, searchTerm, setValue, specialities }) => {
         <div className='CircleCarousel__carousel'>
           <ul className='circle-container'>
             <li>
-              <SearchElements value='more' handler={handleMore} title='More' more={true} />
+              <SearchElements value='more' handler={handleMore} title='Más opciones' more={true} />
             </li>
             {firstReturn}
           </ul>
@@ -113,7 +113,7 @@ const CircleCarousel = ({ value, searchTerm, setValue, specialities }) => {
           <div className='CircleCarousel__carousel'>
             <ul className='circle-container'>
               <li>
-                <SearchElements value='more' handler={handleMore} title='More' more={true} />
+                <SearchElements value='more' handler={handleMore} title='Más opciones' more={true} />
               </li>
               {firstReturn}
             </ul>

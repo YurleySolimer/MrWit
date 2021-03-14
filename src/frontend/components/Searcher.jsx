@@ -9,7 +9,7 @@ const Searcher = (props) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [value, setValue] = useState('');
-  const { setResults, isHome, setValueResult } = props;
+  const { setResults, isHome, setValueResult, isOffline } = props;
 
   function handleValue() {
     const input = document.getElementById('searcher');
@@ -143,6 +143,20 @@ const Searcher = (props) => {
         </button>
         <Modal isOpen={isOpen} onClose={handleClose}>
           <SearchType setValueResult={setValueResult} value={value} onClose={handleClose} isHome={true} setResults={setResults} />
+        </Modal>
+      </div>
+    );
+  }
+
+  if (isOffline) {
+    return (
+      <div className='Search autocomplete offline'>
+        <input type='text' placeholder='¿Qué necesitas?' className='Search__input' id='searcher' />
+        <button type='submit' onClick={handleOpen} className='Search__submit'>
+          <img src={lupa} alt='Buscador' />
+        </button>
+        <Modal isOpen={isOpen} onClose={handleClose}>
+          <SearchType setValueResult={setValueResult} value={value} onClose={handleClose} setResults={setResults} />
         </Modal>
       </div>
     );

@@ -329,3 +329,11 @@
     margin: 10px auto 20px;
     color: $half-gray;
 }
+
+#cameraIcon.active, #checkIcon.active {
+    display: block;
+}
+
+#cameraIcon, #checkIcon {
+    display: none;
+}

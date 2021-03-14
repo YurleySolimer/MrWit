@@ -1,6 +1,6 @@
 const INITIAL_STATE = {
-  user: 'consultant',
-  isOnline: true,
+  user: 'client',
+  isOnline: false,
   isCall: false,
   name: 'Luis Fernando',
   currency: 'COP',
