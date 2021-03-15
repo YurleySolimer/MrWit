@@ -31,18 +31,22 @@ import DataSectors from '../../sectors';
 import ScheduleModal from '../portals/Schedule';
 import Modal from '../portals/Modal';
 
-const Signup = (props) => {
+const Signup = ({ isOnline, user }) => {
   const [input, setInput] = useState({
     name: '',
     lastname: '',
-    id: '',
     tel: '',
-    gender: '',
-    country: '',
-    email: '',
+    file: null,
     password: '',
     confirmPassword: '',
-    file: null,
+    email: '',
+    dni: '',
+    date: '',
+    country: '',
+    sector: '',
+    profesion: '',
+    especialidad: '',
+    abilities: [],
   });
   const [selected, setSelected] = useState('');
   const [file, setFile] = useState(null);
@@ -51,12 +55,8 @@ const Signup = (props) => {
   const [data, setData] = useState([]);
   const history = useHistory();
   const [specialities, setSpecialities] = useState([]);
-  const [country, setCountry] = useState('');
 
-  function handleChange(event) {
-    input[event.target.name] = event.target.value;
-    setInput({ input });
-  }
+  
 
   function handleSubmit(event) {
     // if (validate()) {
@@ -75,13 +75,13 @@ const Signup = (props) => {
     // }
     event.preventDefault();
     const user = {
-      name: name.value,
-      lastname: lastname.value,
-      email: email.value,
-      password: password.value,
-      phone: tel.value,
-      dni: id.value,
-      //country: country.value,
+      name: input.name,
+      lastname: input.lastname,
+      email: input.email,
+      password: input.password,
+      phone: input.tel,
+      dni: input.dni,
+      country: input.country,
       rol: rol.value,
     };
     console.log(user);
@@ -113,17 +113,17 @@ const Signup = (props) => {
     event.preventDefault();
 
     const data = new FormData();
+    data.append('name', input.name);
+    data.append('lastname', input.lastname);
+    data.append('tel', input.tel);
     data.append('picture', file);
-    data.append('email', email.value);
-    data.append('password', password.value);
-    data.append('name', name.value);
-    data.append('lastname', lastname.append);
-    data.append('tel', tel.append);
-    data.append('date', date.value);
-    data.append('country', country.append);
-    data.append('profesion', profesion.value);
-    data.append('especialidad', especialidad.value);
-    data.append('abilities', habilidades.value);
+    data.append('email', input.email);
+    data.append('password', input.password);
+    data.append('date', input.date);
+    data.append('country', input.country);
+    data.append('profesion', input.profesion);
+    data.append('especialidad', input.especialidad);
+    data.append('abilities', input.abilities);
     data.append('policy', policy.value);
     data.append('rol', rol.value);
 
@@ -132,6 +132,7 @@ const Signup = (props) => {
         'content-type': 'multipart/form-data',
       },
     };
+
     const res = axios.post('http://localhost:3000/signup',
       data,
       config)
@@ -200,6 +201,16 @@ const Signup = (props) => {
     return isValid;
   }
 
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setInput({
+      ...input,
+      [name]: value,
+    });
+    console.log(input);
+    validate();
+  }
+
   function handleSignupConsultant(event) {
     const formContent = document.getElementById('signup__form__content');
     const status = document.getElementById('signup__form__indicator__inner');
@@ -249,12 +260,39 @@ const Signup = (props) => {
     for (let i = 0; i < DataJSON.length; i++) {
       if (Object.getOwnPropertyNames(DataJSON[i])[0] === value) {
         const info = DataJSON[i];
-        setSpecialities(info[value]);
+        const select = document.getElementById('especialidad');
+        const input = document.getElementById('especialidad2');
+        if (info[value].length) {
+          select.classList.remove('hidden');
+          input.classList.add('hidden');
+          setSpecialities(info[value]);
+        } else {
+          input.classList.remove('hidden');
+          select.classList.add('hidden');
+        }
       }
     }
+    setInput({
+      ...input,
+      profesion: value,
+    });
   }
 
-  const { isOnline, user } = props;
+  const handleAbilities = (e) => {
+
+    const abilities = document.getElementById('habilidades');
+    const arr = abilities.value.split(',');
+
+    if (arr.length === 4) {
+      abilities.setAttribute('readonly', true);
+    }
+    const { name } = e.target;
+    setInput({
+      ...input,
+      [name]: [...arr],
+    });
+    console.log(input);
+  };
   // eslint-disable-next-line react/destructuring-assignment
 
   const arrayOfSectors = DataSectors.sectors;
@@ -269,7 +307,10 @@ const Signup = (props) => {
 
   const ChangeSelect = (e) => {
     setSelected(e);
-    setCountry(e);
+    setInput({
+      ...input,
+      country: e,
+    });
   };
 
   const handleDate = () => {
@@ -302,6 +343,8 @@ const Signup = (props) => {
                 </label>
                 <span className='input_photo_label_text'>Agregar foto</span>
                 <input
+                  value={input.name}
+                  onChange={handleChange}
                   required
                   type='text'
                   placeholder='Nombre'
@@ -313,6 +356,8 @@ const Signup = (props) => {
                 <div><small className='signup__error'>{errors.name}</small></div>
 
                 <input
+                  value={input.lastname}
+                  onChange={handleChange}
                   required
                   type='text'
                   placeholder='Apellido'
@@ -324,6 +369,8 @@ const Signup = (props) => {
                 <div><small className='signup__error'>{errors.name}</small></div>
 
                 <input
+                  value={input.tel}
+                  onChange={handleChange}
                   required
                   type='number'
                   placeholder='Teléfono'
@@ -335,6 +382,8 @@ const Signup = (props) => {
                 <div><small className='signup__error'>{errors.tel}</small></div>
 
                 <input
+                  value={input.date}
+                  onChange={handleChange}
                   required
                   type='text'
                   onFocus={handleDate}
@@ -354,11 +403,13 @@ const Signup = (props) => {
                   onSelect={(e) => { ChangeSelect(e); }}
                   countries={['AR', 'AG', 'BB', 'BM', 'BO', 'BR', 'BS', 'BZ', 'CL', 'CO', 'CR', 'CU', 'CW', 'DM', 'DO', 'EC', 'SV', 'GT', 'JM', 'MX', 'PA', 'PY', 'PE', 'PR', 'UY', 'VE']}
                 />
-                <input type='hidden' name='country' value={country} id='country' />
+                <input type='hidden' name='country' value={input.country} id='country' />
 
                 <div><small className='signup__error'>{errors.country}</small></div>
 
                 <input
+                  value={input.email}
+                  onChange={handleChange}
                   type='email'
                   placeholder='Correo electrónico'
                   name='email'
@@ -369,6 +420,8 @@ const Signup = (props) => {
                 <div><small className='signup__error'>{errors.email}</small></div>
 
                 <input
+                  value={input.password}
+                  onChange={handleChange}
                   type='password'
                   placeholder='Contraseña'
                   name='password'
@@ -379,6 +432,8 @@ const Signup = (props) => {
                 <div><small className='signup__error'>{errors.password}</small></div>
 
                 <input
+                  value={input.confirmPassword}
+                  onChange={handleChange}
                   type='password'
                   placeholder='Repetir contraseña'
                   name='confirmPassword'
@@ -413,6 +468,8 @@ const Signup = (props) => {
                   <h2 className='signup__form__consultant__title'>Profesional</h2>
                 </div>
                 <select
+                  value={input.sector}
+                  onChange={handleChange}
                   name='sector'
                   id='sector'
                   className='signup__input sector'
@@ -423,6 +480,7 @@ const Signup = (props) => {
 
                 <div><small className='signup__error'>{errors.profesion}</small></div>
                 <select
+                  value={input.profesion}
                   name='profesion'
                   id='profesion'
                   onChange={handleSpecialities}
@@ -434,6 +492,8 @@ const Signup = (props) => {
 
                 <div><small className='signup__error'>{errors.profesion}</small></div>
                 <select
+                  value={input.especialidad}
+                  onChange={handleChange}
                   name='especialidad'
                   id='especialidad'
                   className='signup__input especialidad'
@@ -441,10 +501,11 @@ const Signup = (props) => {
                   <option value=''>Especialidad</option>
                   {Speciality}
                 </select>
+                <input type='text' value={input.especialidad} placeholder='¡Cuéntanos tu especialidad!' onChange={handleChange} name='especialidad' id='especialidad2' className='signup__input especialidad hidden' />
                 <div><small className='signup__error'>{errors.especialidad}</small></div>
-
                 <textarea
-                  name='habilidades'
+                  value={input.abilities}
+                  onChange={handleAbilities}
                   id='habilidades'
                   name='abilities'
                   cols='30'
@@ -516,6 +577,8 @@ const Signup = (props) => {
               <fieldset className='signup__form__fieldset left'>
 
                 <input
+                  value={input.name}
+                  onChange={handleChange}
                   required
                   type='text'
                   placeholder='Nombre'
@@ -527,6 +590,8 @@ const Signup = (props) => {
                 <div><small className='signup__error'>{errors.name}</small></div>
 
                 <input
+                  value={input.lastname}
+                  onChange={handleChange}
                   required
                   type='text'
                   placeholder='Apellido'
@@ -538,17 +603,21 @@ const Signup = (props) => {
                 <div><small className='signup__error'>{errors.name}</small></div>
 
                 <input
+                  value={input.dni}
+                  onChange={handleChange}
                   required
                   type='number'
                   placeholder='Cédula'
-                  name='id'
-                  id='id'
+                  name='dni'
+                  id='dni'
                   className='signup__input id'
                 />
 
                 <div><small className='signup__error'>{errors.id}</small></div>
 
                 <input
+                  value={input.tel}
+                  onChange={handleChange}
                   required
                   type='tel'
                   placeholder='Teléfono'
@@ -565,10 +634,14 @@ const Signup = (props) => {
                   onSelect={(e) => { ChangeSelect(e); }}
                   countries={['AR', 'AG', 'BB', 'BM', 'BO', 'BR', 'BS', 'BZ', 'CL', 'CO', 'CR', 'CU', 'CW', 'DM', 'DO', 'EC', 'SV', 'GT', 'JM', 'MX', 'PA', 'PY', 'PE', 'PR', 'UY', 'VE']}
                 />
+                <input type='hidden' name='country' value={input.country} id='country' />
 
               </fieldset>
+
               <fieldset className='signup__form__fieldset right'>
                 <input
+                  value={input.email}
+                  onChange={handleChange}
                   required
                   type='email'
                   placeholder='Correo electrónico'
@@ -580,6 +653,8 @@ const Signup = (props) => {
                 <div><small className='signup__error'>{errors.email}</small></div>
 
                 <input
+                  value={input.password}
+                  onChange={handleChange}
                   required
                   type='password'
                   placeholder='Contraseña'
@@ -591,6 +666,8 @@ const Signup = (props) => {
                 <div><small className='signup__error'>{errors.password}</small></div>
 
                 <input
+                  value={input.confirmPassword}
+                  onChange={handleChange}
                   type='password'
                   placeholder='Repetir contraseña'
                   name='confirmPassword'

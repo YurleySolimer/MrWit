@@ -59,8 +59,8 @@ const Search = ({ user, isOnline }) => {
         </div>
         <img className='background' src={background} alt='' />
         <Searcher isOffline={true} setValueResult={handleValue} setResults={handleSearch} />
-        <input type='hidden' name='selection1' value={valueResult} />
-        <input type='hidden' name='selection2' value={valueSelection} />
+        <input type='hidden' name='sector' value={valueResult} />
+        <input type='hidden' name='profesion' value={valueSelection} />
         <CircleCarousel specialities={specialities} setValue={handleValueSelection} value={valueResult} searchTerm='Sector' />
         <Feedback name='Luis Fernando Méndez' country='Medellín, CO' description='“Me encantó la experiencia, pude resolver los problemas de contabilidad de mi empresa con una sola llamada, es súper práctico”' />
       </div>
@@ -76,8 +76,8 @@ const Search = ({ user, isOnline }) => {
         </div>
         <img className='background' src={background} alt='' />
         <Searcher isOffline={true} setValueResult={handleValue} setResults={handleSearch} />
-        <input type='hidden' name='selection1' value={valueResult} />
-        <input type='hidden' name='selection2' value={valueSelection} />
+        <input type='hidden' name='profesion' value={valueResult} />
+        <input type='hidden' name='especialidad' value={valueSelection} />
         <CircleCarousel specialities={specialities} setValue={handleValueSelection} value={valueResult} searchTerm='Profesión' />
         <Feedback name='Luis Fernando Méndez' country='Medellín, CO' description='“Me encantó la experiencia, pude resolver los problemas de contabilidad de mi empresa con una sola llamada, es súper práctico”' />
       </div>
@@ -85,8 +85,6 @@ const Search = ({ user, isOnline }) => {
   };
 
   if (user === 'client' && !isOnline) {
-    console.log('Estoy sin escoger nada');
-    console.log('El resultado es', results);
     return (
       <div className='searchConsultant'>
         <div className='searchName__title'>
@@ -94,8 +92,6 @@ const Search = ({ user, isOnline }) => {
         </div>
         <img className='background' src={background} alt='' />
         <Searcher isOffline={true} setValueResult={handleValue} setResults={handleSearch} />
-        <input type='hidden' name='selection1' value={valueResult} />
-        <input type='hidden' name='selection2' value={valueSelection} />
         <Feedback name='Luis Fernando Méndez' country='Medellín, CO' description='“Me encantó la experiencia, pude resolver los problemas de contabilidad de mi empresa con una sola llamada, es súper práctico”' />
       </div>
     );
@@ -109,8 +105,8 @@ const Search = ({ user, isOnline }) => {
         </div>
         <img className='background' src={background} alt='' />
         <Searcher isOffline={false} setValueResult={handleValue} setResults={handleSearch} />
-        <input type='hidden' name='selection1' value={valueResult} />
-        <input type='hidden' name='selection2' value={valueSelection} />
+        <input type='hidden' name='sector' value={valueResult} />
+        <input type='hidden' name='profesion' value={valueSelection} />
         <CircleCarousel specialities={specialities} setValue={handleValueSelection} value={valueResult} searchTerm='Sector' />
       </div>
     );
@@ -124,8 +120,8 @@ const Search = ({ user, isOnline }) => {
         </div>
         <img className='background' src={background} alt='' />
         <Searcher isOffline={false} setValueResult={handleValue} setResults={handleSearch} />
-        <input type='hidden' name='selection1' value={valueResult} />
-        <input type='hidden' name='selection2' value={valueSelection} />
+        <input type='hidden' name='profesion' value={valueResult} />
+        <input type='hidden' name='especialidad' value={valueSelection} />
         <CircleCarousel specialities={specialities} setValue={handleValueSelection} value={valueResult} searchTerm='Profesión' />
       </div>
     );
@@ -139,8 +135,6 @@ const Search = ({ user, isOnline }) => {
         </div>
         <img className='background' src={background} alt='' />
         <Searcher isOffline={false} setValueResult={handleValue} setResults={handleSearch} />
-        <input type='hidden' name='selection1' value={valueResult} />
-        <input type='hidden' name='selection2' value={valueSelection} />
       </div>
     );
   };
