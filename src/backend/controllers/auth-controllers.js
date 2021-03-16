@@ -5,6 +5,8 @@ const Client = require('../models/Client');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
 const Roles = require('../models/Roles');
+const { cli } = require('webpack');
+const { populate } = require('../models/Users');
 
 
 authCtrl.postNewUser = async (req, res) => {
@@ -32,13 +34,18 @@ authCtrl.postNewUser = async (req, res) => {
     //New Cliente
     {
         const { name, lastname, email, phone, dni, country} = req.body;
+        const status = {
+            online: true
+        }
         const newClient = new Client ({
             name,
             lastname,
             email,
             phone,
             dni,
-            country
+            country,
+            user: userSaved._id,
+            status
         });
     
         const clientSaved = await newClient.save();
@@ -59,10 +66,7 @@ authCtrl.postNewUser = async (req, res) => {
 
     const status = {
         online: true
-    }
-
-    console.log(req)
-    
+    }  
 
     if (req.files) {
         const {path, originalname} = req.files[0];
@@ -82,6 +86,7 @@ authCtrl.postNewUser = async (req, res) => {
             abilities,
             horario,
             policy: onPolicy,
+            user: userSaved._id,
             status
 
         });
@@ -114,12 +119,13 @@ authCtrl.postNewUser = async (req, res) => {
         expiresIn: 315360000
     })
     console.log("new user created")
-    res.json({token});
+    res.status(200).json({token});
 };
 
 authCtrl.postSignIn = async (req, res) => {
 
-    const userFound = await (await User.findOne({email: req.body.email})).populate("rol");
+   const userFound = await User.findOne({email: req.body.email}).populate("rol");
+
     if (!userFound) return res.json({message: "User not found"});
 
    const matchPassword = await User.comparePassword(req.body.password, userFound.password);
@@ -129,7 +135,48 @@ authCtrl.postSignIn = async (req, res) => {
        expiresIn: 315360000
    })
 
-    res.json({token})
+
+    if(userFound.rol.name === 'client') {
+        const cliente =  await Client.findOne({email: req.body.email});
+        console.log(cliente)
+        const userCliente = {
+            name: userFound.name || '',
+            lastname: userFound.lastname || '',
+            email: userFound.email || '',
+            rol: userFound.rol || '',
+            id: userFound._id || '',
+            phone: cliente.phone || '',
+            dni: cliente.dni || '',
+            country: cliente.country || '',
+            status: cliente.status,
+            token
+        }
+        console.log(userCliente)
+
+    res.status(200).json(userCliente);
+    }
+    else if(userFound.rol.name === 'consultant') {
+        const consultor =  await Consultor.findOne({email: req.body.email});
+        const userConsultor = {
+            name: userFound.name || '',
+            lastname: userFound.lastname || '',
+            email: userFound.email || '',
+            rol: userFound.rol || '',
+            id: userFound._id || '',
+            pictureName: consultor.pictureName || '',
+            picturePath: consultor.picturePath || '',
+            profession: consultor.profession || '',
+            especialidad: consultor.especialidad || '',
+            category: consultor.category || '',
+            abilities: consultor.abilities || '',
+            status: consultor.status,
+            token
+        }
+
+    res.status(200).json(userConsultor);
+    }
+
+
 };
 
 module.exports = authCtrl;

@@ -32,7 +32,6 @@ const Login = (props) => {
       email: email.value, 
       password: password.value   
     }
-    console.log(user)
     const res = axios.post('http://localhost:3000/signin', user )          
         .then ( res =>  {
           console.log(res.data);
