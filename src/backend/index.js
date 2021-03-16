@@ -81,8 +81,6 @@ app.use(require('./routes/auth'));
 }); 
 
 
-
-
 //Passport setting
 
 const passport = require('passport');
