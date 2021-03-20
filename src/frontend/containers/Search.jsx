@@ -21,6 +21,68 @@ const Search = ({ user, isOnline }) => {
   const [valueSelection, setValueSelection] = useState('');
   const [specialities, setSpecialities] = useState([]);
 
+  function handleSubmit(event) {
+    event.preventDefault();
+    console.log(input.sector);
+    
+    if(!input.sector) {
+      if(!input.profesion){
+        history.push('/resultados');
+      }
+      else if(!input.profesion) {
+        if(!input.especialidad) {
+          const busqueda = {
+            proffession: input.profesion
+          };
+          const res = axios.post('http://localhost:3000/busqueda', busqueda)
+          .then((res) => {
+            console.log(res.data);
+            history.push('/resultados');
+          })
+          .catch((e) => console.log(e));
+        }
+        else if(input.especialidad) {          
+            const busqueda = {
+              proffession: input.profesion,
+              especialidad: input.especialidad
+            };
+            const res = axios.post('http://localhost:3000/busqueda', busqueda)
+            .then((res) => {
+              console.log(res.data);
+              history.push('/resultados');
+            })
+            .catch((e) => console.log(e));
+        }
+      }
+    }
+    else if(input.sector) {
+      if(!input.profesion) {
+        const busqueda = {
+          category: input.sector
+        };
+        const res = axios.post('http://localhost:3000/busqueda', busqueda)
+        .then((res) => {
+          console.log(res.data);
+          history.push('/resultados');
+        })
+        .catch((e) => console.log(e));
+      }
+      else if(input.profesion) {
+        const busqueda = {
+          category: input.sector,
+          proffession: input.profesion
+        };
+        const res = axios.post('http://localhost:3000/busqueda', busqueda)
+        .then((res) => {
+          console.log(res.data);
+          history.push('/resultados');
+        })
+        .catch((e) => console.log(e));
+      }
+    }
+
+  }
+
   const handleHeader = () => {
     const d = document.getElementById('searchConsultant');
     if (d.scrollTop >= 50) {
@@ -59,8 +121,10 @@ const Search = ({ user, isOnline }) => {
         </div>
         <img className='background' src={background} alt='' />
         <Searcher isOffline={true} setValueResult={handleValue} setResults={handleSearch} />
-        <input type='hidden' name='sector' value={valueResult} />
-        <input type='hidden' name='profesion' value={valueSelection} />
+        <form onSubmit={handleSubmit}>
+        <input type='hidden' name='sector' id='sector' value={valueResult} />
+        <input type='hidden' name='profesion' id='profesion' value={valueSelection} />
+        </form>
         <CircleCarousel specialities={specialities} setValue={handleValueSelection} value={valueResult} searchTerm='Sector' />
         <Feedback name='Luis Fernando Méndez' country='Medellín, CO' description='“Me encantó la experiencia, pude resolver los problemas de contabilidad de mi empresa con una sola llamada, es súper práctico”' />
       </div>
@@ -76,8 +140,10 @@ const Search = ({ user, isOnline }) => {
         </div>
         <img className='background' src={background} alt='' />
         <Searcher isOffline={true} setValueResult={handleValue} setResults={handleSearch} />
-        <input type='hidden' name='profesion' value={valueResult} />
-        <input type='hidden' name='especialidad' value={valueSelection} />
+        <form onSubmit={handleSubmit}>
+        <input type='hidden' name='profesion' id='profesion' value={valueResult} />
+        <input type='hidden' name='especialidad' id='especialidad' value={valueSelection} />
+        </form>
         <CircleCarousel specialities={specialities} setValue={handleValueSelection} value={valueResult} searchTerm='Profesión' />
         <Feedback name='Luis Fernando Méndez' country='Medellín, CO' description='“Me encantó la experiencia, pude resolver los problemas de contabilidad de mi empresa con una sola llamada, es súper práctico”' />
       </div>
@@ -105,8 +171,10 @@ const Search = ({ user, isOnline }) => {
         </div>
         <img className='background' src={background} alt='' />
         <Searcher isOffline={false} setValueResult={handleValue} setResults={handleSearch} />
-        <input type='hidden' name='sector' value={valueResult} />
-        <input type='hidden' name='profesion' value={valueSelection} />
+        <form onSubmit={handleSubmit}>
+        <input type='hidden' name='sector' id='sector' value={valueResult} />
+        <input type='hidden' name='profesion' id='profesion' value={valueSelection} />
+        </form>
         <CircleCarousel specialities={specialities} setValue={handleValueSelection} value={valueResult} searchTerm='Sector' />
       </div>
     );
@@ -120,8 +188,10 @@ const Search = ({ user, isOnline }) => {
         </div>
         <img className='background' src={background} alt='' />
         <Searcher isOffline={false} setValueResult={handleValue} setResults={handleSearch} />
-        <input type='hidden' name='profesion' value={valueResult} />
-        <input type='hidden' name='especialidad' value={valueSelection} />
+        <form onSubmit={handleSubmit}>
+        <input type='hidden' name='profesion' id='profesion' value={valueResult} />
+        <input type='hidden' name='especialidad' id='especialidad' value={valueSelection} />
+        </form>
         <CircleCarousel specialities={specialities} setValue={handleValueSelection} value={valueResult} searchTerm='Profesión' />
       </div>
     );

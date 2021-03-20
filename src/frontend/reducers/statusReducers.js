@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-  user: 'client',
+  user: 'consultant',
   isOnline: false,
   isCall: false,
   name: 'Luis Fernando',

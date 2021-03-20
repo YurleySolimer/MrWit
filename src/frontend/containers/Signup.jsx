@@ -111,6 +111,7 @@ const Signup = ({ isOnline, user }) => {
 
   function handleSubmitConsultant(event) {
     event.preventDefault();
+    console.log(input.abilities);
 
     const data = new FormData();
     data.append('name', input.name);
@@ -121,9 +122,12 @@ const Signup = ({ isOnline, user }) => {
     data.append('password', input.password);
     data.append('date', input.date);
     data.append('country', input.country);
+    data.append('category', input.sector);
     data.append('profesion', input.profesion);
     data.append('especialidad', input.especialidad);
-    data.append('abilities', input.abilities);
+    data.append('abilities', input.abilities[0]);
+    data.append('abilities', input.abilities[1]);
+    data.append('abilities', input.abilities[2]);
     data.append('policy', policy.value);
     data.append('rol', rol.value);
 

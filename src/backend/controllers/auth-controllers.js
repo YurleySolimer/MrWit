@@ -9,7 +9,8 @@ const { cli } = require('webpack');
 const { populate } = require('../models/Users');
 
 
-authCtrl.postNewUser = async (req, res) => {
+authCtrl.postNewUser = async (req, res, next) => {
+    console.log(req.body)
 
     //NewUser
     const { name, lastname, email, password, rol } = req.body;
@@ -69,6 +70,7 @@ authCtrl.postNewUser = async (req, res) => {
     }  
 
     if (req.files) {
+        console.log(req.files)
         const {path, originalname} = req.files[0];
         newConsultor = new Consultor ({
             name,
@@ -113,28 +115,25 @@ authCtrl.postNewUser = async (req, res) => {
     const consultorSaved = await newConsultor.save();
     }
 
-
     //Token - expira en 10 años
     const token = jwt.sign({id: userSaved._id },'config.SECRET', {
         expiresIn: 315360000
     })
-    console.log("new user created")
-    res.status(200).json({token});
+    console.log("new user created");
+    next();
+    //res.status(200).json({token});
 };
 
 authCtrl.postSignIn = async (req, res) => {
 
    const userFound = await User.findOne({email: req.body.email}).populate("rol");
-
     if (!userFound) return res.json({message: "User not found"});
 
    const matchPassword = await User.comparePassword(req.body.password, userFound.password);
    if(!matchPassword) return res.status(401).json({token: null, message: "Invalid password"});
-
    const token = jwt.sign({id: userFound._id}, config.SECRET, {
        expiresIn: 315360000
    })
-
 
     if(userFound.rol.name === 'client') {
         const cliente =  await Client.findOne({email: req.body.email});
@@ -175,8 +174,6 @@ authCtrl.postSignIn = async (req, res) => {
 
     res.status(200).json(userConsultor);
     }
-
-
 };
 
 module.exports = authCtrl;
