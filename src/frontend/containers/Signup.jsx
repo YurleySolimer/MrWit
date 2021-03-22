@@ -111,7 +111,6 @@ const Signup = ({ isOnline, user }) => {
 
   function handleSubmitConsultant(event) {
     event.preventDefault();
-    console.log(input.abilities);
 
     const data = new FormData();
     data.append('name', input.name);

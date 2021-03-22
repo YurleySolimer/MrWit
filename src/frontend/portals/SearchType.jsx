@@ -1,6 +1,7 @@
 import React from 'react';
 import '../assets/styles/portals/SearchType.scss';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 const SearchType = (props) => {
 
@@ -25,19 +26,33 @@ const SearchType = (props) => {
 
 
   function handleAbility(e) {
-    history.push(`/resultados/?habilidad=${val}`);
+    const data = new FormData();
+    data.append('ability', value);
+    const res = axios.post('http://localhost:3000/busqueda', data)
+      .then((res) => {
+        console.log(res.data);
+        history.push(`/resultados/?habilidad=${value}`);
+      })
+      .catch((e) => console.log(e));
   }
 
   function handleProfessionHome(e) {
-    history.push(`/resultados/?profesion=${val}`);
+   // history.push(`/resultados/?profesion=${val}`);
   }
 
   function handleSectorHome(e) {
-    history.push(`/resultados/?sector=${val}`);
+  //  history.push(`/resultados/?sector=${val}`);
   }
 
   function handleID(e) {
-    history.push(`/resultados/${val}`);
+    const data = new FormData();
+    data.append('id', value);
+    const res = axios.post('http://localhost:3000/busqueda', data)
+      .then((res) => {
+        console.log(res.data);
+        history.push(`/resultados/?id=${value}`);
+      })
+      .catch((e) => console.log(e));
   }
 
   if (isHome) {

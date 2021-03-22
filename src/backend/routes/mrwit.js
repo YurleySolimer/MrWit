@@ -7,11 +7,19 @@ const authjwt = require ('../middlewares');
 const { v4: uuidv4 } = require("uuid");
 
 router.post('/busqueda', (req, res) => {
-    console.log(req.body)
-
         if(!req.body.category) { 
             if(!req.body.proffession) {
-                res.redirect('/resultados')
+                if(!req.body.ability) {
+                    if(!req.body.id) {
+                        res.redirect('/resultados')
+                    }
+                    else if(req.body.id) {
+                        res.redirect( `/resultados?id=${req.body.id}`)
+                    }                    
+                }
+                else if (req.body.ability) {
+                    res.redirect( `/resultados?ability=${req.body.ability}`)
+                }
             }
             else if (req.body.proffession) { 
                 if(!req.body.especialidad) { 
