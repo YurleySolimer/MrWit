@@ -33,18 +33,31 @@
     margin-bottom: 30px;
 }
 
-// .Results__profiles {
-//     display: flex;
-//     flex-direction: row;
-//     white-space: nowrap;
-// }
-
 .Results__profiles__profile {
     margin: auto;
     padding: 10px;
     width: 250px;
     text-align: center;
     padding-bottom: 0;
+}
+
+.Results__profiles__profile.no_results {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: $half-gray;
+
+    & a {
+        display: block;
+        margin: auto;
+        padding: 8px 16px;
+        background-color: #7c7c7b;
+        border-radius: 10px;
+        font-size: 1.2em;
+        color: white;
+        margin-bottom: 30px;
+        cursor: pointer;
+    }
 }
 
 .profile__img {

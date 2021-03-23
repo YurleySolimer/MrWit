@@ -5,6 +5,7 @@ import { Ar, Ag, Bb, Bm, Bo, Br, Bs, Bz, Cl, Co, Cr, Cu, Cw, Dm, Do, Ec, Sv, Gt,
 import { getConsultants, getConsultantsSuccess } from '../actions/mrwit';
 import '../assets/styles/components/Results.scss';
 import star from '../assets/static/icons/star.svg';
+import noresults from '../assets/static/icons/noresults.svg';
 
 const Results = ({ consultantData, getConsultants }) => {
 
@@ -75,42 +76,55 @@ const Results = ({ consultantData, getConsultants }) => {
       <h3 className='Results__title'>Resultados</h3>
       <div className='Results__profiles'>
         {
-          consultantData &&
-          consultantData.consultants &&
-          consultantData.consultants.map((consultant) => {
-            console.log(consultant);
-            return (
-              <div className='Consultant__result' key={consultant._id}>
-                <Link to={`/resultados/${consultant._id}`}>
-                  <p className='profile__name'>
-                    {getCountry(consultant.country)}
-                    {' '}
-                    {consultant.name}
-                  </p>
-                  <div className='Results__profiles__profile'>
-                    <img src={`./${consultant.picturePath}`} alt={consultant.pictureName} className='profile__img' />
-                    <p className='profile__title'>{consultant.profession}</p>
-                    <p className='profile__time'>
-                      {consultant.hoursGive || 0}
-                      {' '}
+          consultantData.consultants.length > 0 ?
+            (
+              consultantData.consultants.map((consultant) => {
+                console.log(consultant);
+                return (
+                  <div className='Consultant__result' key={consultant._id}>
+                    <Link to={`/resultados/${consultant._id}`}>
+                      <p className='profile__name'>
+                        {getCountry(consultant.country)}
+                        {' '}
+                        {consultant.name}
+                      </p>
+                      <div className='Results__profiles__profile'>
+                        <img src={`./${consultant.picturePath}`} alt={consultant.pictureName} className='profile__img' />
+                        <p className='profile__title'>{consultant.profession}</p>
+                        <p className='profile__time'>
+                          {consultant.hoursGive || 0}
+                          {' '}
                       hrs dadas
                     </p>
-                    <div className='rating'>
-                      <img src={star} alt='' />
-                      <img src={star} alt='' />
-                      <img src={star} alt='' />
-                      <img src={star} alt='' />
-                      <img src={star} alt='' />
-                    </div>
-                    <p className='profile__phrase'>{consultant.phrase}</p>
+                        <div className='rating'>
+                          <img src={star} alt='' />
+                          <img src={star} alt='' />
+                          <img src={star} alt='' />
+                          <img src={star} alt='' />
+                          <img src={star} alt='' />
+                        </div>
+                        <p className='profile__phrase'>{consultant.phrase}</p>
+                      </div>
+                    </Link>
                   </div>
-                </Link>
+                );
+              })
+            ) :
+            (
+              <div className='Consultant__result'>
+                <div className='Results__profiles__profile no_results'>
+                  <img src={noresults} alt='No hay resultados' className='OtherResults__noresults__img' />
+                  <p>Parece que no hay consultores con esas caracteristicas...</p>
+                  <br />
+                  <p>¿Por qué no pruebas haciendo una busqueda diferente?</p>
+                  <br />
+                  <Link to='/buscar'>Buscar otra vez</Link>
+                </div>
               </div>
-            );
-          })
+            )
         }
       </div>
-    </div>
+    </div >
   );
 };
 
