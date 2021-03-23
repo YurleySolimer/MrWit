@@ -75,6 +75,7 @@ app.use(require('./routes/auth'));
     socket.join(roomId);
     socket.to(roomId).broadcast.emit("user-connected", userId);
     socket.on("message", (message) => {
+      console.log('El mensaje es', message)
       io.to(roomId).emit("createMessage", message);
     });
   });

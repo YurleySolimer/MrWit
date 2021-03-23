@@ -25,8 +25,6 @@ import down from '../assets/static/icons/arrowdown.svg';
 import clip from '../assets/static/icons/clip.svg';
 import send from '../assets/static/icons/send.svg';
 
-
-
 const RoomComponent = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isRecharge, setIsRecharge] = useState(false);
@@ -79,10 +77,8 @@ const RoomComponent = (props) => {
     chat.classList.toggle('active');
   }
 
-
   const socket = io('/');
 
-  const chatInputBox = document.getElementById('chat_message');
   const all_messages = document.getElementById('all_messages');
   const main__chat__window = document.getElementById('main__chat__window');
   const myVideo = document.createElement('video');
@@ -104,7 +100,7 @@ const RoomComponent = (props) => {
   navigator.mediaDevices
     .getUserMedia({
       video: true,
-      audio: true,
+      audio: false,
     })
     .then((stream) => {
       myVideoStream = stream;
@@ -124,16 +120,18 @@ const RoomComponent = (props) => {
       });
 
       document.addEventListener('keydown', (e) => {
-        if (e.which === 13 && chatInputBox.value != '') {
+        const chatInputBox = document.getElementById('message');
+        if (e.code === 'Enter' && chatInputBox.value !== '') {
           socket.emit('message', chatInputBox.value);
           chatInputBox.value = '';
         }
       });
 
+
       socket.on('createMessage', (msg) => {
-       
+
         console.log(msg);
-        let li = document.createElement('li');
+        const li = document.createElement('li');
         li.innerHTML = msg;
         all_messages.append(li);
         main__chat__window.scrollTop = main__chat__window.scrollHeight;
@@ -142,13 +140,12 @@ const RoomComponent = (props) => {
 
   peer.on('call', (call) => {
     getUserMedia(
-      { 
-        video: 
-        true, 
-        audio: true 
+      {
+        video: true,
+        audio: false
       },
       (stream) => {
-        call.answer(stream); 
+        call.answer(stream);
         const video = document.createElement('video');
         call.on('stream', (remoteStream) => {
           addVideoStream(video, remoteStream);
@@ -164,7 +161,6 @@ const RoomComponent = (props) => {
     const ROOM_ID = window.location.pathname.split('/')[2];
     socket.emit('join-room', ROOM_ID, id);
   });
-
 
   const connectToNewUser = (userId, streams) => {
     const call = peer.call(userId, streams);
@@ -266,15 +262,16 @@ const RoomComponent = (props) => {
               <img src={down} alt='icon down' id='down' className='arrow__toggle' />
             </div>
           </button>
-          <div className='chat__body'>
+          <div className='chat__body' id='main__chat__window'>
             <div className='message__in'>
               <span className='message__body'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit ratione, velit voluptas possimus aperiam, quas consequuntur eligendi fugiat veniam fuga labore dolore consectetur beatae, eaque quae excepturi ad itaque asperiores?</span>
               <span className='message__timer'>some hour</span>
-            </div> 
+            </div>
             <div className='message__out'>
               <span className='message__body'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur temporibus voluptatem sed necessitatibus error ullam architecto reprehenderit eveniet aperiam accusantium minima veritatis ab nemo, harum officia consectetur nobis dignissimos est.</span>
               <span className='message__timer'>some hour</span>
             </div>
+            <ul id="all_messages"></ul>
           </div>
           <div className='space__footer'>{' '}</div>
           <div className='chat__footer'>

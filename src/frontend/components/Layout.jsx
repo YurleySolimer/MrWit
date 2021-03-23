@@ -4,27 +4,33 @@ import Header from './Header';
 import Menu from './Menu';
 import statusReducers from '../reducers/statusReducers';
 
-const Layout = ({ children, isOnline, isCall }) => {
+const Layout = ({ children, user }) => {
 
-  if (!isOnline || isCall) {
+  if (user.status) {
+    if (user.status.inCall) {
+      return (
+        <div className='App'>
+          {children}
+        </div>
+      );
+    };
 
-    return (
-      <div className='App'>
-        {children}
-      </div>
-    );
-  };
-
-  if (isOnline) {
-    return (
-      <div className='App'>
-        <Header />
-        {children}
-        <Menu />
-      </div>
-    );
-
+    if (user.status.online) {
+      return (
+        <div className='App'>
+          <Header />
+          {children}
+          <Menu />
+        </div>
+      );
+    }
   }
+
+  return (
+    <div className='App'>
+      {children}
+    </div>
+  );
 };
 
 const mapStateToProps = (reducers) => {

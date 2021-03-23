@@ -2,13 +2,12 @@
 /* eslint-disable prefer-destructuring */
 /* eslint-disable class-methods-use-this */
 /*tslint:disabled*/
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import ReactFlagsSelect from 'react-flags-select';
 // eslint-disable-next-line no-unused-vars
 import axios from 'axios';
-import statusReducers from '../reducers/statusReducers';
 import * as actionsStatus from '../actions';
 
 import '../assets/styles/containers/Signup.scss';
@@ -31,7 +30,7 @@ import DataSectors from '../../sectors';
 import ScheduleModal from '../portals/Schedule';
 import Modal from '../portals/Modal';
 
-const Signup = ({ isOnline, user }) => {
+const Signup = ({ user, setUser }) => {
   const [input, setInput] = useState({
     name: '',
     lastname: '',
@@ -55,8 +54,6 @@ const Signup = ({ isOnline, user }) => {
   const [data, setData] = useState([]);
   const history = useHistory();
   const [specialities, setSpecialities] = useState([]);
-
-  
 
   function handleSubmit(event) {
     // if (validate()) {
@@ -88,6 +85,7 @@ const Signup = ({ isOnline, user }) => {
     const res = axios.post('http://localhost:3000/signup', user)
       .then((res) => {
         console.log(res.data);
+        setUser(res.data);
         history.push('/recargar');
       })
       .catch((e) => console.log(e));
@@ -121,7 +119,8 @@ const Signup = ({ isOnline, user }) => {
     data.append('password', input.password);
     data.append('date', input.date);
     data.append('country', input.country);
-    data.append('profesion', input.profesion);
+    data.append('category', input.sector);
+    data.append('profession', input.profesion);
     data.append('especialidad', input.especialidad);
     data.append('abilities', input.abilities);
     data.append('policy', policy.value);
@@ -138,6 +137,7 @@ const Signup = ({ isOnline, user }) => {
       config)
       .then((res) => {
         console.log(res.data);
+        // setUser(res.data);
         history.push('/');
       })
       .catch((e) => console.log(e));
@@ -300,10 +300,9 @@ const Signup = ({ isOnline, user }) => {
   const Professions = DataJSON.map((profesion) => <option key={Object.getOwnPropertyNames(profesion)} value={Object.getOwnPropertyNames(profesion)}>{Object.getOwnPropertyNames(profesion)}</option>);
   const Speciality = specialities.map((speciality) => <option key={speciality} value={speciality}>{speciality}</option>);
 
-  /*   if (isOnline) {
+  if (user.status) {
     return (<Redirect to='/' />);
   }
- */
 
   const ChangeSelect = (e) => {
     setSelected(e);
@@ -318,7 +317,7 @@ const Signup = ({ isOnline, user }) => {
     date.setAttribute('type', 'date');
   };
 
-  if (user === 'consultant') {
+  if (user.rol.name === 'consultant') {
     return (
       <section className='Signup'>
         <h2 className='signupConsultant__text__h2'>¡Lleva tu talento a todo el mundo!</h2>
@@ -566,7 +565,7 @@ const Signup = ({ isOnline, user }) => {
     );
   }
 
-  if (user === 'client') {
+  if (user.rol.name === 'client') {
     return (
       <section className='Signup'>
         <img src={icon} alt='icon' className='signup__icon' />

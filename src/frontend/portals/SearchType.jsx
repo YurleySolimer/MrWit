@@ -23,7 +23,6 @@ const SearchType = (props) => {
     onClose(e);
   }
 
-
   function handleAbility(e) {
     history.push(`/resultados/?habilidad=${val}`);
   }

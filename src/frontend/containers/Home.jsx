@@ -41,10 +41,10 @@ const Home = (props) => {
 
   // Agregar botón de compartir al perfil de MrWit del consultor
 
-  const { isOnline, name, user, consultants2, consultants3, currency } = props;
+  const { user, consultants2, consultants3, currency } = props;
 
   const [edit, setEdit] = useState(false);
-  const [status, setStatus] = useState(true);
+  const [active, setActive] = useState(true);
   const [busy, setBusy] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -75,12 +75,12 @@ const Home = (props) => {
   const history = useHistory();
 
   function handleClickClients() {
-    props.setUser('client');
+    props.setUser({ ...user, rol: { name: 'client' } });
     history.push('/buscar');
   }
 
   function handleClickConsultants() {
-    props.setUser('consultant');
+    props.setUser({ ...user, rol: { name: 'consultant' } });
     history.push('/signup');
   }
 
@@ -93,87 +93,91 @@ const Home = (props) => {
     }
   };
 
-  if (isOnline && user === 'consultant') {
-    return (
-      <div className='dashboard' onScroll={handleHeader} id='dashboard'>
-        <img className='background' src={background} alt='background' />
-        <div className='dashboard__body'>
-          <h2 className='dashboard__message'>
-            ¡Bienvenido de vuelta,
-            <br />
-            {name}
-            !
-          </h2>
-          <div className='dashboard__profile'>
-            <button onClick={handleInactive} type='button' className='changeStatus'>
-              <img src={inactive} alt='Cambiar a ocupado' />
-            </button>
-            <Modal isOpen={busy} onClose={handleCloseInactive}>
-              <Inactive onClose={handleCloseInactive} status={status} setStatus={setStatus} />
-            </Modal>
-            <button onClick={handlEditProfile} type='button' className='editProfile'>
-              <img src={pen} alt='editar perfil' />
-            </button>
-            <Modal isOpen={edit} onClose={handleCloseEdit}>
-              <EditProfile onClose={handleCloseEdit} />
-            </Modal>
-            <div className='dashboard__profile--left'>
-              <div className='dashboard__profile--left--pic__co'>
-                <img src={profile} className='profile__pic' alt='imagen de perfil' />
-                <div className={`profile__pic__status__dashboard ${status}`}>{' '}</div>
+  if (user.status) {
+    const { rol, status } = user;
+
+    console.log(props);
+
+    if (status.online && rol.name === 'consultant') {
+      return (
+        <div className='dashboard' onScroll={handleHeader} id='dashboard'>
+          <img className='background' src={background} alt='background' />
+          <div className='dashboard__body'>
+            <h2 className='dashboard__message'>
+              ¡Bienvenido de vuelta,
+              <br />
+              {user.name}
+              !
+            </h2>
+            <div className='dashboard__profile'>
+              <button onClick={handleInactive} type='button' className='changeStatus'>
+                <img src={inactive} alt='Cambiar a ocupado' />
+              </button>
+              <Modal isOpen={busy} onClose={handleCloseInactive}>
+                <Inactive onClose={handleCloseInactive} status={active} setStatus={setActive} />
+              </Modal>
+              <button onClick={handlEditProfile} type='button' className='editProfile'>
+                <img src={pen} alt='editar perfil' />
+              </button>
+              <Modal isOpen={edit} onClose={handleCloseEdit}>
+                <EditProfile onClose={handleCloseEdit} />
+              </Modal>
+              <div className='dashboard__profile--left'>
+                <div className='dashboard__profile--left--pic__co'>
+                  <img src={profile} className='profile__pic' alt='imagen de perfil' />
+                  <div className={`profile__pic__status__dashboard ${status}`}>{' '}</div>
+                </div>
+                <div className='profile__rating'>
+                  <img src={star} alt='' />
+                  <img src={star} alt='' />
+                  <img src={star} alt='' />
+                  <img src={star} alt='' />
+                  <img src={starE} alt='' />
+                </div>
+                <h3 className='profile__profession'>{user.profession}</h3>
               </div>
-              <div className='profile__rating'>
-                <img src={star} alt='' />
-                <img src={star} alt='' />
-                <img src={star} alt='' />
-                <img src={star} alt='' />
-                <img src={starE} alt='' />
-              </div>
-              <h3 className='profile__profession'>Profesión</h3>
-              <p className='profile__speciality'>Especialidad</p>
-            </div>
-            <div className='dashboard__profile--right'>
-              <div className='profile__card--header'>
-                <span className='card__header--category'>Categoría</span>
-                <span className='card__header--subcategory'>Sub - categoría</span>
-              </div>
-              <p>¡Aún no has escrito una descripción! Por favor haz click en editar en el botón con forma de lapiz arriba.</p>
-              <div className='profile__card--footer'>
-                <span className='card__footer--ability'>#Habilidad 1</span>
-                <span className='card__footer--ability'>#Habilidad 2</span>
-                <span className='card__footer--ability'>#Habilidad 3</span>
+              <div className='dashboard__profile--right'>
+                <div className='profile__card--header'>
+                  <span className='card__header--category'>{user.category}</span>
+                  <span className='card__header--subcategory'>{user.especialidad}</span>
+                </div>
+                <p>¡Aún no has escrito una descripción! Por favor haz click en editar en el botón con forma de lapiz arriba.</p>
+                <div className='profile__card--footer'>
+                  <span className='card__footer--ability'>{`#${user.abilities[0]}`}</span>
+                  <span className='card__footer--ability'>{`#${user.abilities[1]}`}</span>
+                  <span className='card__footer--ability'>{`#${user.abilities[2]}`}</span>
+                </div>
               </div>
             </div>
           </div>
+          <NextDates />
+          <h3 className='otherResults__title'>Consultores destacados en tu área</h3>
+          <OtherResults category='Habilidad1' results={consultants3} />
         </div>
-        <NextDates />
-        <h3 className='otherResults__title'>Consultores destacados en tu área</h3>
-        <OtherResults category='Habilidad1' results={consultants3} />
-      </div>
-    );
-  }
+      );
+    }
 
-  if (isOnline && user === 'client') {
-    return (
-      <div className='dashboard' onScroll={handleHeader} id='dashboard'>
-        <img className='background' src={background} alt='background' />
-        <div className='dashboard__body'>
-          <h2 className='dashboard__message'>
-            Bienvenido, {name}.
-          </h2>
-          <span className="dashboard__balance">
-            <b>Saldo: </b>14.000 { currency }
-          </span>
-          <div className='dashboard__CTA'>
-            <Searcher isHome={true} />
+    if (status.online && rol.name === 'client') {
+      return (
+        <div className='dashboard' onScroll={handleHeader} id='dashboard'>
+          <img className='background' src={background} alt='background' />
+          <div className='dashboard__body'>
+            <h2 className='dashboard__message'>
+              Bienvenido, {user.name}.
+            </h2>
+            <span className='dashboard__balance'>
+              <b>Saldo: </b>14.000 {currency}
+            </span>
+            <div className='dashboard__CTA'>
+              <Searcher isHome={true} />
+            </div>
           </div>
+          <OtherResults category='Mis Favoritos' isFavorite={true} results={consultants2} />
+          <OtherResults category='Últimos consultores' results={consultants3} />
         </div>
-        <OtherResults category='Mis Favoritos' isFavorite={true} results={consultants2} />
-        <OtherResults category='Últimos consultores' results={consultants3} />
-      </div>
-    );
+      );
+    }
   }
-
   return (
     <div className='home'>
       <Intro />
