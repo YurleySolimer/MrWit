@@ -1,8 +1,9 @@
 const INITIAL_STATE = {
-  user: 'client',
-  isOnline: false,
-  isCall: false,
-  name: 'Luis Fernando',
+  user: {
+    rol: {
+      name: 'client',
+    },
+  },
   currency: 'COP',
   header: false,
   'consultants': [
@@ -1071,26 +1072,26 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case 'SET_IS_ONLINE':
-      return {
-        ...state,
-        isOnline: action.payload,
-      };
+    // case 'SET_IS_ONLINE':
+    //   return {
+    //     ...state,
+    //     isOnline: action.payload,
+    //   };
     case 'SET_USER':
       return {
         ...state,
         user: action.payload,
       };
-    case 'SET_SEARCH':
-      return {
-        ...state,
-        isSearch: action.payload,
-      };
-    case 'SET_CALL':
-      return {
-        ...state,
-        isCall: action.payload,
-      };
+    // case 'SET_SEARCH':
+    //   return {
+    //     ...state,
+    //     isSearch: action.payload,
+    //   };
+    // case 'SET_CALL':
+    //   return {
+    //     ...state,
+    //     isCall: action.payload,
+    //   };
     case 'SET_CURRENCY':
       return {
         ...state,

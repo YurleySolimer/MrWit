@@ -129,7 +129,7 @@ const Call = (props) => {
       });
 
       socket.on('createMessage', (msg) => {
-        console.log(msg);
+        console.log('El mensaje es: ', msg);
         let li = document.createElement('li');
         li.innerHTML = msg;
         all_messages.append(li);

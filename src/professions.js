@@ -42,7 +42,6 @@ const DataJSON =
           'Gerencia de Instituciones de la Salud',
           'Negocios',
           'Gestión Humana',
-          'Gerencia de Proyectos',
           'Gestión Pública Municipal',
           'Administración Publica',
           'Desarrollo del Potecial Humano la Organización',
@@ -59,7 +58,7 @@ const DataJSON =
           'Gerencia de empresas agropecuarias',
           'Medicina interna de pequeños animales',
           'Ciencia y tecnología de Alimentos',
-          'Gestion de agronegocios',
+          'Gestión de agronegocios',
           'Legislación rural y ordenamiento territorial',
           'Responsabilidad Ambiental y sostenible',
           'Ciencias agrarias',
@@ -109,7 +108,7 @@ const DataJSON =
       {
         'Astrónomo': [
           'Astronomía y física espacial',
-          'Física y Astronomia',
+          'Física y Astronomía',
           'Ciencias en Astronomía',
           'Astronomía y astrofísica',
         ],

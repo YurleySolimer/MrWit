@@ -6,7 +6,12 @@ import SearchElements from './SearchElements';
 
 const CircleCarousel = ({ value, searchTerm, setValue, specialities }) => {
 
+  const handleValue = (e) => {
+    setValue(e);
+  };
+
   if (searchTerm === 'Sector') {
+
     const { professions } = DataSectors;
     const firstProfessions = [];
     for (let i = 0; i < 7; i++) {
@@ -27,7 +32,7 @@ const CircleCarousel = ({ value, searchTerm, setValue, specialities }) => {
 
     const secondReturn = secondProfessions.map((profession) => {
       return (
-        <button type='button' key={profession} className='CircleCarousel__list element'>
+        <button type='button' key={profession} onClick={() => handleValue(profession)} className='CircleCarousel__list element'>
           {profession}
         </button>
       );
@@ -92,7 +97,7 @@ const CircleCarousel = ({ value, searchTerm, setValue, specialities }) => {
 
       const secondReturn = secondSpecialities.map((profession) => {
         return (
-          <button type='button' key={profession} className='CircleCarousel__list element'>
+          <button type='button' onClick={() => handleValue(profession)} key={profession} className='CircleCarousel__list element'>
             {profession}
           </button>
         );

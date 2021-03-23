@@ -5,12 +5,12 @@ import axios from 'axios';
 
 const SearchType = (props) => {
 
-  const { setResults, onClose, setValueResult, value, isHome } = props;
+  const { setType, onClose, setValueResult, value, isHome } = props;
   const history = useHistory();
 
   function handleSector(e) {
     const val = value.replace(' - Sector', '');
-    setResults('sector');
+    setType('sector');
     console.log(val);
     setValueResult(val);
     onClose(e);
@@ -18,12 +18,11 @@ const SearchType = (props) => {
 
   function handleProfession(e) {
     const val = value.replace(' - Profesión', '');
-    setResults('profession');
+    setType('profession');
     console.log(val);
     setValueResult(val);
     onClose(e);
   }
-
 
   function handleAbility(e) {
     const data = new FormData();
