@@ -4,7 +4,7 @@
 /*tslint:disabled*/
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, Redirect } from 'react-router-dom';
 import ReactFlagsSelect from 'react-flags-select';
 // eslint-disable-next-line no-unused-vars
 import axios from 'axios';
@@ -122,7 +122,9 @@ const Signup = ({ user, setUser }) => {
     data.append('category', input.sector);
     data.append('profession', input.profesion);
     data.append('especialidad', input.especialidad);
-    data.append('abilities', input.abilities);
+    data.append('abilities', input.abilities[0]);
+    data.append('abilities', input.abilities[1]);
+    data.append('abilities', input.abilities[2]);
     data.append('policy', policy.value);
     data.append('rol', rol.value);
 
@@ -137,7 +139,7 @@ const Signup = ({ user, setUser }) => {
       config)
       .then((res) => {
         console.log(res.data);
-        // setUser(res.data);
+        setUser(res.data);
         history.push('/');
       })
       .catch((e) => console.log(e));

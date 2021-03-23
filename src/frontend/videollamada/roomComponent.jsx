@@ -158,7 +158,7 @@ const RoomComponent = (props) => {
   });
 
   peer.on('open', (id) => {
-    const ROOM_ID = window.location.pathname.split('/')[2];
+    const ROOM_ID = window.location.pathname.split('/')[4];
     socket.emit('join-room', ROOM_ID, id);
   });
 

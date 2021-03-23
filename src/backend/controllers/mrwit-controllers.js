@@ -10,8 +10,25 @@ mrwitCtrl.getConsultores = async (req, res) => {
 
     if (!req.query.category) {
       if (!req.query.proffession) {
-        const consultores = await Consultor.find();
-        res.status(200).json(consultores);
+        if(!req.query.ability) {
+          if(!req.query.id) {
+            const consultores = await Consultor.find();
+            res.status(200).json(consultores);
+          }
+          else if(req.query.id) {
+            const consultores = await Consultor.find(
+              { _id: { $in: id } },
+            );
+            res.status(200).json(consultores);
+          }          
+        }
+        else if(req.query.ability) {
+          const consultores = await Consultor.find(
+            { abilities: { $in: ability } },
+          );
+          res.status(200).json(consultores);
+        }
+        
       } else if (req.query.proffession) {
         if (!req.query.especialidad) {
           const consultores = await Consultor.find(

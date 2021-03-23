@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+
 import statusReducers from '../reducers/statusReducers';
 
 import '../assets/styles/containers/Search.scss';
@@ -14,7 +16,11 @@ import DataJSON from '../../professions';
 
 import Searcher from '../components/Searcher';
 
+import axios from 'axios';
+
 const Search = ({ user, isOnline }) => {
+  const history = useHistory();
+
 
   const [results, setResults] = useState('');
   const [valueResult, setValueResult] = useState('');
@@ -52,6 +58,18 @@ const Search = ({ user, isOnline }) => {
 
   if (user === 'client' && !isOnline && results === 'sector') {
     console.log('entre al escenario del sector y el value es ', valueResult);
+    if(valueSelection) {
+      console.log(valueSelection)
+      const data = new FormData();
+      data.append('category', valueResult);
+      data.append('proffession', valueSelection);
+      const res = axios.post('http://localhost:3000/busqueda', data)
+      .then((res) => {
+        console.log(res.data);
+        history.push('/resultados');
+      })
+      .catch((e) => console.log(e));
+    }
     return (
       <div className='searchConsultant'>
         <div className='searchName__title'>
@@ -59,8 +77,8 @@ const Search = ({ user, isOnline }) => {
         </div>
         <img className='background' src={background} alt='' />
         <Searcher isOffline={true} setValueResult={handleValue} setResults={handleSearch} />
-        <input type='hidden' name='sector' value={valueResult} />
-        <input type='hidden' name='profesion' value={valueSelection} />
+        <input type='hidden' name='sector' id='sector' value={valueResult} />
+        <input type='hidden' name='profesion' id='profesion' value={valueSelection} />
         <CircleCarousel specialities={specialities} setValue={handleValueSelection} value={valueResult} searchTerm='Sector' />
         <Feedback name='Luis Fernando Méndez' country='Medellín, CO' description='“Me encantó la experiencia, pude resolver los problemas de contabilidad de mi empresa con una sola llamada, es súper práctico”' />
       </div>
@@ -69,6 +87,17 @@ const Search = ({ user, isOnline }) => {
 
   if (user === 'client' && !isOnline && results === 'profession') {
     console.log('entre a este escenario de profesión y el value es: ', valueResult);
+    if(!valueSelection) { 
+      const data = new FormData();
+      data.append('proffession', valueResult);
+      data.append('especialidad', valueSelection);      
+      const res = axios.post('http://localhost:3000/busqueda', data)
+        .then((res) => {
+          console.log(res.data);
+          history.push('/resultados');
+        })
+        .catch((e) => console.log(e));
+    }
     return (
       <div className='searchConsultant'>
         <div className='searchName__title'>
@@ -76,8 +105,8 @@ const Search = ({ user, isOnline }) => {
         </div>
         <img className='background' src={background} alt='' />
         <Searcher isOffline={true} setValueResult={handleValue} setResults={handleSearch} />
-        <input type='hidden' name='profesion' value={valueResult} />
-        <input type='hidden' name='especialidad' value={valueSelection} />
+        <input type='hidden' name='profesion' id='profesion' value={valueResult} />
+        <input type='hidden' name='especialidad' id='especialidad' value={valueSelection} />
         <CircleCarousel specialities={specialities} setValue={handleValueSelection} value={valueResult} searchTerm='Profesión' />
         <Feedback name='Luis Fernando Méndez' country='Medellín, CO' description='“Me encantó la experiencia, pude resolver los problemas de contabilidad de mi empresa con una sola llamada, es súper práctico”' />
       </div>
@@ -98,6 +127,17 @@ const Search = ({ user, isOnline }) => {
   };
 
   if (user === 'client' && isOnline && results === 'sector') {
+    if(valueSelection) { 
+      const data = new FormData();
+      data.append('proffession', valueResult);
+      data.append('especialidad', valueSelection);      
+      const res = axios.post('http://localhost:3000/busqueda', data)
+        .then((res) => {
+          console.log(res.data);
+          history.push('/resultados');
+        })
+        .catch((e) => console.log(e));
+    }
     return (
       <div className='searchConsultant online' onScroll={handleHeader} id='searchConsultant'>
         <div className='searchName__title'>
@@ -105,14 +145,25 @@ const Search = ({ user, isOnline }) => {
         </div>
         <img className='background' src={background} alt='' />
         <Searcher isOffline={false} setValueResult={handleValue} setResults={handleSearch} />
-        <input type='hidden' name='sector' value={valueResult} />
-        <input type='hidden' name='profesion' value={valueSelection} />
+        <input type='hidden' name='sector' id='sector' value={valueResult} />
+        <input type='hidden' name='profesion' id='profesion' value={valueSelection} />
         <CircleCarousel specialities={specialities} setValue={handleValueSelection} value={valueResult} searchTerm='Sector' />
       </div>
     );
   };
 
   if (user === 'client' && isOnline && results === 'profession') {
+    if(!valueSelection) { 
+      const data = new FormData();
+      data.append('proffession', valueResult);
+      data.append('especialidad', valueSelection);      
+      const res = axios.post('http://localhost:3000/busqueda', data)
+        .then((res) => {
+          console.log(res.data);
+          history.push('/resultados');
+        })
+        .catch((e) => console.log(e));
+    }
     return (
       <div className='searchConsultant online' onScroll={handleHeader} id='searchConsultant'>
         <div className='searchName__title'>
@@ -120,8 +171,8 @@ const Search = ({ user, isOnline }) => {
         </div>
         <img className='background' src={background} alt='' />
         <Searcher isOffline={false} setValueResult={handleValue} setResults={handleSearch} />
-        <input type='hidden' name='profesion' value={valueResult} />
-        <input type='hidden' name='especialidad' value={valueSelection} />
+        <input type='hidden' name='profesion' id='profesion' value={valueResult} />
+        <input type='hidden' name='especialidad' id='especialidad' value={valueSelection} />
         <CircleCarousel specialities={specialities} setValue={handleValueSelection} value={valueResult} searchTerm='Profesión' />
       </div>
     );
