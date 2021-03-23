@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Header from './Header';
 import Menu from './Menu';
 import statusReducers from '../reducers/statusReducers';
+import Modal from '../portals/Modal';
 
 const Layout = ({ children, user }) => {
 
@@ -15,12 +16,28 @@ const Layout = ({ children, user }) => {
       );
     };
 
-    if (user.status.online) {
+    if (user.status.online && user.rol.name === 'client') {
       return (
         <div className='App'>
           <Header />
           {children}
           <Menu />
+          <Modal isOpen={isOpenClient} onClose={handleCloseClient}>
+            <NotificationClient />
+          </Modal>
+        </div>
+      );
+    }
+
+    if (user.status.online && user.rol.name === 'consultant') {
+      return (
+        <div className='App'>
+          <Header />
+          {children}
+          <Menu />
+          <Modal isOpen={isOpenConsultant} onClose={handleCloseConsultant}>
+            <NotificationConsultant />
+          </Modal>
         </div>
       );
     }

@@ -2,15 +2,11 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Ar, Ag, Bb, Bm, Bo, Br, Bs, Bz, Cl, Co, Cr, Cu, Cw, Dm, Do, Ec, Sv, Gt, Jm, Mx, Pa, Py, Pe, Pr, Uy, Ve } from 'react-flags-select';
-import { getConsultants } from '../actions/mrwit';
+import { getConsultants, getConsultantsSuccess } from '../actions/mrwit';
 import '../assets/styles/components/Results.scss';
 import star from '../assets/static/icons/star.svg';
 
 const Results = ({ consultantData, getConsultants }) => {
-
-  useEffect(() => {
-    getConsultants();
-  }, []);
 
   const getCountry = (value) => {
     switch (value) {
@@ -126,7 +122,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getConsultants: () => dispatch(getConsultants()),
+    getConsultants: () => dispatch(getConsultants(e)),
   };
 };
 

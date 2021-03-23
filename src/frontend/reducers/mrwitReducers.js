@@ -24,6 +24,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       };
     case GET_CONSULTANTS_SUCCESS:
       console.log('success');
+      console.log('Payload de consultants success ', action.payload);
       return {
         ...state,
         isLoading: false,

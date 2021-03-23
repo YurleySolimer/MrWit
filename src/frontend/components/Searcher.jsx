@@ -9,7 +9,7 @@ const Searcher = (props) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [value, setValue] = useState('');
-  const { setResults, isHome, setValueResult, isOffline } = props;
+  const { setType, isHome, setValueResult, isOffline } = props;
 
   function handleValue() {
     const input = document.getElementById('searcher');
@@ -142,7 +142,7 @@ const Searcher = (props) => {
           <img src={lupa} alt='Buscador' />
         </button>
         <Modal isOpen={isOpen} onClose={handleClose}>
-          <SearchType setValueResult={setValueResult} value={value} onClose={handleClose} isHome={true} setResults={setResults} />
+          <SearchType setValueResult={setValueResult} value={value} onClose={handleClose} isHome={true} setType={setType} />
         </Modal>
       </div>
     );
@@ -156,7 +156,7 @@ const Searcher = (props) => {
           <img src={lupa} alt='Buscador' />
         </button>
         <Modal isOpen={isOpen} onClose={handleClose}>
-          <SearchType setValueResult={setValueResult} value={value} onClose={handleClose} setResults={setResults} />
+          <SearchType setValueResult={setValueResult} value={value} onClose={handleClose} setType={setType} />
         </Modal>
       </div>
     );
@@ -169,7 +169,7 @@ const Searcher = (props) => {
         <img src={lupa} alt='Buscador' />
       </button>
       <Modal isOpen={isOpen} onClose={handleClose}>
-        <SearchType setValueResult={setValueResult} value={value} onClose={handleClose} setResults={setResults} />
+        <SearchType setValueResult={setValueResult} value={value} onClose={handleClose} setType={setType} />
       </Modal>
     </div>
   );
