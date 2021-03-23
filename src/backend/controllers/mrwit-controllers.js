@@ -5,7 +5,6 @@ const Cliente = require('../models/Client');
 mrwitCtrl.getConsultores = async (req, res) => {
 
   if (req.query) {
-    console.log(req.query);
     const { category, proffession, especialidad, ability, id, country } = req.query;
 
     if (!req.query.category) {
@@ -19,14 +18,24 @@ mrwitCtrl.getConsultores = async (req, res) => {
             const consultores = await Consultor.find(
               { _id: { $in: id } },
             );
-            res.status(200).json(consultores);
+            const resultados = {
+              busqueda: 'id',
+              id,
+              consultores
+            }
+            res.status(200).json(resultados);
           }          
         }
         else if(req.query.ability) {
           const consultores = await Consultor.find(
             { abilities: { $in: ability } },
           );
-          res.status(200).json(consultores);
+          const resultados = {
+            busqueda: 'ability',
+            ability,
+            consultores
+          }
+          res.status(200).json(resultados);
         }
         
       } else if (req.query.proffession) {
@@ -34,7 +43,12 @@ mrwitCtrl.getConsultores = async (req, res) => {
           const consultores = await Consultor.find(
             { profession: { $in: proffession } },
           );
-          res.status(200).json(consultores);
+          const resultados = {
+            busqueda: 'profesion',
+            proffession,
+            consultores
+          }
+          res.status(200).json(resultados);
         } else if (req.query.especialidad) {
           const consultores = await Consultor.find(
             {
@@ -44,7 +58,13 @@ mrwitCtrl.getConsultores = async (req, res) => {
               ],
             },
           );
-          res.status(200).json(consultores);
+          const resultados = {
+            busqueda: 'Profesion y especialidad',
+            proffession,
+            especialidad,
+            consultores
+          }
+          res.status(200).json(resultados);
         }
       }
     } else if (req.query.category) {
@@ -63,7 +83,13 @@ mrwitCtrl.getConsultores = async (req, res) => {
             ],
           },
         );
-        res.status(200).json(consultores);
+        const resultados = {
+          busqueda: 'Sector y Profesion',
+          sector: category,
+          proffession,
+          consultores
+        }
+        res.status(200).json(resultados);
 
       }
     }
