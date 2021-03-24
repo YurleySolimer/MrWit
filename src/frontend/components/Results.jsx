@@ -88,7 +88,7 @@ const Results = ({ consultantData, getConsultants }) => {
                         {consultant.name}
                       </p>
                       <div className='Results__profiles__profile'>
-                        <img src={`./${consultant.picturePath}`} alt={consultant.pictureName} className='profile__img' />
+                        <img src={`http://localhost:3000/public/${consultant.pictureName}`} alt={consultant.pictureName} className='profile__img' />
                         <p className='profile__title'>{consultant.profession}</p>
                         <p className='profile__time'>
                           {consultant.hoursGive || 0}

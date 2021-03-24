@@ -53,11 +53,11 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
   const handleValue = (e) => {
     setValueResult(e);
     for (let i = 0; i < DataJSON.length; i++) {
+      console.log('El valor de DAtaJSON en este ciclo es: ', DataJSON[i], ' Y el de i es: ', i);
       if (Object.getOwnPropertyNames(DataJSON[i])[0] === e) {
         const info = DataJSON[i];
+        console.log('El valor de info cuándo se cumple la condicional es: ', info);
         setSpecialities(info[e]);
-      } else {
-        i++;
       }
     }
   };
@@ -95,7 +95,7 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
   };
 
   if (user.rol.name === 'client' && !isOnline && type === 'profession') {
-    if (specialities === []) {
+    if (valueSelection !== '' && specialities === []) {
       const data = new FormData();
       data.append('proffession', valueResult);
       const res = axios.post('http://localhost:3000/busqueda', data)

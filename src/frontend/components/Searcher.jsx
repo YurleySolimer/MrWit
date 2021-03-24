@@ -11,18 +11,14 @@ const Searcher = (props) => {
   const [value, setValue] = useState('');
   const { setType, isHome, setValueResult, isOffline } = props;
 
-  function handleValue() {
-    const input = document.getElementById('searcher');
-    setValue(input.value);
-  }
-
-  document.addEventListener('click', handleValue);
-
   function handleClose(e) {
     setIsOpen(false);
   }
 
   function handleOpen(e) {
+    const input = document.getElementById('searcher');
+    console.log('El valor de input es: ', input.value);
+    setValue(input.value);
     setIsOpen(true);
   }
 
@@ -137,7 +133,7 @@ const Searcher = (props) => {
   if (isHome) {
     return (
       <div className='Search autocomplete'>
-        <input onChange={handleValue} type='text' placeholder='¿Qué necesitas?' className='Search__input' id='searcher' />
+        <input type='text' placeholder='¿Qué necesitas?' className='Search__input' id='searcher' />
         <button type='submit' onClick={handleOpen} className='Search__submit'>
           <img src={lupa} alt='Buscador' />
         </button>
