@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Ar, Ag, Bb, Bm, Bo, Br, Bs, Bz, Cl, Co, Cr, Cu, Cw, Dm, Do, Ec, Sv, Gt, Jm, Mx, Pa, Py, Pe, Pr, Uy, Ve } from 'react-flags-select';
-import { getConsultants, getConsultantsSuccess } from '../actions/mrwit';
+import { getConsultants } from '../actions/mrwit';
 import '../assets/styles/components/Results.scss';
 import star from '../assets/static/icons/star.svg';
 import noresults from '../assets/static/icons/noresults.svg';
@@ -66,7 +66,6 @@ const Results = ({ consultantData, getConsultants }) => {
     }
   };
 
-  console.log(consultantData.consultants);
   return consultantData.isLoading ? (
     <h2>Loading</h2>
   ) : consultantData.error ? (
@@ -76,9 +75,9 @@ const Results = ({ consultantData, getConsultants }) => {
       <h3 className='Results__title'>Resultados</h3>
       <div className='Results__profiles'>
         {
-          consultantData.consultants.length > 0 ?
+          consultantData.search.consultores.length > 0 ?
             (
-              consultantData.consultants.map((consultant) => {
+              consultantData.search.consultores.map((consultant) => {
                 console.log(consultant);
                 return (
                   <div className='Consultant__result' key={consultant._id}>
@@ -94,8 +93,8 @@ const Results = ({ consultantData, getConsultants }) => {
                         <p className='profile__time'>
                           {consultant.hoursGive || 0}
                           {' '}
-                      hrs dadas
-                    </p>
+                          hrs dadas
+                        </p>
                         <div className='rating'>
                           <img src={star} alt='' />
                           <img src={star} alt='' />

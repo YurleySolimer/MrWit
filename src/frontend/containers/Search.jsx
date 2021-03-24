@@ -21,7 +21,13 @@ import { getConsultantsSuccess } from '../actions/mrwit';
 
 const Search = ({ user, isOnline, getConsultantsSuccess }) => {
   const history = useHistory();
-  getConsultantsSuccess([]);
+  getConsultantsSuccess({
+    busqueda: '',
+    consultores: [],
+    proffession: '',
+    sector: '',
+    especialidad: '',
+  });
   // El tipo indica el tipo de busqueda que se está realizando (Sector, Profesión, Habilidad, ID)
   const [type, setType] = useState('');
   // valueResult corresponde a lo buscado en el buscador (el input text)
@@ -95,6 +101,7 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
       const res = axios.post('http://localhost:3000/busqueda', data)
         .then((res) => {
           console.log('Res.data es: ', res.data);
+          getConsultantsSuccess(res.data);
           history.push('/resultados');
         })
         .catch((e) => console.log(e));
@@ -105,6 +112,7 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
       const res = axios.post('http://localhost:3000/busqueda', data)
         .then((res) => {
           console.log('Res.data es: ', res.data);
+          getConsultantsSuccess(res.data);
           history.push('/resultados');
         })
         .catch((e) => console.log(e));
@@ -146,6 +154,7 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
       const res = axios.post('http://localhost:3000/busqueda', data)
         .then((res) => {
           console.log('Res.data es: ', res.data);
+          getConsultantsSuccess(res.data);
           history.push('/resultados');
         })
         .catch((e) => console.log(e));
@@ -171,6 +180,7 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
       const res = axios.post('http://localhost:3000/busqueda', data)
         .then((res) => {
           console.log('Res.data es: ', res.data);
+          getConsultantsSuccess(res.data);
           history.push('/resultados');
         })
         .catch((e) => console.log(e));
@@ -181,6 +191,7 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
       const res = axios.post('http://localhost:3000/busqueda', data)
         .then((res) => {
           console.log('Res.data es: ', res.data);
+          getConsultantsSuccess(res.data);
           history.push('/resultados');
         })
         .catch((e) => console.log(e));

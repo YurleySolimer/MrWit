@@ -9,7 +9,13 @@ import {
 
 const INITIAL_STATE = {
   isLoading: false,
-  consultants: [],
+  search: {
+    busqueda: '',
+    consultores: [],
+    proffession: '',
+    sector: '',
+    especialidad: '',
+  },
   consultant: [],
   error: '',
 };
@@ -28,7 +34,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isLoading: false,
-        consultants: action.payload,
+        search: action.payload,
         error: '',
       };
     case GET_CONSULTANTS_FAILURE:
