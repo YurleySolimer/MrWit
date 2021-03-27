@@ -33,14 +33,6 @@ module.exports = {
         ],
       },
       {
-        test: /\.json$/,
-        use: [
-          {
-            loader: 'json-loader',
-          },
-        ],
-      },
-      {
         test: /\.mp4$/,
         use: [
           {

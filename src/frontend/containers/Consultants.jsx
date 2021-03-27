@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import ReactFlagsSelect from 'react-flags-select';
-import statusReducers from '../reducers/statusReducers';
 import * as actionsStatus from '../actions';
 import '../assets/styles/containers/Consultants.scss';
 import background from '../assets/static/images/background1.png';
@@ -14,8 +13,11 @@ import lightArrow from '../assets/static/assets/lightgrey_arrow.svg';
 
 const Consultants = (props) => {
   const [selected, setSelected] = useState('');
-  const { user, consultants1, consultants2, consultants3, currency } = props;
+  const { status, mrwit } = props;
+  const { user, consultants1, consultants2, consultants3, currency } = status;
+  const { search } = mrwit;
 
+  console.log(props);
   if (user.status) {
     const { rol, status } = user;
 
@@ -31,7 +33,6 @@ const Consultants = (props) => {
         props.setHeader(false);
       }
     };
-
     if (rol.name === 'client' && status.online) {
       return (
         <div className='Consultants online' onScroll={handleHeader} id='consultants'>
@@ -40,11 +41,11 @@ const Consultants = (props) => {
           </span>
           <div className='Consultants__headlin'>
             <div className='Results__headlineSearch__word'>
-              <p>Palabra buscada</p>
+              <p>{search.busqueda === 'Sector y Profesion' ? search.sector : (search.busqueda === 'Profesion y especialidad' ? search.proffession : '')}</p>
               <img src={darkArrow} alt='' />
             </div>
             <div className='Results__headlineSearch__type'>
-              <p>tipo de busqueda</p>
+              <p>{search.busqueda === 'Sector y Profesion' ? search.proffession : (search.busqueda === 'Profesion y especialidad' ? search.especialidad : '')}</p>
               <img src={lightArrow} alt='' />
             </div>
             <Link to='/buscar'>
@@ -77,11 +78,11 @@ const Consultants = (props) => {
     <div className='Consultants'>
       <div className='Consultants__headlin'>
         <div className='Results__headlineSearch__word'>
-          <p>Palabra buscada</p>
+          <p>{search.busqueda === 'Sector y Profesion' ? search.sector : (search.busqueda === 'Profesion y especialidad' ? search.proffession : '')}</p>
           <img src={darkArrow} alt='' />
         </div>
         <div className='Results__headlineSearch__type'>
-          <p>tipo de busqueda</p>
+          <p>{search.busqueda === 'Sector y Profesion' ? search.proffession : (search.busqueda === 'Profesion y especialidad' ? search.especialidad : '')}</p>
           <img src={lightArrow} alt='' />
         </div>
         <Link to='/buscar'>
@@ -111,7 +112,10 @@ const Consultants = (props) => {
 };
 
 const mapStateToProps = (reducers) => {
-  return reducers.statusReducers;
+  return {
+    status: reducers.statusReducers,
+    mrwit: reducers.mrwitReducers,
+  };
 };
 
 export default connect(mapStateToProps, actionsStatus)(Consultants);

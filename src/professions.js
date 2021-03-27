@@ -29,7 +29,7 @@ const DataJSON =
       },
       {
         'Administrador': [
-          'Gerencia de Proyectos',
+          'Gestión de Proyectos',
           'Control Organizacional',
           'Gestión de Pymes',
           'Gestión empresarial',
@@ -46,10 +46,12 @@ const DataJSON =
           'Administración Publica',
           'Desarrollo del Potecial Humano la Organización',
           'Administración de Empresas',
-          'Gestión Ambital',
+          'Gestión Ambiental',
           'Gerencia de la Seguridad y Salud el Trabajo Virtual',
           'Gerencia de la Calidad Salud Virtual',
-          'Especialización Gestion Educativa',
+          'Especialización Gestión Educativa',
+          'Control Organizacional',
+          'Gerencia de Proyectos',
         ],
       },
       { 'Administrador de redes informáticas': [] },
@@ -141,7 +143,7 @@ const DataJSON =
       {
         'Bioquímico': [
           'Ciencias en bioquimica',
-          'Ciencias de los alimentos y nutricion',
+          'Ciencias de los alimentos y nutrición',
           'Bioquímica y biología molecular',
           'Ingeniería química y bioquímica',
           'Ingeniería Biomédica',

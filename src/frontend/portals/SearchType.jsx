@@ -18,8 +18,8 @@ const SearchType = (props) => {
 
   function handleProfession(e) {
     const val = value.replace(' - Profesión', '');
+    console.log('El valor del value recibido en el handleProfession de searchType es: ', val);
     setType('profession');
-    console.log(val);
     setValueResult(val);
     onClose(e);
   }

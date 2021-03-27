@@ -77,7 +77,6 @@ const CircleCarousel = ({ value, searchTerm, setValue, specialities }) => {
   if (searchTerm === 'Profesión') {
 
     if (specialities.length > 7) {
-
       const firstSpecialities = [];
       for (let i = 0; i < 7; i++) {
         firstSpecialities.push(specialities[i]);

@@ -21,7 +21,13 @@ import { getConsultantsSuccess } from '../actions/mrwit';
 
 const Search = ({ user, isOnline, getConsultantsSuccess }) => {
   const history = useHistory();
-  getConsultantsSuccess([]);
+  getConsultantsSuccess({
+    busqueda: '',
+    consultores: [],
+    proffession: '',
+    sector: '',
+    especialidad: '',
+  });
   // El tipo indica el tipo de busqueda que se está realizando (Sector, Profesión, Habilidad, ID)
   const [type, setType] = useState('');
   // valueResult corresponde a lo buscado en el buscador (el input text)
@@ -47,11 +53,11 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
   const handleValue = (e) => {
     setValueResult(e);
     for (let i = 0; i < DataJSON.length; i++) {
+      console.log('El valor de DAtaJSON en este ciclo es: ', DataJSON[i], ' Y el de i es: ', i);
       if (Object.getOwnPropertyNames(DataJSON[i])[0] === e) {
         const info = DataJSON[i];
+        console.log('El valor de info cuándo se cumple la condicional es: ', info);
         setSpecialities(info[e]);
-      } else {
-        i++;
       }
     }
   };
@@ -89,12 +95,13 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
   };
 
   if (user.rol.name === 'client' && !isOnline && type === 'profession') {
-    if (specialities === []) {
+    if (valueSelection !== '' && specialities === []) {
       const data = new FormData();
       data.append('proffession', valueResult);
       const res = axios.post('http://localhost:3000/busqueda', data)
         .then((res) => {
           console.log('Res.data es: ', res.data);
+          getConsultantsSuccess(res.data);
           history.push('/resultados');
         })
         .catch((e) => console.log(e));
@@ -105,6 +112,7 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
       const res = axios.post('http://localhost:3000/busqueda', data)
         .then((res) => {
           console.log('Res.data es: ', res.data);
+          getConsultantsSuccess(res.data);
           history.push('/resultados');
         })
         .catch((e) => console.log(e));
@@ -146,6 +154,7 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
       const res = axios.post('http://localhost:3000/busqueda', data)
         .then((res) => {
           console.log('Res.data es: ', res.data);
+          getConsultantsSuccess(res.data);
           history.push('/resultados');
         })
         .catch((e) => console.log(e));
@@ -171,6 +180,7 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
       const res = axios.post('http://localhost:3000/busqueda', data)
         .then((res) => {
           console.log('Res.data es: ', res.data);
+          getConsultantsSuccess(res.data);
           history.push('/resultados');
         })
         .catch((e) => console.log(e));
@@ -181,6 +191,7 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
       const res = axios.post('http://localhost:3000/busqueda', data)
         .then((res) => {
           console.log('Res.data es: ', res.data);
+          getConsultantsSuccess(res.data);
           history.push('/resultados');
         })
         .catch((e) => console.log(e));
