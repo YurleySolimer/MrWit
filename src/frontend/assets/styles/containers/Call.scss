@@ -31,7 +31,7 @@
     position: absolute;
     background-color: #00000080;
     width: 100%;
-    padding-bottom: 25px;
+    padding-bottom: 5px;
     z-index: 3;
     left: 0;
     bottom: 0;
@@ -40,7 +40,7 @@
 }
 
 .call__controls__top {
-    margin-top: 10px;
+    margin-top: 5px;
     text-align: center;
     color: white;
 }
@@ -50,15 +50,15 @@
 }
 
 .call__controls__bottom {
-    margin-top: 8px;
+    margin-top: 5px;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 
 .call__controls__hangup {
-    width: 55px;
-    height: 55px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     background-color: white;
     box-shadow: $outter-shadow;
@@ -70,8 +70,8 @@
 }
 
 .call__controls {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background-color: white;
     box-shadow: $outter-shadow;
