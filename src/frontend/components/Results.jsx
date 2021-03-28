@@ -88,7 +88,7 @@ const Results = ({ consultantData, getConsultants }) => {
                         {consultant.name}
                       </p>
                       <div className='Results__profiles__profile'>
-                        <img src={`http://localhost:3000/public/${consultant.pictureName}`} alt={consultant.pictureName} className='profile__img' />
+                        <img src={`http://localhost:3000/uploads/${consultant.pictureName}`} alt={consultant.pictureName} className='profile__img' />
                         <p className='profile__title'>{consultant.profession}</p>
                         <p className='profile__time'>
                           {consultant.hoursGive || 0}
@@ -113,9 +113,9 @@ const Results = ({ consultantData, getConsultants }) => {
               <div className='Consultant__result'>
                 <div className='Results__profiles__profile no_results'>
                   <img src={noresults} alt='No hay resultados' className='OtherResults__noresults__img' />
-                  <p>Parece que no hay consultores con esas caracteristicas...</p>
+                  <p>Parece que no hay consultores conectados estas caracteristicas en este momento.</p>
                   <br />
-                  <p>¿Por qué no pruebas haciendo una busqueda diferente?</p>
+                  <p>¿Por qué no intentas más tarde o pruebas haciendo una busqueda diferente?</p>
                   <br />
                   <Link to='/buscar'>Buscar otra vez</Link>
                 </div>

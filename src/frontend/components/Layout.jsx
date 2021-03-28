@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Header from './Header';
 import Menu from './Menu';
@@ -6,6 +6,9 @@ import statusReducers from '../reducers/statusReducers';
 import Modal from '../portals/Modal';
 
 const Layout = ({ children, user }) => {
+
+  const [isOpenClient, setIsOpenClient] = useState(false);
+  const [isOpenConsultant, setIsOpenConsultant] = useState(false);
 
   if (user.status) {
     if (user.status.inCall) {
@@ -16,6 +19,14 @@ const Layout = ({ children, user }) => {
       );
     };
 
+    const handleCloseClient = () => {
+      setIsOpenClient(false);
+    }
+
+    const handleCloseConsultant = () => {
+      setIsOpenConsultant(false);
+    }
+
     if (user.status.online && user.rol.name === 'client') {
       return (
         <div className='App'>
@@ -23,7 +34,7 @@ const Layout = ({ children, user }) => {
           {children}
           <Menu />
           <Modal isOpen={isOpenClient} onClose={handleCloseClient}>
-            <NotificationClient />
+            {/* <NotificationClient /> */}
           </Modal>
         </div>
       );
@@ -36,7 +47,7 @@ const Layout = ({ children, user }) => {
           {children}
           <Menu />
           <Modal isOpen={isOpenConsultant} onClose={handleCloseConsultant}>
-            <NotificationConsultant />
+            {/* <NotificationConsultant /> */}
           </Modal>
         </div>
       );
