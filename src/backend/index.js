@@ -13,8 +13,13 @@ const app = express();
 createRoles();
 
 const server = require("http").Server(app);
-const io = require("socket.io")(server);
-const { ExpressPeerServer } = require("peer");
+const io = require("socket.io")(server, {
+	cors: {
+		origin: "http://localhost:8080",
+		methods: [ "GET", "POST" ]
+	}
+})
+//const { ExpressPeerServer } = require("peer");
 
 
 //Settings
@@ -23,13 +28,63 @@ app.set('port', process.env.PORT || 3000);
 
 
 // Peer
-const peerServer = ExpressPeerServer(server, {
-  debug: true,
+//const peerServer = ExpressPeerServer(server, {
+ // debug: true,
+//});
+
+//Socket
+
+const users = {};
+const socketToRoom = {};
+
+io.on('connection', socket => {
+    socket.on("join room", roomID => {
+        if (users[roomID]) {
+            const length = users[roomID].length;
+            if (length === 2) {
+                socket.emit("Esta llamada está ocupada");
+                return;
+            }
+            users[roomID].push(socket.id);
+        } else {
+            users[roomID] = [socket.id];
+        }
+        socketToRoom[socket.id] = roomID;
+        const usersInThisRoom = users[roomID].filter(id => id !== socket.id);
+
+        socket.emit("all users", usersInThisRoom);
+        socket.emit("your id", socket.id);
+        socket.on("send message", body => {
+            io.emit("message", body);
+        })
+    });
+
+    socket.on("sending signal", payload => {
+        io.to(payload.userToSignal).emit('user joined', { signal: payload.signal, callerID: payload.callerID });
+    });
+
+    socket.on("returning signal", payload => {
+        io.to(payload.callerID).emit('receiving returned signal', { signal: payload.signal, id: socket.id });
+    });
+
+    socket.on('disconnect', () => {
+        const roomID = socketToRoom[socket.id];
+        let room = users[roomID];
+        if (room) {
+            room = room.filter(id => id !== socket.id);
+            users[roomID] = room;
+        }
+    });   
+
 });
+
+
+
+
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
-app.use("/peerjs", peerServer);
+//app.use("/peerjs", peerServer);
 
 
 //Middelwares
@@ -69,17 +124,6 @@ app.use(require('./routes/index'));
 app.use(require('./routes/blog'));
 app.use(require('./routes/auth'));
 
-//Socket
- io.on("connection", (socket) => {
-  socket.on("join-room", (roomId, userId) => {
-    socket.join(roomId);
-    socket.to(roomId).broadcast.emit("user-connected", userId);
-    socket.on("message", (message) => {
-      console.log('El mensaje es', message)
-      io.to(roomId).emit("createMessage", message);
-    });
-  });
-}); 
 
 
 //Passport setting
