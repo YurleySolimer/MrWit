@@ -12,9 +12,9 @@ const HistoryElement = (props) => {
   if (user.rol.name === 'client') {
     return (
       <div className='HistoryElement'>
-        <div className='HistoryElement__img'>
+        {/* <div className='HistoryElement__img'>
           <img src={`http://localhost:3000/uploads/${consultant.pictureName}`}} alt='' className='HistoryElement__img__profile' />
-        </div>
+        </div> */}
         <div className='HistoryElement__consultant'>
           <div className='HistoryElement__consultant__name'>{name}</div>
           <div className='HistoryElement__consultant__duration'>{duration}</div>

@@ -7,7 +7,7 @@ const Appointment = (props) => {
 
   const { name, date, hour, user } = props;
 
-  if (user === 'client') {
+  if (user.rol.name === 'client') {
     return (
       <div className='appointment'>
         <div className='appointment__img'>
@@ -24,7 +24,7 @@ const Appointment = (props) => {
     );
   };
 
-  if (user === 'consultant') {
+  if (user.rol.name === 'consultant') {
     return (
       <div className='appointment'>
         <div className='appointment__name'>

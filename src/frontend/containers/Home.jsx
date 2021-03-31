@@ -26,7 +26,6 @@ import '../assets/styles/components/CardButton.scss';
 
 import pen from '../assets/static/icons/pen.svg';
 import background from '../assets/static/images/background1.png';
-import profile from '../assets/static/images/profile_4.jpg';
 import star from '../assets/static/icons/star.svg';
 import starE from '../assets/static/icons/emptyStar.svg';
 import inactive from '../assets/static/icons/inactive.svg';
@@ -40,7 +39,7 @@ import Inactive from '../portals/Inactive';
 const Home = (props) => {
 
   // Agregar botón de compartir al perfil de MrWit del consultor
-
+  console.log(props);
   const { user, consultants2, consultants3, currency } = props;
 
   const [edit, setEdit] = useState(false);
@@ -93,10 +92,8 @@ const Home = (props) => {
     }
   };
 
-  if (user.status) {
+  if (user.name) {
     const { rol, status } = user;
-
-    console.log(props);
 
     if (status.online && rol.name === 'consultant') {
       return (
@@ -124,8 +121,8 @@ const Home = (props) => {
               </Modal>
               <div className='dashboard__profile--left'>
                 <div className='dashboard__profile--left--pic__co'>
-                  <img src={profile} className='profile__pic' alt='imagen de perfil' />
-                  <div className={`profile__pic__status__dashboard ${status}`}>{' '}</div>
+                  <img src={`http://localhost:3000/uploads/${user.pictureName}`} className='profile__pic' alt='imagen de perfil' />
+                  <div className={`profile__pic__status__dashboard ${status.online}`}>{' '}</div>
                 </div>
                 <div className='profile__rating'>
                   <img src={star} alt='' />
@@ -150,9 +147,9 @@ const Home = (props) => {
               </div>
             </div>
           </div>
-          <NextDates />
+          <NextDates user={user} />
           <h3 className='otherResults__title'>Consultores destacados en tu área</h3>
-          <OtherResults category='Habilidad1' results={consultants3} />
+          <OtherResults category={user.especialidad} results={consultants3} />
         </div>
       );
     }
@@ -178,6 +175,7 @@ const Home = (props) => {
       );
     }
   }
+
   return (
     <div className='home'>
       <Intro />

@@ -1,33 +1,26 @@
 import React from 'react';
 import '../assets/styles/components/NextDates.scss';
-import clock from '../assets/static/icons/clock.svg';
-import trash from '../assets/static/icons/trash.svg';
+import noresults from '../assets/static/icons/noresults.svg';
+import DateCard from './DateCard';
 
-const NextDates = () => {
+const NextDates = ({ user }) => {
+
+  if (user.agenda) {
+    return (
+      <div className='NextDates'>
+        <h3 className='NextDates__titulos'>Próximas citas</h3>
+        { user.agenda.map((date) => {
+          return <DateCard key={date.client.type} user={date} />;
+        })}
+      </div>
+    );
+  }
+
   return (
-    <div className="NextDates">
-      <h3 className="NextDates__titulos">Próximas citas</h3>
-      <div className="NextDates__date">
-        <span className="NextDates__date--info">Nombre del cliente | 2:00pm</span>
-        <div className="NextDates__date--icons">
-          <button type='button'><img src={clock} alt="Reagendar consulta" /></button>
-          <button type='button'><img src={trash} alt="eliminar cita" /></button>
-        </div>
-      </div>
-      <div className="NextDates__date">
-        <span className="NextDates__date--info">Nombre del cliente | 2:00pm</span>
-        <div className="NextDates__date--icons">
-          <button type='button'><img src={clock} alt="Reagendar consulta" /></button>
-          <button type='button'><img src={trash} alt="eliminar cita" /></button>
-        </div>
-      </div>
-      <div className="NextDates__date">
-        <span className="NextDates__date--info">Nombre del cliente | 2:00pm</span>
-        <div className="NextDates__date--icons">
-          <button type='button'><img src={clock} alt="Reagendar consulta" /></button>
-          <button type='button'><img src={trash} alt="eliminar cita" /></button>
-        </div>
-      </div>
+    <div className='NextDates noresults'>
+      <h3 className='NextDates__titulos'>Próximas citas</h3>
+      <img src={noresults} alt='No hay citas :(' />
+      <p>Parece que no tienes citas agendadas.</p>
     </div>
   );
 };

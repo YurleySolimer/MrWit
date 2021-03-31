@@ -9,7 +9,7 @@ import HistoryList from '../components/HistoryList';
 
 const History = ({ isOnline, user }) => {
 
-  if (!isOnline) {
+  if (!user.status.online) {
     return (<Redirect to='/' />);
   }
 
@@ -22,7 +22,7 @@ const History = ({ isOnline, user }) => {
     }
   };
 
-  if (user === 'client') {
+  if (user.rol.name === 'client') {
     return (
       <div className='History' onScroll={handleHeader} id='history'>
         <div className='history__body'>
@@ -33,7 +33,7 @@ const History = ({ isOnline, user }) => {
     );
   };
 
-  if (user === 'consultant') {
+  if (user.rol.name === 'consultant') {
     return (
       <div className='History' onScroll={handleHeader} id='history'>
         <div className='history__body'>

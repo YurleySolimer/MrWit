@@ -51,7 +51,7 @@ const WalletRecharge = (props) => {
     setIsOpenEditAccount(false);
   };
 
-  if (isOnline && user === 'client') {
+  if (user.status.online && user.rol.name === 'client') {
     return (
       <div className='WalletRecharge'>
         <div className='WalletRecharge__header'>
@@ -87,7 +87,7 @@ const WalletRecharge = (props) => {
     );
   }
 
-  if (isOnline && user === 'consultant') {
+  if (user.status.online && user.rol.name === 'consultant') {
     return (
       <div className='WalletRecharge'>
         <div className='WalletRecharge__header'>

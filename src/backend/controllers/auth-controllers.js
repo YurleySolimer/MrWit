@@ -34,7 +34,7 @@ authCtrl.postNewUser = async (req, res, next) => {
     if(rol === "client") 
     //New Cliente
     {
-        const { name, lastname, email, phone, dni, country} = req.body;
+        const { name, lastname, email, phone, dni, country } = req.body;
         const status = {
             online: true
         }
@@ -72,6 +72,7 @@ authCtrl.postNewUser = async (req, res, next) => {
     if (req.files) {
         console.log(req.files)
         const {path, originalname} = req.files[0];
+        console.log('El horario del consultor es: ', horario);
         newConsultor = new Consultor ({
             name,
             lastname,
@@ -90,10 +91,11 @@ authCtrl.postNewUser = async (req, res, next) => {
             policy: onPolicy,
             user: userSaved._id,
             status
-
+            
         });
     }
     else {
+        console.log('El horario del consultor en el else es: ', horario);
         newConsultor = new Consultor ({
             name,
             lastname,
@@ -138,6 +140,7 @@ authCtrl.postSignIn = async (req, res) => {
     if(userFound.rol.name === 'client') {
         const cliente =  await Client.findOne({email: req.body.email});
         console.log(cliente)
+        console.log('El estatus del cliente es: ', cliente.status);
         const userCliente = {
             name: userFound.name || '',
             lastname: userFound.lastname || '',
@@ -147,7 +150,9 @@ authCtrl.postSignIn = async (req, res) => {
             phone: cliente.phone || '',
             dni: cliente.dni || '',
             country: cliente.country || '',
-            status: cliente.status,
+            status: {
+                online: true
+            },
             token
         }
         console.log(userCliente)

@@ -13,7 +13,7 @@ import background from '../assets/static/images/background1.png';
 
 const Recharge = (props) => {
 
-  const { isOnline, user } = props;
+  const { user } = props;
   const [isOpen, setIsOpen] = useState(false);
   // eslint-disable-next-line class-methods-use-this
   function handlePayment() {
@@ -24,11 +24,11 @@ const Recharge = (props) => {
     setIsOpen(false);
   }
 
-  if (isOnline || user === 'consultant') {
+  if (user.status.online || user.rol.name === 'consultant') {
     return (<Redirect to='/' />);
   }
 
-  if (user === 'client' && !isOnline) {
+  if (user.rol.name === 'client' && !user.status.online) {
     return (
       <div className='Recharge'>
         <img className='background' src={background} alt='background' />

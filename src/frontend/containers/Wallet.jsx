@@ -8,11 +8,11 @@ import WalletTransactions from '../components/WalletTransactions';
 
 import * as actionsStatus from '../actions';
 
-const Wallet = ({ user, isOnline }) => {
+const Wallet = ({ user }) => {
 
   // Ajustar que se retire solo los viernes, superior a un mínimo, y las veces que quiera (por encima del mínimo)
 
-  if (!isOnline) {
+  if (user.status && !user.status.online) {
     return (<Redirect to='/' />);
   }
 
@@ -25,7 +25,7 @@ const Wallet = ({ user, isOnline }) => {
     }
   };
 
-  if (user === 'client') {
+  if (user.rol.name === 'client') {
     return (
       <div className='Wallet' onScroll={handleHeader} id='wallet'>
         <WalletRecharge balance='30.000' amount='10.000' />
@@ -34,7 +34,7 @@ const Wallet = ({ user, isOnline }) => {
     );
   }
 
-  if (user === 'consultant') {
+  if (user.rol.name === 'consultant') {
     return (
       <div className='Wallet'>
         <WalletRecharge balance='30.000' />
