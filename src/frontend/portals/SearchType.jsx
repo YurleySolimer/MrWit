@@ -11,14 +11,12 @@ const SearchType = (props) => {
   function handleSector(e) {
     const val = value.replace(' - Sector', '');
     setType('sector');
-    console.log(val);
     setValueResult(val);
     onClose(e);
   }
 
   function handleProfession(e) {
     const val = value.replace(' - Profesión', '');
-    console.log('El valor del value recibido en el handleProfession de searchType es: ', val);
     setType('profession');
     setValueResult(val);
     onClose(e);
@@ -29,7 +27,6 @@ const SearchType = (props) => {
     data.append('ability', value);
     const res = axios.post('http://localhost:3000/busqueda', data)
       .then((res) => {
-        console.log(res.data);
         history.push(`/resultados/?habilidad=${value}`);
       })
       .catch((e) => console.log(e));
@@ -48,7 +45,6 @@ const SearchType = (props) => {
     data.append('id', value);
     const res = axios.post('http://localhost:3000/busqueda', data)
       .then((res) => {
-        console.log(res.data);
         history.push(`/resultados/?id=${value}`);
       })
       .catch((e) => console.log(e));

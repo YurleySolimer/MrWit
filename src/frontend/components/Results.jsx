@@ -2,12 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Ar, Ag, Bb, Bm, Bo, Br, Bs, Bz, Cl, Co, Cr, Cu, Cw, Dm, Do, Ec, Sv, Gt, Jm, Mx, Pa, Py, Pe, Pr, Uy, Ve } from 'react-flags-select';
+import ReactStars from 'react-rating-stars-component';
 import { getConsultants } from '../actions/mrwit';
 import '../assets/styles/components/Results.scss';
-import star from '../assets/static/icons/star.svg';
 import noresults from '../assets/static/icons/noresults.svg';
 
-const Results = ({ consultantData, getConsultants }) => {
+const Results = ({ consultantData }) => {
 
   const getCountry = (value) => {
     switch (value) {
@@ -84,23 +84,18 @@ const Results = ({ consultantData, getConsultants }) => {
                     <Link to={`/resultados/${consultant._id}`}>
                       <p className='profile__name'>
                         {getCountry(consultant.country)}
-                        {' '}
-                        {consultant.name}
+                        <span>{consultant.name}</span>
                       </p>
                       <div className='Results__profiles__profile'>
                         <img src={`http://localhost:3000/uploads/${consultant.pictureName}`} alt={consultant.pictureName} className='profile__img' />
-                        <p className='profile__title'>{consultant.profession}</p>
+                        <p className='profile__title'>{`${consultant.profession} - ${consultant.especialidad}`}</p>
                         <p className='profile__time'>
                           {consultant.hoursGive || 0}
                           {' '}
                           hrs dadas
                         </p>
                         <div className='rating'>
-                          <img src={star} alt='' />
-                          <img src={star} alt='' />
-                          <img src={star} alt='' />
-                          <img src={star} alt='' />
-                          <img src={star} alt='' />
+                          <ReactStars count={5} edit={false} sizy={24} value={consultant.clasification} />
                         </div>
                         <p className='profile__phrase'>{consultant.phrase}</p>
                       </div>

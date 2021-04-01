@@ -308,7 +308,6 @@ const DataMatrix = [
           'Osteópata',
           'Otorrinolaringólogo',
           'Óptico',
-          'Oftalmólogo',
           'Quiropráctico',
           'Radiólogo',
           'Radioterapeuta',

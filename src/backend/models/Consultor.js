@@ -8,6 +8,7 @@ const consultorSchema = new Schema({
   picturePath: String,
   phone: String,
   date: Date,
+  description: String,
   country: String,
   profession: String,
   especialidad: String,

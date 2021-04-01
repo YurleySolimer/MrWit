@@ -53,10 +53,8 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
   const handleValue = (e) => {
     setValueResult(e);
     for (let i = 0; i < DataJSON.length; i++) {
-      console.log('El valor de DAtaJSON en este ciclo es: ', DataJSON[i], ' Y el de i es: ', i);
       if (Object.getOwnPropertyNames(DataJSON[i])[0] === e) {
         const info = DataJSON[i];
-        console.log('El valor de info cuándo se cumple la condicional es: ', info);
         setSpecialities(info[e]);
       }
     }
@@ -73,7 +71,6 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
       data.append('proffession', valueSelection);
       const res = axios.post('http://localhost:3000/busqueda', data)
         .then((res) => {
-          console.log('Res.data es: ', res.data);
           getConsultantsSuccess(res.data);
           history.push('/resultados');
         })
@@ -100,7 +97,6 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
       data.append('proffession', valueResult);
       const res = axios.post('http://localhost:3000/busqueda', data)
         .then((res) => {
-          console.log('Res.data es: ', res.data);
           getConsultantsSuccess(res.data);
           history.push('/resultados');
         })
@@ -111,7 +107,6 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
       data.append('especialidad', valueSelection);
       const res = axios.post('http://localhost:3000/busqueda', data)
         .then((res) => {
-          console.log('Res.data es: ', res.data);
           getConsultantsSuccess(res.data);
           history.push('/resultados');
         })
@@ -147,13 +142,11 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
 
   if (user.rol.name === 'client' && isOnline && type === 'sector') {
     if (valueSelection !== '') {
-      console.log('Se realizará la busqueda de sector con ' + valueResult + ' Y la profesión ' + valueSelection);
       const data = new FormData();
       data.append('category', valueResult);
       data.append('proffession', valueSelection);
       const res = axios.post('http://localhost:3000/busqueda', data)
         .then((res) => {
-          console.log('Res.data es: ', res.data);
           getConsultantsSuccess(res.data);
           history.push('/resultados');
         })
@@ -179,7 +172,6 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
       data.append('proffession', valueResult);
       const res = axios.post('http://localhost:3000/busqueda', data)
         .then((res) => {
-          console.log('Res.data es: ', res.data);
           getConsultantsSuccess(res.data);
           history.push('/resultados');
         })
@@ -190,7 +182,6 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
       data.append('especialidad', valueSelection);
       const res = axios.post('http://localhost:3000/busqueda', data)
         .then((res) => {
-          console.log('Res.data es: ', res.data);
           getConsultantsSuccess(res.data);
           history.push('/resultados');
         })
