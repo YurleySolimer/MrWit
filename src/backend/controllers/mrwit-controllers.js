@@ -13,12 +13,19 @@ mrwitCtrl.getConsultores = async (req, res) => {
       if (!req.query.proffession) {
         if(!req.query.ability) {
           if(!req.query.id) {
-            const consultores = await Consultor.find();
+            const consultores = await Consultor.find(
+              { 'status.online': true }
+            );
             res.status(200).json(consultores);
           }
           else if(req.query.id) {
             const consultores = await Consultor.find(
-              { _id: { $in: id } },
+              {
+                $and: [
+                  { _id: { $in: id } },
+                  { 'status.online': true }
+                ],
+              },
             );
             const resultados = {
               busqueda: 'id',
@@ -30,7 +37,12 @@ mrwitCtrl.getConsultores = async (req, res) => {
         }
         else if(req.query.ability) {
           const consultores = await Consultor.find(
-            { abilities: { $in: ability } },
+            {
+              $and: [
+                { abilities: { $in: ability } },
+                { 'status.online': true }
+              ],
+            },
           );
           const resultados = {
             busqueda: 'ability',
@@ -43,7 +55,12 @@ mrwitCtrl.getConsultores = async (req, res) => {
       } else if (req.query.proffession) {
         if (!req.query.especialidad) {
           const consultores = await Consultor.find(
-            { profession: { $in: proffession } },
+            {
+              $and: [
+                { profession: { $in: proffession } },
+                { 'status.online': true }
+              ],
+            },
           );
           const resultados = {
             busqueda: 'profesion',
@@ -57,6 +74,8 @@ mrwitCtrl.getConsultores = async (req, res) => {
               $and: [
                 { profession: { $in: proffession } },
                 { especialidad: { $in: especialidad } },
+                { 'status.online': true }
+
               ],
             },
           );
@@ -72,7 +91,13 @@ mrwitCtrl.getConsultores = async (req, res) => {
     } else if (req.query.category) {
       if (!req.query.proffession) {
         const consultores = await Consultor.find(
-          { category: { $in: category } },
+          {
+            $and: [
+              { category: { $in: category } },
+              { 'status.online': true }
+
+            ],
+          },
 
         );
         res.status(200).json(consultores);
@@ -82,6 +107,8 @@ mrwitCtrl.getConsultores = async (req, res) => {
             $and: [
               { category: { $in: category } },
               { profession: { $in: proffession } },
+              { 'status.online': true }
+
             ],
           },
         );
