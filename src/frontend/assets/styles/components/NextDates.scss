@@ -4,6 +4,21 @@
     margin: 20px;
 }
 
+.NextDates.noresults {
+    margin: 20px;
+    padding: 0 20px;
+    border-radius: 5px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    box-shadow: $outter-shadow;
+
+    & p {
+        text-align: center;
+        color: $gray;
+    }
+}
+
 .NextDates__date {
     display: flex;
     justify-content: space-between;

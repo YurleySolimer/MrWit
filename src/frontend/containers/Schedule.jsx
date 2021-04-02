@@ -11,7 +11,7 @@ import Prev from '../components/Prev';
 import Modal from '../portals/Modal';
 import BlockDay from '../portals/BlockDay';
 
-const Schedule = ({ user, isOnline }) => {
+const Schedule = ({ user }) => {
 
   const [value, onChange] = useState(new Date(), []);
   const [blockDay, setBlockDay] = useState(false);
@@ -34,7 +34,7 @@ const Schedule = ({ user, isOnline }) => {
     setBlockDay(false);
   }
 
-  if (!isOnline) {
+  if (!user.status.online) {
     return (<Redirect to='/' />);
   }
 
@@ -47,7 +47,7 @@ const Schedule = ({ user, isOnline }) => {
     }
   };
 
-  if (user === 'consultant') {
+  if (user.rol.name === 'consultant') {
     return (
       <div className='Schedule' id='schedule'>
         <div className='schedule__body'>
@@ -75,7 +75,7 @@ const Schedule = ({ user, isOnline }) => {
     );
   }
 
-  if (user === 'client') {
+  if (user.rol.name === 'client') {
     return (
       <div className='Schedule' id='schedule'>
         <div className='schedule__body'>

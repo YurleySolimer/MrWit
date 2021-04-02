@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import ReactFlagsSelect from 'react-flags-select';
+import CurrencyFormat from 'react-currency-format';
 import * as actionsStatus from '../actions';
 import '../assets/styles/containers/Consultants.scss';
 import background from '../assets/static/images/background1.png';
 import Results from '../components/Results';
-import OtherResults from '../components/OtherResults';
 import lupa from '../assets/static/icons/lupa.svg';
 import darkArrow from '../assets/static/assets/darkgrey_arrow.svg';
 import lightArrow from '../assets/static/assets/lightgrey_arrow.svg';
@@ -14,7 +14,7 @@ import lightArrow from '../assets/static/assets/lightgrey_arrow.svg';
 const Consultants = (props) => {
   const [selected, setSelected] = useState('');
   const { status, mrwit } = props;
-  const { user, consultants1, consultants2, consultants3, currency } = status;
+  const { user, currency } = status;
   const { search } = mrwit;
 
   console.log(props);
@@ -37,7 +37,8 @@ const Consultants = (props) => {
       return (
         <div className='Consultants online' onScroll={handleHeader} id='consultants'>
           <span className="consultants__balance">
-            <b>Saldo: </b>14.000 {currency}
+            <b>Saldo: </b>
+            <CurrencyFormat value={140030} displayType='text' thousandSeparator={true} prefix='$' suffix={currency} />
           </span>
           <div className='Consultants__headlin'>
             <div className='Results__headlineSearch__word'>
@@ -65,11 +66,6 @@ const Consultants = (props) => {
             />
           </div>
           <Results />
-          <span className='Consultants__others'>Otros consultores activos</span>
-          <OtherResults top={true} category='Top' results={consultants1} />
-          <OtherResults top={false} category='Finanzas' results={consultants2} />
-          <OtherResults top={false} category='Liderazgo' results={false} />
-          <OtherResults top={false} category='Economía  ' results={consultants3} />
         </div>
       );
     };
@@ -102,11 +98,6 @@ const Consultants = (props) => {
         />
       </div>
       <Results />
-      <span className='Consultants__others'>Otros consultores activos</span>
-      <OtherResults top={true} category='Top' results={consultants1} />
-      <OtherResults top={false} category='Finanzas' results={consultants2} />
-      <OtherResults top={false} category='Liderazgo' results={false} />
-      <OtherResults top={false} category='Economía  ' results={consultants3} />
     </div>
   );
 };

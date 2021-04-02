@@ -1,48 +1,58 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Header from './Header';
 import Menu from './Menu';
-import statusReducers from '../reducers/statusReducers';
 import Modal from '../portals/Modal';
 
 const Layout = ({ children, user }) => {
 
-  if (user.status) {
-    if (user.status.inCall) {
-      return (
-        <div className='App'>
-          {children}
-        </div>
-      );
-    };
+  const [isOpenClient, setIsOpenClient] = useState(false);
+  const [isOpenConsultant, setIsOpenConsultant] = useState(false);
 
-    if (user.status.online && user.rol.name === 'client') {
-      return (
-        <div className='App'>
-          <Header />
-          {children}
-          <Menu />
-          <Modal isOpen={isOpenClient} onClose={handleCloseClient}>
-            <NotificationClient />
-          </Modal>
-        </div>
-      );
-    }
+  const handleCloseClient = () => {
+    setIsOpenClient(false);
+  };
 
-    if (user.status.online && user.rol.name === 'consultant') {
-      return (
-        <div className='App'>
-          <Header />
-          {children}
-          <Menu />
-          <Modal isOpen={isOpenConsultant} onClose={handleCloseConsultant}>
-            <NotificationConsultant />
-          </Modal>
-        </div>
-      );
-    }
+  const handleCloseConsultant = () => {
+    setIsOpenConsultant(false);
+  };
+
+  if (user.status && user.status.isCall) {
+    return (
+      <div className='App'>
+        {children}
+      </div>
+    );
+  };
+
+  if (user.status && user.status.online && user.rol.name === 'consultant') {
+    return (
+      <div className='App'>
+        <Header />
+        {children}
+        <Menu />
+        <Modal isOpen={isOpenConsultant} onClose={handleCloseConsultant}>
+          {/* <NotificationConsultant /> */}
+        </Modal>
+      </div>
+    );
   }
 
+  if (user.name && user.dni && user.rol.name === 'client') {
+    console.log('Entré en el layout de client');
+    return (
+      <div className='App'>
+        <Header />
+        {children}
+        <Menu />
+        <Modal isOpen={isOpenClient} onClose={handleCloseClient}>
+          {/* <NotificationClient /> */}
+        </Modal>
+      </div>
+    );
+  }
+
+  console.log('Entré en el layout de general');
   return (
     <div className='App'>
       {children}

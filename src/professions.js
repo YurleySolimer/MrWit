@@ -290,7 +290,6 @@ const DataJSON =
           'Osteópata',
           'Otorrinolaringólogo',
           'Óptico',
-          'Oftalmólogo',
           'Quiropráctico',
           'Radiólogo',
           'Radioterapeuta',

@@ -39,6 +39,11 @@
     width: 250px;
     text-align: center;
     padding-bottom: 0;
+
+    & .rating {
+        display: flex;
+        justify-content: center;
+    }
 }
 
 .Results__profiles__profile.no_results {
@@ -74,6 +79,13 @@
     margin-bottom: 5px;
     margin-top: 4px;
     color: $gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & span {
+        margin-left: 1em;
+    }
 }
 
 .profile__title {

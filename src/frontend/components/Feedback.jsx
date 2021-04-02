@@ -1,6 +1,6 @@
 import React from 'react';
 import '../assets/styles/components/Feedback.scss';
-import star from '../assets/static/icons/star.svg';
+import ReactStars from 'react-rating-stars-component';
 import profile from '../assets/static/images/profile_pic.png';
 
 const Feedback = ({ name, country, description }) => {
@@ -9,11 +9,7 @@ const Feedback = ({ name, country, description }) => {
       <div className='Feedback__left'>
         <img src={profile} alt='Profile pic' className='Feedback__left__img' />
         <div className='Feedback__left__score'>
-          <img src={star} alt='star' className='star' />
-          <img src={star} alt='star' className='star' />
-          <img src={star} alt='star' className='star' />
-          <img src={star} alt='star' className='star' />
-          <img src={star} alt='star' className='star' />
+          <ReactStars isHalf={true} value={5} count={5} size={16} />
         </div>
       </div>
       <div className='Feedback__right'>

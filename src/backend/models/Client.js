@@ -7,6 +7,16 @@ const clientSchema = new Schema({
     phone: String,
     dni: String,
     country: String,
+    status: {
+        online: {
+          type: Boolean,
+          default: false,
+        },
+        inCall: {
+          type: Boolean,
+          default: false,
+        },
+    },
     wallet: {
         saldo: Number,
         Transacciones: [{

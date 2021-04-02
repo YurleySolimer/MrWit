@@ -17,7 +17,6 @@ const Searcher = (props) => {
 
   function handleOpen(e) {
     const input = document.getElementById('searcher');
-    console.log('El valor de input es: ', input.value);
     setValue(input.value);
     setIsOpen(true);
   }

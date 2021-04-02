@@ -25,7 +25,7 @@ const Menu = (props) => {
     nav.push('/buscar');
   }
 
-  if (user === 'client') {
+  if (user.rol.name === 'client') {
     return (
       <>
         <nav className='menu'>

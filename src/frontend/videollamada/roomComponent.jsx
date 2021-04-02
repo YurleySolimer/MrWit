@@ -92,7 +92,7 @@ const Room = (props) => {
     useEffect(() => {
         socketRef.current = io.connect("http://localhost:3000");		
 
-        navigator.mediaDevices.getUserMedia({ video: videoConstraints, audio: true }).then(stream => {
+        navigator.mediaDevices.getUserMedia({ video: videoConstraints, audio: false }).then(stream => {
             userVideo.current.srcObject = stream;
             socketRef.current.emit("join room", roomID);
             socketRef.current.on("all users", users => {

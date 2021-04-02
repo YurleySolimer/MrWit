@@ -9,12 +9,12 @@ import statusReducers from '../reducers/statusReducers';
 
 const HistoryElement = (props) => {
   const { name, duration, price, date, user, search, currency } = props;
-  if (user === 'client' && !search) {
+  if (user.rol.name === 'client') {
     return (
       <div className='HistoryElement'>
-        <div className='HistoryElement__img'>
-          <img src={profile} alt='' className='HistoryElement__img__profile' />
-        </div>
+        {/* <div className='HistoryElement__img'>
+          <img src={`http://localhost:3000/uploads/${consultant.pictureName}`}} alt='' className='HistoryElement__img__profile' />
+        </div> */}
         <div className='HistoryElement__consultant'>
           <div className='HistoryElement__consultant__name'>{name}</div>
           <div className='HistoryElement__consultant__duration'>{duration}</div>
@@ -35,7 +35,7 @@ const HistoryElement = (props) => {
     );
   };
 
-  if (user === 'client' && search) {
+  if (user.rol.name === 'client' && search) {
     return (
       <div className='HistoryElement'>
         <div className='HistoryElement__consultant'>
@@ -58,7 +58,7 @@ const HistoryElement = (props) => {
     );
   };
 
-  if (user === 'consultant') {
+  if (user.rol.name === 'consultant') {
     return (
       <div className='HistoryElement'>
         <div className='HistoryElement__consultant'>

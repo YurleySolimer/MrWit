@@ -34,7 +34,7 @@ authCtrl.postNewUser = async (req, res, next) => {
     if(rol === "client") 
     //New Cliente
     {
-        const { name, lastname, email, phone, dni, country} = req.body;
+        const { name, lastname, email, phone, dni, country } = req.body;
         const status = {
             online: true
         }
@@ -72,6 +72,7 @@ authCtrl.postNewUser = async (req, res, next) => {
     if (req.files) {
         console.log(req.files)
         const {path, originalname} = req.files[0];
+        console.log('El horario del consultor es: ', horario);
         newConsultor = new Consultor ({
             name,
             lastname,
@@ -90,10 +91,11 @@ authCtrl.postNewUser = async (req, res, next) => {
             policy: onPolicy,
             user: userSaved._id,
             status
-
+            
         });
     }
     else {
+        console.log('El horario del consultor en el else es: ', horario);
         newConsultor = new Consultor ({
             name,
             lastname,

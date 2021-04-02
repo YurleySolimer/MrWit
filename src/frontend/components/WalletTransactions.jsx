@@ -6,7 +6,7 @@ import Transaction from './Transaction';
 
 const WalletTransactions = ({ user }) => {
 
-  if (user === 'client') {
+  if (user.rol.name === 'client') {
     return (
       <div className='WalletTransaction'>
         <h2 className='WalletTransactions__title'>Últimas transacciones</h2>
@@ -22,7 +22,7 @@ const WalletTransactions = ({ user }) => {
     );
   };
 
-  if (user === 'consultant') {
+  if (user.rol.name === 'consultant') {
     return (
       <div className='WalletTransaction'>
         <h2 className='WalletTransactions__title'>Últimas transacciones</h2>
