@@ -8,6 +8,8 @@ consultantCtrl.getConsultor = async (req, res) => {
     const consultor = await Consultor.findById(req.params.id);
     if (consultor) { 
     const userFound = await User.findOne({email: consultor.email});
+    const otrosConsultores = await Consultor.find({category: consultor.category});
+
     const userConsultor = {
         name: userFound.name || '',
         lastname: userFound.lastname || '',
@@ -21,7 +23,9 @@ consultantCtrl.getConsultor = async (req, res) => {
         category: consultor.category || '',
         abilities: consultor.abilities || '',
         status: consultor.status,
+        otrosConsultores
     }
+    
     res.status(200).json(userConsultor);
     }
     else if (!consultor) {
