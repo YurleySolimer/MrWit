@@ -1,6 +1,8 @@
 const mrwitCtrl = {};
 const Consultor = require('../models/Consultor');
 const Cliente = require('../models/Client');
+const User = require('../models/Users');
+
 
 mrwitCtrl.getConsultores = async (req, res) => {
 
@@ -92,45 +94,35 @@ mrwitCtrl.getConsultores = async (req, res) => {
         res.status(200).json(resultados);
 
       }
-    }
-
-    /*  if (req.query.proffession) {
-
-     }
-
-     if (req.query.ability) {
-         const consultores = await Consultor.find(
-             {abilities: {$in: ability}},
-         );
-
-         res.status(200).json(consultores);
-     }
-
-     if (req.query.id) {
-         const consultores = await Consultor.find(
-             {_id: {$in: id}},
-         );
-
-         res.status(200).json(consultores);
-     }
-
-     if (req.query.country) {
-         const consultores = await Consultor.find(
-             {country: {$in: country}},
-         );
-
-         res.status(200).json(consultores);
-     }
- }
-
-  */
+    }   
   }
 };
 
 mrwitCtrl.getConsultor = async (req, res) => {
   console.log(req.params.id);
   const consultor = await Consultor.findById(req.params.id);
-  res.status(200).json(consultor);
+    if (consultor) { 
+    const userFound = await User.findOne({email: consultor.email});
+    const userConsultor = {
+        name: userFound.name || '',
+        lastname: userFound.lastname || '',
+        email: userFound.email || '',
+        rol: userFound.rol || '',
+        id: userFound._id || '',
+        pictureName: consultor.pictureName || '',
+        picturePath: consultor.picturePath || '',
+        profession: consultor.profession || '',
+        especialidad: consultor.especialidad || '',
+        category: consultor.category || '',
+        abilities: consultor.abilities || '',
+        status: consultor.status,
+        token
+    }
+    res.status(200).json(userConsultor);
+    }
+    else if (!consultor) {
+        res.status(404).json({message: 'Not Found'});
+    }
 };
 
 mrwitCtrl.postAgenda = async (req, res) => {
@@ -157,7 +149,6 @@ mrwitCtrl.postAgenda = async (req, res) => {
 };
 
 mrwitCtrl.postConsultaFinalizada = async (req, res) => {
-
   //NewFeedback
   const { calification, feedback, to } = req.body;
   const { by } = req.params.id;
@@ -176,19 +167,56 @@ mrwitCtrl.postConsultaFinalizada = async (req, res) => {
 mrwitCtrl.postRecarga = (req, res) => res.send('This is a recarga'); //Crear a parte la logica de la pasarela
 
 mrwitCtrl.getWallet = async (req, res) => {
-  console.log(req.params.id);
   const cliente = await Cliente.findById(req.params.id);
-  res.status(200).json(cliente);
+  const userFound = await User.findOne({email: cliente.email});
+  const userCliente = {
+      name: userFound.name || '',
+      lastname: userFound.lastname || '',
+      email: userFound.email || '',
+      rol: userFound.rol || '',
+      id: userFound._id || '',
+      phone: cliente.phone || '',
+      dni: cliente.dni || '',
+      country: cliente.country || '',
+      status: cliente.status,
+      wallet: cliente.wallet,
+  }
+  res.status(200).json(userCliente);
 };
+
 mrwitCtrl.getHistory = async (req, res) => {
-  console.log(req.params.id);
   const cliente = await Cliente.findById(req.params.id);
-  res.status(200).json(cliente);
+  const userFound = await User.findOne({email: cliente.email});
+  const userCliente = {
+      name: userFound.name || '',
+      lastname: userFound.lastname || '',
+      email: userFound.email || '',
+      rol: userFound.rol || '',
+      id: userFound._id || '',
+      phone: cliente.phone || '',
+      dni: cliente.dni || '',
+      country: cliente.country || '',
+      status: cliente.status,
+      history: cliente.history,
+  }
+  res.status(200).json(userCliente);
 };
 mrwitCtrl.getAgenda = async (req, res) => {
-  console.log(req.params.id);
   const cliente = await Cliente.findById(req.params.id);
-  res.status(200).json(cliente);
+  const userFound = await User.findOne({email: cliente.email});
+  const userCliente = {
+      name: userFound.name || '',
+      lastname: userFound.lastname || '',
+      email: userFound.email || '',
+      rol: userFound.rol || '',
+      id: userFound._id || '',
+      phone: cliente.phone || '',
+      dni: cliente.dni || '',
+      country: cliente.country || '',
+      status: cliente.status,
+      agenda: cliente.agenda,
+  }
+  res.status(200).json(userCliente);
 };
 
 module.exports = mrwitCtrl;

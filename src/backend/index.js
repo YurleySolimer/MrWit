@@ -19,18 +19,12 @@ const io = require("socket.io")(server, {
 		methods: [ "GET", "POST" ]
 	}
 })
-//const { ExpressPeerServer } = require("peer");
 
 
 //Settings
 app.set('port', process.env.PORT || 3000);
 
 
-
-// Peer
-//const peerServer = ExpressPeerServer(server, {
- // debug: true,
-//});
 
 //Socket
 
@@ -84,7 +78,6 @@ io.on('connection', socket => {
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
-//app.use("/peerjs", peerServer);
 
 
 //Middelwares

@@ -6,9 +6,7 @@ const URI = process.env.MONGODB_URI
 mongoose.connect(URI, {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true,
-    useFindAndModify: true,
-    useCreateIndex: true
+    useUnifiedTopology: true
 })
 .then(db => console.log('DB is connected'))
 .catch(error => console.error(error))

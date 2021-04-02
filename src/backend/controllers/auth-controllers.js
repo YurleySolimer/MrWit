@@ -125,7 +125,6 @@ authCtrl.postNewUser = async (req, res, next) => {
 };
 
 authCtrl.postSignIn = async (req, res) => {
-
    const userFound = await User.findOne({email: req.body.email}).populate("rol");
     if (!userFound) return res.json({message: "User not found"});
 
@@ -137,20 +136,18 @@ authCtrl.postSignIn = async (req, res) => {
 
     if(userFound.rol.name === 'client') {
         const cliente =  await Client.findOne({email: req.body.email});
-        console.log(cliente)
         const userCliente = {
             name: userFound.name || '',
             lastname: userFound.lastname || '',
             email: userFound.email || '',
             rol: userFound.rol || '',
-            id: userFound._id || '',
+            id: cliente._id || '',
             phone: cliente.phone || '',
             dni: cliente.dni || '',
             country: cliente.country || '',
             status: cliente.status,
             token
         }
-        console.log(userCliente)
 
     res.status(200).json(userCliente);
     }
@@ -161,7 +158,7 @@ authCtrl.postSignIn = async (req, res) => {
             lastname: userFound.lastname || '',
             email: userFound.email || '',
             rol: userFound.rol || '',
-            id: userFound._id || '',
+            id: consultor._id || '',
             pictureName: consultor.pictureName || '',
             picturePath: consultor.picturePath || '',
             profession: consultor.profession || '',
