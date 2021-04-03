@@ -34,6 +34,16 @@ const consultorSchema = new Schema({
   clasification: Number,
   wallet: {
     saldo: Number,
+    bankAccount: {
+      nombre: String,
+      apellido: String,
+      telefono: String,
+      cedula: String,
+      banco: String,
+      tipo: String,
+      cuenta: String,
+      acuerdo: Boolean
+    },
     Transacciones: [{
       date: Date,
       total: Number,

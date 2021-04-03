@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const router = Router();
-const { getConsultor, updateConsultor, getWallet, getHistory, getAgenda  } = require('../controllers/consultor-controllers');
+const { getConsultor, updateConsultor, getWallet, getHistory, getAgenda, postWallet  } = require('../controllers/consultor-controllers');
 
 
 router.route('/user/consultor/:id')
@@ -9,6 +9,9 @@ router.route('/user/consultor/:id')
 
 router.route('/user/consultor/:id/wallet')
     .get(getWallet);
+
+router.route('/user/consultor/:id/wallet/cuenta')
+    .post(postWallet);
 
 router.route('/user/consultor/:id/historial')
     .get(getHistory);

@@ -60,6 +60,32 @@ consultantCtrl.getWallet = async (req, res) => {
 
     res.status(200).json(userConsultor); 
 }
+
+consultantCtrl.postWallet = async (req, res) => {
+    const { nombre, apellido, banco, cuenta, tipo, acuerdo, cedula, telefono} = req.body;
+    var onAcuerdo = false;
+    if (acuerdo === 'on') {
+        onAcuerdo = true;
+    }
+    const bankAccount = {
+        nombre,
+        apellido,
+        cedula,
+        telefono,
+        banco,
+        tipo,
+        cuenta,
+        acuerdo: onAcuerdo 
+    }
+    const newConsultor = {
+        wallet: {
+            bankAccount
+        }
+    };
+    await Consultor.findOneAndUpdate({_id: req.params.id}, newConsultor);
+    res.status(200).json({message: 'Datos guardados'});
+}
+
 consultantCtrl.getHistory = async (req, res) => {
     const consultor = await Consultor.findById(req.params.id);
     const userFound = await User.findOne({email: consultor.email});

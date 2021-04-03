@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import '../assets/styles/portals/WalletNewAccountModal.scss';
 import check from '../assets/static/icons/check.svg';
 
+
 const WalletNewAccountModal = ({ onClose, isEdit }) => {
 
   const [saved, setSaved] = useState(false);
@@ -11,8 +12,28 @@ const WalletNewAccountModal = ({ onClose, isEdit }) => {
     onClose(e);
   }
 
-  function handleSaveAccount() {
-    setSaved({ saved: true });
+
+  function handleSaveAccount(event) {
+    event.preventDefault();
+
+    const data = new FormData();
+    data.append('nombre', input.name);
+    data.append('apellido', input.lastname);
+    data.append('telefono', input.tel);
+    data.append('cedula', input.cedula);
+    data.append('banco', input.banco);
+    data.append('tipo', input.typeAccount);
+    data.append('cuenta', input.accountNumber);
+    data.append('acuerdo', input.agreements);
+
+    const res = axios.post(`http://localhost:3000/user/consultor/IDCONSULTOR/wallet/cuenta`,
+      data,
+      config)
+      .then((res) => {
+        console.log(res.data);
+        setSaved({ saved: true });
+      })
+      .catch((e) => console.log(e));
   }
 
   if (saved && isEdit) {
@@ -42,8 +63,10 @@ const WalletNewAccountModal = ({ onClose, isEdit }) => {
         <p className='WalletNAModal__text'>Los siguientes datos son necesarios para procesar los pagos que recibas en la plataforma.</p>
         <form action='' className='WalletNewAccount'>
           <input type='text' placeholder='Nombre' id='name' name='name' className='signup__input' />
+          <input type='text' placeholder='Apellido' id='lastname' name='lastname' className='signup__input' />
+
           <input type='tel' placeholder='Teléfono' id='tel' name='tel' className='signup__input' />
-          <input type='number' placeholder='Cédula' id='id' name='id' className='signup__input' />
+          <input type='number' placeholder='Cédula' id='cedula' name='cedula' className='signup__input' />
           <select id='banco' name='banco' className='signup__input'>
             <option value=''>Banco</option>
           </select>

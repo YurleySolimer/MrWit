@@ -177,17 +177,20 @@ mrwitCtrl.postAgenda = async (req, res) => {
 
 mrwitCtrl.postConsultaFinalizada = async (req, res) => {
   //NewFeedback
-  const { calification, feedback, to } = req.body;
-  const { by } = req.params.id;
+  const { calification, feedback, consultantId, duration, date, total } = req.body;
+  const { clientId } = req.params.id;
 
   const NewFeedback = new Consultor({
     history: {
       calification,
       feedback,
-      by,
+      client: clientId,
+      duration,
+      date,
+      total, 
     },
   });
-  await Consultor.findOneAndUpdate({ _id: to }, NewFeedback);
+  await Consultor.findOneAndUpdate({ _id: consultantId }, NewFeedback);
   res.status(200).json({ message: 'Feedback Saved' });
 };
 
