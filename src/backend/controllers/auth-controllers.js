@@ -216,6 +216,7 @@ authCtrl.postSignIn = async (req, res) => {
             category: consultor.category || '',
             abilities: consultor.abilities || '',
             status: consultor.status,
+            horario: consultor.horario,
             token
         }
 

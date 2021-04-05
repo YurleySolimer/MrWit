@@ -21,7 +21,106 @@ const consultorSchema = new Schema({
     name: String,
     path: String
   },
-  horario: Date,
+  horario: {
+    Lunes: {
+      disponible: {
+        type: Boolean,
+        default: true
+      },
+      desde: {
+        type: String,
+        default: '00:00'
+      },
+      hasta: {
+        type: String,
+        default: '23:59'
+      }
+    },
+    Martes: {
+      disponible: {
+        type: Boolean,
+        default: true
+      },
+      desde: {
+        type: String,
+        default: '00:00'
+      },
+      hasta: {
+        type: String,
+        default: '23:59'
+      }
+    },
+    Miercoles: {
+      disponible: {
+        type: Boolean,
+        default: true
+      },
+      desde: {
+        type: String,
+        default: '00:00'
+      },
+      hasta: {
+        type: String,
+        default: '23:59'
+      }
+    },
+    Jueves: {
+      disponible: {
+        type: Boolean,
+        default: true
+      },
+      desde: {
+        type: String,
+        default: '00:00'
+      },
+      hasta: {
+        type: String,
+        default: '23:59'
+      }
+    },
+    Viernes: {
+      disponible: {
+        type: Boolean,
+        default: true
+      },
+      desde: {
+        type: String,
+        default: '00:00'
+      },
+      hasta: {
+        type: String,
+        default: '23:59'
+      }
+    },
+    Sabado: {
+      disponible: {
+        type: Boolean,
+        default: true
+      },
+      desde: {
+        type: String,
+        default: '00:00'
+      },
+      hasta: {
+        type: String,
+        default: '23:59'
+      }
+    },
+    Domingo: {
+      disponible: {
+        type: Boolean,
+        default: true
+      },
+      desde: {
+        type: String,
+        default: '00:00'
+      },
+      hasta: {
+        type: String,
+        default: '23:59'
+      }
+    },
+  },
   policy: Boolean,
   videoReel: String,
   status: {
