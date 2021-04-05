@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import statusReducers from '../reducers/statusReducers';
+import axios from 'axios';
+import CurrencyFormat from 'react-currency-format';
 import '../assets/styles/components/WalletRecharge.scss';
 import payu from '../assets/static/logo/payu-logo.svg';
 import pen from '../assets/static/icons/pen.svg';
@@ -12,12 +13,13 @@ import WalletNewWithdraw from '../portals/WalletNewWithdraw';
 
 const WalletRecharge = (props) => {
 
-  const { amount, balance, method, isOnline, user, currency } = props;
-
+  const { balance, method, user, currency } = props;
+  const [amount, setAmount] = useState('');
   const [isOpenHelp, setIsOpenHelp] = useState(false);
   const [isOpenAccount, setIsOpenAccount] = useState(false);
   const [isOpenEditAccount, setIsOpenEditAccount] = useState(false);
   const [isOpenWithdraw, setIsOpenWithdraw] = useState(false);
+  const [hasAccount, setHasAccount] = useState({});
 
   function handleOpenModalHelp(e) {
     setIsOpenHelp({ isOpen: true });
@@ -51,6 +53,18 @@ const WalletRecharge = (props) => {
     setIsOpenEditAccount(false);
   };
 
+  function handleChange(e) {
+    setAmount(e.target.value);
+  }
+
+  const amountToPay = (currency === 'COP' ? (amount * 5000) : (amount * 1.4));
+
+  useEffect(() => {
+    const data = axios.get(`http://localhost:3000/user/${user.rol.name === 'client' ? 'client' : 'consultor'}/${user.id}/wallet`)
+      .then((res) => setHasAccount(res.data.wallet))
+      .catch((err) => console.error(err));
+  }, []);
+
   if (user.status.online && user.rol.name === 'client') {
     return (
       <div className='WalletRecharge'>
@@ -58,23 +72,24 @@ const WalletRecharge = (props) => {
           <h1 className='WalletRecharge__header__title'>Billetera</h1>
           <h3 className='WalletRecharge__header__balance'>
             <span>Saldo actual: </span>
-            <span className='WalletRechage__header__balance__clarify'>{balance}</span>
-            <span className='WalletRechage__header__balance__clarify'> { currency }</span>
+            <span className='WalletRechage__header__balance__clarify'>{hasAccount.saldo || '0'}</span>
+            {' '}
+            <span className='WalletRechage__header__balance__clarify'>{currency}</span>
           </h3>
         </div>
         <div className='WalletRecharge__body'>
           <h1 className='WalletRecharge__body__title'>Recargar</h1>
           <div className='WalletRecharge__body__minutes'>
-            <input type='number' name='minutes' id='minutes' min='10' placeholder='10' className='WalletRecharge__body__input' />
+            <input type='number' name='minutes' id='minutes' value={amount} onChange={handleChange} min='10' placeholder='10' className='WalletRecharge__body__input' />
             <span className='WalletRecharge__body__text'>Minutos</span>
           </div>
           <hr />
           <div className='WalletRecharge__body__amount'>
             <span className='WalletRecharge__body__info'>Total a pagar: </span>
             <span className='WalletRecharge__body__total'>
-              {amount}
+              <CurrencyFormat value={amountToPay} decimalScale={2} prefix='$' displayType='text' thousandSeparator={true} />
               {' '}
-              { currency }
+              {currency}
             </span>
           </div>
           <button type='button' onClick={method} className='WalletRecharge__body__payment'>Pagar</button>
@@ -94,30 +109,34 @@ const WalletRecharge = (props) => {
           <h1 className='WalletRecharge__header__title'>Billetera</h1>
           <h3 className='WalletRecharge__header__balance'>
             <span>Saldo actual: </span>
-            <span className='WalletRechage__header__balance__clarify'>{balance}</span>
-            <span className='WalletRechage__header__balance__clarify'> { currency }</span>
+            <span className='WalletRechage__header__balance__clarify'>{hasAccount.saldo || '0'}</span>
+            {' '}
+            <span className='WalletRechage__header__balance__clarify'>{currency}</span>
           </h3>
         </div>
         <div className='WalletRecharge__body'>
           <div className='WalletRecharge__body--buttons'>
-            <button onClick={handleOpenModalHelp} className='icon' type='button'><img src={question} alt='Ayuda'/></button>
+            <button onClick={handleOpenModalHelp} className='icon' type='button'><img src={question} alt='Ayuda' /></button>
             <Modal isOpen={isOpenHelp} onClose={handleCloseModalHelp}>
               <WalletHelpModal />
             </Modal>
             <button type='button' onClick={handleOpenModalWithdraw} className='WalletRecharge__body__payment'>Retirar</button>
             <Modal onClose={handleCloseModalWithdraw} isOpen={isOpenWithdraw}>
-              <WalletNewWithdraw onClose={handleCloseModalWithdraw} hasAccount={true} />
+              <WalletNewWithdraw onClose={handleCloseModalWithdraw} currency={currency} hasAccount={hasAccount.bankAccount} />
             </Modal>
-            <button className='icon' onClick={handleOpenModalEditAccount} type='button'><img src={pen} alt='editar'/></button>
+            <button className='icon' onClick={handleOpenModalEditAccount} type='button'><img src={pen} alt='editar' /></button>
             <Modal onClose={handleCloseModalEditAccount} isOpen={isOpenEditAccount}>
-              <WalletNewAccountModal onClose={handleCloseModalEditAccount} isEdit={true} />
+              <WalletNewAccountModal id={user.id} onClose={handleCloseModalEditAccount} isEdit={true} />
             </Modal>
           </div>
           <hr />
           <div className='WalletRecharge__body--newAccount'>
-            <span>¿No tienes cuenta? <button onClick={handleOpenModalNewAccount} type='button' className='wallet__noneButton'>Registra una cuenta bancaria.</button></span>
+            <span>¿No tienes cuenta?</span>
+            <span>
+              <button onClick={handleOpenModalNewAccount} type='button' className='wallet__noneButton'>Registra una cuenta bancaria.</button>
+            </span>
             <Modal onClose={handleCloseModalNewAccount} isOpen={isOpenAccount}>
-              <WalletNewAccountModal onClose={handleCloseModalNewAccount} />
+              <WalletNewAccountModal id={user.id} onClose={handleCloseModalNewAccount} />
             </Modal>
           </div>
           <div className='Recharge__payu'>
@@ -136,22 +155,22 @@ const WalletRecharge = (props) => {
         <h3 className='WalletRecharge__header__balance'>
           <span>Saldo actual: </span>
           <span className='WalletRechage__header__balance__clarify'>{balance}</span>
-          <span className='WalletRechage__header__balance__clarify'> { currency }</span>
+          <span className='WalletRechage__header__balance__clarify'>{currency}</span>
         </h3>
       </div>
       <div className='WalletRecharge__body'>
         <h1 className='WalletRecharge__body__title'>Recargar</h1>
         <div className='WalletRecharge__body__minutes'>
-          <input type='number' name='minutes' id='minutes' min='10' placeholder='10' className='WalletRecharge__body__input' />
+          <input type='number' name='minutes' id='minutes' value={amount} onChange={handleChange} min='10' placeholder='10' className='WalletRecharge__body__input' />
           <span className='WalletRecharge__body__text'>Minutos</span>
         </div>
         <hr />
         <div className='WalletRecharge__body__amount'>
           <span className='WalletRecharge__body__info'>Total a pagar: </span>
           <span className='WalletRecharge__body__total'>
-            {amount}
+            <CurrencyFormat value={amountToPay} decimalScale={2} prefix='$' displayType='text' thousandSeparator={true} />
             {' '}
-            { currency }
+            {currency}
           </span>
         </div>
         <button type='button' onClick={method} className='WalletRecharge__body__payment'>Pagar</button>

@@ -1,4 +1,5 @@
 import React from 'react';
+import CurrencyFormat from 'react-currency-format';
 import '../assets/styles/components/Transaction.scss';
 
 const Transaction = ({ name, price, date, type, currency }) => {
@@ -9,9 +10,9 @@ const Transaction = ({ name, price, date, type, currency }) => {
       </span>
       <div className='transaction__info'>
         <span className={`transaction__info__price ${type}`}>
-          {price}
+          <CurrencyFormat value={price} decimalScale={2} prefix='$' displayType='text' thousandSeparator={true} />
           {' '}
-          { currency }
+          {currency}
         </span>
         <span className='transaction__info__date'>
           {date}
