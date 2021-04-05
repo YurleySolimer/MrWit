@@ -36,6 +36,7 @@ const Signup = ({ user, setUser }) => {
     lastname: '',
     tel: '',
     file: null,
+    file2: null,
     password: '',
     confirmPassword: '',
     email: '',
@@ -49,6 +50,7 @@ const Signup = ({ user, setUser }) => {
   });
   const [selected, setSelected] = useState('');
   const [file, setFile] = useState(null);
+  const [file2, setFile2] = useState(null);
   const [errors, setErrors] = useState({});
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [data, setData] = useState([]);
@@ -104,17 +106,24 @@ const Signup = ({ user, setUser }) => {
     }
 
     setFile(e.target.files[0]);
+  };
 
+  const handleCV = (e) => {
+    setFile2(e.target.files[0]);
   };
 
   function handleSubmitConsultant(event) {
     event.preventDefault();
+    console.log(file)
+    console.log(file2)
+
 
     const data = new FormData();
     data.append('name', input.name);
     data.append('lastname', input.lastname);
     data.append('tel', input.tel);
     data.append('picture', file);
+    data.append('picture', file2);
     data.append('email', input.email);
     data.append('password', input.password);
     data.append('date', input.date);
@@ -127,6 +136,8 @@ const Signup = ({ user, setUser }) => {
     data.append('abilities', input.abilities[2]);
     data.append('policy', policy.value);
     data.append('rol', rol.value);
+    data.append('horario', horario.value);
+
 
     const config = {
       headers: {
@@ -339,6 +350,7 @@ const Signup = ({ user, setUser }) => {
                     name='picture'
                     id='picture'
                     className='signup__input__file'
+                    accept="image/png, .jpeg, .jpg, image/gif"
                     onChange={handlepic}
                   />
                 </label>
@@ -516,12 +528,19 @@ const Signup = ({ user, setUser }) => {
                 />
 
                 <label htmlFor='cv' className='signup__input__cv'>
-                  <h3 className='signup__input__cv__title'>Ajunta tu hoja de vida</h3>
-                  <input type='file' name='cv' id='cv' className='signup__input__file' />
+                  <h3 className='signup__input__cv__title'>Ajunta tu hoja de vida (PDF)</h3>
+                  <input 
+                    type='file' 
+                    name='cv' 
+                    id='cv' 
+                    className='signup__input__file' 
+                    accept="application/pdf"
+                    onChange={handleCV}
+                  />
                   <img className='signup__input__cv__icon' src={clip} alt='adjunta tu CV' />
                 </label>
 
-                <button type='button' onClick={handleOpenModal} className='signup__input__schedule'>
+                <button type='button' onClick={handleOpenModal} id="horario" name="horario" className='signup__input__schedule'>
                   <h3 className='signup__input__schedule__title'>Definir horario de atención*</h3>
                   <img className='signup__input__schedule__icon' src={schedule} alt='Define tu horario' />
                 </button>

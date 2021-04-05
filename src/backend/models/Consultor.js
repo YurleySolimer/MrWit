@@ -17,7 +17,10 @@ const consultorSchema = new Schema({
   abilities: [
     String, String, String,
   ],
-  CV: String,
+  CV: {
+    name: String,
+    path: String
+  },
   horario: Date,
   policy: Boolean,
   videoReel: String,

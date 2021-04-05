@@ -10,7 +10,6 @@ const { populate } = require('../models/Users');
 
 
 authCtrl.postNewUser = async (req, res, next) => {
-    console.log(req.body)
 
     //NewUser
     const { name, lastname, email, password, rol } = req.body;
@@ -70,30 +69,79 @@ authCtrl.postNewUser = async (req, res, next) => {
     }  
 
     if (req.files) {
-        const {path, originalname} = req.files[0];
-        newConsultor = new Consultor ({
-            name,
-            lastname,
-            email,
-            pictureName: originalname,
-            picturePath: path,
-            phone,
-            date,
-            country,
-            profession,
-            especialidad,
-            category,
-            subcategory,
-            abilities,
-            horario,
-            policy: onPolicy,
-            user: userSaved._id,
-            status
-            
-        });
+        if(req.files[0] && req.files[1]) { 
+            const {path, originalname} = req.files[0];
+            newConsultor = new Consultor ({
+                name,
+                lastname,
+                email,
+                pictureName: originalname,
+                picturePath: path,
+                phone,
+                date,
+                country,
+                profession,
+                especialidad,
+                category,
+                subcategory,
+                abilities,
+                horario,
+                policy: onPolicy,
+                CV: {
+                    name: req.files[1].originalname,
+                    path: req.files[1].path
+                },
+                user: userSaved._id,
+                status                
+            });        
+        }
+        else if(req.files[0] && !req.files[1]) { 
+            const {path, originalname} = req.files[0];
+            newConsultor = new Consultor ({
+                name,
+                lastname,
+                email,
+                pictureName: originalname,
+                picturePath: path,
+                phone,
+                date,
+                country,
+                profession,
+                especialidad,
+                category,
+                subcategory,
+                abilities,
+                horario,
+                policy: onPolicy,
+                user: userSaved._id,
+                status                
+            });        
+        }
+        else if(!req.files[0] && req.files[1]) { 
+            newConsultor = new Consultor ({
+                name,
+                lastname,
+                email,
+                CV: {
+                    name: req.files[1].originalname,
+                    path: req.files[1].path
+                },
+                phone,
+                date,
+                country,
+                profession,
+                especialidad,
+                category,
+                subcategory,
+                abilities,
+                horario,
+                policy: onPolicy,
+                user: userSaved._id,
+                status                
+            });        
+        }
     }
     else {
-        console.log('El horario del consultor en el else es: ', horario);
         newConsultor = new Consultor ({
             name,
             lastname,
@@ -111,6 +159,7 @@ authCtrl.postNewUser = async (req, res, next) => {
             status
         });
     }
+    console.log(newConsultor)
     
     const consultorSaved = await newConsultor.save();
     }
@@ -130,6 +179,7 @@ authCtrl.postSignIn = async (req, res) => {
 
    const matchPassword = await User.comparePassword(req.body.password, userFound.password);
    if(!matchPassword) return res.status(401).json({token: null, message: "Invalid password"});
+   
    const token = jwt.sign({id: userFound._id}, config.SECRET, {
        expiresIn: 315360000
    })

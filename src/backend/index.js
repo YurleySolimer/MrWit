@@ -73,13 +73,6 @@ io.on('connection', socket => {
 });
 
 
-
-
-
-app.set("view engine", "ejs");
-app.use(express.static("public"));
-
-
 //Middelwares
 app.use(cors());
 app.use(express.json());
@@ -93,7 +86,6 @@ app.use(session({
 
 
 //Multer
-
 const storage = multer.diskStorage({
     destination: path.join(__dirname, 'images/uploads'),
     filename: (req, file, cb) => {
@@ -106,7 +98,6 @@ app.use(multer({
     dest: path.join(__dirname, 'images/uploads')
   }).array('picture')
 );
-
 
 
 //Routes
@@ -169,7 +160,9 @@ app.get('/auth/google/callback',
     res.redirect('/');
   });
 
-  server.listen(app.get('port'));
-  console.log(`server on port ${app.get('port')}`);
+
+
+server.listen(app.get('port'));
+console.log(`server on port ${app.get('port')}`);
 
 module.exports = app;
