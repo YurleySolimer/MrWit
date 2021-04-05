@@ -205,9 +205,10 @@ const Consultant = (props) => {
   };
 
   function handleOpenModal(e) {
-    Axios.get('http://localhost:3000/join').then((res) => {
-      window.location.href = `http://localhost:3000/room/${res.data.link}?`;
-    });
+    Axios.get(`http://localhost:3000/join`).then(res => {
+      props.history?.push(`/join/${res.data.link}? 
+     `);
+  })
     // setIsOpen({ isOpen: true });
   };
 

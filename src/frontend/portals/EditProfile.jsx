@@ -6,10 +6,30 @@ import reel from '../assets/static/icons/reel.svg';
 import attach from '../assets/static/icons/clip.svg';
 import calendar from '../assets/static/icons/schedule.svg';
 
+import axios from 'axios';
+
+
 const EditProfile = ({ onClose }) => {
+  const [input, setInput] = useState({
+    name: '',
+    lastname: '',
+    tel: '',
+    file: null,
+    file1: null,
+    file2: null,
+    date: '',
+    country: '',
+    description: '',
+    abilities: [],
+  });
 
   const [section, setSection] = useState(false);
   const [schedule, setSchedule] = useState(false);
+  const [file, setFile] = useState(null);
+  const [file1, setFile1] = useState(null);
+  const [file2, setFile2] = useState(null);
+
+
 
   function handleBirth() {
     const birth = document.getElementById('birthDate');
@@ -36,6 +56,63 @@ const EditProfile = ({ onClose }) => {
     setSchedule(false);
   }
 
+  const handlepic = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleCV = (e) => {
+    setFile1(e.target.files[0]);
+  };
+
+  const handleReel = (e) => {
+    setFile2(e.target.files[0]);
+  };
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    console.log(file)
+
+    const data = new FormData();
+    data.append('name', input.name);
+    data.append('lastname', input.lastname);
+    data.append('tel', input.tel);
+    data.append('date', input.birthDate);
+    data.append('picture', file);
+    data.append('picture', file1);
+    data.append('picture', file2);
+    data.append('date', input.date);
+    data.append('country', input.country);
+    data.append('description', input.description);
+    data.append('abilities', input.abilities[0]);
+    data.append('abilities', input.abilities[1]);
+    data.append('abilities', input.abilities[2]);
+
+    const horario = {
+      lunes: {
+        disponible: input.monday,
+        desde: input.startMonday,
+        hasta: input.endMonday
+      }
+    }
+    data.append('horario', horario);
+
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    };
+
+    const res = axios.put(`http://localhost:3000/user/consultor/IDCONSULTOR`,
+      data,
+      config)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((e) => console.log(e));
+
+  }
+
+
   if (!section && !schedule) {
     return (
       <div className='EditProfile'>
@@ -43,19 +120,31 @@ const EditProfile = ({ onClose }) => {
           <button type='button' className='EditProfile__personal active'>Personal</button>
           <button type='button' onClick={handleProfessional} className='EditProfile__professional'>Profesional</button>
         </div>
+        <form onSubmit={handleSubmit} id='signup__client__form' >
+
         <label className='EditProfile__picture' htmlFor='picture'>
           <img src={camera} alt='' />
-          <input type='file' />
+          <input 
+            type='file'
+            name='picture'
+            id='picture'
+            className='signup__input__file'
+            accept="image/png, .jpeg, .jpg, image/gif"
+            onChange={handlepic}
+          />
         </label>
-        <input type='text' placeholder='Nombre' aria-label='editar nombre' className='signup__input' />
-        <input type='tel' placeholder='Teléfono' aria-label='editar teléfono' className='signup__input' />
-        <input type='text' onClick={handleBirth} id='birthDate' placeholder='Fecha de nacimiento' aria-label='editar fecha de nacimiento' className='signup__input' />
-        <select aria-label='editar nombre' className='signup__input'>
+        <input type='text' placeholder='Nombre' id='name' name='name' aria-label='editar nombre' className='signup__input' />
+        <input type='text' placeholder='Apellido' id='lastname' name='lastname' aria-label='editar nombre' className='signup__input' />
+
+        <input type='tel' placeholder='Teléfono' id='tel' name='tel' aria-label='editar teléfono' className='signup__input' />
+        <input type='text' onClick={handleBirth} id='birthDate' name='birthDate' placeholder='Fecha de nacimiento' aria-label='editar fecha de nacimiento' className='signup__input' />
+        <select aria-label='editar nombre' name='country' id='country' className='signup__input'>
           <option value=''>País</option>
         </select>
-        <button type='button' onClick={handleClose} className='EditProfile__save'>
+        <button type='submit' className='EditProfile__save'>
           <img src={check} alt='guardar edición' />
         </button>
+        </form>
       </div>
     );
   };
@@ -67,27 +156,45 @@ const EditProfile = ({ onClose }) => {
           <button type='button' onClick={handlePersonal} className='EditProfile__personal'>Personal</button>
           <button type='button' className='EditProfile__professional active'>Profesional</button>
         </div>
+        <form onSubmit={handleSubmit} id='signup__client__form' >
+
         <textarea name='description' id='description' cols='30' rows='8' placeholder='Escribe tu descripción, esto lo verán los clientes antes de iniciar una llamada contigo.' />
         <textarea name='abilities' id='abilities' cols='30' rows='3' placeholder='Escribe tres habilidades y sepáralas con comas.' />
         <div className='EditProfile__attach'>
           <label htmlFor='cv' className='cv'>
             <span>Cambiar CV</span>
             <img src={attach} alt='Agrega tu CV' />
-            <input type='file' name='cv' id='cv' />
+            <input 
+             type='file' 
+             name='cv' 
+             id='cv' 
+             className='signup__input__file' 
+             accept="application/pdf"
+             onChange={handleCV} 
+            />
           </label>
           <label htmlFor='reel' className='reel'>
             <span>Agregar Reel</span>
             <img src={reel} alt='Agrega un Reel' />
-            <input type='file' name='reel' id='reel' />
+            <input 
+             type='file' 
+             name='reel' 
+             id='reel' 
+             className='signup__input__file' 
+             accept="video/mp4, video/*"             
+             onChange={handleCV} 
+            />
           </label>
         </div>
         <button type='button' className='EditSchedule' onClick={handleSchedule}>
           <span>Definir horario de atención</span>
           <img src={calendar} alt='establecer horario de atención' />
         </button>
-        <button type='button' onClick={handleClose} className='EditProfile__save'>
+        <button type='submit'  className='EditProfile__save'>
           <img src={check} alt='guardar edición' />
         </button>
+
+        </form>
       </div>
     );
   };
@@ -98,7 +205,6 @@ const EditProfile = ({ onClose }) => {
         <p className='ScheduleModal__instructions'>
           Selecciona los días que tendrás diponibles y su respectivo horario.
         </p>
-        <form action=''>
           <div className='ScheduleModal__day'>
             <input className='ScheduleModal__day__check' type='checkbox' name='monday' id='monday' />
             <h2 className='ScheduleModal__day__name'>Lunes</h2>
@@ -198,7 +304,6 @@ const EditProfile = ({ onClose }) => {
             </label>
           </div>
           <button type='button' onClick={handleCloseSchedule} className='ScheduleModal__save'><img src={check} alt='Enviar calendario' /></button>
-        </form>
       </div>
     );
   };
