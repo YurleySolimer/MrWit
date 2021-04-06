@@ -42,6 +42,7 @@ const Signup = ({ user, setUser }) => {
     email: '',
     dni: '',
     date: '',
+    horario: {},
     country: '',
     sector: '',
     profesion: '',
@@ -53,7 +54,6 @@ const Signup = ({ user, setUser }) => {
   const [file2, setFile2] = useState(null);
   const [errors, setErrors] = useState({});
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [data, setData] = useState([]);
   const history = useHistory();
   const [specialities, setSpecialities] = useState([]);
 
@@ -136,7 +136,7 @@ const Signup = ({ user, setUser }) => {
     data.append('abilities', input.abilities[2]);
     data.append('policy', policy.value);
     data.append('rol', rol.value);
-    data.append('horario', horario.value);
+    data.append('horario', input.horario);
 
 
     const config = {
@@ -222,6 +222,14 @@ const Signup = ({ user, setUser }) => {
     });
     console.log(input);
     validate();
+  }
+
+  function handleSchedule(e) {
+    setInput({
+      ...input,
+      horario: e,
+    });
+    console.log(input);
   }
 
   function handleSignupConsultant(event) {
@@ -546,7 +554,7 @@ const Signup = ({ user, setUser }) => {
                 </button>
 
                 <Modal onClose={handleCloseModal} isOpen={modalIsOpen}>
-                  <ScheduleModal onClose={handleCloseModal} />
+                  <ScheduleModal onClose={handleCloseModal} setSchedule={handleSchedule} />
                 </Modal>
 
                 <label htmlFor='policy' className='signup__policy'>
