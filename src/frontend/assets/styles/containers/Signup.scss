@@ -190,11 +190,6 @@
     transition: 1s;
 }
 
-.signup__error {
-    color: #c55d5d;
-    margin: 8px 10px;
-}
-
 .signup__consultant__submit {
     width: 45px;
     height: 45px;
@@ -340,4 +335,10 @@
 
 .signup__input.especialidad.hidden {
     display: none;
+}
+
+.signup__error {
+    color: #c55d5d !important;
+    margin: 10px 12px !important;
+    font-size: 11px;
 }

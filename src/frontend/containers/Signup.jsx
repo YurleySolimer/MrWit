@@ -1,12 +1,9 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable prefer-destructuring */
-/* eslint-disable class-methods-use-this */
-/*tslint:disabled*/
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, useHistory, Redirect } from 'react-router-dom';
 import ReactFlagsSelect from 'react-flags-select';
-// eslint-disable-next-line no-unused-vars
+import CurrencyFormat from 'react-currency-format';
+
 import axios from 'axios';
 import * as actionsStatus from '../actions';
 
@@ -49,48 +46,105 @@ const Signup = ({ user, setUser }) => {
     especialidad: '',
     abilities: [],
   });
+  const [errors, setErrors] = useState({
+    name: {
+      value: false,
+      message: '',
+    },
+    lastname: {
+      value: false,
+      message: '',
+    },
+    tel: {
+      value: false,
+      message: '',
+    },
+    file: {
+      value: false,
+      message: '',
+    },
+    file2: {
+      value: false,
+      message: '',
+    },
+    password: {
+      value: false,
+      message: '',
+    },
+    confirmPassword: {
+      value: false,
+      message: '',
+    },
+    email: {
+      value: false,
+      message: '',
+    },
+    dni: {
+      value: false,
+      message: '',
+    },
+    date: {
+      value: false,
+      message: '',
+    },
+    country: {
+      value: false,
+      message: '',
+    },
+    sector: {
+      value: false,
+      message: '',
+    },
+    profesion: {
+      value: false,
+      message: '',
+    },
+    especialidad: {
+      value: false,
+      message: '',
+    },
+    abilities: {
+      value: true,
+      message: '',
+    },
+  });
+  const [agreement, setAgreement] = useState(false);
+  const [isValid, setIsValid] = useState(false);
   const [selected, setSelected] = useState('');
   const [file, setFile] = useState(null);
   const [file2, setFile2] = useState(null);
-  const [errors, setErrors] = useState({});
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const history = useHistory();
   const [specialities, setSpecialities] = useState([]);
+  const history = useHistory();
 
   function handleSubmit(event) {
-    // if (validate()) {
-    //   const input = {};
-    //   input['name'] = '';
-    //   input['id'] = '';
-    //   input['tel'] = '';
-    //   input['gender'] = '';
-    //   input['country'] = '';
-    //   input['email'] = '';
-    //   input['password'] = '';
-    //   input['confirmPassword'] = '';
-    //   setInput({ input });
-    //   props.setIsOnline(props.isOnline);
-    //   alert('Te has registrado');
-    // }
     event.preventDefault();
-    const user = {
-      name: input.name,
-      lastname: input.lastname,
-      email: input.email,
-      password: input.password,
-      phone: input.tel,
-      dni: input.dni,
-      country: input.country,
-      rol: rol.value,
-    };
-    console.log(user);
-    const res = axios.post('http://localhost:3000/signup', user)
-      .then((res) => {
-        console.log(res.data);
-        setUser(res.data);
-        history.push('/recargar');
-      })
-      .catch((e) => console.log(e));
+
+    if (!agreement) {
+      alert('Debes aceptar los términos y condiciones');
+    }
+    if (!isValid) {
+      const user = {
+        name: input.name,
+        lastname: input.lastname,
+        email: input.email,
+        password: input.password,
+        phone: input.tel,
+        dni: input.dni,
+        country: input.country,
+        rol: rol.value,
+      };
+      console.log(user);
+      const res = axios.post('http://localhost:3000/signup', user)
+        .then((res) => {
+          console.log(res.data);
+          setUser(res.data);
+          history.push('/recargar');
+        })
+        .catch((e) => console.log(e));
+    } else {
+      alert('Debes comprobar todos los campos para registrarte');
+    }
   }
 
   const handlepic = (e) => {
@@ -108,110 +162,406 @@ const Signup = ({ user, setUser }) => {
     setFile(e.target.files[0]);
   };
 
+  const handleAgreement = () => {
+    setAgreement(!agreement);
+  };
+
   const handleCV = (e) => {
     setFile2(e.target.files[0]);
   };
 
   function handleSubmitConsultant(event) {
     event.preventDefault();
-    console.log(file)
-    console.log(file2)
 
+    if (!agreement) {
+      alert('Debes aceptar los términos y condiciones');
+    }
+    if (isValid) {
+      const data = new FormData();
+      data.append('name', input.name);
+      data.append('lastname', input.lastname);
+      data.append('tel', input.tel);
+      data.append('picture', file);
+      data.append('picture', file2);
+      data.append('email', input.email);
+      data.append('password', input.password);
+      data.append('date', input.date);
+      data.append('country', input.country);
+      data.append('category', input.sector);
+      data.append('profession', input.profesion);
+      data.append('especialidad', input.especialidad);
+      data.append('abilities', input.abilities[0]);
+      data.append('abilities', input.abilities[1]);
+      data.append('abilities', input.abilities[2]);
+      data.append('policy', policy.value);
+      data.append('rol', rol.value);
+      data.append('horario', input.horario);
 
-    const data = new FormData();
-    data.append('name', input.name);
-    data.append('lastname', input.lastname);
-    data.append('tel', input.tel);
-    data.append('picture', file);
-    data.append('picture', file2);
-    data.append('email', input.email);
-    data.append('password', input.password);
-    data.append('date', input.date);
-    data.append('country', input.country);
-    data.append('category', input.sector);
-    data.append('profession', input.profesion);
-    data.append('especialidad', input.especialidad);
-    data.append('abilities', input.abilities[0]);
-    data.append('abilities', input.abilities[1]);
-    data.append('abilities', input.abilities[2]);
-    data.append('policy', policy.value);
-    data.append('rol', rol.value);
-    data.append('horario', input.horario);
+      const config = {
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
+      };
 
-
-    const config = {
-      headers: {
-        'content-type': 'multipart/form-data',
-      },
-    };
-
-    const res = axios.post('http://localhost:3000/signup',
-      data,
-      config)
-      .then((res) => {
-        console.log(res.data);
-        setUser(res.data);
-        history.push('/');
-      })
-      .catch((e) => console.log(e));
-
+      const res = axios.post('http://localhost:3000/signup',
+        data,
+        config)
+        .then((res) => {
+          console.log(res.data);
+          setUser(res.data);
+          history.push('/');
+        })
+        .catch((e) => console.log(e));
+    } else {
+      alert('Debes comprobar todos los campos para registrarte');
+    }
   }
 
-  function validate() {
-    // eslint-disable-next-line react/destructuring-assignment
-    let isValid = true;
-    if (!input['name']) {
-      isValid = false;
-      errors['name'] = 'Por favor ingresa tu nombre.';
+  function validate(name, value) {
+
+    let valid = false;
+
+    if (name === 'name') {
+      if (value.length < 3 && value.length > 0) {
+        setErrors({
+          ...errors,
+          name: {
+            value: false,
+            message: 'Tu nombre debe ser mayor a tres carácteres',
+          },
+        });
+      } else if (value.length === 0) {
+        setErrors({
+          ...errors,
+          name: {
+            value: false,
+            message: 'Por favor ingresa tu nombre',
+          },
+        });
+      } else {
+        setErrors({
+          ...errors,
+          name: {
+            value: true,
+            message: '',
+          },
+        });
+      }
     }
 
-    if (!input['id']) {
-      isValid = false;
-      errors['id'] = 'Por favor ingresa tu cédula.';
+    if (name === 'lastname') {
+      if (value.length < 3 && value.length > 0) {
+        setErrors({
+          ...errors,
+          lastname: {
+            value: false,
+            message: 'Tu apellido debe ser mayor a tres carácteres',
+          },
+        });
+      } else if (value.length === 0) {
+        setErrors({
+          ...errors,
+          lastname: {
+            value: false,
+            message: 'Por favor ingresa tu apellido',
+          },
+        });
+      } else {
+        setErrors({
+          ...errors,
+          lastname: {
+            value: true,
+            message: '',
+          },
+        });
+      }
     }
 
-    if (!input['tel']) {
-      isValid = false;
-      errors['tel'] = 'Por favor ingresa tu teléfono.';
+    if (name === 'tel') {
+      if (value.length === 0) {
+        setErrors({
+          ...errors,
+          tel: {
+            value: false,
+            message: 'Debes ingresar tu teléfono celular',
+          },
+        });
+      } else {
+        setErrors({
+          ...errors,
+          tel: {
+            value: true,
+            message: '',
+          },
+        });
+      }
     }
 
-    if (!input['country']) {
-      isValid = false;
-      errors['country'] = 'Por favor ingresa tu país.';
+    if (name === 'date') {
+      const date = new Date(value);
+      const current = new Date();
+
+      if (value === '') {
+        setErrors({
+          ...errors,
+          date: {
+            value: false,
+            message: 'Debes establecer una fecha',
+          },
+        });
+      } else if (date.getFullYear() < 1920 || date.getFullYear() > (current.getFullYear() - 13)) {
+        setErrors({
+          ...errors,
+          date: {
+            value: false,
+            message: 'Debes escoger una fecha de nacimiento válida',
+          },
+        });
+      } else {
+        setErrors({
+          ...errors,
+          date: {
+            value: true,
+            message: '',
+          },
+        });
+      }
     }
 
-    if (!input['email']) {
-      isValid = false;
-      errors['email'] = 'Por favor ingresa tu correo.';
+    if (name === 'country') {
+      if (value === '') {
+        setErrors({
+          ...errors,
+          country: {
+            value: false,
+            message: 'Debes escoger un país.',
+          },
+        });
+      } else {
+        setErrors({
+          ...errors,
+          country: {
+            value: true,
+            message: '',
+          },
+        });
+      }
     }
 
-    if (typeof input['email'] !== 'undefined') {
+    if (name === 'email') {
       const pattern = new RegExp(/^(('[\w-\s]+')|([\w-]+(?:\.[\w-]+)*)|('[\w-\s]+')([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-      if (!pattern.test(input['email'])) {
-        isValid = false;
-        errors['email'] = 'Por favor ingresa un correo válido.';
+      if (!pattern.test(value)) {
+        setErrors({
+          ...errors,
+          email: {
+            value: false,
+            message: 'Por favor ingresa un correo válido.',
+          },
+        });
+      } else {
+        setErrors({
+          ...errors,
+          email: {
+            value: true,
+            message: '',
+          },
+        });
       }
     }
 
-    if (!input['password']) {
-      isValid = false;
-      errors['password'] = 'Por favor ingresa tu contraseña.';
-    }
-
-    if (!input['confirmPassword']) {
-      isValid = false;
-      errors['confirmPassword'] = 'Por favor confirma tu contraseña.';
-    }
-
-    if (typeof input['password'] !== 'undefined' && typeof input['confirmPassword'] !== 'undefined') {
-      if (input['password'] !== input['confirmPassword']) {
-        isValid = false;
-        errors['password'] = 'Las contraseñas no coinciden.';
+    if (name === 'password') {
+      if (value.length > 0 && value.length < 8) {
+        setErrors({
+          ...errors,
+          password: {
+            value: false,
+            message: 'La contraseña debe tener al menos 8 carácteres',
+          },
+        });
+      } else if (value.length === 0) {
+        setErrors({
+          ...errors,
+          password: {
+            value: false,
+            message: 'Por favor, ingresa una contraseña',
+          },
+        });
+      } else if (value.length >= 8 && !/(?=.*\d)(?=.*[a-záéíóúüñ]).*[A-ZÁÉÍÓÚÜÑ].*/.test(value)) {
+        setErrors({
+          ...errors,
+          password: {
+            value: false,
+            message: 'Debe tener al menos una minuscula, una mayuscula y un número',
+          },
+        });
+      } else {
+        setErrors({
+          ...errors,
+          password: {
+            value: true,
+            message: '',
+          },
+        });
       }
     }
 
-    setErrors({ errors });
-    return isValid;
+    if (name === 'confirmPassword') {
+      if (value !== input.password) {
+        setErrors({
+          ...errors,
+          confirmPassword: {
+            value: false,
+            message: 'Las contraseñas no coinciden',
+          },
+        });
+      } else {
+        setErrors({
+          ...errors,
+          confirmPassword: {
+            value: true,
+            message: '',
+          },
+        });
+      }
+    }
+
+    if (name === 'dni') {
+      if (value.length < 8 && value.length > 0) {
+        setErrors({
+          ...errors,
+          dni: {
+            value: false,
+            message: 'Debes ingresar una identificación válida',
+          },
+        });
+      } else if (value.lenght === 0) {
+        setErrors({
+          ...errors,
+          dni: {
+            value: false,
+            message: 'Debes ingresar tu identificación',
+          },
+        });
+      } else {
+        setErrors({
+          ...errors,
+          dni: {
+            value: true,
+            message: '',
+          },
+        });
+      }
+    }
+
+    if (name === 'sector') {
+      if (value === '') {
+        setErrors({
+          ...errors,
+          sector: {
+            value: false,
+            message: 'Debes escoger tu sector',
+          },
+        });
+      } else {
+        setErrors({
+          ...errors,
+          sector: {
+            value: true,
+            message: '',
+          },
+        });
+      }
+    }
+
+    if (name === 'profesion') {
+      if (value === '') {
+        setErrors({
+          ...errors,
+          profesion: {
+            value: false,
+            message: 'Debes escoger tu profesion',
+          },
+        });
+      } else {
+        setErrors({
+          ...errors,
+          profesion: {
+            value: true,
+            message: '',
+          },
+        });
+      }
+    }
+
+    if (name === 'especialidad') {
+      if (value === '') {
+        setErrors({
+          ...errors,
+          especialidad: {
+            value: false,
+            message: 'Debes escoger tu especialidad',
+          },
+        });
+      } else {
+        setErrors({
+          ...errors,
+          especialidad: {
+            value: true,
+            message: '',
+          },
+        });
+      }
+    }
+
+    if (name === 'abilities') {
+      if (value.length < 3) {
+        setErrors({
+          ...errors,
+          abilities: {
+            value: true,
+            message: 'Separa tus habilidades con comas (,)',
+          },
+        });
+      } else {
+        setErrors({
+          ...errors,
+          abilities: {
+            value: true,
+            message: '',
+          },
+        });
+      }
+    }
+
+    if (user.rol.name === 'consultant' &&
+     errors.name.value &&
+     errors.lastname.value &&
+     errors.tel.value &&
+     errors.date.value &&
+     errors.country.value &&
+     errors.email.value &&
+     errors.password.value &&
+     errors.confirmPassword.value &&
+     errors.sector.value &&
+     errors.profesion.value &&
+     errors.especialidad.value &&
+     errors.abilities.value) {
+      valid = true;
+    }
+
+    if (user.rol.name === 'client' &&
+     errors.name.value &&
+     errors.lastname.value &&
+     errors.dni.value &&
+     errors.tel.value &&
+     errors.email.value &&
+     errors.country.value &&
+     errors.password.value &&
+     errors.confirmPassword.value) {
+      valid = true;
+    }
+
+    return setIsValid(valid);
   }
 
   function handleChange(event) {
@@ -220,16 +570,7 @@ const Signup = ({ user, setUser }) => {
       ...input,
       [name]: value,
     });
-    console.log(input);
-    validate();
-  }
-
-  function handleSchedule(e) {
-    setInput({
-      ...input,
-      horario: e,
-    });
-    console.log(input);
+    validate(name, value);
   }
 
   function handleSignupConsultant(event) {
@@ -277,7 +618,7 @@ const Signup = ({ user, setUser }) => {
 
   function handleSpecialities() {
     const profSelected = document.getElementById('profesion');
-    const value = profSelected.value;
+    const { value } = profSelected;
     for (let i = 0; i < DataJSON.length; i++) {
       if (Object.getOwnPropertyNames(DataJSON[i])[0] === value) {
         const info = DataJSON[i];
@@ -297,6 +638,7 @@ const Signup = ({ user, setUser }) => {
       ...input,
       profesion: value,
     });
+    validate('profesion', value);
   }
 
   const handleAbilities = (e) => {
@@ -312,6 +654,7 @@ const Signup = ({ user, setUser }) => {
       ...input,
       [name]: [...arr],
     });
+    validate('abilities', arr);
     console.log(input);
   };
   // eslint-disable-next-line react/destructuring-assignment
@@ -331,6 +674,7 @@ const Signup = ({ user, setUser }) => {
       ...input,
       country: e,
     });
+    validate('country', e);
   };
 
   const handleDate = () => {
@@ -374,7 +718,7 @@ const Signup = ({ user, setUser }) => {
                   className='signup__input name'
                 />
 
-                <div><small className='signup__error'>{errors.name}</small></div>
+                <div><small className='signup__error'>{errors.name.message}</small></div>
 
                 <input
                   value={input.lastname}
@@ -387,26 +731,29 @@ const Signup = ({ user, setUser }) => {
                   className='signup__input name'
                 />
 
-                <div><small className='signup__error'>{errors.name}</small></div>
+                <div><small className='signup__error'>{errors.lastname.message}</small></div>
 
-                <input
+                <CurrencyFormat
                   value={input.tel}
                   onChange={handleChange}
                   required
-                  type='number'
+                  type='tel'
                   placeholder='Teléfono'
+                  format='###-#######'
                   name='tel'
                   id='tel'
                   className='signup__input tel'
                 />
 
-                <div><small className='signup__error'>{errors.tel}</small></div>
+                <div><small className='signup__error'>{errors.tel.message}</small></div>
 
                 <input
                   value={input.date}
                   onChange={handleChange}
                   required
                   type='text'
+                  max='2008-12-31'
+                  min='1920-12-21'
                   onFocus={handleDate}
                   placeholder='Fecha de nacimiento'
                   name='date'
@@ -414,7 +761,7 @@ const Signup = ({ user, setUser }) => {
                   className='signup__input date'
                 />
 
-                <div><small className='signup__error'>{errors.date}</small></div>
+                <div><small className='signup__error'>{errors.date.message}</small></div>
 
                 <ReactFlagsSelect
                   id='CountrySelectList'
@@ -426,7 +773,7 @@ const Signup = ({ user, setUser }) => {
                 />
                 <input type='hidden' name='country' value={input.country} id='country' />
 
-                <div><small className='signup__error'>{errors.country}</small></div>
+                <div><small className='signup__error'>{errors.country.message}</small></div>
 
                 <input
                   value={input.email}
@@ -438,7 +785,7 @@ const Signup = ({ user, setUser }) => {
                   className='signup__input email'
                 />
 
-                <div><small className='signup__error'>{errors.email}</small></div>
+                <div><small className='signup__error'>{errors.email.message}</small></div>
 
                 <input
                   value={input.password}
@@ -450,7 +797,7 @@ const Signup = ({ user, setUser }) => {
                   className='signup__input password'
                 />
 
-                <div><small className='signup__error'>{errors.password}</small></div>
+                <div><small className='signup__error'>{errors.password.message}</small></div>
 
                 <input
                   value={input.confirmPassword}
@@ -462,7 +809,7 @@ const Signup = ({ user, setUser }) => {
                   className='signup__input password'
                 />
 
-                <div><small className='signup__error'>{errors.confirmPassword}</small></div>
+                <div><small className='signup__error'>{errors.confirmPassword.message}</small></div>
 
                 <button
                   type='button'
@@ -488,6 +835,7 @@ const Signup = ({ user, setUser }) => {
 
                   <h2 className='signup__form__consultant__title'>Profesional</h2>
                 </div>
+
                 <select
                   value={input.sector}
                   onChange={handleChange}
@@ -498,8 +846,8 @@ const Signup = ({ user, setUser }) => {
                   <option value=''>Sector</option>
                   {Sector}
                 </select>
+                <div><small className='signup__error'>{errors.sector.message}</small></div>
 
-                <div><small className='signup__error'>{errors.profesion}</small></div>
                 <select
                   value={input.profesion}
                   name='profesion'
@@ -510,8 +858,8 @@ const Signup = ({ user, setUser }) => {
                   <option value=''>Profesión</option>
                   {Professions}
                 </select>
+                <div><small className='signup__error'>{errors.profesion.message}</small></div>
 
-                <div><small className='signup__error'>{errors.profesion}</small></div>
                 <select
                   value={input.especialidad}
                   onChange={handleChange}
@@ -523,7 +871,8 @@ const Signup = ({ user, setUser }) => {
                   {Speciality}
                 </select>
                 <input type='text' value={input.especialidad} placeholder='¡Cuéntanos tu especialidad!' onChange={handleChange} name='especialidad' id='especialidad2' className='signup__input especialidad hidden' />
-                <div><small className='signup__error'>{errors.especialidad}</small></div>
+                <div><small className='signup__error'>{errors.especialidad.message}</small></div>
+
                 <textarea
                   value={input.abilities}
                   onChange={handleAbilities}
@@ -534,14 +883,15 @@ const Signup = ({ user, setUser }) => {
                   placeholder='Escribe tres habilidades y sepáralas con comas, podrás cambiarlas luego, así que no te preocupes si luego quieres variar.'
                   className='signup__input textarea'
                 />
+                <div><small className='signup__error'>{errors.abilities.message}</small></div>
 
                 <label htmlFor='cv' className='signup__input__cv'>
                   <h3 className='signup__input__cv__title'>Ajunta tu hoja de vida (PDF)</h3>
-                  <input 
-                    type='file' 
-                    name='cv' 
-                    id='cv' 
-                    className='signup__input__file' 
+                  <input
+                    type='file'
+                    name='cv'
+                    id='cv'
+                    className='signup__input__file'
                     accept="application/pdf"
                     onChange={handleCV}
                   />
@@ -554,11 +904,11 @@ const Signup = ({ user, setUser }) => {
                 </button>
 
                 <Modal onClose={handleCloseModal} isOpen={modalIsOpen}>
-                  <ScheduleModal onClose={handleCloseModal} setSchedule={handleSchedule} />
+                  <ScheduleModal onClose={handleCloseModal} setSchedule={setInput} info={input} />
                 </Modal>
 
                 <label htmlFor='policy' className='signup__policy'>
-                  <input type='checkbox' name='policy' id='policy' />
+                  <input type='checkbox' name='policy' value={agreement} onChange={handleAgreement} id='policy' />
                   <p className='signup__policy__info'>
                     Con esta casilla indica que está de acuerdo con nuestras
                     <Link to='#'>Políticas de privacidad</Link>
@@ -615,7 +965,7 @@ const Signup = ({ user, setUser }) => {
                   className='signup__input name'
                 />
 
-                <div><small className='signup__error'>{errors.name}</small></div>
+                <div><small className='signup__error'>{errors.name.message}</small></div>
 
                 <input
                   value={input.lastname}
@@ -628,7 +978,7 @@ const Signup = ({ user, setUser }) => {
                   className='signup__input name'
                 />
 
-                <div><small className='signup__error'>{errors.name}</small></div>
+                <div><small className='signup__error'>{errors.lastname.message}</small></div>
 
                 <input
                   value={input.dni}
@@ -641,7 +991,7 @@ const Signup = ({ user, setUser }) => {
                   className='signup__input id'
                 />
 
-                <div><small className='signup__error'>{errors.id}</small></div>
+                <div><small className='signup__error'>{errors.dni.message}</small></div>
 
                 <input
                   value={input.tel}
@@ -653,7 +1003,7 @@ const Signup = ({ user, setUser }) => {
                   id='tel'
                   className='signup__input tel'
                 />
-                <div><small className='signup__error'>{errors.tel}</small></div>
+                <div><small className='signup__error'>{errors.tel.message}</small></div>
 
                 <ReactFlagsSelect
                   placeholder='Seleccionar país'
@@ -678,7 +1028,7 @@ const Signup = ({ user, setUser }) => {
                   className='signup__input email'
                 />
 
-                <div><small className='signup__error'>{errors.email}</small></div>
+                <div><small className='signup__error'>{errors.email.message}</small></div>
 
                 <input
                   value={input.password}
@@ -691,7 +1041,7 @@ const Signup = ({ user, setUser }) => {
                   className='signup__input password'
                 />
 
-                <div><small className='signup__error'>{errors.password}</small></div>
+                <div><small className='signup__error'>{errors.password.message}</small></div>
 
                 <input
                   value={input.confirmPassword}
@@ -702,7 +1052,7 @@ const Signup = ({ user, setUser }) => {
                   id='confirmPassword'
                   className='signup__input password'
                 />
-                <div><small className='signup__error'>{errors.confirmPassword}</small></div>
+                <div><small className='signup__error'>{errors.confirmPassword.message}</small></div>
 
                 <button type='submit' className='signup__submit' name='rol' value='client' id='rol'>Registrarme</button>
               </fieldset>

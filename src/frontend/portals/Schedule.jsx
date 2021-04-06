@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import '../assets/styles/portals/Schedule.scss';
 import send from '../assets/static/icons/check.svg';
 
-const ScheduleModal = ({ onClose, setSchedule }) => {
+const ScheduleModal = ({ onClose, setSchedule, info }) => {
 
-  const [horario, setHorario] = useState({
+  const [schedules, setSchedules] = useState({
     lunes: {
       disponible: false,
       desde: '',
@@ -43,7 +43,10 @@ const ScheduleModal = ({ onClose, setSchedule }) => {
   });
 
   function handleClose() {
-    setSchedule(horario);
+    setSchedule({
+      ...info,
+      horario: schedules,
+    });
     onClose(true);
   }
 
@@ -53,18 +56,13 @@ const ScheduleModal = ({ onClose, setSchedule }) => {
     const { name } = target;
     const { type } = target.dataset;
 
-    setHorario({
-      ...horario,
+    setSchedules({
+      ...schedules,
       [name]: {
-        ...horario[name],
+        ...schedules[name],
         [type]: value,
       },
     });
-
-    console.log('El value es: ', value);
-    console.log('El name es: ', name);
-    console.log('El type es: ', type);
-    console.log('El horario es: ', horario);
   }
 
   return (
@@ -73,7 +71,7 @@ const ScheduleModal = ({ onClose, setSchedule }) => {
         Selecciona los días que tendrás diponibles y su respectivo horario.
       </p>
       <div className='ScheduleModal__day'>
-        <input className='ScheduleModal__day__check' type='checkbox' value={horario.lunes.disponible} data-type='disponible' onChange={handleChange} name='lunes' id='lunes' />
+        <input className='ScheduleModal__day__check' type='checkbox' value={schedules.lunes.disponible} data-type='disponible' onChange={handleChange} name='lunes' id='lunes' />
         <h2 className='ScheduleModal__day__name'>Lunes</h2>
         <label htmlFor='startMonday'>
           Inicio
@@ -87,7 +85,7 @@ const ScheduleModal = ({ onClose, setSchedule }) => {
         </label>
       </div>
       <div className='ScheduleModal__day'>
-        <input className='ScheduleModal__day__check' type='checkbox' value={horario.martes.disponible} data-type='disponible' onChange={handleChange} name='martes' id='martes' />
+        <input className='ScheduleModal__day__check' type='checkbox' value={schedules.martes.disponible} data-type='disponible' onChange={handleChange} name='martes' id='martes' />
         <h2 className='ScheduleModal__day__name'>Martes</h2>
         <label htmlFor='startTuesday'>
           Inicio
@@ -101,7 +99,7 @@ const ScheduleModal = ({ onClose, setSchedule }) => {
         </label>
       </div>
       <div className='ScheduleModal__day'>
-        <input className='ScheduleModal__day__check' type='checkbox' value={horario.miercoles.disponible} data-type='disponible' onChange={handleChange} name='miercoles' id='miercoles' />
+        <input className='ScheduleModal__day__check' type='checkbox' value={schedules.miercoles.disponible} data-type='disponible' onChange={handleChange} name='miercoles' id='miercoles' />
         <h2 className='ScheduleModal__day__name'>Miercoles</h2>
         <label htmlFor='startWednesday'>
           Inicio
@@ -115,7 +113,7 @@ const ScheduleModal = ({ onClose, setSchedule }) => {
         </label>
       </div>
       <div className='ScheduleModal__day'>
-        <input className='ScheduleModal__day__check' type='checkbox' value={horario.jueves.disponible} data-type='disponible' onChange={handleChange} name='jueves' id='jueves' />
+        <input className='ScheduleModal__day__check' type='checkbox' value={schedules.jueves.disponible} data-type='disponible' onChange={handleChange} name='jueves' id='jueves' />
         <h2 className='ScheduleModal__day__name'>Jueves</h2>
         <label htmlFor='startThursday'>
           Inicio
@@ -129,7 +127,7 @@ const ScheduleModal = ({ onClose, setSchedule }) => {
         </label>
       </div>
       <div className='ScheduleModal__day'>
-        <input className='ScheduleModal__day__check' type='checkbox' value={horario.viernes.disponible} data-type='disponible' onChange={handleChange} name='viernes' id='viernes' />
+        <input className='ScheduleModal__day__check' type='checkbox' value={schedules.viernes.disponible} data-type='disponible' onChange={handleChange} name='viernes' id='viernes' />
         <h2 className='ScheduleModal__day__name'>Viernes</h2>
         <label htmlFor='startFriday'>
           Inicio
@@ -143,7 +141,7 @@ const ScheduleModal = ({ onClose, setSchedule }) => {
         </label>
       </div>
       <div className='ScheduleModal__day'>
-        <input className='ScheduleModal__day__check' type='checkbox' value={horario.sabado.disponible} data-type='disponible' onChange={handleChange} name='sabado' id='sabado' />
+        <input className='ScheduleModal__day__check' type='checkbox' value={schedules.sabado.disponible} data-type='disponible' onChange={handleChange} name='sabado' id='sabado' />
         <h2 className='ScheduleModal__day__name'>Sábado</h2>
         <label htmlFor='startSaturday'>
           Inicio
@@ -157,7 +155,7 @@ const ScheduleModal = ({ onClose, setSchedule }) => {
         </label>
       </div>
       <div className='ScheduleModal__day'>
-        <input className='ScheduleModal__day__check' type='checkbox' value={horario.domingo.disponible} data-type='disponible' onChange={handleChange} name='domingo' id='domingo' />
+        <input className='ScheduleModal__day__check' type='checkbox' value={schedules.domingo.disponible} data-type='disponible' onChange={handleChange} name='domingo' id='domingo' />
         <h2 className='ScheduleModal__day__name'>Domingo</h2>
         <label htmlFor='startSunday'>
           Inicio
