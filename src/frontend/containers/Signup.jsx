@@ -93,6 +93,21 @@ const Signup = ({ user, setUser }) => {
       .catch((e) => console.log(e));
   }
 
+  function handleSignupGoogle(event) {
+
+    event.preventDefault();
+    const res = axios.get('http://localhost:3000/auth/google', 
+      { headers: 
+          { 'Access-Control-Allow-Origin': '*' }
+      },
+      
+    )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((e) => console.log(e));
+  }
+
   const handlepic = (e) => {
     const ca = document.getElementById('cameraIcon');
     const ch = document.getElementById('checkIcon');
@@ -708,7 +723,7 @@ const Signup = ({ user, setUser }) => {
               <img src={linkedin} alt='icon' />
               Registrarme con LinkedIn
             </button>
-            <button type='button' onClick={handleSignupClient} className='signup__google signup__button'>
+            <button type='button' onClick={handleSignupGoogle} className='signup__google signup__button'>
               <img src={google} alt='icon' />
               Registrarme con Google
             </button>
