@@ -25,7 +25,7 @@ const SearchType = (props) => {
   function handleAbility(e) {
     const data = new FormData();
     data.append('ability', value);
-    const res = axios.post('http://localhost:3000/busqueda', data)
+    const res = axios.post(`${axios.defaults.baseURL}/busqueda`, data)
       .then((res) => {
         history.push(`/resultados/?habilidad=${value}`);
       })
@@ -43,7 +43,7 @@ const SearchType = (props) => {
   function handleID(e) {
     const data = new FormData();
     data.append('id', value);
-    const res = axios.post('http://localhost:3000/busqueda', data)
+    const res = axios.post(`${axios.defaults.baseURL}/busqueda`, data)
       .then((res) => {
         history.push(`/resultados/?id=${value}`);
       })

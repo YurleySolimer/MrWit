@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const router = Router();
 const passport = require('passport');
+const axios = require('axios');
 
 var userProfile;
 
@@ -10,7 +11,7 @@ const GOOGLE_CLIENT_SECRET = 'ytqTjsY7uS5N4pdmkaG0Cahk';
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/google/callback"
+    callbackURL: `${axios.defaults.baseURL}/auth/google/callback`
   },
   function(accessToken, refreshToken, profile, done) {
       userProfile=profile;

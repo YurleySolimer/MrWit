@@ -6,8 +6,8 @@
   "scripts": {
     "start": "babel-node src/backend/index.js",
     "dev": "nodemon src/backend/index.js --exec babel-node",
-    "build": "webpack --mode production",
-    "start:frontend": "webpack serve --mode development --env development --hot --host 0.0.0.0"
+    "build": "cross-env NODE_ENV=production webpack --mode production",
+    "start:frontend": "cross-env NODE_ENV=development webpack serve --mode development --env development --hot --host 0.0.0.0"
   },
   "keywords": [],
   "author": "We Grow",
@@ -71,6 +71,7 @@
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "cross-env": "^7.0.3",
     "css-loader": "^5.0.1",
     "eslint": "^7.14.0",
     "eslint-config-airbnb": "^18.2.1",

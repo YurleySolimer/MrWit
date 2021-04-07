@@ -10,7 +10,7 @@ const WalletTransactions = ({ user, type }) => {
   const [wallet, setWallet] = useState({});
 
   useEffect(() => {
-    const data = axios.get(`http://localhost:3000/user/${type}/${user.id}/wallet`)
+    const data = axios.get(`${axios.defaults.baseURL}/user/${type}/${user.id}/wallet`)
       .then((res) => setWallet(res.data.wallet))
       .catch((err) => console.error(err));
   }, []);

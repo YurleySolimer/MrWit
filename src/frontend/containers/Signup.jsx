@@ -135,7 +135,7 @@ const Signup = ({ user, setUser }) => {
         rol: rol.value,
       };
       console.log(user);
-      const res = axios.post('http://localhost:3000/signup', user)
+      const res = axios.post(`${axios.defaults.baseURL}/signup`, user)
         .then((res) => {
           console.log(res.data);
           setUser(res.data);
@@ -150,7 +150,7 @@ const Signup = ({ user, setUser }) => {
   function handleSignupGoogle(event) {
 
     event.preventDefault();
-    const res = axios.get('http://localhost:3000/auth/google', 
+    const res = axios.get(`${axios.defaults.baseURL}/auth/google`, 
       { headers: 
           { 'Access-Control-Allow-Origin': '*' }
       },
@@ -218,7 +218,7 @@ const Signup = ({ user, setUser }) => {
         },
       };
 
-      const res = axios.post('http://localhost:3000/signup',
+      const res = axios.post(`${axios.defaults.baseURL}/signup`,
         data,
         config)
         .then((res) => {

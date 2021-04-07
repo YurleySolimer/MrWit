@@ -60,7 +60,7 @@ const WalletRecharge = (props) => {
   const amountToPay = (currency === 'COP' ? (amount * 5000) : (amount * 1.4));
 
   useEffect(() => {
-    const data = axios.get(`http://localhost:3000/user/${user.rol.name === 'client' ? 'client' : 'consultor'}/${user.id}/wallet`)
+    const data = axios.get(`${axios.defaults.baseURL}/user/${user.rol.name === 'client' ? 'client' : 'consultor'}/${user.id}/wallet`)
       .then((res) => setHasAccount(res.data.wallet))
       .catch((err) => console.error(err));
   }, []);

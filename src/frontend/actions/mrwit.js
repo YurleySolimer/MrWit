@@ -33,7 +33,7 @@ export const getConsultantsFailure = (error) => {
 export const getConsultants = () => {
   return (dispatch) => {
     dispatch(getConsultantsRequest());
-    axios.get('http://localhost:3000/resultados')
+    axios.get(`${axios.defaults.baseURL}/resultados`)
       .then((response) => {
         const consultants = response.data;
         dispatch(getConsultantsSuccess(consultants));
@@ -72,7 +72,7 @@ export const getConsultant = (id) => {
   return (dispatch) => {
     dispatch(getConsultantRequest());
     console.log('estoy en el dispatch de getConsultant');
-    axios.get(`http://localhost:3000/consultor/${id}`)
+    axios.get(`${axios.defaults.baseURL}/consultor/${id}`)
       .then((response) => {
         const consultant = response.data;
         console.log(response);
@@ -112,7 +112,7 @@ export const getWalletFailure = (error) => {
 export const getWallet = () => {
   return (dispatch) => {
     dispatch(getWalletRequest());
-    axios.get('http://localhost:3000/user/client/:id/wallet')
+    axios.get(`${axios.defaults.baseURL}/user/client/:id/wallet`)
       .then((response) => {
         const client = response.data;
         dispatch(getWalletSuccess(client));
@@ -150,7 +150,7 @@ export const getHistoryFailure = (error) => {
 export const getHistory = () => {
   return (dispatch) => {
     dispatch(getHistoryRequest());
-    axios.get('http://localhost:3000/user/client/:id/history')
+    axios.get(`${axios.defaults.baseURL}/user/client/:id/history`)
       .then((response) => {
         const client = response.data;
         dispatch(getHistorySuccess(client));
@@ -188,7 +188,7 @@ export const getAgendaFailure = (error) => {
 export const getAgenda = () => {
   return (dispatch) => {
     dispatch(getAgendaRequest());
-    axios.get('http://localhost:3000/user/client/:id/agenda')
+    axios.get(`${axios.defaults.baseURL}/user/client/:id/agenda`)
       .then((response) => {
         const client = response.data;
         dispatch(getAgendaSuccess(client));

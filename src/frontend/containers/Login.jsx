@@ -33,7 +33,7 @@ const Login = (props) => {
       password: password.value,
     };
 
-    const res = axios.post('http://localhost:3000/signin', user)
+    const res = axios.post(`${axios.defaults.baseURL}/signin`, user)
       .then((res) => {
         console.log(res.data);
         setUser(res.data);
