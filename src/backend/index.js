@@ -20,7 +20,7 @@ createRoles();
 const server = require("http").Server(app);
 const io = require("socket.io")(server, {
 	cors: {
-		origin: "http://localhost:8080" || "https://mrwit.co" ,
+		origin: "*" ,
 		methods: [ "GET", "POST" ],
 	}
 })

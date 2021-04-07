@@ -4,7 +4,10 @@ const User = require("../models/Users");
 module.exports = { 
    async checkUserExisted (req, res, next) {
         const user = await User.findOne({email: req.body.email});
-        if (user) return res.status(400).json({message: "The user already exists"});
+        if (user) { 
+            console.log("The user already exists")
+            return res.status(400).json({'message': "The user already exists"})
+        } ;
         next();
     },
 
