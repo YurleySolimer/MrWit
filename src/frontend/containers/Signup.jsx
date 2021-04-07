@@ -148,19 +148,12 @@ const Signup = ({ user, setUser }) => {
   }
 
 
-<<<<<<< HEAD
   const  handleSignupGoogle = async googleData => {
     const data = JSON.stringify({token: googleData.tokenId });
     const config = {
       headers: {
         'Accept': 'application/json',
         "Content-Type": "application/json"
-=======
-    event.preventDefault();
-    const res = axios.get(`${axios.defaults.baseURL}/auth/google`, 
-      { headers: 
-          { 'Access-Control-Allow-Origin': '*' }
->>>>>>> ccafe60de48d4181a356faac7b637dbd7005e5c8
       },
     };
     const res = axios.post('http://localhost:3000/auth/google', 
