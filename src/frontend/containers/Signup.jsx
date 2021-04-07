@@ -215,6 +215,7 @@ const Signup = ({ user, setUser }) => {
       const config = {
         headers: {
           'content-type': 'multipart/form-data',
+          'Access-Control-Allow-Origin': 'api.mrwit.co',
         },
       };
 
