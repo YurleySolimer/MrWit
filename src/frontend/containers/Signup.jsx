@@ -156,17 +156,16 @@ const Signup = ({ user, setUser }) => {
         "Content-Type": "application/json"
       },
     };
-    const res = axios.post('http://localhost:3000/auth/google', 
+    const res = axios.post(`${axios.defaults.baseURL}/auth/google`,
       data,
-      config
-    )
-    .then((res) => {
-      console.log(res.data);
-      
-    })
-    .catch((e) => console.log(e));
+      config)
+      .then((res) => {
+        console.log(res.data);
 
-  }
+      })
+      .catch((e) => console.log(e));
+
+  };
 
   const handlepic = (e) => {
     const ca = document.getElementById('cameraIcon');
@@ -191,7 +190,7 @@ const Signup = ({ user, setUser }) => {
     setFile2(e.target.files[0]);
   };
 
-    function handleSubmitConsultant(event) {
+  function handleSubmitConsultant(event) {
     event.preventDefault();
 
     if (!agreement) {
@@ -217,45 +216,45 @@ const Signup = ({ user, setUser }) => {
       data.append('policy', policy.value);
       data.append('rol', rol.value);
 
-      if (input.horario) { 
-          var horario = input.horario
-          var horarioFinal = {
-            horario
-          }
+      if (input.horario) {
+        const { horario } = input;
+        const horarioFinal = {
+          horario,
+        };
 
-          if(horarioFinal.horario.lunes && horarioFinal.horario.martes 
-             && horarioFinal.horario.miercoles && horarioFinal.horario.jueves 
-             && horarioFinal.horario.viernes && horarioFinal.horario.sabado
-             && horarioFinal.horario.domingo) { 
+        if (horarioFinal.horario.lunes && horarioFinal.horario.martes &&
+             horarioFinal.horario.miercoles && horarioFinal.horario.jueves &&
+             horarioFinal.horario.viernes && horarioFinal.horario.sabado &&
+             horarioFinal.horario.domingo) {
 
-            data.append('Lunes[disponible]', horarioFinal.horario.lunes.disponible);
-            data.append('Lunes[desde]', horarioFinal.horario.lunes.desde);
-            data.append('Lunes[hasta]', horarioFinal.horario.lunes.hasta);
+          data.append('Lunes[disponible]', horarioFinal.horario.lunes.disponible);
+          data.append('Lunes[desde]', horarioFinal.horario.lunes.desde);
+          data.append('Lunes[hasta]', horarioFinal.horario.lunes.hasta);
 
-            data.append('Martes[disponible]', horarioFinal.horario.martes.disponible);
-            data.append('Martes[desde]', horarioFinal.horario.martes.desde);
-            data.append('Martes[hasta]', horarioFinal.horario.martes.hasta);
+          data.append('Martes[disponible]', horarioFinal.horario.martes.disponible);
+          data.append('Martes[desde]', horarioFinal.horario.martes.desde);
+          data.append('Martes[hasta]', horarioFinal.horario.martes.hasta);
 
-            data.append('Miercoles[disponible]', horarioFinal.horario.miercoles.disponible);
-            data.append('Miercoles[desde]', horarioFinal.horario.miercoles.desde);
-            data.append('Miercoles[hasta]', horarioFinal.horario.miercoles.hasta);
+          data.append('Miercoles[disponible]', horarioFinal.horario.miercoles.disponible);
+          data.append('Miercoles[desde]', horarioFinal.horario.miercoles.desde);
+          data.append('Miercoles[hasta]', horarioFinal.horario.miercoles.hasta);
 
-            data.append('Jueves[disponible]', horarioFinal.horario.jueves.disponible);
-            data.append('Jueves[desde]', horarioFinal.horario.jueves.desde);
-            data.append('Jueves[hasta]', horarioFinal.horario.jueves.hasta);
+          data.append('Jueves[disponible]', horarioFinal.horario.jueves.disponible);
+          data.append('Jueves[desde]', horarioFinal.horario.jueves.desde);
+          data.append('Jueves[hasta]', horarioFinal.horario.jueves.hasta);
 
-            data.append('Viernes[disponible]', horarioFinal.horario.viernes.disponible);
-            data.append('Viernes[desde]', horarioFinal.horario.viernes.desde);
-            data.append('Viernes[hasta]', horarioFinal.horario.viernes.hasta);
+          data.append('Viernes[disponible]', horarioFinal.horario.viernes.disponible);
+          data.append('Viernes[desde]', horarioFinal.horario.viernes.desde);
+          data.append('Viernes[hasta]', horarioFinal.horario.viernes.hasta);
 
-            data.append('Sabado[disponible]', horarioFinal.horario.sabado.disponible);
-            data.append('Sabado[desde]', horarioFinal.horario.sabado.desde);
-            data.append('Sabado[hasta]', horarioFinal.horario.sabado.hasta);
+          data.append('Sabado[disponible]', horarioFinal.horario.sabado.disponible);
+          data.append('Sabado[desde]', horarioFinal.horario.sabado.desde);
+          data.append('Sabado[hasta]', horarioFinal.horario.sabado.hasta);
 
-            data.append('Domingo[disponible]', horarioFinal.horario.domingo.disponible);
-            data.append('Domingo[desde]', horarioFinal.horario.domingo.desde);
-            data.append('Domingo[hasta]', horarioFinal.horario.domingo.hasta);
-          }
+          data.append('Domingo[disponible]', horarioFinal.horario.domingo.disponible);
+          data.append('Domingo[desde]', horarioFinal.horario.domingo.desde);
+          data.append('Domingo[hasta]', horarioFinal.horario.domingo.hasta);
+        }
       }
 
       const config = {
@@ -763,7 +762,7 @@ const Signup = ({ user, setUser }) => {
                     name='picture'
                     id='picture'
                     className='signup__input__file'
-                    accept="image/png, .jpeg, .jpg, image/gif"
+                    accept='image/png, .jpeg, .jpg, image/gif'
                     onChange={handlepic}
                   />
                 </label>
@@ -953,13 +952,13 @@ const Signup = ({ user, setUser }) => {
                     name='cv'
                     id='cv'
                     className='signup__input__file'
-                    accept="application/pdf"
+                    accept='application/pdf'
                     onChange={handleCV}
                   />
                   <img className='signup__input__cv__icon' src={clip} alt='adjunta tu CV' />
                 </label>
 
-                <button type='button' onClick={handleOpenModal} id="horario" name="horario" className='signup__input__schedule'>
+                <button type='button' onClick={handleOpenModal} id='horario' name='horario' className='signup__input__schedule'>
                   <h3 className='signup__input__schedule__title'>Definir horario de atención*</h3>
                   <img className='signup__input__schedule__icon' src={schedule} alt='Define tu horario' />
                 </button>
@@ -1127,20 +1126,20 @@ const Signup = ({ user, setUser }) => {
               <img src={linkedin} alt='icon' />
               Registrarme con LinkedIn
             </button>
-            
-{/*             <button type='button' onClick={handleSignupGoogle} className='signup__google signup__button'>
+
+            {/*             <button type='button' onClick={handleSignupGoogle} className='signup__google signup__button'>
               <img src={google} alt='icon' />
               Registrarme con Google
             </button> */}
 
             <GoogleLogin
               clientId='1070484053881-kie1fjjloi981aesbh7538h6h724g1g9.apps.googleusercontent.com'
-              buttonText="Registrarme con Google"
-              className="ct-button ct-button--secondary"
-              onSuccess={handleSignupGoogle} 
-              onFailure={handleSignupGoogle} 
-              cookiePolicy="single_host_origin"
-          />
+              buttonText='Registrarme con Google'
+              className='ct-button ct-button--secondary'
+              onSuccess={handleSignupGoogle}
+              onFailure={handleSignupGoogle}
+              cookiePolicy='single_host_origin'
+            />
           </form>
         </div>
 
