@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link, useHistory, Redirect } from 'react-router-dom';
 import ReactFlagsSelect from 'react-flags-select';
 import CurrencyFormat from 'react-currency-format';
+import GoogleLogin from 'react-google-login';
 
 import axios from 'axios';
 import * as actionsStatus from '../actions';
@@ -147,19 +148,25 @@ const Signup = ({ user, setUser }) => {
     }
   }
 
-  function handleSignupGoogle(event) {
 
-    event.preventDefault();
-    const res = axios.get('http://localhost:3000/auth/google', 
-      { headers: 
-          { 'Access-Control-Allow-Origin': '*' }
+  const  handleSignupGoogle = async googleData => {
+    const data = JSON.stringify({token: googleData.tokenId });
+    const config = {
+      headers: {
+        'Accept': 'application/json',
+        "Content-Type": "application/json"
       },
-      
+    };
+    const res = axios.post('http://localhost:3000/auth/google', 
+      data,
+      config
     )
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((e) => console.log(e));
+    .then((res) => {
+      console.log(res.data);
+      
+    })
+    .catch((e) => console.log(e));
+
   }
 
   const handlepic = (e) => {
@@ -185,7 +192,7 @@ const Signup = ({ user, setUser }) => {
     setFile2(e.target.files[0]);
   };
 
-  function handleSubmitConsultant(event) {
+    function handleSubmitConsultant(event) {
     event.preventDefault();
 
     if (!agreement) {
@@ -210,10 +217,51 @@ const Signup = ({ user, setUser }) => {
       data.append('abilities', input.abilities[2]);
       data.append('policy', policy.value);
       data.append('rol', rol.value);
-      data.append('horario', input.horario);
+
+      if (input.horario) { 
+          var horario = input.horario
+          var horarioFinal = {
+            horario
+          }
+
+          if(horarioFinal.horario.lunes && horarioFinal.horario.martes 
+             && horarioFinal.horario.miercoles && horarioFinal.horario.jueves 
+             && horarioFinal.horario.viernes && horarioFinal.horario.sabado
+             && horarioFinal.horario.domingo) { 
+
+            data.append('Lunes[disponible]', horarioFinal.horario.lunes.disponible);
+            data.append('Lunes[desde]', horarioFinal.horario.lunes.desde);
+            data.append('Lunes[hasta]', horarioFinal.horario.lunes.hasta);
+
+            data.append('Martes[disponible]', horarioFinal.horario.martes.disponible);
+            data.append('Martes[desde]', horarioFinal.horario.martes.desde);
+            data.append('Martes[hasta]', horarioFinal.horario.martes.hasta);
+
+            data.append('Miercoles[disponible]', horarioFinal.horario.miercoles.disponible);
+            data.append('Miercoles[desde]', horarioFinal.horario.miercoles.desde);
+            data.append('Miercoles[hasta]', horarioFinal.horario.miercoles.hasta);
+
+            data.append('Jueves[disponible]', horarioFinal.horario.jueves.disponible);
+            data.append('Jueves[desde]', horarioFinal.horario.jueves.desde);
+            data.append('Jueves[hasta]', horarioFinal.horario.jueves.hasta);
+
+            data.append('Viernes[disponible]', horarioFinal.horario.viernes.disponible);
+            data.append('Viernes[desde]', horarioFinal.horario.viernes.desde);
+            data.append('Viernes[hasta]', horarioFinal.horario.viernes.hasta);
+
+            data.append('Sabado[disponible]', horarioFinal.horario.sabado.disponible);
+            data.append('Sabado[desde]', horarioFinal.horario.sabado.desde);
+            data.append('Sabado[hasta]', horarioFinal.horario.sabado.hasta);
+
+            data.append('Domingo[disponible]', horarioFinal.horario.domingo.disponible);
+            data.append('Domingo[desde]', horarioFinal.horario.domingo.desde);
+            data.append('Domingo[hasta]', horarioFinal.horario.domingo.hasta);
+          }
+      }
 
       const config = {
         headers: {
+          'Accept': 'application/json',
           'content-type': 'multipart/form-data',
         },
       };
@@ -1081,10 +1129,20 @@ const Signup = ({ user, setUser }) => {
               <img src={linkedin} alt='icon' />
               Registrarme con LinkedIn
             </button>
-            <button type='button' onClick={handleSignupGoogle} className='signup__google signup__button'>
+            
+{/*             <button type='button' onClick={handleSignupGoogle} className='signup__google signup__button'>
               <img src={google} alt='icon' />
               Registrarme con Google
-            </button>
+            </button> */}
+
+            <GoogleLogin
+              clientId='1070484053881-kie1fjjloi981aesbh7538h6h724g1g9.apps.googleusercontent.com'
+              buttonText="Registrarme con Google"
+              className="ct-button ct-button--secondary"
+              onSuccess={handleSignupGoogle} 
+              onFailure={handleSignupGoogle} 
+              cookiePolicy="single_host_origin"
+          />
           </form>
         </div>
 

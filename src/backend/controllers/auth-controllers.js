@@ -13,7 +13,6 @@ authCtrl.postNewUser = async (req, res, next) => {
 
     //NewUser
     const { name, lastname, email, password, rol } = req.body;
-
     const newUser = new User ({
         name,
         lastname,
@@ -56,9 +55,53 @@ authCtrl.postNewUser = async (req, res, next) => {
     //New Consultor
 
     const { phone, date, country, profession, especialidad, category, subcategory, abilities,
-            horario, policy } = req.body;
+            policy, Lunes, Martes, Miercoles, Jueves, Viernes, Sabado, Domingo } = req.body;
+
+    var horario = {};
+
+    if (Lunes && Martes && Miercoles && Jueves && Viernes && Sabado && Domingo) {
+        horario = {
+            Lunes: {
+                disponible: Lunes.disponible,
+                desde: Lunes.desde,
+                hasta: Lunes.hasta
+            },
+            Martes: {
+                disponible: Martes.disponible,
+                desde: Martes.desde,
+                hasta: Martes.hasta
+            },
+            Miercoles: {
+                disponible: Miercoles.disponible,
+                desde: Miercoles.desde,
+                hasta: Miercoles.hasta
+            },
+            Jueves: {
+                disponible: Jueves.disponible,
+                desde: Jueves.desde,
+                hasta: Jueves.hasta
+            },
+            Viernes: {
+                disponible: Viernes.disponible,
+                desde: Viernes.desde,
+                hasta: Viernes.hasta
+            },
+            Sabado: {
+                disponible: Sabado.disponible,
+                desde: Sabado.desde,
+                hasta: Sabado.hasta
+            },
+            Domingo: {
+                disponible: Domingo.disponible,
+                desde: Domingo.desde,
+                hasta: Domingo.hasta
+            },
+        }
+    }
+
     const user = userSaved._id;
     var newConsultor = {};
+
     var onPolicy = false;
     if (policy === 'on') {
         onPolicy = true;
@@ -140,8 +183,26 @@ authCtrl.postNewUser = async (req, res, next) => {
                 status                
             });        
         }
+        else if(!req.files[0] && !req.files[1]) {
+            newConsultor = new Consultor ({
+                name,
+                lastname,
+                email,
+                phone,
+                date,
+                country,
+                profession,
+                especialidad,
+                category,
+                subcategory,
+                abilities,
+                horario,
+                policy: onPolicy,
+                status
+            });
+        }
     }
-    else {
+    else if(!req.files) {
         newConsultor = new Consultor ({
             name,
             lastname,
@@ -159,8 +220,7 @@ authCtrl.postNewUser = async (req, res, next) => {
             status
         });
     }
-    console.log(newConsultor)
-    
+   
     const consultorSaved = await newConsultor.save();
     }
 
