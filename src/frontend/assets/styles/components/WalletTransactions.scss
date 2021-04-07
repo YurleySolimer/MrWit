@@ -7,6 +7,15 @@
     box-shadow: $outter-shadow;
     overflow: scroll;
     max-height: 28vh;
+
+    & img {
+        display: flex;
+        margin: auto;
+    }
+
+    & p {
+        text-align: center;
+    }
 }
 
 .WalletTransactions__title {

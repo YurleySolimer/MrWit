@@ -10,7 +10,7 @@ const clientSchema = new Schema({
     status: {
         online: {
           type: Boolean,
-          default: false,
+          default: true,
         },
         inCall: {
           type: Boolean,

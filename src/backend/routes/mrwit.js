@@ -53,25 +53,25 @@ router.get('/join', (req, res) => {
 router.get("/room/:room", (req, res) => {
     console.log(__dirname)
      res.render("room", { roomId: req.params.room });
-});     
+});
 
 router.route('/consultor/:id')
-    .get(getConsultor);
+  .get(getConsultor);
 
 router.post('/agendar', [authjwt.verifyToken, authjwt.isClient], postAgenda);
 
 router.route('/consulta/finalizada/:id')
-    .post(postConsultaFinalizada);
+  .post(postConsultaFinalizada);
 
 router.route('/recarga/u/:id')
-    .post(postRecarga);
+  .post(postRecarga);
 
 router.route('/user/client/:id/wallet')
-    .get(getWallet);
-    
+  .get(getWallet);
+
 router.route('/user/client/:id/historial')
-    .get(getHistory);
+  .get(getHistory);
 
 router.route('/user/client/:id/agenda')
-    .get(getAgenda);
+  .get(getAgenda);
 module.exports = router;
