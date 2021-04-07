@@ -18,7 +18,7 @@ import * as actionsStatus from './actions';
        function handleSubmitConsultant (event) {
             event.preventDefault()
             console.log(name.value, email.value, password.value, rol.value)
-            const res = axios.post('http://localhost:3000/signup', 
+            const res = axios.post(`${axios.defaults.baseURL}/signup`, 
             {
                 name : name.value, 
                 email:  email.value, 

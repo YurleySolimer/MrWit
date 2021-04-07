@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import { Ar, Ag, Bb, Bm, Bo, Br, Bs, Bz, Cl, Co, Cr, Cu, Cw, Dm, Do, Ec, Sv, Gt, Jm, Mx, Pa, Py, Pe, Pr, Uy, Ve } from 'react-flags-select';
 import ReactStars from 'react-rating-stars-component';
 import { getConsultants } from '../actions/mrwit';
@@ -87,7 +88,7 @@ const Results = ({ consultantData }) => {
                         <span>{consultant.name}</span>
                       </p>
                       <div className='Results__profiles__profile'>
-                        <img src={`http://localhost:3000/uploads/${consultant.pictureName}`} alt={consultant.pictureName} className='profile__img' />
+                        <img src={`${axios.defaults.baseURL}/uploads/${consultant.pictureName}`} alt={consultant.pictureName} className='profile__img' />
                         <p className='profile__title'>{`${consultant.profession} - ${consultant.especialidad}`}</p>
                         <p className='profile__time'>
                           {consultant.hoursGive || 0}

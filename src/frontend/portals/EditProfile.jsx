@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import '../assets/styles/portals/EditProfile.scss';
+import axios from 'axios';
 import camera from '../assets/static/icons/camera_dark.svg';
 import check from '../assets/static/icons/check.svg';
 import reel from '../assets/static/icons/reel.svg';
 import attach from '../assets/static/icons/clip.svg';
 import calendar from '../assets/static/icons/schedule.svg';
 
-import axios from 'axios';
 
 
-const EditProfile = ({ onClose }) => {
+const EditProfile = ({ onClose, id }) => {
   const [input, setInput] = useState({
     name: '',
     lastname: '',
@@ -102,7 +102,7 @@ const EditProfile = ({ onClose }) => {
       },
     };
 
-    const res = axios.put(`http://localhost:3000/user/consultor/IDCONSULTOR`,
+    const res = axios.put(`${axios.defaults.baseURL}/user/consultor/${id}`,
       data,
       config)
       .then((res) => {

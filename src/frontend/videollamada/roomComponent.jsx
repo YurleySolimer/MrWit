@@ -3,6 +3,7 @@ import io from "socket.io-client";
 import Peer from "simple-peer";
 import styled from "styled-components";
 import moment from "moment";
+import axios from 'axios';
 
 
 import '../assets/styles/containers/Call.scss';
@@ -13,7 +14,6 @@ import RechargeModal from '../portals/RechargeModal';
 import CancelRecharge from '../portals/CancelRecharge';
 import FinishedCall from '../portals/FinishedCall';
 
-import sample from '../assets/static/video/sample.mp4';
 import audio from '../assets/static/icons/audio.svg';
 import camera from '../assets/static/icons/camera.svg';
 import cameraDark from '../assets/static/icons/camera_dark.svg';
@@ -90,7 +90,7 @@ const Room = (props) => {
 	const [yourID, setYourID] = useState();
 
     useEffect(() => {
-        socketRef.current = io.connect("http://localhost:3000");		
+        socketRef.current = io.connect(`${axios.defaults.baseURL}`);
 
         navigator.mediaDevices.getUserMedia({ video: videoConstraints, audio: false }).then(stream => {
             userVideo.current.srcObject = stream;

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { Ar, Ag, Bb, Bm, Bo, Br, Bs, Bz, Cl, Co, Cr, Cu, Cw, Dm, Do, Ec, Sv, Gt, Jm, Mx, Pa, Py, Pe, Pr, Uy, Ve } from 'react-flags-select';
 import ReactStars from 'react-rating-stars-component';
-import Axios from 'axios';
+import axios from 'axios';
 import * as mrwitActions from '../actions/mrwit';
 import '../assets/styles/containers/Consultant.scss';
 import back from '../assets/static/icons/arrowleft.svg';
@@ -205,7 +205,7 @@ const Consultant = (props) => {
   };
 
   function handleOpenModal(e) {
-    Axios.get(`http://localhost:3000/join`).then(res => {
+    axios.get(`${axios.defaults.baseURL}/join`).then(res => {
       props.history?.push(`/join/${res.data.link}? 
      `);
   })
@@ -233,7 +233,7 @@ const Consultant = (props) => {
         </div>
         <span className='consultant__profession'>{consultantData.consultant.profession}</span>
         <div className='consultant__avatar__container'>
-          <img src={`http://localhost:3000/uploads/${consultantData.consultant.pictureName}`} alt='imágen de perfil' className='consultant__avatar' />
+          <img src={`${axios.defaults.baseURL}/uploads/${consultantData.consultant.pictureName}`} alt='imágen de perfil' className='consultant__avatar' />
           <div className='consultant__status'>{' '}</div>
         </div>
         <div className='consultant__country'>
@@ -292,7 +292,7 @@ const Consultant = (props) => {
       <>
         <span className='consultant__profession'>{consultantData.consultant.profession}</span>
         <div className='consultant__avatar__container'>
-          <img src={`http://localhost:3000/uploads/${consultantData.consultant.pictureName}`} alt='imágen de perfil' className='consultant__avatar' />
+          <img src={`${axios.defaults.baseURL}/uploads/${consultantData.consultant.pictureName}`} alt='imágen de perfil' className='consultant__avatar' />
           <div className='consultant__status'>{' '}</div>
         </div>
         <div className='consultant__since'>

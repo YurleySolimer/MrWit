@@ -5,8 +5,7 @@ import { Link, useHistory } from 'react-router-dom';
 // Redux
 
 import { connect } from 'react-redux';
-// eslint-disable-next-line no-unused-vars
-import statusReducers from '../reducers/statusReducers';
+import axios from 'axios';
 import * as actionsStatus from '../actions';
 
 // Components
@@ -117,11 +116,11 @@ const Home = (props) => {
                 <img src={pen} alt='editar perfil' />
               </button>
               <Modal isOpen={edit} onClose={handleCloseEdit}>
-                <EditProfile onClose={handleCloseEdit} />
+                <EditProfile onClose={handleCloseEdit} id={user.id} />
               </Modal>
               <div className='dashboard__profile--left'>
                 <div className='dashboard__profile--left--pic__co'>
-                  <img src={`http://localhost:3000/uploads/${user.pictureName}`} className='profile__pic' alt='imagen de perfil' />
+                  <img src={`${axios.defaults.baseURL}/uploads/${user.pictureName}`} className='profile__pic' alt='imagen de perfil' />
                   <div className={`profile__pic__status__dashboard ${status.online}`}>{' '}</div>
                 </div>
                 <div className='profile__rating'>

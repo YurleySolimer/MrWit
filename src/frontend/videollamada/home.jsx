@@ -1,4 +1,4 @@
-import Axios from 'axios';
+import axios from 'axios';
 import React from 'react';
 import '../assets/styles/containers/Call.scss';
 import send from '../assets/static/icons/send.svg';
@@ -7,7 +7,7 @@ import send from '../assets/static/icons/send.svg';
 
 function HomeCall(props) {
     const handleJoin = () => {
-        Axios.get(`http://localhost:3000/join`).then(res => {
+        axios.get(`${axios.defaults.baseURL}/join`).then(res => {
             props.history?.push(`/join/${res.data.link}? 
            `);
         })

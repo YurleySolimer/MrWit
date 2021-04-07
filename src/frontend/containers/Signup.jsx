@@ -124,7 +124,7 @@ const Signup = ({ user, setUser }) => {
     if (!agreement) {
       alert('Debes aceptar los términos y condiciones');
     }
-    if (!isValid) {
+    if (isValid) {
       const user = {
         name: input.name,
         lastname: input.lastname,
@@ -135,8 +135,7 @@ const Signup = ({ user, setUser }) => {
         country: input.country,
         rol: rol.value,
       };
-      console.log(user);
-      const res = axios.post('http://localhost:3000/signup', user)
+      const res = axios.post(`${axios.defaults.baseURL}/signup`, user)
         .then((res) => {
           console.log(res.data);
           setUser(res.data);
@@ -149,12 +148,19 @@ const Signup = ({ user, setUser }) => {
   }
 
 
+<<<<<<< HEAD
   const  handleSignupGoogle = async googleData => {
     const data = JSON.stringify({token: googleData.tokenId });
     const config = {
       headers: {
         'Accept': 'application/json',
         "Content-Type": "application/json"
+=======
+    event.preventDefault();
+    const res = axios.get(`${axios.defaults.baseURL}/auth/google`, 
+      { headers: 
+          { 'Access-Control-Allow-Origin': '*' }
+>>>>>>> ccafe60de48d4181a356faac7b637dbd7005e5c8
       },
     };
     const res = axios.post('http://localhost:3000/auth/google', 
@@ -266,7 +272,7 @@ const Signup = ({ user, setUser }) => {
         },
       };
 
-      const res = axios.post('http://localhost:3000/signup',
+      const res = axios.post(`${axios.defaults.baseURL}/signup`,
         data,
         config)
         .then((res) => {
@@ -718,7 +724,6 @@ const Signup = ({ user, setUser }) => {
       [name]: [...arr],
     });
     validate('abilities', arr);
-    console.log(input);
   };
   // eslint-disable-next-line react/destructuring-assignment
 

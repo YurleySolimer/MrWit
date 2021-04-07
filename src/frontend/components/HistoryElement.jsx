@@ -13,7 +13,7 @@ const HistoryElement = (props) => {
     return (
       <div className='HistoryElement'>
         {/* <div className='HistoryElement__img'>
-          <img src={`http://localhost:3000/uploads/${consultant.pictureName}`}} alt='' className='HistoryElement__img__profile' />
+          <img src={`${axios.defaults.baseURL}/uploads/${consultant.pictureName}`}} alt='' className='HistoryElement__img__profile' />
         </div> */}
         <div className='HistoryElement__consultant'>
           <div className='HistoryElement__consultant__name'>{name}</div>

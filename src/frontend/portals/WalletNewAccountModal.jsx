@@ -52,7 +52,7 @@ const WalletNewAccountModal = ({ onClose, isEdit, id }) => {
       data.append('cuenta', input.cuenta);
       data.append('acuerdo', input.acuerdo);
 
-      const res = axios.post(`http://localhost:3000/user/consultor/${id}/wallet/cuenta`,
+      const res = axios.post(`${axios.defaults.baseURL}/user/consultor/${id}/wallet/cuenta`,
         data,
         config)
         .then((res) => {

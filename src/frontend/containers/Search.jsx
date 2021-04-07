@@ -4,7 +4,6 @@ import { Redirect} from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 
 import axios from 'axios';
-import statusReducers from '../reducers/statusReducers';
 
 import '../assets/styles/containers/Search.scss';
 import '../assets/styles/components/Searcher.scss';
@@ -69,7 +68,7 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
       const data = new FormData();
       data.append('category', valueResult);
       data.append('proffession', valueSelection);
-      const res = axios.post('http://localhost:3000/busqueda', data)
+      const res = axios.post(`${axios.defaults.baseURL}/busqueda`, data)
         .then((res) => {
           getConsultantsSuccess(res.data);
           history.push('/resultados');
@@ -95,7 +94,7 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
     if (valueSelection !== '' && specialities === []) {
       const data = new FormData();
       data.append('proffession', valueResult);
-      const res = axios.post('http://localhost:3000/busqueda', data)
+      const res = axios.post(`${axios.defaults.baseURL}/busqueda`, data)
         .then((res) => {
           getConsultantsSuccess(res.data);
           history.push('/resultados');
@@ -105,7 +104,7 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
       const data = new FormData();
       data.append('proffession', valueResult);
       data.append('especialidad', valueSelection);
-      const res = axios.post('http://localhost:3000/busqueda', data)
+      const res = axios.post(`${axios.defaults.baseURL}/busqueda`, data)
         .then((res) => {
           getConsultantsSuccess(res.data);
           history.push('/resultados');
@@ -145,7 +144,7 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
       const data = new FormData();
       data.append('category', valueResult);
       data.append('proffession', valueSelection);
-      const res = axios.post('http://localhost:3000/busqueda', data)
+      const res = axios.post(`${axios.defaults.baseURL}/busqueda`, data)
         .then((res) => {
           getConsultantsSuccess(res.data);
           history.push('/resultados');
@@ -170,7 +169,7 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
     if (specialities === []) {
       const data = new FormData();
       data.append('proffession', valueResult);
-      const res = axios.post('http://localhost:3000/busqueda', data)
+      const res = axios.post(`${axios.defaults.baseURL}/busqueda`, data)
         .then((res) => {
           getConsultantsSuccess(res.data);
           history.push('/resultados');
@@ -180,7 +179,7 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
       const data = new FormData();
       data.append('proffession', valueResult);
       data.append('especialidad', valueSelection);
-      const res = axios.post('http://localhost:3000/busqueda', data)
+      const res = axios.post(`${axios.defaults.baseURL}/busqueda`, data)
         .then((res) => {
           getConsultantsSuccess(res.data);
           history.push('/resultados');
