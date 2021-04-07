@@ -123,7 +123,7 @@ const Signup = ({ user, setUser }) => {
     if (!agreement) {
       alert('Debes aceptar los términos y condiciones');
     }
-    if (!isValid) {
+    if (isValid) {
       const user = {
         name: input.name,
         lastname: input.lastname,
@@ -134,7 +134,6 @@ const Signup = ({ user, setUser }) => {
         country: input.country,
         rol: rol.value,
       };
-      console.log(user);
       const res = axios.post(`${axios.defaults.baseURL}/signup`, user)
         .then((res) => {
           console.log(res.data);
@@ -215,7 +214,6 @@ const Signup = ({ user, setUser }) => {
       const config = {
         headers: {
           'content-type': 'multipart/form-data',
-          'Access-Control-Allow-Origin': 'api.mrwit.co',
         },
       };
 
@@ -671,7 +669,6 @@ const Signup = ({ user, setUser }) => {
       [name]: [...arr],
     });
     validate('abilities', arr);
-    console.log(input);
   };
   // eslint-disable-next-line react/destructuring-assignment
 
