@@ -14,7 +14,6 @@ import RechargeModal from '../portals/RechargeModal';
 import CancelRecharge from '../portals/CancelRecharge';
 import FinishedCall from '../portals/FinishedCall';
 
-import sample from '../assets/static/video/sample.mp4';
 import audio from '../assets/static/icons/audio.svg';
 import camera from '../assets/static/icons/camera.svg';
 import cameraDark from '../assets/static/icons/camera_dark.svg';

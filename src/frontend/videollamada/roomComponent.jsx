@@ -5,7 +5,6 @@ import styled from "styled-components";
 import moment from "moment";
 import axios from 'axios';
 
-
 import '../assets/styles/containers/Call.scss';
 
 import Modal from '../portals/Modal';
@@ -84,7 +83,7 @@ const Room = (props) => {
 	const [isRecharge, setIsRecharge] = useState(false);
 	const [isCancel, setIsCancel] = useState(false);
 	const [isFinished, setIsFinished] = useState(false);
-	const [ callEnded, setCallEnded] = useState(false)
+	const [callEnded, setCallEnded] = useState(false)
 
 
 	const [messages, setMessages] = useState([]);

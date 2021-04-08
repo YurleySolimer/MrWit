@@ -1,144 +1,155 @@
-import Button from "@material-ui/core/Button"
-import IconButton from "@material-ui/core/IconButton"
-import TextField from "@material-ui/core/TextField"
-import AssignmentIcon from "@material-ui/icons/Assignment"
-import PhoneIcon from "@material-ui/icons/Phone"
-import React, { useEffect, useRef, useState } from "react"
-import { CopyToClipboard } from "react-copy-to-clipboard"
-import Peer from "simple-peer"
-import io from "socket.io-client"
-import "./App.css"
+import React, { useEffect, useRef, useState } from 'react';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import TextField from '@material-ui/core/TextField';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import PhoneIcon from '@material-ui/icons/Phone';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import Peer from 'simple-peer';
+import io from 'socket.io-client';
+import './App.css';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
-const socket = io.connect('http://localhost:3000')
+const socket = io.connect('http://localhost:3000');
 function App() {
-    const history = useHistory();
+  const history = useHistory();
 
-	const [ me, setMe ] = useState("")
-	const [ stream, setStream ] = useState()
-	const [ receivingCall, setReceivingCall ] = useState(false)
-	const [ caller, setCaller ] = useState("")
-	const [ callerSignal, setCallerSignal ] = useState()
-	const [ callAccepted, setCallAccepted ] = useState(false)
-	const [ idToCall, setIdToCall ] = useState("")
-	const [ name, setName ] = useState("")
-    const [ idRoom, setIdRoom ] = useState("")
+  const [me, setMe] = useState('');
+  const [stream, setStream] = useState();
+  const [receivingCall, setReceivingCall] = useState(false);
+  const [caller, setCaller] = useState('');
+  const [callerSignal, setCallerSignal] = useState();
+  const [callAccepted, setCallAccepted] = useState(false);
+  const [idToCall, setIdToCall] = useState('');
+  const [name, setName] = useState('');
+  const [idRoom, setIdRoom] = useState('');
+  const [idGetted, setIdGetted] = useState('');
 
-	const connectionRef= useRef()
+  const connectionRef = useRef();
+  console.log('En este llamado el idRoom es: ', idRoom);
+  console.log('En este llamado el idGetted es: ', idGetted);
 
-	useEffect(() => {
-	    socket.on("me", (id) => {
-			setMe(id)
-		})
+  if (idRoom !== '') {
+    socket.on('me', (id) => {
+      setMe(id);
+    });
 
-		socket.on("callUser", (data) => {
-			setReceivingCall(true)
-			setCaller(data.from)
-			setName(data.name)
-			setCallerSignal(data.signal)
-		})
-	}, [])
+    socket.on('callUser', (data) => {
+      setReceivingCall(true);
+      setCaller(data.from);
+      setName(data.name);
+      setCallerSignal(data.signal);
+      setIdGetted(idRoom);
+    });
+  } else {
+    setIdRoom(() => uuidv4());
+  }
 
-	const callUser = (id) => {
-		const peer = new Peer({
-			initiator: true,
-			trickle: false,
-			stream: stream
-		})
-		peer.on("signal", (data) => {
-			socket.emit("callUser", {
-				userToCall: id,
-				signalData: data,
-				from: me,
-				name: name
-			})
-		})
-		
-		socket.on("callAccepted", (signal) => {
-			setCallAccepted(true)
-			peer.signal(signal)
-            history.push(`/join/${idRoom}`);            
-		})
+  const callUser = (id) => {
+    const peer = new Peer({
+      initiator: true,
+      trickle: false,
+      stream,
+    });
 
-		connectionRef.current = peer
-	}
+    console.log('Soy el emisor');
+    console.log('El idRoom del emisor es: ', idRoom);
+    peer.on('signal', (data) => {
+      socket.emit('callUser', {
+        userToCall: id,
+        signalData: data,
+        from: me,
+        name,
+      });
+    });
 
-	const answerCall =() =>  {
-		setCallAccepted(true)
-        console.log(uuidv4())
-        setIdRoom(uuidv4()); 
+    socket.on('callAccepted', (signal) => {
+      setCallAccepted(true);
+      peer.signal(signal);
+      console.log('El signal es:', signal);
+      history.push(`/join/${idRoom}`);
+    });
 
-		const peer = new Peer({
-			initiator: false,
-			trickle: false,
-			stream: stream
-		})
-		peer.on("signal", (data) => {
-			socket.emit("answerCall", { signal: data, to: caller })
-		})		
+    connectionRef.current = peer;
+  };
 
-		peer.signal(callerSignal);
-		connectionRef.current = peer;        
-        
-        console.log(idRoom)            
-        history.push(`/join/${idRoom}`);
+  const answerCall = (value) => {
+    setCallAccepted(true);
 
-	}
+    console.log('Soy el receptor');
+    console.log('El id room del receptor es: ', idRoom);
+    console.log('El value del receptor es: ', value);
 
+    const peer = new Peer({
+      initiator: false,
+      trickle: false,
+      stream,
+    });
+    peer.on('signal', (data) => {
+      socket.emit('answerCall', { signal: data, to: caller });
+    });
 
+    peer.signal(callerSignal);
+    connectionRef.current = peer;
+    history.push(`/join/${value}`);
+  };
 
-	return (
-		<>
-			<h1 style={{ textAlign: "center", color: '#fff' }}>MR WIT CALL</h1>
-		<div className="container">
-			
-			<div className="myId">
-				<TextField
-					id="filled-basic"
-					label="Name"
-					variant="filled"
-					onChange={(e) => setName(e.target.value)}
-					style={{ marginBottom: "20px" }}
-				/>
-				<CopyToClipboard text={me} style={{ marginBottom: "2rem" }}>
-					<Button variant="contained" color="primary" startIcon={<AssignmentIcon fontSize="large" />}>
-						Copy ID
-					</Button>
-				</CopyToClipboard>
+  return (
+    <>
+      <h1 style={{ textAlign: 'center', color: '#fff' }}>MR WIT CALL</h1>
+      <div className='container'>
 
-				<TextField
-					id="filled-basic"
-					label="ID to call"
-					variant="filled"
-					value={idToCall}
-					onChange={(e) => setIdToCall(e.target.value)}
-				/>
-				<div className="call-button">
-					{callAccepted  ? (
-						<h1> In Call </h1>
-					) : (
-						<IconButton color="primary" aria-label="call" onClick={() => callUser(idToCall)}>
-							<PhoneIcon fontSize="large" />
-						</IconButton>
-					)}
-					{idToCall}
-				</div>
-			</div>
-			<div>
-				{receivingCall ? (
-						<div className="caller">
-						<Button variant="contained" color="primary" onClick={answerCall}>
-                        <h1 >{name} is calling...</h1>
-							Answer
-						</Button>
-					</div>
-				) : null}
-			</div>
-		</div>
-		</>
-	)
+        <div className='myId'>
+          <TextField
+            id='filled-basic'
+            label='Name'
+            variant='filled'
+            onChange={(e) => setName(e.target.value)}
+            style={{ marginBottom: '20px' }}
+          />
+          <CopyToClipboard text={me} style={{ marginBottom: '2rem' }}>
+            <Button variant='contained' color='primary' startIcon={<AssignmentIcon fontSize='large' />}>
+              Copy ID
+            </Button>
+          </CopyToClipboard>
+
+          <TextField
+            id='filled-basic'
+            label='ID to call'
+            variant='filled'
+            value={idToCall}
+            onChange={(e) => setIdToCall(e.target.value)}
+          />
+          <div className='call-button'>
+            {callAccepted ? (
+              <h1> In Call </h1>
+            ) : (
+              <IconButton color='primary' aria-label='call' onClick={() => callUser(idToCall)}>
+                <PhoneIcon fontSize='large' />
+              </IconButton>
+            )}
+            {idToCall}
+          </div>
+        </div>
+        <div>
+          {receivingCall ? (
+            <div className='caller'>
+              <Button variant='contained' color='primary' onClick={() => answerCall(idGetted)}>
+                <h1>
+                  {name}
+                  {' '}
+                  is calling...
+                </h1>
+                Answer
+              </Button>
+            </div>
+          ) : null}
+        </div>
+      </div>
+    </>
+  );
 }
 
-export default App
+export default App;
