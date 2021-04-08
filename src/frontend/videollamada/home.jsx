@@ -38,6 +38,8 @@ function App() {
 			setCaller(data.from)
 			setName(data.name)
 			setCallerSignal(data.signal)
+			setIdRoom(uuidv4()); 
+
 		})
 	}, [])
 
@@ -56,10 +58,12 @@ function App() {
 			})
 		})
 		
-		socket.on("callAccepted", (signal) => {
+		socket.on("callAccepted", (signal, idRoom) => {
 			setCallAccepted(true)
 			peer.signal(signal)
-            history.push(`/join/${idRoom}`);            
+			setIdRoom(idRoom); 
+
+           history.push(`/join/${idRoom}`);            
 		})
 
 		connectionRef.current = peer
@@ -67,8 +71,6 @@ function App() {
 
 	const answerCall =() =>  {
 		setCallAccepted(true)
-        console.log(uuidv4())
-        setIdRoom(uuidv4()); 
 
 		const peer = new Peer({
 			initiator: false,
@@ -76,15 +78,13 @@ function App() {
 			stream: stream
 		})
 		peer.on("signal", (data) => {
-			socket.emit("answerCall", { signal: data, to: caller })
+			socket.emit("answerCall", { signal: data, to: caller, idRoom: idRoom })
 		})		
 
 		peer.signal(callerSignal);
 		connectionRef.current = peer;        
         
-        console.log(idRoom)            
-        history.push(`/join/${idRoom}`);
-
+       	history.push(`/join/${idRoom}`);
 	}
 
 
