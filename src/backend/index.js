@@ -35,6 +35,8 @@ const users = {};
 const socketToRoom = {};
 
 io.on('connection', socket => {
+    socket.emit("me", socket.id)
+
     socket.on("join room", roomID => {
         if (users[roomID]) {
             const length = users[roomID].length;
@@ -56,6 +58,14 @@ io.on('connection', socket => {
         })
     });
 
+    socket.on("callUser", (data) => {
+		io.to(data.userToCall).emit("callUser", { signal: data.signalData, from: data.from, name: data.name })
+	})
+
+	socket.on("answerCall", (data) => {
+		io.to(data.to).emit("callAccepted", data.signal)
+	})
+
     socket.on("sending signal", payload => {
         io.to(payload.userToSignal).emit('user joined', { signal: payload.signal, callerID: payload.callerID });
     });
@@ -71,9 +81,12 @@ io.on('connection', socket => {
             room = room.filter(id => id !== socket.id);
             users[roomID] = room;
         }
+        socket.broadcast.emit("callEnded")
+
     });   
 
 });
+
 
 
 //Middelwares

@@ -84,6 +84,8 @@ const Room = (props) => {
 	const [isRecharge, setIsRecharge] = useState(false);
 	const [isCancel, setIsCancel] = useState(false);
 	const [isFinished, setIsFinished] = useState(false);
+	const [ callEnded, setCallEnded] = useState(false)
+
 
 	const [messages, setMessages] = useState([]);
   	const [message, setMessage] = useState("");
@@ -219,6 +221,11 @@ const Room = (props) => {
 	  function handleFinish(e) {
 		setIsFinished(true);
 	  }
+
+	  const leaveCall = () => {
+		setCallEnded(true)
+		connectionRef.current.destroy()
+	}
 	
 	  function handleChat() {
 		const chatIcon = document.getElementById('chatIcon');
@@ -231,6 +238,7 @@ const Room = (props) => {
 		headerIcon.classList.toggle('active');
 		chat.classList.toggle('active');
 	  }
+
 
 
 
