@@ -1,20 +1,20 @@
-import Button from "@material-ui/core/Button"
-import IconButton from "@material-ui/core/IconButton"
-import TextField from "@material-ui/core/TextField"
-import AssignmentIcon from "@material-ui/icons/Assignment"
-import PhoneIcon from "@material-ui/icons/Phone"
-import React, { useEffect, useRef, useState } from "react"
-import { CopyToClipboard } from "react-copy-to-clipboard"
-import Peer from "simple-peer"
-import io from "socket.io-client"
-import "./App.css"
+import React, { useEffect, useRef, useState } from 'react';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import TextField from '@material-ui/core/TextField';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import PhoneIcon from '@material-ui/icons/Phone';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import Peer from 'simple-peer';
+import io from 'socket.io-client';
+import './App.css';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
-const socket = io.connect('http://localhost:3000')
+const socket = io.connect('http://localhost:3000');
 function App() {
-    const history = useHistory();
+  const history = useHistory();
 
 	const [ me, setMe ] = useState("")
 	const [ stream, setStream ] = useState()
@@ -141,4 +141,4 @@ function App() {
 	)
 }
 
-export default App
+export default App;
