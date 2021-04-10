@@ -43,12 +43,9 @@ const Layout = ({ children, user, getCall, gettingCall }) => {
   };
 
   useEffect(() => {
-    socket.on('me', (id) => {
-      console.log(id);
-      setMe(id);
-    });
-
+    
     socket.on('callUser', (data) => {
+      console.log('caller1', data.from)
       setReceivingCall(true);
       setCaller(data.from);
       setName(data.name);
@@ -67,6 +64,7 @@ const Layout = ({ children, user, getCall, gettingCall }) => {
       stream,
     });
     peer.on('signal', (data) => {
+      console.log('caller', caller)
       socket.emit('answerCall', { signal: data, to: caller, idRoom });
     });
 

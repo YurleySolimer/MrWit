@@ -36,7 +36,6 @@ const socketToRoom = {};
 
 io.on('connection', socket => {
     socket.emit("me", socket.id)
-
     socket.on("join room", roomID => {
         if (users[roomID]) {
             const length = users[roomID].length;

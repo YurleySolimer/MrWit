@@ -29,25 +29,20 @@ const CallingModal = (props) => {
   const [dontAnswered, setDontAnswered] = useState(false);
 
   const connectionRef = useRef();
-
-  console.log('La room es: ', idRoom);
-
-  useEffect(() => {
-    socket.on('me', (id) => {
+  
+    useEffect(() => {
+     var iDSock =  socket.on('me', (id) => {
+      console.log('Hola');
       console.log(id);
       setMe(id);
     });
+    console.log('i', iDSock.id)
+    setMe(iDSock.id);
 
-    socket.on('callUser', (data) => {
-      setReceivingCall(true);
-      setCaller(data.from);
-      setName(data.name);
-      setCallerSignal(data.signal);
-      console.log('Hola consultor');
-    });
   }, [me]);
-  
-  const callUser = (id) => {
+
+
+  const callUser = (idToCall) => {
     setCalling(true);
     const peer = new Peer({
       initiator: true,
@@ -55,8 +50,9 @@ const CallingModal = (props) => {
       stream,
     });
     peer.on('signal', (data) => {
+      console.log('me call', me)
       socket.emit('callUser', {
-        userToCall: id,
+        userToCall: idToCall,
         signalData: data,
         from: me,
         name: user.name,
@@ -64,6 +60,7 @@ const CallingModal = (props) => {
     });
 
     socket.on('callAccepted', (signal, idRoom) => {
+      console.log('Acepta')
       setCall(true);
       peer.signal(signal);
       setIdRoom(idRoom);
