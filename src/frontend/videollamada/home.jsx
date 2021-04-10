@@ -6,7 +6,6 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import PhoneIcon from '@material-ui/icons/Phone';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Peer from 'simple-peer';
-import io from 'socket.io-client';
 import './App.css';
 import { useHistory } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';

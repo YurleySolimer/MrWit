@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import '../assets/styles/App.scss';
 import Home from '../containers/Home';
 import Login from '../containers/Login';
@@ -25,48 +26,50 @@ import pruebaRegistro from '../pruebaRegistro';
 import HomeCall from '../videollamada/home';
 import RoomComponent from '../videollamada/roomComponent';
 import socket from '../socket';
-import  { useState } from 'react';
 
+const App = ({ user }) => {
 
-const App = () => { 
-
+  console.log('El id en app.js es: ', user.id);
   socket.connect();
   socket.on("me", (id) => {
-    console.log(id)
-  })
+    console.log(id);
+  });
 
-  
-  return( 
-  <BrowserRouter>
-    <Layout>
-      <Switch>
-        <Route exact path='/' component={Home} />
-        <Route exact path='/prueba' component={Prueba} />
-        <Route exact path='/pruebaRegistro' component={pruebaRegistro} />
+  return (
+    <BrowserRouter>
+      <Layout>
+        <Switch>
+          <Route exact path='/' component={Home} />
+          <Route exact path='/prueba' component={Prueba} />
+          <Route exact path='/pruebaRegistro' component={pruebaRegistro} />
 
-        <Route exact path='/homeCall' component={HomeCall} />
-        <Route path="/join/:id" component={RoomComponent} />
+          <Route exact path='/homeCall' component={HomeCall} />
+          <Route path="/join/:id" component={RoomComponent} />
 
-        <Route exact path='/login' component={Login} />
-        <Route exact path='/signup' component={Signup} />
-        <Route exact path='/buscar' component={Search} />
-        <Route exact path='/recargar' component={Recharge} />
-        <Route exact path='/blog' component={Blog} />
-        <Route exact path='/blog/post' component={Post} />
-        <Route exact path='/agenda' component={Schedule} />
-        <Route exact path='/wallet' component={Wallet} />
-        <Route exact path='/historial' component={History} />
-        <Route exact path='/ayuda' component={Help} />
-        <Route exact path='/ayuda/pregunta' component={HelpArticle} />
-        <Route exact path='/llamada' component={Call} />
-        <Route exact path='/resultados' component={Consultants} />
-        <Route exact path='/resultados/:id' component={Consultant} />
-        <Route exact path='/favorito/:id' component={ConsultantFavorite} />
-        <Route component={NotFound} />
-      </Switch>
-    </Layout>
-  </BrowserRouter>
+          <Route exact path='/login' component={Login} />
+          <Route exact path='/signup' component={Signup} />
+          <Route exact path='/buscar' component={Search} />
+          <Route exact path='/recargar' component={Recharge} />
+          <Route exact path='/blog' component={Blog} />
+          <Route exact path='/blog/post' component={Post} />
+          <Route exact path='/agenda' component={Schedule} />
+          <Route exact path='/wallet' component={Wallet} />
+          <Route exact path='/historial' component={History} />
+          <Route exact path='/ayuda' component={Help} />
+          <Route exact path='/ayuda/pregunta' component={HelpArticle} />
+          <Route exact path='/llamada' component={Call} />
+          <Route exact path='/resultados' component={Consultants} />
+          <Route exact path='/resultados/:id' component={Consultant} />
+          <Route exact path='/favorito/:id' component={ConsultantFavorite} />
+          <Route component={NotFound} />
+        </Switch>
+      </Layout>
+    </BrowserRouter>
   )
 };
 
-export default App;
+const mapStateToProps = (reducers) => {
+  return reducers.statusReducers;
+};
+
+export default connect(mapStateToProps, null)(App);
