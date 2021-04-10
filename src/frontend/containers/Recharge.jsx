@@ -10,8 +10,12 @@ import CallingModal from '../portals/Calling';
 import payu from '../assets/static/logo/payu-logo.svg';
 import background from '../assets/static/images/background1.png';
 
-const Recharge = ({ user }) => {
+const Recharge = ({ consultantData, statusData }) => {
 
+  const { user } = statusData;
+  const { consultant } = consultantData;
+
+  console.log(consultant);
   const [isOpen, setIsOpen] = useState(false);
 
   function handlePayment() {
@@ -21,8 +25,6 @@ const Recharge = ({ user }) => {
   function handleCloseModal(e) {
     setIsOpen(false);
   }
-
-  console.log('user.status ', !user.status)
 
   if (user.rol.name === 'consultant' || !user.status) {
     return (<Redirect to='/' />);
@@ -50,8 +52,11 @@ const Recharge = ({ user }) => {
 
 };
 
-const mapStateToProps = (reducers) => {
-  return reducers.statusReducers;
+const mapStateToProps = (state) => {
+  return {
+    consultantData: state.mrwitReducers,
+    statusData: state.statusReducers,
+  };
 };
 
 export default connect(mapStateToProps, actionsStatus)(Recharge);

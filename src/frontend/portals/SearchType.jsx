@@ -45,7 +45,7 @@ const SearchType = (props) => {
     data.append('id', value);
     const res = axios.post(`${axios.defaults.baseURL}/busqueda`, data)
       .then((res) => {
-        history.push(`/resultados/?id=${value}`);
+        history.push(`/resultados/${value}`);
       })
       .catch((e) => console.log(e));
   }
