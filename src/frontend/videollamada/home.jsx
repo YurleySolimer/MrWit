@@ -61,6 +61,7 @@ function App() {
       setCallAccepted(true);
       peer.signal(signal);
       setIdRoom(idRoom);
+      console.log(idRoom)
 
       history.push(`/join/${idRoom}`);
     });
