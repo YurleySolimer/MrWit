@@ -55,6 +55,7 @@ export const getConsultantRequest = () => {
 };
 
 export const getConsultantSuccess = (consultant) => {
+  console.log('entre en getConsultantSuccess')
   return {
     type: GET_CONSULTANT_SUCCESS,
     payload: consultant,
@@ -62,6 +63,7 @@ export const getConsultantSuccess = (consultant) => {
 };
 
 export const getConsultantFailure = (error) => {
+  console.log('entre en getConsultantFailure')
   return {
     type: GET_CONSULTANT_FAILURE,
     payload: error,

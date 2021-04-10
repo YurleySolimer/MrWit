@@ -10,6 +10,7 @@ import back from '../assets/static/icons/arrowleft.svg';
 import HistoryList from '../components/HistoryList';
 import Modal from '../portals/Modal';
 import CallingModal from '../portals/Calling';
+import Loading from '../components/Loading';
 
 const Consultant = (props) => {
 
@@ -212,7 +213,7 @@ const Consultant = (props) => {
     // setIsOpen({ isOpen: true });
   };
 
-  function handleCloseModal(newValue) {
+  function handleCloseModal() {
     setIsOpen(false);
   };
 
@@ -282,10 +283,6 @@ const Consultant = (props) => {
       </>
     );
   };
-
-  console.log('ConsultantData:', consultantData);
-  console.log('statusReducer:', statusData);
-  console.log('mrwitActions:', mrwitActions);
 
   const infoConsultorOnline = () => {
     return (
@@ -360,9 +357,9 @@ const Consultant = (props) => {
   };
 
   if (statusData.user && !statusData.user.status) {
-
+    console.log(statusData.user)
     return consultantData.isLoading ? (
-      <h2>Loading</h2>
+      <Loading />
     ) : consultantData.error ? (
       <h2>{consultantData.error}</h2>
     ) : (
@@ -374,7 +371,7 @@ const Consultant = (props) => {
   };
 
   return consultantData.isLoading ? (
-    <h2>Loading</h2>
+    <Loading />
   ) : consultantData.error ? (
     <h2>{consultantData.error}</h2>
   ) : (

@@ -123,8 +123,7 @@ const Signup = ({ user, setUser }) => {
 
     if (!agreement) {
       alert('Debes aceptar los términos y condiciones');
-    }
-    if (isValid) {
+    } else if (isValid && agreement) {
       const user = {
         name: input.name,
         lastname: input.lastname,
@@ -147,13 +146,12 @@ const Signup = ({ user, setUser }) => {
     }
   }
 
-
-  const  handleSignupGoogle = async googleData => {
-    const data = JSON.stringify({token: googleData.tokenId });
+  const handleSignupGoogle = async (googleData) => {
+    const data = JSON.stringify({ token: googleData.tokenId });
     const config = {
       headers: {
         'Accept': 'application/json',
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json',
       },
     };
     const res = axios.post(`${axios.defaults.baseURL}/auth/google`,
@@ -182,10 +180,6 @@ const Signup = ({ user, setUser }) => {
     setFile(e.target.files[0]);
   };
 
-  const handleAgreement = () => {
-    setAgreement(!agreement);
-  };
-
   const handleCV = (e) => {
     setFile2(e.target.files[0]);
   };
@@ -195,8 +189,7 @@ const Signup = ({ user, setUser }) => {
 
     if (!agreement) {
       alert('Debes aceptar los términos y condiciones');
-    }
-    if (isValid) {
+    } else if (isValid && agreement) {
       const data = new FormData();
       data.append('name', input.name);
       data.append('lastname', input.lastname);
@@ -223,9 +216,9 @@ const Signup = ({ user, setUser }) => {
         };
 
         if (horarioFinal.horario.lunes && horarioFinal.horario.martes &&
-             horarioFinal.horario.miercoles && horarioFinal.horario.jueves &&
-             horarioFinal.horario.viernes && horarioFinal.horario.sabado &&
-             horarioFinal.horario.domingo) {
+          horarioFinal.horario.miercoles && horarioFinal.horario.jueves &&
+          horarioFinal.horario.viernes && horarioFinal.horario.sabado &&
+          horarioFinal.horario.domingo) {
 
           data.append('Lunes[disponible]', horarioFinal.horario.lunes.disponible);
           data.append('Lunes[desde]', horarioFinal.horario.lunes.desde);
@@ -595,34 +588,34 @@ const Signup = ({ user, setUser }) => {
     }
 
     if (user.rol.name === 'consultant' &&
-     errors.name.value &&
-     errors.lastname.value &&
-     errors.tel.value &&
-     errors.date.value &&
-     errors.country.value &&
-     errors.email.value &&
-     errors.password.value &&
-     errors.confirmPassword.value &&
-     errors.sector.value &&
-     errors.profesion.value &&
-     errors.especialidad.value &&
-     errors.abilities.value) {
+      errors.name.value &&
+      errors.lastname.value &&
+      errors.tel.value &&
+      errors.date.value &&
+      errors.country.value &&
+      errors.email.value &&
+      errors.password.value &&
+      errors.confirmPassword.value &&
+      errors.sector.value &&
+      errors.profesion.value &&
+      errors.especialidad.value &&
+      errors.abilities.value) {
       valid = true;
     }
 
     if (user.rol.name === 'client' &&
-     errors.name.value &&
-     errors.lastname.value &&
-     errors.dni.value &&
-     errors.tel.value &&
-     errors.email.value &&
-     errors.country.value &&
-     errors.password.value &&
-     errors.confirmPassword.value) {
+      errors.name.value &&
+      errors.lastname.value &&
+      errors.dni.value &&
+      errors.tel.value &&
+      errors.country.value &&
+      errors.email.value &&
+      errors.password.value &&
+      errors.confirmPassword.value) {
       valid = true;
     }
 
-    return setIsValid(valid);
+    return valid;
   }
 
   function handleChange(event) {
@@ -631,7 +624,7 @@ const Signup = ({ user, setUser }) => {
       ...input,
       [name]: value,
     });
-    validate(name, value);
+    setIsValid(validate(name, value));
   }
 
   function handleSignupConsultant(event) {
@@ -669,6 +662,18 @@ const Signup = ({ user, setUser }) => {
     event.preventDefault();
   }
 
+  function handleBackClient(event) {
+    const formContent = document.getElementById('signup__form__content');
+    const otherButtons = document.getElementsByClassName('signup__button');
+
+    for (let i = 0; i < otherButtons.length; i++) {
+      otherButtons[i].classList.remove('hidden');
+    }
+
+    formContent.classList.remove('active');
+    event.preventDefault();
+  }
+
   function handleOpenModal(e) {
     setModalIsOpen(true);
   };
@@ -699,7 +704,7 @@ const Signup = ({ user, setUser }) => {
       ...input,
       profesion: value,
     });
-    validate('profesion', value);
+    setIsValid(validate('profesion', value));
   }
 
   const handleAbilities = (e) => {
@@ -715,7 +720,7 @@ const Signup = ({ user, setUser }) => {
       ...input,
       [name]: [...arr],
     });
-    validate('abilities', arr);
+    setIsValid(validate('abilities', arr));
   };
   // eslint-disable-next-line react/destructuring-assignment
 
@@ -734,12 +739,17 @@ const Signup = ({ user, setUser }) => {
       ...input,
       country: e,
     });
-    validate('country', e);
+    setIsValid(validate('country', e));
   };
 
   const handleDate = () => {
     const date = document.getElementById('date');
     date.setAttribute('type', 'date');
+  };
+
+  const handleAgreement = () => {
+    setAgreement(!agreement);
+    setIsValid(validate())
   };
 
   if (user.rol.name === 'consultant') {
@@ -892,7 +902,6 @@ const Signup = ({ user, setUser }) => {
                       alt='volver'
                     />
                   </button>
-
                   <h2 className='signup__form__consultant__title'>Profesional</h2>
                 </div>
 
@@ -1012,8 +1021,10 @@ const Signup = ({ user, setUser }) => {
         <div className='signup__container'>
           <form onSubmit={handleSubmit} id='signup__client__form' className='signup__form'>
             <div id='signup__form__content' className='signup__form__content'>
-              <fieldset className='signup__form__fieldset left'>
-
+              <fieldset className='signup__form__fieldset left client'>
+                <div className='signup__title__header'>
+                  <h2 className='signup__form__consultant__title'>Datos generales</h2>
+                </div>
                 <input
                   value={input.name}
                   onChange={handleChange}
@@ -1053,12 +1064,13 @@ const Signup = ({ user, setUser }) => {
 
                 <div><small className='signup__error'>{errors.dni.message}</small></div>
 
-                <input
+                <CurrencyFormat
                   value={input.tel}
                   onChange={handleChange}
                   required
                   type='tel'
                   placeholder='Teléfono'
+                  format='###-#######'
                   name='tel'
                   id='tel'
                   className='signup__input tel'
@@ -1074,9 +1086,52 @@ const Signup = ({ user, setUser }) => {
                 />
                 <input type='hidden' name='country' value={input.country} id='country' />
 
+                <button type='button' onClick={handleSignupClient} className='signup__submit signup__button'>Registrarme por mi cuenta</button>
+                <button type='button' onClick={handleSignupClient} className='signup__facebook signup__button'>
+                  <img src={facebook} alt='icon' />
+                  Registrarme con Facebook
+                </button>
+                <button type='button' onClick={handleSignupClient} className='signup__linkedin signup__button'>
+                  <img src={linkedin} alt='icon' />
+                  Registrarme con LinkedIn
+                </button>
+
+                <GoogleLogin
+                  clientId='1070484053881-kie1fjjloi981aesbh7538h6h724g1g9.apps.googleusercontent.com'
+                  render={(renderProps) => (
+                    <button
+                      type='button'
+                      onClick={renderProps.onClick}
+                      disabled={renderProps.disabled}
+                      className='signup__google signup__button'
+                    >
+                      <img src={google} alt='google icon' />
+                      Registrarme con Google
+                    </button>
+                  )}
+                  buttonText='Registrarme con Google'
+                  onSuccess={handleSignupGoogle}
+                  onFailure={handleSignupGoogle}
+                  cookiePolicy='single_host_origin'
+                />
+
               </fieldset>
 
-              <fieldset className='signup__form__fieldset right'>
+              <fieldset className='signup__form__fieldset right client'>
+                <div className='signup__title__header'>
+                  <button
+                    type='button'
+                    className='signup__back__button'
+                    onClick={handleBackClient}
+                  >
+                    <img
+                      src={arrowL}
+                      alt='volver'
+                    />
+                  </button>
+
+                  <h2 className='signup__form__consultant__title'>Datos de ingreso</h2>
+                </div>
                 <input
                   value={input.email}
                   onChange={handleChange}
@@ -1114,32 +1169,19 @@ const Signup = ({ user, setUser }) => {
                 />
                 <div><small className='signup__error'>{errors.confirmPassword.message}</small></div>
 
+                <label htmlFor='policy' className='signup__policy'>
+                  <input type='checkbox' name='policy' value={agreement} onChange={handleAgreement} id='policy' />
+                  <p className='signup__policy__info'>
+                    Con esta casilla indica que está de acuerdo con nuestras
+                    <Link to='#'> Políticas de privacidad </Link>
+                    y
+                    <Link to='#'> Términos y condiciones</Link>
+                  </p>
+                </label>
+
                 <button type='submit' className='signup__submit' name='rol' value='client' id='rol'>Registrarme</button>
               </fieldset>
             </div>
-            <button type='button' onClick={handleSignupClient} className='signup__submit signup__button'>Registrarme por mi cuenta</button>
-            <button type='button' onClick={handleSignupClient} className='signup__facebook signup__button'>
-              <img src={facebook} alt='icon' />
-              Registrarme con Facebook
-            </button>
-            <button type='button' onClick={handleSignupClient} className='signup__linkedin signup__button'>
-              <img src={linkedin} alt='icon' />
-              Registrarme con LinkedIn
-            </button>
-
-            {/*             <button type='button' onClick={handleSignupGoogle} className='signup__google signup__button'>
-              <img src={google} alt='icon' />
-              Registrarme con Google
-            </button> */}
-
-            <GoogleLogin
-              clientId='1070484053881-kie1fjjloi981aesbh7538h6h724g1g9.apps.googleusercontent.com'
-              buttonText='Registrarme con Google'
-              className='ct-button ct-button--secondary'
-              onSuccess={handleSignupGoogle}
-              onFailure={handleSignupGoogle}
-              cookiePolicy='single_host_origin'
-            />
           </form>
         </div>
 

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import statusReducers from '../reducers/statusReducers';
 import * as actionsStatus from '../actions';
 import '../assets/styles/containers/Recharge.scss';
 import logo from '../assets/static/logo/mrwit-logo.png';
@@ -11,11 +10,10 @@ import CallingModal from '../portals/Calling';
 import payu from '../assets/static/logo/payu-logo.svg';
 import background from '../assets/static/images/background1.png';
 
-const Recharge = (props) => {
+const Recharge = ({ user }) => {
 
-  const { user } = props;
   const [isOpen, setIsOpen] = useState(false);
-  // eslint-disable-next-line class-methods-use-this
+
   function handlePayment() {
     setIsOpen(true);
   }
@@ -24,11 +22,13 @@ const Recharge = (props) => {
     setIsOpen(false);
   }
 
-  if (user.status.online || user.rol.name === 'consultant') {
+  console.log('user.status ', !user.status)
+
+  if (user.rol.name === 'consultant' || !user.status) {
     return (<Redirect to='/' />);
   }
 
-  if (user.rol.name === 'client' && !user.status.online) {
+  if (user.rol.name === 'client') {
     return (
       <div className='Recharge'>
         <img className='background' src={background} alt='background' />
@@ -38,7 +38,7 @@ const Recharge = (props) => {
         </div>
         <WalletRecharge amount='10.000' balance='0' method={handlePayment} />
         <Modal onClose={handleCloseModal} noButton={true} isOpen={isOpen}>
-          <CallingModal value={Math.random()} />
+          <CallingModal />
         </Modal>
         <div className='Recharge__payu'>
           <small>Powered by: </small>

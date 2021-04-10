@@ -5,6 +5,17 @@
     border-radius: 5px; 
     box-shadow: $outter-shadow;
     background-color: white;
+    width: 90%;
+}
+
+.Recharge {
+    .WalletRecharge {
+        margin: 15px 30px;
+        border-radius: 5px; 
+        box-shadow: $outter-shadow;
+        background-color: white;
+        width: 90%;
+    }
 }
 
 .WalletRechargeOffline {

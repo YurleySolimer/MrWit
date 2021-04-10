@@ -277,6 +277,7 @@ authCtrl.postSignIn = async (req, res) => {
             abilities: consultor.abilities || '',
             status: consultor.status,
             horario: consultor.horario,
+            socket: consultor.socket,
             token
         }
 

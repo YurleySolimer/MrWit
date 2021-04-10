@@ -57,7 +57,7 @@ const WalletRecharge = (props) => {
     setAmount(e.target.value);
   }
 
-  const amountToPay = (currency === 'COP' ? (amount * 5000) : (amount * 1.4));
+  const amountToPay = (currency === 'COP' ? (amount * 1000) : (amount * 0.28));
 
   useEffect(() => {
     const data = axios.get(`${axios.defaults.baseURL}/user/${user.rol.name === 'client' ? 'client' : 'consultor'}/${user.id}/wallet`)
@@ -65,7 +65,7 @@ const WalletRecharge = (props) => {
       .catch((err) => console.error(err));
   }, []);
 
-  if (user.status.online && user.rol.name === 'client') {
+  if (user.rol.name === 'client') {
     return (
       <div className='WalletRecharge'>
         <div className='WalletRecharge__header'>
@@ -102,7 +102,7 @@ const WalletRecharge = (props) => {
     );
   }
 
-  if (user.status.online && user.rol.name === 'consultant') {
+  if (user.rol.name === 'consultant') {
     return (
       <div className='WalletRecharge'>
         <div className='WalletRecharge__header'>
