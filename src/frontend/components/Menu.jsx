@@ -21,7 +21,6 @@ const Menu = (props) => {
   }
 
   function handleSearch() {
-    props.setIsSearch(props.isSearch);
     nav.push('/buscar');
   }
 

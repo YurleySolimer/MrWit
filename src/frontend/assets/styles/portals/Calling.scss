@@ -9,12 +9,16 @@
     flex-direction: column;
 }
 
-.CallingModal__icon {
+.CallingModal__icon.active {
     transform: rotate(225deg);
     animation-name: ring; 
     animation-delay: .5s;
     animation-duration: 1.5s;
     animation-iteration-count: 3;
+}
+
+.CallingModal__icon {
+    transform: rotate(225deg);
 }
 
 @keyframes ring {
@@ -40,12 +44,25 @@
     text-align: center;
 }
 
+.callingButtons {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
 .CallingModal__button {
-    color: $red;
     border: none;
     border-radius: 5px;
     width: 120px;
     background-color: white;
     height: 28px;
     box-shadow: $outter-shadow;
+}
+
+.back {
+    color: $red;
+}
+
+.call {
+    color: $green;
 }

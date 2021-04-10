@@ -6,6 +6,8 @@ const INITIAL_STATE = {
   },
   currency: 'COP',
   header: false,
+  isCall: false,
+  gettingCall: false,
   'consultants': [
     {
       'id': '1',
@@ -1072,26 +1074,21 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    // case 'SET_IS_ONLINE':
-    //   return {
-    //     ...state,
-    //     isOnline: action.payload,
-    //   };
     case 'SET_USER':
       return {
         ...state,
         user: action.payload,
       };
-    // case 'SET_SEARCH':
-    //   return {
-    //     ...state,
-    //     isSearch: action.payload,
-    //   };
-    // case 'SET_CALL':
-    //   return {
-    //     ...state,
-    //     isCall: action.payload,
-    //   };
+    case 'GET_CALL':
+      return {
+        ...state,
+        getCall: action.payload,
+      };
+    case 'SET_CALL':
+      return {
+        ...state,
+        isCall: action.payload,
+      };
     case 'SET_CURRENCY':
       return {
         ...state,

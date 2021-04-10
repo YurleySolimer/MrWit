@@ -18,7 +18,7 @@ import Searcher from '../components/Searcher';
 
 import { getConsultantsSuccess } from '../actions/mrwit';
 
-const Search = ({ user, isOnline, getConsultantsSuccess }) => {
+const Search = ({ user, getConsultantsSuccess }) => {
   const history = useHistory();
   getConsultantsSuccess({
     busqueda: '',
@@ -63,7 +63,7 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
     setValueSelection(e);
   };
 
-  if (user.rol.name === 'client' && !isOnline && type === 'sector') {
+  if (user.rol.name === 'client' && !user.status && type === 'sector') {
     if (valueSelection !== '') {
       const data = new FormData();
       data.append('category', valueResult);
@@ -90,7 +90,7 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
     );
   };
 
-  if (user.rol.name === 'client' && !isOnline && type === 'profession') {
+  if (user.rol.name === 'client' && !user.status && type === 'profession') {
     if (valueSelection !== '' && specialities === []) {
       const data = new FormData();
       data.append('proffession', valueResult);
@@ -126,7 +126,7 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
     );
   };
 
-  if (user.rol.name === 'client' && !isOnline) {
+  if (user.rol.name === 'client' && !user.status) {
     return (
       <div className='searchConsultant'>
         <div className='searchName__title'>
@@ -139,7 +139,7 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
     );
   };
 
-  if (user.rol.name === 'client' && isOnline && type === 'sector') {
+  if (user.rol.name === 'client' && user.status && type === 'sector') {
     if (valueSelection !== '') {
       const data = new FormData();
       data.append('category', valueResult);
@@ -165,7 +165,7 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
     );
   };
 
-  if (user.rol.name === 'client' && isOnline && type === 'profession') {
+  if (user.rol.name === 'client' && user.status && type === 'profession') {
     if (specialities === []) {
       const data = new FormData();
       data.append('proffession', valueResult);
@@ -200,7 +200,7 @@ const Search = ({ user, isOnline, getConsultantsSuccess }) => {
     );
   };
 
-  if (user.rol.name === 'client' && isOnline) {
+  if (user.rol.name === 'client' && user.status) {
     return (
       <div className='searchConsultant online' onScroll={handleHeader} id='searchConsultant'>
         <div className='searchName__title'>

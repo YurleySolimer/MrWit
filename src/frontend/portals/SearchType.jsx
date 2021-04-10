@@ -32,14 +32,6 @@ const SearchType = (props) => {
       .catch((e) => console.log(e));
   }
 
-  function handleProfessionHome(e) {
-   // history.push(`/resultados/?profesion=${val}`);
-  }
-
-  function handleSectorHome(e) {
-  //  history.push(`/resultados/?sector=${val}`);
-  }
-
   function handleID(e) {
     const data = new FormData();
     data.append('id', value);
@@ -54,8 +46,6 @@ const SearchType = (props) => {
     return (
       <div className='SearchType'>
         <h2>¿Qué quieres buscar?</h2>
-        <button type='button' className='profession' onClick={handleProfessionHome}>Profesión</button>
-        <button type='button' className='sector' onClick={handleSectorHome}>Categoría</button>
         <button type='button' className='ability' onClick={handleAbility}>Habilidad</button>
         <button type='button' className='id' onClick={handleID}>ID</button>
       </div>
