@@ -15,8 +15,8 @@ const Loading = () => {
         </g>
         <defs>
           <linearGradient id='gradient' x1='0%' y1='0%' x2='0%' y2='100%'>
-            <stop offset='0%' style={{ 'stop-color': '#B5143F', 'stop-opacity': '1' }} />
-            <stop offset='100%' style={{ 'stop-color': '#00f7ff', 'stop-opacity': '1' }} />
+            <stop offset='0%' style={{ 'stopColor': '#B5143F', 'stopOpacity': '1' }} />
+            <stop offset='100%' style={{ 'stopColor': '#00f7ff', 'stopOpacity': '1' }} />
           </linearGradient>
         </defs>
       </svg>
