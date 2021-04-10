@@ -143,6 +143,7 @@ mrwitCtrl.getConsultor = async (req, res) => {
         category: consultor.category || '',
         abilities: consultor.abilities || '',
         status: consultor.status,
+        socket: consultor.socket,
     }
     res.status(200).json(userConsultor);
     }
