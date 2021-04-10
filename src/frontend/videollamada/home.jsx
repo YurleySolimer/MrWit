@@ -38,7 +38,7 @@ function App() {
       setName(data.name);
       setCallerSignal(data.signal);
       setIdRoom(uuidv4());
-      getCall(true);
+
     });
   }, []);
 

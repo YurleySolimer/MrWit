@@ -5,6 +5,7 @@ import { Ar, Ag, Bb, Bm, Bo, Br, Bs, Bz, Cl, Co, Cr, Cu, Cw, Dm, Do, Ec, Sv, Gt,
 import ReactStars from 'react-rating-stars-component';
 import axios from 'axios';
 import * as mrwitActions from '../actions/mrwit';
+import * as statusActions from '../actions/';
 import '../assets/styles/containers/Consultant.scss';
 import back from '../assets/static/icons/arrowleft.svg';
 import HistoryList from '../components/HistoryList';
@@ -206,11 +207,7 @@ const Consultant = (props) => {
   };
 
   function handleOpenModal(e) {
-    axios.get(`${axios.defaults.baseURL}/join`).then(res => {
-      props.history?.push(`/join/${res.data.link}? 
-     `);
-  })
-    // setIsOpen({ isOpen: true });
+    setIsOpen({ isOpen: true });
   };
 
   function handleCloseModal() {
@@ -311,7 +308,7 @@ const Consultant = (props) => {
           <button type='button' onClick={handleOpenModal} className='consultant__call__button'>Llamar ahora</button>
         </div>
         <Modal onClose={handleCloseModal} isOpen={isOpen}>
-          <CallingModal value={Math.random()} onClose={handleCloseModal} />
+          <CallingModal onClose={handleCloseModal} />
         </Modal>
         <div className='consultant__data'>
           <div className='consultant__hours'>
@@ -376,6 +373,7 @@ const Consultant = (props) => {
     <h2>{consultantData.error}</h2>
   ) : (
     <div className='consultant__page' onScroll={handleHeader} id='consultant__page'>
+      <Link to='/resultados' className='consultant__back__button'><img src={back} alt='Volver a los resultados' /></Link>
       { infoConsultorOnline()}
     </div>
   );
@@ -391,6 +389,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getConsultant: (id) => dispatch(mrwitActions.getConsultant(id)),
+    setHeader: (value) => dispatch(statusActions.setHeader(value)),
   };
 };
 
