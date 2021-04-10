@@ -1,23 +1,20 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import TextField from '@material-ui/core/TextField';
-import AssignmentIcon from '@material-ui/icons/Assignment';
-import PhoneIcon from '@material-ui/icons/Phone';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import '../assets/styles/portals/Modal.scss';
 import Peer from 'simple-peer';
 import '../videollamada/App.css';
 import { useHistory } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import Modal from '../portals/Modal';
 import Menu from './Menu';
 import Header from './Header';
 import * as actionsStatus from '../actions';
 import socket from '../socket';
+import close from '../assets/static/icons/closeDark.svg';
+import phone from '../assets/static/icons/phone.svg';
+import '../assets/styles/portals/Calling.scss';
 
-const Layout = ({ children, user, getCall, gettingCall }) => {
+const Layout = ({ children, user, setIsCall, isCall }) => {
 
   const [isOpenClient, setIsOpenClient] = useState(false);
 
@@ -72,12 +69,11 @@ const Layout = ({ children, user, getCall, gettingCall }) => {
 
     peer.signal(callerSignal);
     connectionRef.current = peer;
-
-    console.log('El id en answerCall es ', idRoom);
+    setIsCall(true);
     history.push(`/join/${idRoom}`);
   };
 
-  if (user.status && user.status.isCall) {
+  if (user.status && isCall) {
     return (
       <div className='App'>
         {children}
@@ -93,15 +89,20 @@ const Layout = ({ children, user, getCall, gettingCall }) => {
         <Menu />
         <div>
           {receivingCall ? (
-            <div className='caller'>
-              <Button variant='contained' color='primary' onClick={answerCall}>
-                <h1>
-                  {name}
-                  {' '}
-                  is calling...
-                </h1>
-                Answer
-              </Button>
+            <div className='Modal'>
+              <div className='Modal__container'>
+                <button onClick={() => setReceivingCall(false)} type='button' className='Modal__close--button'>
+                  <img src={close} alt='cierra el popup' />
+                </button>
+                <div className='CallingModal'>
+                  <img id='callingImage' className='CallingModal__icon active' src={phone} alt='' />
+                  <p className='CallingModal__text'>{`${name} te está llamando, ¿quieres contestar?`}</p>
+                  <div className='callingButtons'>
+                    <button type='button' onClick={() => setReceivingCall(false)} className='CallingModal__button back'>Colgar</button>
+                    <button type='button' onClick={() => answerCall()} className='CallingModal__button call'>Contestar</button>
+                  </div>
+                </div>
+              </div>
             </div>
           ) : null}
         </div>
@@ -117,9 +118,9 @@ const Layout = ({ children, user, getCall, gettingCall }) => {
         <Header />
         {children}
         <Menu />
-        <Modal isOpen={isOpenClient} onClose={handleCloseClient}>
-          {/* <NotificationClient /> */}
-        </Modal>
+        {/* <Modal isOpen={isOpenClient} onClose={handleCloseClient}>
+          <NotificationClient />
+        </Modal> */}
       </div>
     );
   }
