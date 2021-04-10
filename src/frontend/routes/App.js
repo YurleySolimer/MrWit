@@ -25,7 +25,6 @@ import pruebaRegistro from '../pruebaRegistro';
 import HomeCall from '../videollamada/home';
 import RoomComponent from '../videollamada/roomComponent';
 import socket from '../socket';
-import  { useState } from 'react';
 
 
 const App = () => { 

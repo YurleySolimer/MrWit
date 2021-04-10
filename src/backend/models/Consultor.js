@@ -21,6 +21,9 @@ const consultorSchema = new Schema({
     name: String,
     path: String
   },
+  socket: {
+    socketID: String
+  },
   horario: {
     Lunes: {
       disponible: {
