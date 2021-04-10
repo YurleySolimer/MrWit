@@ -23,6 +23,7 @@ consultantCtrl.getConsultor = async (req, res) => {
         category: consultor.category || '',
         abilities: consultor.abilities || '',
         status: consultor.status,
+        socket: consultor.socket,
         otrosConsultores
     }
     
@@ -48,6 +49,7 @@ consultantCtrl.postSocket = async (req, res) => {
             socketID
         }
     };
+    
     await Consultor.findOneAndUpdate({_id: req.params.id}, newConsultor);
     res.status(200).json({message: 'Datos guardados'});
   }
