@@ -11,11 +11,12 @@ import './App.css';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
+import socket from '../socket';
 
-const socket = io.connect('http://localhost:3000');
+
+//const socket = io.connect('http://localhost:3000');
 function App() {
   const history = useHistory();
-
 	const [ me, setMe ] = useState("")
 	const [ stream, setStream ] = useState()
 	const [ receivingCall, setReceivingCall ] = useState(false)
@@ -30,6 +31,7 @@ function App() {
 
 	useEffect(() => {
 	    socket.on("me", (id) => {
+			console.log(id)
 			setMe(id)
 		})
 
