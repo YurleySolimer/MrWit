@@ -38,7 +38,7 @@ function App() {
       setName(data.name);
       setCallerSignal(data.signal);
       setIdRoom(uuidv4());
-
+      getCall(true);
     });
   }, []);
 
@@ -83,7 +83,7 @@ function App() {
     peer.signal(callerSignal);
     connectionRef.current = peer;
 
-       	history.push(`/join/${idRoom}`);
+    history.push(`/join/${idRoom}`);
   };
 
   return (
