@@ -10,11 +10,11 @@ import io from 'socket.io-client';
 import './App.css';
 import { useHistory } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import socket from '../socket';
 
-const socket = io.connect('http://localhost:3000');
+//const socket = io.connect('http://localhost:3000');
 function App() {
   const history = useHistory();
-
   const [me, setMe] = useState('');
   const [stream, setStream] = useState();
   const [receivingCall, setReceivingCall] = useState(false);
@@ -28,7 +28,8 @@ function App() {
   const connectionRef = useRef();
 
   useEffect(() => {
-    socket.on('me', (id) => {
+	    socket.on('me', (id) => {
+      console.log(id);
       setMe(id);
     });
 
@@ -83,7 +84,7 @@ function App() {
     peer.signal(callerSignal);
     connectionRef.current = peer;
 
-    history.push(`/join/${idRoom}`);
+       	history.push(`/join/${idRoom}`);
   };
 
   return (

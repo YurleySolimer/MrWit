@@ -24,8 +24,19 @@ import pruebaRegistro from '../pruebaRegistro';
 
 import HomeCall from '../videollamada/home';
 import RoomComponent from '../videollamada/roomComponent';
+import socket from '../socket';
+import  { useState } from 'react';
 
-const App = () => (
+
+const App = () => { 
+
+  socket.connect();
+  socket.on("me", (id) => {
+    console.log(id)
+  })
+
+  
+  return( 
   <BrowserRouter>
     <Layout>
       <Switch>
@@ -55,6 +66,7 @@ const App = () => (
       </Switch>
     </Layout>
   </BrowserRouter>
-);
+  )
+};
 
 export default App;
