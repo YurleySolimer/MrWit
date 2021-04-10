@@ -1,7 +1,7 @@
 const INITIAL_STATE = {
   user: {
     rol: {
-      name: 'consultant',
+      name: 'client',
     },
   },
   currency: 'COP',

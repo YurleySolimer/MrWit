@@ -30,8 +30,8 @@
 .consultant__avatar {
     border-radius: 50%;
     object-fit: cover;
-    max-width: 130px;
-    height: auto;
+    width: 130px;
+    height: 130px;
     margin: 4px;
 }
 
@@ -58,11 +58,12 @@
 }
 
 .consultant__name {
-    font-size: 2em;
+    font-size: 1.5em;
     font-family: $font-special;
     color: $gray;
     margin-top: 8px;
     margin-bottom: 0;
+    text-align: center;
 }
 
 .consultant__specialization {
