@@ -12,7 +12,7 @@ import phone from '../assets/static/icons/phone.svg';
 const CallingModal = (props) => {
 
   const history = useHistory();
-  const { onClose, statusData, consultantData, isCall, setIsCall } = props;
+  const { onClose, statusData, consultantData, setIsCall } = props;
   const { consultant } = consultantData;
   const { user } = statusData;
 
@@ -65,6 +65,7 @@ const CallingModal = (props) => {
       peer.signal(signal);
       setIdRoom(idRoom);
       console.log('El id en callAccepted es ', idRoom);
+      setIsCall(true);
       history.push(`/join/${idRoom}`);
     });
 

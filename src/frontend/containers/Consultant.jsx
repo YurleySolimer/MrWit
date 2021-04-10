@@ -5,13 +5,15 @@ import { Ar, Ag, Bb, Bm, Bo, Br, Bs, Bz, Cl, Co, Cr, Cu, Cw, Dm, Do, Ec, Sv, Gt,
 import ReactStars from 'react-rating-stars-component';
 import axios from 'axios';
 import * as mrwitActions from '../actions/mrwit';
-import * as statusActions from '../actions/';
+import * as statusActions from '../actions';
 import '../assets/styles/containers/Consultant.scss';
 import back from '../assets/static/icons/arrowleft.svg';
 import HistoryList from '../components/HistoryList';
-import Modal from '../portals/Modal';
 import CallingModal from '../portals/Calling';
 import Loading from '../components/Loading';
+
+import '../assets/styles/portals/Modal.scss';
+import close from '../assets/static/icons/closeDark.svg';
 
 const Consultant = (props) => {
 
@@ -207,7 +209,7 @@ const Consultant = (props) => {
   };
 
   function handleOpenModal(e) {
-    setIsOpen({ isOpen: true });
+    setIsOpen(true);
   };
 
   function handleCloseModal() {
@@ -307,9 +309,16 @@ const Consultant = (props) => {
         <div className='consultant__callNow'>
           <button type='button' onClick={handleOpenModal} className='consultant__call__button'>Llamar ahora</button>
         </div>
-        <Modal onClose={handleCloseModal} isOpen={isOpen}>
-          <CallingModal onClose={handleCloseModal} />
-        </Modal>
+        { isOpen ? (
+          <div className='Modal'>
+            <div className='Modal__container'>
+              <button onClick={handleCloseModal} type='button' className='Modal__close--button'>
+                <img src={close} alt='cierra el popup' />
+              </button>
+              <CallingModal onClose={handleCloseModal} />
+            </div>
+          </div>
+        ) : null}
         <div className='consultant__data'>
           <div className='consultant__hours'>
             <div className='consultant__given__hours'>{consultantData.consultant.hoursGive || '0'}</div>
@@ -354,7 +363,7 @@ const Consultant = (props) => {
   };
 
   if (statusData.user && !statusData.user.status) {
-    console.log(statusData.user)
+    console.log(statusData.user);
     return consultantData.isLoading ? (
       <Loading />
     ) : consultantData.error ? (
