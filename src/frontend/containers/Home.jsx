@@ -38,7 +38,6 @@ import Inactive from '../portals/Inactive';
 const Home = (props) => {
 
   // Agregar botón de compartir al perfil de MrWit del consultor
-  console.log(props);
   const { user, consultants2, consultants3, currency } = props;
 
   const [edit, setEdit] = useState(false);

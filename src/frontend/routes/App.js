@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import '../assets/styles/App.scss';
+import axios from 'axios';
 import Home from '../containers/Home';
 import Login from '../containers/Login';
 import Signup from '../containers/Signup';
@@ -26,29 +27,28 @@ import pruebaRegistro from '../pruebaRegistro';
 import HomeCall from '../videollamada/home';
 import RoomComponent from '../videollamada/roomComponent';
 import socket from '../socket';
-import axios from 'axios';
-
 
 const App = ({ user }) => {
 
-  function handleSocketID(id) {
-    console.log('El id en app.js es: ', user.id);
+  function handleSocketID(id, value) {
+    const socketConsultant = {
+      socketID: id,
+    };
+    const res = axios.post(`${axios.defaults.baseURL}/user/consultant/${value}/socket`, socketConsultant)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((e) => console.log(e));
+  }
 
-      const socketConsultant = {
-        socketID: id
-      };
-      const res = axios.post(`${axios.defaults.baseURL}/user/consultant/${user.id}/socket`, socketConsultant)
-        .then((res) => {
-          console.log(res.data);          
-        })
-        .catch((e) => console.log(e));
-    } 
-    
-  
-  socket.connect();
-  socket.on("me", (id) => {
-    handleSocketID(id);    
-  });
+  useEffect(() => {
+    if (user.id) {
+      socket.connect();
+      socket.on('me', (id) => {
+        handleSocketID(id, user.id);
+      });
+    }
+  }, [user]);
 
   return (
     <BrowserRouter>
@@ -59,7 +59,7 @@ const App = ({ user }) => {
           <Route exact path='/pruebaRegistro' component={pruebaRegistro} />
 
           <Route exact path='/homeCall' component={HomeCall} />
-          <Route path="/join/:id" component={RoomComponent} />
+          <Route path='/join/:id' component={RoomComponent} />
 
           <Route exact path='/login' component={Login} />
           <Route exact path='/signup' component={Signup} />
@@ -80,7 +80,7 @@ const App = ({ user }) => {
         </Switch>
       </Layout>
     </BrowserRouter>
-  )
+  );
 };
 
 const mapStateToProps = (reducers) => {
