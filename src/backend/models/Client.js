@@ -4,9 +4,18 @@ const clientSchema = new Schema({
     name: String,
     lastname: String,
     email: String,
-    phone: String,
-    dni: String,
-    country: String,
+    phone: {
+        type: String,
+        default: 'N/A'
+    },
+    dni: {
+        type: String,
+        default: 'N/A'
+    },
+    country: {
+        type: String,
+        default: 'N/A'
+    },
     status: {
         online: {
           type: Boolean,
@@ -15,6 +24,10 @@ const clientSchema = new Schema({
         inCall: {
           type: Boolean,
           default: false,
+        },
+        logueado: {
+            type: Boolean,
+            default: false,
         },
     },
     wallet: {

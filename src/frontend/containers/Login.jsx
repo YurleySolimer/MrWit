@@ -6,12 +6,28 @@ import axios from 'axios';
 import statusReducers from '../reducers/statusReducers';
 import * as actionsStatus from '../actions';
 
+import GoogleLogin from 'react-google-login';
+import FacebookLogin from 'react-facebook-auth';
+
 import '../assets/styles/containers/Login.scss';
 import icon from '../assets/static/logo/mrwit-logo.png';
 import background from '../assets/static/images/background1.png';
 import facebook from '../assets/static/icons/facebook.svg';
 import linkedin from '../assets/static/icons/linkedin.svg';
 import google from '../assets/static/icons/google.svg';
+
+const MyFacebookButton = ({ onClick }) => (
+ 
+  <button
+    type='button'
+    onClick={onClick}
+    className='signup__facebook signup__button'
+  >
+    <img src={facebook} alt='icon' />
+    Registrarme Facebook
+  </button>
+
+);
 
 const Login = (props) => {
 
@@ -42,6 +58,47 @@ const Login = (props) => {
       .catch((e) => console.log(e));
   }
 
+  const handleSignupGoogle = async (googleData) => {
+    const data = JSON.stringify({ token: googleData.tokenId });
+    const config = {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    };
+    const res = axios.post(`${axios.defaults.baseURL}/auth/google/login`,
+      data,
+      config)
+      .then((res) => {
+        console.log(res.data);
+          setUser(res.data);
+          history.push('/');
+
+      })
+      .catch((e) => console.log(e));
+
+  };
+
+  const handleSignupFB = (response) => {
+    //const data = JSON.stringify({ token: response.accessToken });
+    const config = {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    };
+    const res = axios.post(`${axios.defaults.baseURL}/auth/facebook/login/callback`,
+      response,
+      config)
+      .then((res) => {
+          console.log(res.data);
+          setUser(res.data);
+          history.push('/');
+
+      })
+      .catch((e) => console.log(e));      
+  }
+
   return (
     <section className='login'>
       <img className='background' src={background} alt='' />
@@ -66,18 +123,38 @@ const Login = (props) => {
 
         <button className='signup__submit signup__button' onClick={handleLogin} type='submit'>Iniciar sersión</button>
 
-        <button type='button' onClick={handleLogin} className='signup__facebook signup__button'>
-          <img src={facebook} alt='icon' />
-          Registrarme con Facebook
-        </button>
+        <FacebookLogin                   
+                  appId="267105265131032"
+                  autoLoad={false}
+                  scope="public_profile,user_friends"
+                  callback={handleSignupFB}
+                  component={MyFacebookButton}
+                  icon="fa-facebook" 
+        />
         <button type='button' onClick={handleLogin} className='signup__linkedin signup__button'>
           <img src={linkedin} alt='icon' />
           Registrarme con LinkedIn
         </button>
-        <button type='button' onClick={handleLogin} className='signup__google signup__button'>
-          <img src={google} alt='icon' />
-          Registrarme con Google
-        </button>
+       
+        <GoogleLogin
+                  clientId='1070484053881-kie1fjjloi981aesbh7538h6h724g1g9.apps.googleusercontent.com'
+                  render={(renderProps) => (
+                    <button
+                      type='button'
+                      onClick={renderProps.onClick}
+                      disabled={renderProps.disabled}
+                      className='signup__google signup__button'
+                    >
+                      <img src={google} alt='google icon' />
+                      Registrarme con Google
+                    </button>
+                  )}
+                  buttonText='Registrarme con Google'
+                  onSuccess={handleSignupGoogle}
+                  onFailure={handleSignupGoogle}
+                  cookiePolicy='single_host_origin'
+          />
+
         <div className='login__footer'>
           <span className='signup__link'>
             ¿No tienes cuenta?

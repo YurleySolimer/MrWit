@@ -1,4 +1,4 @@
-const googleCtrl = {};
+const fbCtrl = {};
 const User = require('../models/Users');
 const Consultor = require('../models/Consultor');
 const Client = require('../models/Client');
@@ -8,20 +8,10 @@ const Roles = require('../models/Roles');
 const { cli } = require('webpack');
 const { populate } = require('../models/Users');
 
-const { OAuth2Client } = require('google-auth-library')
-const client = new OAuth2Client('1070484053881-kie1fjjloi981aesbh7538h6h724g1g9.apps.googleusercontent.com')
 
-
-googleCtrl.postAuthGoogle = async (req, res) => {
-    const { token }  = req.body
-    const ticket = await client.verifyIdToken({
-        idToken: token,
-        audience: process.env.CLIENT_ID
-    });
-    const { given_name, family_name, email, picture } = ticket.getPayload(); 
-    const name = given_name;
-    const lastname = family_name;
-
+fbCtrl.postAuthFB = async (req, res) => {
+    
+    const { name, email, picture } = req.body; 
     const userFound = await User.findOne({email: email}).populate("rol");
     if (userFound) {            
         const tokenUser = jwt.sign({id: userFound._id}, config.SECRET, {
@@ -84,13 +74,12 @@ googleCtrl.postAuthGoogle = async (req, res) => {
     }
 
     else if (!userFound) { 
-       
+          
         const newUser = new User ({
             name,
-            lastname,
-            email            
+            email,
         });
-        
+
         const rol = "client";
         if (rol) {
             const foundRol = await Roles.find({name: {$in: rol}});
@@ -100,8 +89,8 @@ googleCtrl.postAuthGoogle = async (req, res) => {
             newUser.rol = role._id;
         } 
 
+        
         const userSaved = await newUser.save();
-
         const tokenUser = jwt.sign({id: userSaved._id },'config.SECRET', {
             expiresIn: 315360000
         })
@@ -112,7 +101,6 @@ googleCtrl.postAuthGoogle = async (req, res) => {
 
         const newClient = new Client ({
             name,
-            lastname,
             email,
             user: userSaved._id,
             status
@@ -121,7 +109,6 @@ googleCtrl.postAuthGoogle = async (req, res) => {
         const clientSaved = await newClient.save();
         const userCliente = {
             name,
-            lastname,
             email,
             phone: 'N/A',
             country: 'N/A',
@@ -134,28 +121,22 @@ googleCtrl.postAuthGoogle = async (req, res) => {
         console.log("new user created");
         res.status(200).json(userCliente);
     }
+    
 }
 
-googleCtrl.postLoginGoogle = async (req, res) => {
-    const { token }  = req.body
-    const ticket = await client.verifyIdToken({
-        idToken: token,
-        audience: process.env.CLIENT_ID
-    });
-    const { email } = ticket.getPayload(); 
-
-    const userFound = await User.findOne({email: email}).populate("rol");
+fbCtrl.postLoginFB = async (req, res) => {
+    
+    const {  email  } = req.body; 
+    const userFound = await User.findOne({email: email});
     if (userFound) {            
         const tokenUser = jwt.sign({id: userFound._id}, config.SECRET, {
             expiresIn: 315360000
-        })
-        
-        console.log(userFound)
+        }) 
             
         if(userFound.rol.name === 'client') {
              const NewStatatus = {
                  status : {
-                     logueado: true,
+                     logueado: true
                  }
              };        
              await Client.findOneAndUpdate({ email: req.body.email }, NewStatatus);  
@@ -184,7 +165,7 @@ googleCtrl.postLoginGoogle = async (req, res) => {
              };        
              await Consultor.findOneAndUpdate({ email: req.body.email }, NewStatatus);        
      
-             const consultor =  await Consultor.findOne({email: req.body.email});
+             const consultor =  await Consultor.findOne({email: req.body.email}).populate("rol");
              const userConsultor = {
                  name: userFound.name || '',
                  lastname: userFound.lastname || '',
@@ -207,12 +188,11 @@ googleCtrl.postLoginGoogle = async (req, res) => {
          }
     }
 
-    else if (!userFound) {        
-        res.status(400).json({message: 'User not found'});
+    else if (!userFound) {          
+        
+        res.status(400).json({message: 'user not found'});
     }
+    
 }
 
-
-
-
-module.exports = googleCtrl;
+module.exports = fbCtrl;

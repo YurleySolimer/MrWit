@@ -4,6 +4,7 @@ import { Link, useHistory, Redirect } from 'react-router-dom';
 import ReactFlagsSelect from 'react-flags-select';
 import CurrencyFormat from 'react-currency-format';
 import GoogleLogin from 'react-google-login';
+import FacebookLogin from 'react-facebook-auth';
 
 import axios from 'axios';
 import * as actionsStatus from '../actions';
@@ -27,6 +28,19 @@ import DataSectors from '../../sectors';
 
 import ScheduleModal from '../portals/Schedule';
 import Modal from '../portals/Modal';
+
+const MyFacebookButton = ({ onClick }) => (
+ 
+    <button
+      type='button'
+      onClick={onClick}
+      className='signup__facebook signup__button'
+    >
+      <img src={facebook} alt='icon' />
+      Registrarme Facebook
+    </button>
+ 
+);
 
 const Signup = ({ user, setUser }) => {
   const [input, setInput] = useState({
@@ -159,11 +173,33 @@ const Signup = ({ user, setUser }) => {
       config)
       .then((res) => {
         console.log(res.data);
+          setUser(res.data);
+          history.push('/recargar');
 
       })
       .catch((e) => console.log(e));
 
   };
+
+  const handleSignupFB = (response) => {
+    //const data = JSON.stringify({ token: response.accessToken });
+    const config = {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    };
+    const res = axios.post(`${axios.defaults.baseURL}/auth/facebook/callback`,
+      response,
+      config)
+      .then((res) => {
+          console.log(res.data);
+          setUser(res.data);
+          history.push('/recargar');
+
+      })
+      .catch((e) => console.log(e));      
+  }
 
   const handlepic = (e) => {
     const ca = document.getElementById('cameraIcon');
@@ -1087,10 +1123,23 @@ const Signup = ({ user, setUser }) => {
                 <input type='hidden' name='country' value={input.country} id='country' />
 
                 <button type='button' onClick={handleSignupClient} className='signup__submit signup__button'>Registrarme por mi cuenta</button>
-                <button type='button' onClick={handleSignupClient} className='signup__facebook signup__button'>
+                
+
+                <FacebookLogin                   
+                  appId="268710051600270"
+                  autoLoad={false}
+                  scope="public_profile,user_friends"
+                  callback={handleSignupFB}
+                  component={MyFacebookButton}
+                  icon="fa-facebook" 
+                />
+                
+                {/* <button type='button' onClick={handleSignupClient} className='signup__facebook signup__button'>
                   <img src={facebook} alt='icon' />
                   Registrarme con Facebook
-                </button>
+                </button> */}
+               
+               
                 <button type='button' onClick={handleSignupClient} className='signup__linkedin signup__button'>
                   <img src={linkedin} alt='icon' />
                   Registrarme con LinkedIn

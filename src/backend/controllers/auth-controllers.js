@@ -244,7 +244,16 @@ authCtrl.postSignIn = async (req, res) => {
        expiresIn: 315360000
    })
 
+   
+
     if(userFound.rol.name === 'client') {
+        const NewStatatus = {
+            status : {
+                logueado: true
+            }
+        };        
+        await Client.findOneAndUpdate({ email: req.body.email }, NewStatatus);  
+
         const cliente =  await Client.findOne({email: req.body.email});
         const userCliente = {
             name: userFound.name || '',
@@ -262,6 +271,13 @@ authCtrl.postSignIn = async (req, res) => {
     res.status(200).json(userCliente);
     }
     else if(userFound.rol.name === 'consultant') {
+        const NewStatatus = {
+            status : {
+                logueado: true
+            }
+        };        
+        await Consultor.findOneAndUpdate({ email: req.body.email }, NewStatatus);        
+
         const consultor =  await Consultor.findOne({email: req.body.email});
         const userConsultor = {
             name: userFound.name || '',

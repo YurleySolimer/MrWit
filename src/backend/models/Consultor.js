@@ -135,6 +135,10 @@ const consultorSchema = new Schema({
       type: Boolean,
       default: false,
     },
+    logueado: {
+      type: Boolean,
+      default: false,
+    },
   },
   clasification: Number,
   wallet: {
