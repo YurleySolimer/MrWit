@@ -33,7 +33,7 @@ const Consultants = (props) => {
         props.setHeader(false);
       }
     };
-    if (rol.name === 'client' && status.online) {
+    if (rol.name === 'client' && status.logueado) {
       return (
         <div className='Consultants online' onScroll={handleHeader} id='consultants'>
           <span className="consultants__balance">
