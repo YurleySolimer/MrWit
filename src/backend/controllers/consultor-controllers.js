@@ -41,18 +41,7 @@ consultantCtrl.updateConsultor = async (req, res) => {
      res.status(200).json({message: "Profile Update"});
 }
 
-consultantCtrl.postSocket = async (req, res) => {
-    const {socketID} = req.body;
-  
-    const newConsultor = {
-        socket: {
-            socketID
-        }
-    };
-    
-    await Consultor.findOneAndUpdate({_id: req.params.id}, newConsultor);
-    res.status(200).json({message: 'Datos guardados'});
-  }
+
   
 
 consultantCtrl.getWallet = async (req, res) => { 

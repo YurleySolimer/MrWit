@@ -1,14 +1,13 @@
 const { Router } = require('express');
 const router = Router();
-const { getConsultor, updateConsultor, getWallet, getHistory, getAgenda, postWallet, postSocket  } = require('../controllers/consultor-controllers');
+const { getConsultor, updateConsultor, getWallet, getHistory, getAgenda, postWallet  } = require('../controllers/consultor-controllers');
 
 
 router.route('/user/consultor/:id')
     .get(getConsultor)
     .put(updateConsultor);
 
-router.route('/user/consultor/:id/socket')
-    .post(postSocket);
+
 
 router.route('/user/consultor/:id/wallet')
     .get(getWallet);

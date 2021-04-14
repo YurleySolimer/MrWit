@@ -265,6 +265,8 @@ authCtrl.postSignIn = async (req, res) => {
             dni: cliente.dni || '',
             country: cliente.country || '',
             status: cliente.status,
+            socket: cliente.socket,
+
             token
         }
 
@@ -300,6 +302,37 @@ authCtrl.postSignIn = async (req, res) => {
     res.status(200).json(userConsultor);
     }
 };
+
+authCtrl.postLogout = async (req, res) => {
+
+};
+
+authCtrl.postSocket = async (req, res) => {
+    const {socketID} = req.body;
+    const consultor = await Consultor.findById(req.params.id);
+
+    if (consultor){ 
+        const newConsultor = {
+            socket: {
+                socketID
+            }
+        };
+        
+        await Consultor.findOneAndUpdate({_id: req.params.id}, newConsultor);
+        res.status(200).json({message: 'Datos guardados'});
+    } 
+    else if (!consultor) {
+        const newClient = {
+            socket: {
+                socketID
+            }
+        };
+        
+        await Client.findOneAndUpdate({_id: req.params.id}, newClient);
+        res.status(200).json({message: 'Datos guardados'});
+ 
+    }
+  }
 
 module.exports = authCtrl;
 

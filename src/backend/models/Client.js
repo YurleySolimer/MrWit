@@ -4,6 +4,9 @@ const clientSchema = new Schema({
     name: String,
     lastname: String,
     email: String,
+    socket: {
+        socketID: String
+      },
     phone: {
         type: String,
         default: 'N/A'

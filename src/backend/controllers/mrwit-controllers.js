@@ -210,6 +210,8 @@ mrwitCtrl.getWallet = async (req, res) => {
       country: cliente.country || '',
       status: cliente.status,
       wallet: cliente.wallet,
+      socket: cliente.socket,
+
   }
   res.status(200).json(userCliente);
 };
@@ -228,6 +230,8 @@ mrwitCtrl.getHistory = async (req, res) => {
       country: cliente.country || '',
       status: cliente.status,
       history: cliente.history,
+      socket: cliente.socket,
+
   }
   res.status(200).json(userCliente);
 };
@@ -245,6 +249,8 @@ mrwitCtrl.getAgenda = async (req, res) => {
       country: cliente.country || '',
       status: cliente.status,
       agenda: cliente.agenda,
+      socket: cliente.socket,
+
   }
   res.status(200).json(userCliente);
 };

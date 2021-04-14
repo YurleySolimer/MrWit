@@ -34,7 +34,7 @@ const App = ({ user }) => {
     const socketConsultant = {
       socketID: id,
     };
-    const res = axios.post(`${axios.defaults.baseURL}/user/consultor/${value}/socket`, socketConsultant)
+    const res = axios.post(`${axios.defaults.baseURL}/user/${value}/socket`, socketConsultant)
       .then((res) => {
         console.log(res.data);
       })
