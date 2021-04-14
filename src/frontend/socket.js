@@ -1,6 +1,7 @@
 import { io } from "socket.io-client";
+import axios from 'axios';
 
-const URL = "http://localhost:3000";
+const URL = axios.defaults.baseURL;
 const socket = io(URL, { autoConnect: false });
 
 

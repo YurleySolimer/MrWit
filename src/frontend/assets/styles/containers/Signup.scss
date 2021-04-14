@@ -158,6 +158,7 @@
     border: none;
     margin: 10px;
     display: flex;
+    cursor: pointer;
     justify-content: center;
     align-items: center;
     box-shadow: $outter-shadow;
@@ -205,6 +206,7 @@
     align-items: center;
     border: none;
     margin: 10px auto;
+    cursor: pointer;
 }
 
 .signup__input__file {

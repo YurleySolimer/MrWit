@@ -40,9 +40,9 @@ const Layout = ({ children, user, setIsCall, isCall }) => {
   };
 
   useEffect(() => {
-    
+
     socket.on('callUser', (data) => {
-      console.log('caller1', data.from)
+      console.log('caller1', data.from);
       setReceivingCall(true);
       setCaller(data.from);
       setName(data.name);
@@ -61,7 +61,7 @@ const Layout = ({ children, user, setIsCall, isCall }) => {
       stream,
     });
     peer.on('signal', (data) => {
-      console.log('caller', caller)
+      console.log('caller', caller);
       socket.emit('answerCall', { signal: data, to: caller, idRoom });
     });
 
@@ -79,7 +79,7 @@ const Layout = ({ children, user, setIsCall, isCall }) => {
     );
   };
 
-  if (user.status && user.status.online && user.rol.name === 'consultant') {
+  if (user.status && user.status.logueado && user.rol.name === 'consultant') {
     return (
       <div className='App'>
         <Header />

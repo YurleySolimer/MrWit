@@ -14,7 +14,7 @@ mrwitCtrl.getConsultores = async (req, res) => {
         if(!req.query.ability) {
           if(!req.query.id) {
             const consultores = await Consultor.find(
-              { 'status.online': true }
+              { 'status.logueado': true }
             );
             res.status(200).json(consultores);
           }
@@ -23,7 +23,7 @@ mrwitCtrl.getConsultores = async (req, res) => {
               {
                 $and: [
                   { _id: { $in: id } },
-                  { 'status.online': true }
+                  { 'status.logueado': true }
                 ],
               },
             );
@@ -40,7 +40,7 @@ mrwitCtrl.getConsultores = async (req, res) => {
             {
               $and: [
                 { abilities: { $in: ability } },
-                { 'status.online': true }
+                { 'status.logueado': true }
               ],
             },
           );
@@ -58,7 +58,7 @@ mrwitCtrl.getConsultores = async (req, res) => {
             {
               $and: [
                 { profession: { $in: proffession } },
-                { 'status.online': true }
+                { 'status.logueado': true }
               ],
             },
           );
@@ -74,7 +74,7 @@ mrwitCtrl.getConsultores = async (req, res) => {
               $and: [
                 { profession: { $in: proffession } },
                 { especialidad: { $in: especialidad } },
-                { 'status.online': true }
+                { 'status.logueado': true }
 
               ],
             },
@@ -94,7 +94,7 @@ mrwitCtrl.getConsultores = async (req, res) => {
           {
             $and: [
               { category: { $in: category } },
-              { 'status.online': true }
+              { 'status.logueado': true }
 
             ],
           },
@@ -107,7 +107,7 @@ mrwitCtrl.getConsultores = async (req, res) => {
             $and: [
               { category: { $in: category } },
               { profession: { $in: proffession } },
-              { 'status.online': true }
+              { 'status.logueado': true }
 
             ],
           },

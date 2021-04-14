@@ -9,7 +9,7 @@ import * as actionsStatus from '../actions';
 
 const Wallet = ({ user }) => {
 
-  if (user.status && !user.status.online) {
+  if (user.status && !user.status.logueado) {
     return (<Redirect to='/' />);
   }
 

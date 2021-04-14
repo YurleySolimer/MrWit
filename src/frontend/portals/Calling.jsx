@@ -18,6 +18,9 @@ const CallingModal = (props) => {
 
   const idToCall = consultant.socket.socketID;
 
+
+  console.log('el idToCall es', idToCall);
+
   const [me, setMe] = useState('');
   const [stream, setStream] = useState();
   const [caller, setCaller] = useState('');
@@ -50,7 +53,7 @@ const CallingModal = (props) => {
       stream,
     });
     peer.on('signal', (data) => {
-      console.log('me call', me)
+      console.log('me call', me);
       socket.emit('callUser', {
         userToCall: idToCall,
         signalData: data,

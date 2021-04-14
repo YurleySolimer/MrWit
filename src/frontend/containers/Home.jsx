@@ -93,7 +93,7 @@ const Home = (props) => {
   if (user.name) {
     const { rol, status } = user;
 
-    if (status.online && rol.name === 'consultant') {
+    if (status.logueado && rol.name === 'consultant') {
       return (
         <div className='dashboard' onScroll={handleHeader} id='dashboard'>
           <img className='background' src={background} alt='background' />
@@ -120,7 +120,7 @@ const Home = (props) => {
               <div className='dashboard__profile--left'>
                 <div className='dashboard__profile--left--pic__co'>
                   <img src={`${axios.defaults.baseURL}/uploads/${user.pictureName}`} className='profile__pic' alt='imagen de perfil' />
-                  <div className={`profile__pic__status__dashboard ${status.online}`}>{' '}</div>
+                  <div className={`profile__pic__status__dashboard ${status.logueado}`}>{' '}</div>
                 </div>
                 <div className='profile__rating'>
                   <img src={star} alt='' />
@@ -152,7 +152,7 @@ const Home = (props) => {
       );
     }
 
-    if (status.online && rol.name === 'client') {
+    if (status.logueado && rol.name === 'client') {
       return (
         <div className='dashboard' onScroll={handleHeader} id='dashboard'>
           <img className='background' src={background} alt='background' />

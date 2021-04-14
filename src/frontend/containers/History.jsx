@@ -9,7 +9,7 @@ import HistoryList from '../components/HistoryList';
 
 const History = ({ isOnline, user }) => {
 
-  if (!user.status.online) {
+  if (!user.status.logueado) {
     return (<Redirect to='/' />);
   }
 

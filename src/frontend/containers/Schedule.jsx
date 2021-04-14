@@ -34,7 +34,7 @@ const Schedule = ({ user }) => {
     setBlockDay(false);
   }
 
-  if (!user.status.online) {
+  if (!user.status.logueado) {
     return (<Redirect to='/' />);
   }
 
