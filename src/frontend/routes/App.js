@@ -21,8 +21,6 @@ import Call from '../containers/Call';
 import Consultants from '../containers/Consultants';
 import Consultant from '../containers/Consultant';
 import ConsultantFavorite from '../containers/ConsultantFavorite';
-import Prueba from '../Prueba';
-import pruebaRegistro from '../pruebaRegistro';
 
 import HomeCall from '../videollamada/home';
 import RoomComponent from '../videollamada/roomComponent';
@@ -55,9 +53,7 @@ const App = ({ user }) => {
       <Layout>
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route exact path='/prueba' component={Prueba} />
-          <Route exact path='/pruebaRegistro' component={pruebaRegistro} />
-
+          
           <Route exact path='/homeCall' component={HomeCall} />
           <Route path='/join/:id' component={RoomComponent} />
 
