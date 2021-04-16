@@ -10,7 +10,7 @@ const { populate } = require('../models/Users');
 
 
 authCtrl.postNewUser = async (req, res, next) => {
-
+    console.log('in signup')
     //NewUser
     const { name, lastname, email, password, rol } = req.body;
     const newUser = new User ({
