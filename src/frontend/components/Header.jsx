@@ -30,11 +30,8 @@ const Header = (props) => {
   }
 
   function handleLogout() {
-    props.setUser('client');
-    props.setIsOnline(true);
-    props.setIsSearch(true);
-    props.setIsCall(true);
     history.push('/');
+    props.setUser({ rol: { name: 'consultant' } });
 
   }
 
