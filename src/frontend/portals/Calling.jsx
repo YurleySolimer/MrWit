@@ -32,18 +32,6 @@ const CallingModal = (props) => {
   const [dontAnswered, setDontAnswered] = useState(false);
 
   const connectionRef = useRef();
-  
-    useEffect(() => {
-     var iDSock =  socket.on('me', (id) => {
-      console.log('Hola');
-      console.log(id);
-      setMe(id);
-    });
-    console.log('i', iDSock.id)
-    setMe(iDSock.id);
-
-  }, [me]);
-
 
   const callUser = (idToCall) => {
     setCalling(true);
