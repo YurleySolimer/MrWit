@@ -17,11 +17,11 @@ const CallingModal = (props) => {
   const { user } = statusData;
 
   const idToCall = consultant.socket.socketID;
+  const me = user.socket.socketID;
 
 
   console.log('el idToCall es', idToCall);
 
-  const [me, setMe] = useState('');
   const [stream, setStream] = useState();
   const [caller, setCaller] = useState('');
   const [callerSignal, setCallerSignal] = useState();

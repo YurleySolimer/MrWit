@@ -165,7 +165,7 @@ const Signup = ({ user, setUser }) => {
     const config = {
       headers: {
         'Accept': 'application/json',
-        'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8;application/json',
+        'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8; application/json',
       },
     };
     const res = axios.post(`${axios.defaults.baseURL}/auth/google`,
