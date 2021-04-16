@@ -165,7 +165,7 @@ const Signup = ({ user, setUser }) => {
     const config = {
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8;application/json',
       },
     };
     const res = axios.post(`${axios.defaults.baseURL}/auth/google`,
@@ -177,9 +177,7 @@ const Signup = ({ user, setUser }) => {
           history.push('/recargar');
 
       })
-      .catch((e) => console.log(e));
-
-  };
+      .catch((e) => console.log(e));  };
 
   const handleSignupFB = (response) => {
     //const data = JSON.stringify({ token: response.accessToken });
@@ -222,10 +220,11 @@ const Signup = ({ user, setUser }) => {
 
   function handleSubmitConsultant(event) {
     event.preventDefault();
+    
 
-    if (!agreement) {
-      alert('Debes aceptar los términos y condiciones');
-    } else if (isValid && agreement) {
+      if (!agreement) {
+        alert('Debes aceptar los términos y condiciones');
+      } else if (isValid && agreement) {
       const data = new FormData();
       data.append('name', input.name);
       data.append('lastname', input.lastname);
@@ -243,7 +242,8 @@ const Signup = ({ user, setUser }) => {
       data.append('abilities', input.abilities[1]);
       data.append('abilities', input.abilities[2]);
       data.append('policy', policy.value);
-      data.append('rol', rol.value);
+      data.append('rol', rol.value);  
+
 
       if (input.horario) {
         const { horario } = input;
@@ -293,7 +293,9 @@ const Signup = ({ user, setUser }) => {
         },
       };
 
-      const res = axios.post(`${axios.defaults.baseURL}/signup`,
+      
+      try {
+        const res = axios.post(`${axios.defaults.baseURL}/signup`,
         data,
         config)
         .then((res) => {
@@ -301,10 +303,20 @@ const Signup = ({ user, setUser }) => {
           setUser(res.data);
           history.push('/');
         })
-        .catch((e) => console.log(e));
-    } else {
-      alert('Debes comprobar todos los campos para registrarte');
-    }
+        .catch((e) => {
+          console.log(e)});
+      } catch (error) {
+            alert(error);      
+          }
+
+        } else {
+          alert('Debes comprobar todos los campos para registrarte');
+      }        
+     
+      
+      
+      
+    
   }
 
   function validate(name, value) {
