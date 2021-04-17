@@ -33,85 +33,11 @@ createRoles();
 app.use(express.json());
 
 
-const server = require("http").Server(app);
-const io = require("socket.io")(server, {
-	cors: {
-		origin: ["https://mrwit.co", "http://localhost:8080" ]   ,
-		methods: [ "GET", "POST" ],
-        credentials: true,
-        allowedHeaders: ["Content-Type", "Accept"],
-    },
-    transports: ['websocket']
-	
-})
-
 
 //Settings
 app.set('port', process.env.PORT || 3000);
 
-//Socket
-
-const users = {};
-const socketToRoom = {};
-
-io.on('connection', socket => {
-    socket.emit("me", socket.id)
-    socket.on("join room", roomID => {
-        if (users[roomID]) {
-            const length = users[roomID].length;
-            if (length === 2) {
-                socket.emit("Esta llamada está ocupada");
-                return;
-            }
-            users[roomID].push(socket.id);
-        } else {
-            users[roomID] = [socket.id];
-        }
-        socketToRoom[socket.id] = roomID;
-        const usersInThisRoom = users[roomID].filter(id => id !== socket.id);
-
-        socket.emit("all users", usersInThisRoom);
-        socket.emit("your id", socket.id);
-        socket.on("send message", body => {
-            io.emit("message", body);
-        })
-    });
-
-    socket.on("callUser", (data) => {
-		io.to(data.userToCall).emit("callUser", { signal: data.signalData, from: data.from, name: data.name })
-	})
-
-	socket.on("answerCall", (data) => {
-		io.to(data.to).emit("callAccepted", data.signal, data.idRoom)
-	})
-
-    socket.on("sending signal", payload => {
-        io.to(payload.userToSignal).emit('user joined', { signal: payload.signal, callerID: payload.callerID });
-    });
-
-    socket.on("returning signal", payload => {
-        io.to(payload.callerID).emit('receiving returned signal', { signal: payload.signal, id: socket.id });
-    });
-
-    socket.on('disconnect', () => {
-        const roomID = socketToRoom[socket.id];
-        let room = users[roomID];
-        if (room) {
-            room = room.filter(id => id !== socket.id);
-            users[roomID] = room;
-        }
-        socket.broadcast.emit("callEnded")
-
-    });   
-
-});
-
-
-
 //Middelwares
-
-
-
 
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
@@ -146,6 +72,7 @@ app.use(multer({
 );
 
 
+
 //Routes
 app.use(require('./routes/consultor'));
 app.use(require('./routes/admin'));
@@ -160,7 +87,8 @@ app.use(require('./routes/auth-fb'));
 
 
 //Listening Port
-server.listen(app.get('port'));
+app.listen(app.get('port'));
 console.log(`server on port ${app.get('port')}`);
+
 
 module.exports = app;
