@@ -20,7 +20,7 @@ createRoles();
 const server = require("http").Server(app);
 const io = require("socket.io")(server, {
 	cors: {
-		origin: ["https://mrwit.co", "*" ]   ,
+		origin: ["https://mrwit.co", "http://localhost:8080" ]   ,
 		methods: [ "GET", "POST" ],
         credentials: true,
         allowedHeaders: ["Content-Type", "Accept"],
@@ -96,7 +96,7 @@ io.on('connection', socket => {
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'https://mrwit.co');
-    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
     res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
     res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE', 'Content-Type, Accept');
