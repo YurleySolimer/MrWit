@@ -17,7 +17,7 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(logger, thunk)),
 );
 
-axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://mrwit.co/api';
+axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://mrwit.co/api' || 'http://localhost:3000' ;
 console.log(axios.defaults.baseURL);
 
 ReactDOM.render(

@@ -1,7 +1,7 @@
 function payumoney() {
     //Create a Data object that is to be passed to LAUNCH method of Bolt
       var pd = {
-         key /*** Merchant key from PayuMoney Dashboard ***/,
+         key: 923751,
          txnid /*** Unique Transaction ID***/,
          amount /*** Amount to be paid ***/,
          firstname /*** Name of the User ***/,
