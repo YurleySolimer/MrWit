@@ -11,7 +11,6 @@ import { useHistory } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import socket from '../socket';
 
-//const socket = io.connect('http://localhost:3000');
 function App() {
   const history = useHistory();
   const [me, setMe] = useState('');

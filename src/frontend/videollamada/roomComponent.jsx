@@ -91,7 +91,7 @@ const Room = (props) => {
 	const [yourID, setYourID] = useState();
 
     useEffect(() => {
-        socketRef.current = io.connect('https://mrwit.co/socket');
+        socketRef.current = io.connect('https://mrwit.co/socket' || 'http:/localhost:4000');
 
         navigator.mediaDevices.getUserMedia({ video: videoConstraints, audio: true }).then(stream => {
             userVideo.current.srcObject = stream;
