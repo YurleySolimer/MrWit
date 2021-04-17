@@ -40,7 +40,7 @@ const Recharge = ({ consultantData, statusData }) => {
         </div>
         <WalletRecharge amount='10.000' balance='0' method={handlePayment} />
         <Modal onClose={handleCloseModal} noButton={true} isOpen={isOpen}>
-          <CallingModal socketConsultat={consultant.socket.socketID} name={user.name} onClose={handleCloseModal} />
+          <CallingModal name={user.name} onClose={handleCloseModal} />
         </Modal>
         <div className='Recharge__payu'>
           <small>Powered by: </small>
