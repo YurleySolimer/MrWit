@@ -15,7 +15,23 @@ require('./routes/auth-google');
 const app = express();
 
 
+var allowedOrigins = ['http://localhost:8080',
+                     'https://mrwit.co'];
+app.use(cors({
+  origin: function(origin, callback){
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){
+      var msg = 'The CORS policy for this site does not ' +
+                'allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  }
+}));
+
 createRoles();
+app.use(express.json());
+
 
 const server = require("http").Server(app);
 const io = require("socket.io")(server, {
@@ -94,16 +110,9 @@ io.on('connection', socket => {
 
 //Middelwares
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://mrwit.co');
-    res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
-    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE', 'Content-Type, Accept');
-    next();
-});
 
-app.use(express.json());
+
+
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use(session({
