@@ -30,17 +30,16 @@ app.use(cors({
 }));
 
 createRoles();
-app.use(express.json());
-
 
 
 //Settings
 app.set('port', process.env.PORT || 3000);
 
+
 //Middelwares
 
-app.use(express.urlencoded({ extended: true }));
-app.use(morgan('dev'));
+app.use(express.urlencoded({limit: '500mb', extended: false}));
+app.use(express.json({limit: '500mb', extended: true}));app.use(morgan('dev'));
 app.use(session({
     resave: false,
     saveUninitialized: true,
