@@ -6,55 +6,8 @@ const { getConsultores, getConsultor, postAgenda, postConsultaFinalizada,
 const authjwt = require ('../middlewares');
 const { v4: uuidv4 } = require("uuid");
 
-router.post('/busqueda', (req, res) => {
-        if(!req.body.category) { 
-            if(!req.body.proffession) {
-                if(!req.body.ability) {
-                    if(!req.body.id) {
-                        res.redirect('/resultados')
-                    }
-                    else if(req.body.id) {
-                        res.redirect( `/resultados?id=${req.body.id}`)
-                    }                    
-                }
-                else if (req.body.ability) {
-                    res.redirect( `/resultados?ability=${req.body.ability}`)
-                }
-            }
-            else if (req.body.proffession) { 
-                if(!req.body.especialidad) { 
-                    res.redirect( `/resultados?proffession=${req.body.proffession}`)
-                }
-                else if(req.body.especialidad) { 
-                    res.redirect( `/resultados?proffession=${req.body.proffession}&especialidad=${req.body.especialidad}`)
-                }
-            }
-        }
-        else if(req.body.category) {
-            if(!req.body.proffession) {
-                res.redirect( `/resultados?category=${req.body.category}`)            
-            }
-            else if (req.body.proffession) { 
-                res.redirect( `/resultados?category=${req.body.category}&proffession=${req.body.proffession}`)
-                }
-                
-        }
-   
-});
+router.post('/busqueda', getConsultores);
 
-router.get('/resultados', getConsultores);
-
-/* router.get('/join', (req, res) => { 
-    //res.redirect(`/room/${uuidv4()}`);
-    res.send({ link: uuidv4() });
-
-});
-
-router.get("/room/:room", (req, res) => {
-    console.log(__dirname)
-     res.render("room", { roomId: req.params.room });
-});
- */
 router.route('/consultor/:id')
   .get(getConsultor);
 
