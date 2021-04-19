@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import '../assets/styles/portals/Modal.scss';
 import close from '../assets/static/icons/closeDark.svg';
 
-const Modal = ({ children, isOpen, onClose, noButton }) => {
+const Modal = ({ children, isOpen, onClose, noButton, transparent }) => {
 
   function handleCloseModal(e) {
     onClose(e.target.isOpen);
@@ -17,7 +17,7 @@ const Modal = ({ children, isOpen, onClose, noButton }) => {
     return (
       ReactDOM.createPortal(
         <div className='Modal'>
-          <div className='Modal__container'>
+          <div className={`Modal__container ${transparent ? 'transparent' : ''}`}>
             {children}
           </div>
         </div>,
@@ -29,7 +29,7 @@ const Modal = ({ children, isOpen, onClose, noButton }) => {
   return (
     ReactDOM.createPortal(
       <div className='Modal'>
-        <div className='Modal__container'>
+        <div className={`Modal__container ${transparent ? 'transparent' : ''}`}>
           <button onClick={handleCloseModal} type='button' className='Modal__close--button'>
             <img src={close} alt='cierra el popup' />
           </button>

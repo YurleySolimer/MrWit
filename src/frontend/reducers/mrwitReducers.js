@@ -5,6 +5,11 @@ import {
   GET_CONSULTANT_REQUEST,
   GET_CONSULTANT_SUCCESS,
   GET_CONSULTANT_FAILURE,
+  SET_NEW_USER_REQUEST,
+  SET_NEW_USER_SUCCESS,
+  SET_NEW_USER_FAILURE,
+  CLEAR_SEARCH,
+  REDIRECT,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -18,10 +23,29 @@ const INITIAL_STATE = {
   },
   consultant: [],
   error: '',
+  redirectTo: '',
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case SET_NEW_USER_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+        error: '',
+      };
+    case SET_NEW_USER_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        error: '',
+      };
+    case SET_NEW_USER_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
     case GET_CONSULTANTS_REQUEST:
       return {
         ...state,
@@ -29,8 +53,6 @@ const reducer = (state = INITIAL_STATE, action) => {
         error: '',
       };
     case GET_CONSULTANTS_SUCCESS:
-      console.log('success');
-      console.log('Payload de consultants success ', action.payload);
       return {
         ...state,
         isLoading: false,
@@ -51,7 +73,6 @@ const reducer = (state = INITIAL_STATE, action) => {
         error: '',
       };
     case GET_CONSULTANT_SUCCESS:
-      console.log('success');
       return {
         ...state,
         isLoading: false,
@@ -64,6 +85,26 @@ const reducer = (state = INITIAL_STATE, action) => {
         isLoading: false,
         consultant: [],
         error: action.payload,
+      };
+    case CLEAR_SEARCH:
+      return {
+        ...state,
+        isLoading: false,
+        search: {
+          busqueda: '',
+          consultores: [],
+          proffession: '',
+          sector: '',
+          especialidad: '',
+        },
+        consultant: [],
+        error: '',
+        redirectTo: '',
+      };
+    case REDIRECT:
+      return {
+        ...state,
+        redirectTo: action.payload,
       };
 
     default:

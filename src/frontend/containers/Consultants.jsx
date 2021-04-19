@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import ReactFlagsSelect from 'react-flags-select';
 import CurrencyFormat from 'react-currency-format';
 import * as actionsStatus from '../actions';
@@ -10,14 +10,22 @@ import Results from '../components/Results';
 import lupa from '../assets/static/icons/lupa.svg';
 import darkArrow from '../assets/static/assets/darkgrey_arrow.svg';
 import lightArrow from '../assets/static/assets/lightgrey_arrow.svg';
+import Modal from '../portals/Modal';
+import Loading from '../components/Loading';
+import { clearSearch } from '../actions/mrwit';
 
 const Consultants = (props) => {
   const [selected, setSelected] = useState('');
-  const { status, mrwit } = props;
+  const { status, mrwit, clearSearch } = props;
   const { user, currency } = status;
-  const { search } = mrwit;
+  const { search, isLoading } = mrwit;
+  const history = useHistory();
 
-  console.log(props);
+  const handleBack = () => {
+    clearSearch();
+    history.push('/buscar');
+  };
+
   if (user.status) {
     const { rol, status } = user;
 
@@ -33,6 +41,7 @@ const Consultants = (props) => {
         props.setHeader(false);
       }
     };
+
     if (rol.name === 'client' && status.logueado) {
       return (
         <div className='Consultants online' onScroll={handleHeader} id='consultants'>
@@ -49,11 +58,11 @@ const Consultants = (props) => {
               <p>{search.busqueda === 'Sector y Profesion' ? search.proffession : (search.busqueda === 'Profesion y especialidad' ? search.especialidad : '')}</p>
               <img src={lightArrow} alt='' />
             </div>
-            <Link to='/buscar'>
+            <button type='button' onClick={handleBack}>
               <div className='Results__headlineSearch__search'>
                 <img src={lupa} alt='' />
               </div>
-            </Link>
+            </button>
           </div>
           <img src={background} alt='' className='Consultants__background' />
           <div className="filterResults">
@@ -66,6 +75,9 @@ const Consultants = (props) => {
             />
           </div>
           <Results />
+          <Modal transparent={true} noButton={true} isOpen={isLoading}>
+            <Loading />
+          </Modal>
         </div>
       );
     };
@@ -81,11 +93,9 @@ const Consultants = (props) => {
           <p>{search.busqueda === 'Sector y Profesion' ? search.proffession : (search.busqueda === 'Profesion y especialidad' ? search.especialidad : '')}</p>
           <img src={lightArrow} alt='' />
         </div>
-        <Link to='/buscar'>
-          <div className='Results__headlineSearch__search'>
-            <img src={lupa} alt='' />
-          </div>
-        </Link>
+        <button className='Results__headlineSearch__search' type='button' onClick={handleBack}>
+          <img src={lupa} alt='' />
+        </button>
       </div>
       <img src={background} alt='' className='Consultants__background' />
       <div className="filterResults">
@@ -98,6 +108,9 @@ const Consultants = (props) => {
         />
       </div>
       <Results />
+      <Modal transparent={true} noButton={true} isOpen={isLoading}>
+        <Loading />
+      </Modal>
     </div>
   );
 };
@@ -109,4 +122,10 @@ const mapStateToProps = (reducers) => {
   };
 };
 
-export default connect(mapStateToProps, actionsStatus)(Consultants);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    clearSearch: () => dispatch(clearSearch()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Consultants);

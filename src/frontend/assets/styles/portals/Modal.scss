@@ -23,6 +23,10 @@
     max-width: 400px;
     transform: translateY(-50%);
   }
+
+  .Modal__container.transparent {
+    background-color: transparent;
+  }
   
   .Modal__close--button {
     position: absolute;

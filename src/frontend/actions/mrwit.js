@@ -6,9 +6,57 @@ import {
   GET_CONSULTANT_REQUEST,
   GET_CONSULTANT_SUCCESS,
   GET_CONSULTANT_FAILURE,
+  SET_NEW_USER_REQUEST,
+  SET_NEW_USER_SUCCESS,
+  SET_NEW_USER_FAILURE,
+  CLEAR_SEARCH,
+  REDIRECT,
 } from './types';
 
 //Obtener consultores buscados
+
+export const redirect = (link) => {
+  return {
+    type: REDIRECT,
+    payload: link,
+  };
+};
+
+
+export const setNewUserRequest = () => {
+  return {
+    type: SET_NEW_USER_REQUEST,
+  };
+};
+
+export const setNewUserSuccess = () => {
+  return {
+    type: SET_NEW_USER_SUCCESS,
+  };
+};
+
+export const setNewUserFailure = (error) => {
+  return {
+    type: SET_NEW_USER_FAILURE,
+    payload: error,
+  };
+};
+
+export const setNewUser = (arr) => {
+  return (dispatch) => {
+    dispatch(setNewUserRequest());
+    try {
+      axios.post(`${axios.defaults.baseURL}/signup`, arr[0], arr[1])
+        .then((res) => {
+          arr[3](res.data);
+          dispatch(setNewUserSuccess());
+          dispatch(redirect(arr[2]));
+        });
+    } catch (error) {
+      dispatch(setNewUserFailure(error.message));
+    }
+  };
+};
 
 export const getConsultantsRequest = () => {
   return {
@@ -30,19 +78,23 @@ export const getConsultantsFailure = (error) => {
   };
 };
 
-export const getConsultants = () => {
+export const getConsultants = (arr) => {
   return (dispatch) => {
     dispatch(getConsultantsRequest());
-    axios.get(`${axios.defaults.baseURL}/resultados`)
-      .then((response) => {
-        const consultants = response.data;
-        dispatch(getConsultantsSuccess(consultants));
-      })
-      .catch((error) => {
-        console.log('error');
-
-        dispatch(getConsultantsFailure(error.message));
-      });
+    try {
+      axios.post(`${axios.defaults.baseURL}/busqueda`, arr[0])
+        .then((response) => {
+          const consultants = response.data;
+          dispatch(getConsultantsSuccess(consultants));
+          dispatch(redirect(arr[1]));
+        })
+        .catch((error) => {
+          console.log('error');
+          dispatch(getConsultantsFailure(error.message));
+        });
+    } catch (err) {
+      dispatch(getConsultantsFailure(err.message));
+    }
   };
 };
 
@@ -200,5 +252,13 @@ export const getAgenda = () => {
 
         dispatch(getAgendaFailure(error.message));
       });
+  };
+};
+
+// Clearing
+
+export const clearSearch = () => {
+  return {
+    type: CLEAR_SEARCH,
   };
 };
