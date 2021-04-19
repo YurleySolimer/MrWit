@@ -1,11 +1,10 @@
 import React from 'react';
 import '../assets/styles/components/Loading.scss';
-import background from '../assets/static/images/background1.png';
 
 const Loading = () => {
+  console.log('I am apearing');
   return (
     <div className='Loading'>
-      <img className='background' src={background} alt='background' />
       <svg>
         <g>
           <path d='M 50,100 A 1,1 0 0 1 50,0' />

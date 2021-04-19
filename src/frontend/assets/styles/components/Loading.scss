@@ -2,8 +2,8 @@ $transition-duration: 2s;
 $path-length: 157px; // Retrieved using SVG's getTotalLength()
 
 .Loading {
-  width: 100vw;
-  height: 100vh;
+  width: 150px;
+  height: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,8 +11,9 @@ $path-length: 157px; // Retrieved using SVG's getTotalLength()
 
 .Loading svg {
   overflow: visible;
-  width: 100px;
-  height: 150px;
+  width: 60px;
+  height: 90px;
+  transform: scale(.6);
   
   g {
     animation: slide $transition-duration linear infinite;

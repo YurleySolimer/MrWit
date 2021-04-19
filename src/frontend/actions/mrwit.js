@@ -6,9 +6,18 @@ import {
   GET_CONSULTANT_REQUEST,
   GET_CONSULTANT_SUCCESS,
   GET_CONSULTANT_FAILURE,
+  CLEAR_SEARCH,
+  REDIRECT,
 } from './types';
 
 //Obtener consultores buscados
+
+export const redirect = (link) => {
+  return {
+    type: REDIRECT,
+    payload: link,
+  };
+};
 
 export const getConsultantsRequest = () => {
   return {
@@ -30,19 +39,23 @@ export const getConsultantsFailure = (error) => {
   };
 };
 
-export const getConsultants = () => {
+export const getConsultants = (arr) => {
   return (dispatch) => {
     dispatch(getConsultantsRequest());
-    axios.get(`${axios.defaults.baseURL}/resultados`)
-      .then((response) => {
-        const consultants = response.data;
-        dispatch(getConsultantsSuccess(consultants));
-      })
-      .catch((error) => {
-        console.log('error');
-
-        dispatch(getConsultantsFailure(error.message));
-      });
+    try {
+      axios.post(`${axios.defaults.baseURL}/busqueda`, arr[0])
+        .then((response) => {
+          const consultants = response.data;
+          dispatch(getConsultantsSuccess(consultants));
+          dispatch(redirect(arr[1]));
+        })
+        .catch((error) => {
+          console.log('error');
+          dispatch(getConsultantsFailure(error.message));
+        });
+    } catch (err) {
+      dispatch(getConsultantsFailure(err.message));
+    }
   };
 };
 
@@ -200,5 +213,13 @@ export const getAgenda = () => {
 
         dispatch(getAgendaFailure(error.message));
       });
+  };
+};
+
+// Clearing
+
+export const clearSearch = () => {
+  return {
+    type: CLEAR_SEARCH,
   };
 };

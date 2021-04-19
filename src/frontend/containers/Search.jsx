@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-
-import axios from 'axios';
 
 import '../assets/styles/containers/Search.scss';
 import '../assets/styles/components/Searcher.scss';
@@ -13,20 +11,21 @@ import background from '../assets/static/images/background1.png';
 import CircleCarousel from '../components/CircleCarousel';
 import Feedback from '../components/Feedback';
 import DataJSON from '../../professions';
+import Modal from '../portals/Modal';
+import Loading from '../components/Loading';
 
 import Searcher from '../components/Searcher';
 
-import { getConsultantsSuccess } from '../actions/mrwit';
+import { getConsultants } from '../actions/mrwit';
 
-const Search = ({ user, getConsultantsSuccess }) => {
+const Search = (props) => {
+
+  const { status, mrwit, getConsultants } = props;
+  const { user } = status;
+  const { search, isLoading, redirectTo } = mrwit;
+
   const history = useHistory();
-  getConsultantsSuccess({
-    busqueda: '',
-    consultores: [],
-    proffession: '',
-    sector: '',
-    especialidad: '',
-  });
+
   // El tipo indica el tipo de busqueda que se está realizando (Sector, Profesión, Habilidad, ID)
   const [type, setType] = useState('');
   // valueResult corresponde a lo buscado en el buscador (el input text)
@@ -35,6 +34,9 @@ const Search = ({ user, getConsultantsSuccess }) => {
   const [valueSelection, setValueSelection] = useState('');
   // specialities corresponde a los elementos de la segunda selección para desplegar en forma de circulo
   const [specialities, setSpecialities] = useState([]);
+
+  const [queryParams, setQueryParams] = useState(null);
+  const [ready, setReady] = useState(false);
 
   const handleHeader = () => {
     const d = document.getElementById('searchConsultant');
@@ -63,151 +65,115 @@ const Search = ({ user, getConsultantsSuccess }) => {
     setValueSelection(e);
   };
 
-  if (user.rol.name === 'client' && !user.status && type === 'sector') {
-    if (valueSelection !== '') {
-      const data = new FormData();
-      data.append('category', valueResult);
-      data.append('proffession', valueSelection);
-      const res = axios.post(`${axios.defaults.baseURL}/busqueda`, data)
-        .then((res) => {
-          getConsultantsSuccess(res.data);
-          history.push('/resultados');
-        })
-        .catch((e) => console.log(e));
+  useEffect(() => {
+    if (type === 'profession' && !ready) {
+      if (valueSelection !== '' && specialities === []) {
+        const data = new FormData();
+        data.append('proffession', valueResult);
+        setQueryParams(data);
+        setReady(true);
+      } else if (valueSelection !== '' && !ready) {
+        const data = new FormData();
+        data.append('proffession', valueResult);
+        data.append('especialidad', valueSelection);
+        setQueryParams(data);
+        setReady(true);
+      }
     }
+
+    if (type === 'sector' && !ready) {
+      if (valueSelection !== '') {
+        const data = new FormData();
+        data.append('category', valueResult);
+        data.append('proffession', valueSelection);
+        setQueryParams(data);
+        setReady(true);
+      }
+    }
+  }, [valueSelection]);
+
+  const handleAction = () => {
+    console.log('me activaron');
+  };
+
+  useEffect(() => {
+    if (ready && queryParams) {
+      getConsultants([queryParams, '/resultados']);
+    }
+  }, [ready, queryParams]);
+
+  if (redirectTo) {
     return (
-      <div className='searchConsultant'>
+      <Redirect to={redirectTo} />
+    );
+  }
+
+  if (user.rol.name === 'client' && type === 'profession') {
+    return (
+      <div className={`searchConsultant ${user.status ? 'online' : ''}`} onScroll={user.status ? handleHeader : null} id='searchConsultant'>
         <div className='searchName__title'>
           <h2 className='searchName__title__message'>Encuentra tu consultor ideal</h2>
         </div>
         <img className='background' src={background} alt='' />
-        <Searcher isOffline={true} setValueResult={handleValue} setType={handleSearch} />
+        <Searcher isOffline={!user.status} action={handleAction} setValueResult={handleValue} setType={handleSearch} />
         <input type='hidden' name='sector' id='sector' value={valueResult} />
         <input type='hidden' name='profesion' id='profesion' value={valueSelection} />
-        <CircleCarousel specialities={specialities} setValue={handleValueSelection} value={valueResult} searchTerm='Sector' />
-        <Feedback name='Luis Fernando Méndez' country='Medellín, CO' description='“Me encantó la experiencia, pude resolver los problemas de contabilidad de mi empresa con una sola llamada, es súper práctico”' />
+        { user.status ?
+          <CircleCarousel specialities={specialities} action={handleAction} setValue={handleValueSelection} value={valueResult} searchTerm='Profesión' /> :
+          (
+            <>
+              <CircleCarousel specialities={specialities} action={handleAction} setValue={handleValueSelection} value={valueResult} searchTerm='Profesión' />
+              <Feedback name='Luis Fernando Méndez' country='Medellín, CO' description='“Me encantó la experiencia, pude resolver los problemas de contabilidad de mi empresa con una sola llamada, es súper práctico”' />
+            </>
+          )}
+        <Modal transparent={true} noButton={true} isOpen={isLoading}>
+          <Loading />
+        </Modal>
       </div>
     );
   };
 
-  if (user.rol.name === 'client' && !user.status && type === 'profession') {
-    if (valueSelection !== '' && specialities === []) {
-      const data = new FormData();
-      data.append('proffession', valueResult);
-      const res = axios.post(`${axios.defaults.baseURL}/busqueda`, data)
-        .then((res) => {
-          getConsultantsSuccess(res.data);
-          history.push('/resultados');
-        })
-        .catch((e) => console.log(e));
-    } else if (valueSelection !== '') {
-      const data = new FormData();
-      data.append('proffession', valueResult);
-      data.append('especialidad', valueSelection);
-      const res = axios.post(`${axios.defaults.baseURL}/busqueda`, data)
-        .then((res) => {
-          getConsultantsSuccess(res.data);
-          history.push('/resultados');
-        })
-        .catch((e) => console.log(e));
-    }
+  if (user.rol.name === 'client' && type === 'sector') {
     return (
-      <div className='searchConsultant'>
+      <div className={`searchConsultant ${user.status ? 'online' : ''}`} onScroll={user.status ? handleHeader : null} id='searchConsultant'>
         <div className='searchName__title'>
           <h2 className='searchName__title__message'>Encuentra tu consultor ideal</h2>
         </div>
         <img className='background' src={background} alt='' />
-        <Searcher isOffline={true} setValueResult={handleValue} setType={handleSearch} />
-        <input type='hidden' name='profesion' id='profesion' value={valueResult} />
-        <input type='hidden' name='especialidad' id='especialidad' value={valueSelection} />
-        <CircleCarousel specialities={specialities} setValue={handleValueSelection} value={valueResult} searchTerm='Profesión' />
-        <Feedback name='Luis Fernando Méndez' country='Medellín, CO' description='“Me encantó la experiencia, pude resolver los problemas de contabilidad de mi empresa con una sola llamada, es súper práctico”' />
-      </div>
-    );
-  };
-
-  if (user.rol.name === 'client' && !user.status) {
-    return (
-      <div className='searchConsultant'>
-        <div className='searchName__title'>
-          <h2 className='searchName__title__message'>Encuentra tu consultor ideal</h2>
-        </div>
-        <img className='background' src={background} alt='' />
-        <Searcher isOffline={true} setValueResult={handleValue} setType={handleSearch} />
-        <Feedback name='Luis Fernando Méndez' country='Medellín, CO' description='“Me encantó la experiencia, pude resolver los problemas de contabilidad de mi empresa con una sola llamada, es súper práctico”' />
-      </div>
-    );
-  };
-
-  if (user.rol.name === 'client' && user.status && type === 'sector') {
-    if (valueSelection !== '') {
-      const data = new FormData();
-      data.append('category', valueResult);
-      data.append('proffession', valueSelection);
-      const res = axios.post(`${axios.defaults.baseURL}/busqueda`, data)
-        .then((res) => {
-          getConsultantsSuccess(res.data);
-          history.push('/resultados');
-        })
-        .catch((e) => console.log(e));
-    }
-    return (
-      <div className='searchConsultant online' onScroll={handleHeader} id='searchConsultant'>
-        <div className='searchName__title'>
-          <h2 className='searchName__title__message'>Encuentra tu consultor ideal</h2>
-        </div>
-        <img className='background' src={background} alt='' />
-        <Searcher isOffline={false} setValueResult={handleValue} setType={handleSearch} />
+        <Searcher isOffline={!user.status} action={handleAction} setValueResult={handleValue} setType={handleSearch} />
         <input type='hidden' name='sector' id='sector' value={valueResult} />
         <input type='hidden' name='profesion' id='profesion' value={valueSelection} />
-        <CircleCarousel specialities={specialities} setValue={handleValueSelection} value={valueResult} searchTerm='Sector' />
+        { user.status ?
+          <CircleCarousel specialities={specialities} action={handleAction} setValue={handleValueSelection} value={valueResult} searchTerm='Sector' /> :
+          (
+            <>
+              <CircleCarousel specialities={specialities} action={handleAction} setValue={handleValueSelection} value={valueResult} searchTerm='Sector' />
+              <Feedback name='Luis Fernando Méndez' country='Medellín, CO' description='“Me encantó la experiencia, pude resolver los problemas de contabilidad de mi empresa con una sola llamada, es súper práctico”' />
+            </>
+          )}
+        <Modal transparent={true} noButton={true} isOpen={isLoading}>
+          <Loading />
+        </Modal>
       </div>
     );
   };
 
-  if (user.rol.name === 'client' && user.status && type === 'profession') {
-    if (specialities === []) {
-      const data = new FormData();
-      data.append('proffession', valueResult);
-      const res = axios.post(`${axios.defaults.baseURL}/busqueda`, data)
-        .then((res) => {
-          getConsultantsSuccess(res.data);
-          history.push('/resultados');
-        })
-        .catch((e) => console.log(e));
-    } else if (valueSelection !== '') {
-      const data = new FormData();
-      data.append('proffession', valueResult);
-      data.append('especialidad', valueSelection);
-      const res = axios.post(`${axios.defaults.baseURL}/busqueda`, data)
-        .then((res) => {
-          getConsultantsSuccess(res.data);
-          history.push('/resultados');
-        })
-        .catch((e) => console.log(e));
-    }
+  if (user.rol.name === 'client') {
     return (
-      <div className='searchConsultant online' onScroll={handleHeader} id='searchConsultant'>
+      <div className={`searchConsultant ${user.status ? 'online' : ''}`} onScroll={user.status ? handleHeader : null} id='searchConsultant'>
         <div className='searchName__title'>
           <h2 className='searchName__title__message'>Encuentra tu consultor ideal</h2>
         </div>
         <img className='background' src={background} alt='' />
-        <Searcher isOffline={false} setValueResult={handleValue} setType={handleSearch} />
-        <input type='hidden' name='profesion' id='profesion' value={valueResult} />
-        <input type='hidden' name='especialidad' id='especialidad' value={valueSelection} />
-        <CircleCarousel specialities={specialities} setValue={handleValueSelection} value={valueResult} searchTerm='Profesión' />
-      </div>
-    );
-  };
-
-  if (user.rol.name === 'client' && user.status) {
-    return (
-      <div className='searchConsultant online' onScroll={handleHeader} id='searchConsultant'>
-        <div className='searchName__title'>
-          <h2 className='searchName__title__message'>Encuentra tu consultor ideal</h2>
-        </div>
-        <img className='background' src={background} alt='' />
-        <Searcher isOffline={false} setValueResult={handleValue} setType={handleSearch} />
+        <Searcher isOffline={!user.status} action={handleAction} setValueResult={handleValue} setType={handleSearch} />
+        { user.status ?
+          null :
+          (
+            <Feedback name='Luis Fernando Méndez' country='Medellín, CO' description='“Me encantó la experiencia, pude resolver los problemas de contabilidad de mi empresa con una sola llamada, es súper práctico”' />
+          )}
+        <Modal transparent={true} noButton={true} isOpen={isLoading}>
+          <Loading />
+        </Modal>
       </div>
     );
   };
@@ -216,12 +182,15 @@ const Search = ({ user, getConsultantsSuccess }) => {
 };
 
 const mapStateToProps = (reducers) => {
-  return reducers.statusReducers;
+  return {
+    status: reducers.statusReducers,
+    mrwit: reducers.mrwitReducers,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getConsultantsSuccess: (e) => dispatch(getConsultantsSuccess(e)),
+    getConsultants: (e) => dispatch(getConsultants(e)),
   };
 };
 

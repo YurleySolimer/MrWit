@@ -11,6 +11,7 @@ import back from '../assets/static/icons/arrowleft.svg';
 import HistoryList from '../components/HistoryList';
 import CallingModal from '../portals/Calling';
 import Loading from '../components/Loading';
+import Modal from '../portals/Modal';
 
 import '../assets/styles/portals/Modal.scss';
 import close from '../assets/static/icons/closeDark.svg';
@@ -217,7 +218,6 @@ const Consultant = (props) => {
   };
 
   useEffect(() => {
-    console.log('El id es: ', props.match.params.id);
     getConsultant(props.match.params.id);
   }, []);
 
@@ -228,6 +228,9 @@ const Consultant = (props) => {
   const infoConsultorOffline = () => {
     return (
       <>
+        <Modal isOpen={consultantData.isLoading}>
+          <Loading />
+        </Modal>
         <div className='consultant__since'>
           <span>{consultantData.consultant.category}</span>
         </div>
