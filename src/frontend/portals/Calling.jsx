@@ -24,6 +24,7 @@ const CallingModal = (props) => {
 
   const [stream, setStream] = useState();
   const [caller, setCaller] = useState('');
+
   const [callerSignal, setCallerSignal] = useState();
   const [name, setName] = useState('');
   const [idRoom, setIdRoom] = useState('');
@@ -33,6 +34,18 @@ const CallingModal = (props) => {
 
   const connectionRef = useRef();
 
+  useEffect(() => {
+   
+    socket.on('callUser', (data) => {
+      setReceivingCall(true);
+      setCaller(data.from);
+      setName(data.name);
+      setCallerSignal(data.signal);
+      setIdRoom(uuidv4());
+
+    });
+  }, []);
+
   const callUser = (idToCall) => {
     setCalling(true);
     const peer = new Peer({
@@ -41,7 +54,7 @@ const CallingModal = (props) => {
       stream,
     });
     peer.on('signal', (data) => {
-      console.log('me call', me);
+      console.log('me socketid', me);
       socket.emit('callUser', {
         userToCall: idToCall,
         signalData: data,

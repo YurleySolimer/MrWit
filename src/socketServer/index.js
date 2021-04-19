@@ -13,9 +13,10 @@ const io = require("socket.io")(server, {
 		methods: [ "GET", "POST" ],
         credentials: true,
         allowedHeaders: ["Content-Type", "Accept"],
+        transports: ['websocket', 'polling'],
     },
-    transports: ['websocket']
-	
+    allowEIO3: true
+
 })
 
 const users = {};
