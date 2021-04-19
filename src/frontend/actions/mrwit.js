@@ -9,6 +9,9 @@ import {
   SET_NEW_USER_REQUEST,
   SET_NEW_USER_SUCCESS,
   SET_NEW_USER_FAILURE,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
   CLEAR_SEARCH,
   REDIRECT,
 } from './types';
@@ -22,7 +25,40 @@ export const redirect = (link) => {
   };
 };
 
+export const loginUserRequest = () => {
+  return {
+    type: LOGIN_REQUEST,
+  };
+};
 
+export const loginUserSuccess = () => {
+  return {
+    type: LOGIN_SUCCESS,
+  };
+};
+
+export const loginUserFailure = (error) => {
+  return {
+    type: LOGIN_FAILURE,
+    payload: error,
+  };
+};
+
+export const loginUser = (arr) => {
+  return (dispatch) => {
+    dispatch(loginUserRequest());
+    try {
+      axios.post(`${axios.defaults.baseURL}${arr[0]}`, arr[1], arr[2])
+        .then((res) => {
+          arr[3](res.data);
+          dispatch(loginUserSuccess());
+          dispatch(redirect(arr[4]));
+        });
+    } catch (error) {
+      dispatch(loginUserFailure(error.message));
+    }
+  };
+};
 export const setNewUserRequest = () => {
   return {
     type: SET_NEW_USER_REQUEST,

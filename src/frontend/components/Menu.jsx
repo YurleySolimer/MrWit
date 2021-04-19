@@ -1,19 +1,18 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import statusReducers from '../reducers/statusReducers';
-import * as actionsStatus from '../actions';
 import '../assets/styles/components/Menu.scss';
 import wallet from '../assets/static/icons/wallet.svg';
-import history from '../assets/static/icons/history.svg';
+import historyIcon from '../assets/static/icons/history.svg';
 import schedule from '../assets/static/icons/schedule.svg';
 import more from '../assets/static/icons/more.svg';
 import lupa from '../assets/static/icons/lupaDark.svg';
+import { clearSearch } from '../actions/mrwit';
 
 const Menu = (props) => {
 
-  const { user } = props;
-  const nav = useHistory();
+  const { user, clearSearch } = props;
+  const history = useHistory();
 
   function handleMore() {
     const menuMore = document.getElementById('menu__more');
@@ -21,7 +20,8 @@ const Menu = (props) => {
   }
 
   function handleSearch() {
-    nav.push('/buscar');
+    clearSearch();
+    history.push('/buscar');
   }
 
   if (user.rol.name === 'client') {
@@ -36,7 +36,7 @@ const Menu = (props) => {
           </Link>
           <Link to='/historial' className='menu__item'>
             <div className='menu__item__inner'>
-              <img src={history} alt='Ir al historial' />
+              <img src={historyIcon} alt='Ir al historial' />
               <span>Historial</span>
             </div>
           </Link>
@@ -115,4 +115,11 @@ const mapStateToProps = (reducers) => {
   return reducers.statusReducers;
 };
 
-export default connect(mapStateToProps, actionsStatus)(Menu);
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    clearSearch: () => dispatch(clearSearch()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);

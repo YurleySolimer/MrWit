@@ -58,10 +58,8 @@ const Consultants = (props) => {
               <p>{search.busqueda === 'Sector y Profesion' ? search.proffession : (search.busqueda === 'Profesion y especialidad' ? search.especialidad : '')}</p>
               <img src={lightArrow} alt='' />
             </div>
-            <button type='button' onClick={handleBack}>
-              <div className='Results__headlineSearch__search'>
-                <img src={lupa} alt='' />
-              </div>
+            <button type='button' className='Results__headlineSearch__search' onClick={handleBack}>
+              <img src={lupa} alt='' />
             </button>
           </div>
           <img src={background} alt='' className='Consultants__background' />

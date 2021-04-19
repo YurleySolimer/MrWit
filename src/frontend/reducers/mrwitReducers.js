@@ -8,6 +8,9 @@ import {
   SET_NEW_USER_REQUEST,
   SET_NEW_USER_SUCCESS,
   SET_NEW_USER_FAILURE,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
   CLEAR_SEARCH,
   REDIRECT,
 } from '../actions/types';
@@ -41,6 +44,24 @@ const reducer = (state = INITIAL_STATE, action) => {
         error: '',
       };
     case SET_NEW_USER_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+    case LOGIN_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+        error: '',
+      };
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        error: '',
+      };
+    case LOGIN_FAILURE:
       return {
         ...state,
         isLoading: false,
