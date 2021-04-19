@@ -49,9 +49,9 @@ export const setNewUser = (arr) => {
       axios.post(`${axios.defaults.baseURL}/signup`, arr[0], arr[1])
         .then((res) => {
           arr[3](res.data);
+          dispatch(setNewUserSuccess());
+          dispatch(redirect(arr[2]));
         });
-      dispatch(setNewUserSuccess());
-      dispatch(redirect(arr[2]));
     } catch (error) {
       dispatch(setNewUserFailure(error.message));
     }
