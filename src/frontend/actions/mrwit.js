@@ -6,6 +6,9 @@ import {
   GET_CONSULTANT_REQUEST,
   GET_CONSULTANT_SUCCESS,
   GET_CONSULTANT_FAILURE,
+  SET_NEW_USER_REQUEST,
+  SET_NEW_USER_SUCCESS,
+  SET_NEW_USER_FAILURE,
   CLEAR_SEARCH,
   REDIRECT,
 } from './types';
@@ -16,6 +19,42 @@ export const redirect = (link) => {
   return {
     type: REDIRECT,
     payload: link,
+  };
+};
+
+
+export const setNewUserRequest = () => {
+  return {
+    type: SET_NEW_USER_REQUEST,
+  };
+};
+
+export const setNewUserSuccess = () => {
+  return {
+    type: SET_NEW_USER_SUCCESS,
+  };
+};
+
+export const setNewUserFailure = (error) => {
+  return {
+    type: SET_NEW_USER_FAILURE,
+    payload: error,
+  };
+};
+
+export const setNewUser = (arr) => {
+  return (dispatch) => {
+    dispatch(setNewUserRequest());
+    try {
+      axios.post(`${axios.defaults.baseURL}/signup`, arr[0], arr[1])
+        .then((res) => {
+          arr[3](res.data);
+        });
+      dispatch(setNewUserSuccess());
+      dispatch(redirect(arr[2]));
+    } catch (error) {
+      dispatch(setNewUserFailure(error.message));
+    }
   };
 };
 

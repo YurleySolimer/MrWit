@@ -5,6 +5,9 @@ import {
   GET_CONSULTANT_REQUEST,
   GET_CONSULTANT_SUCCESS,
   GET_CONSULTANT_FAILURE,
+  SET_NEW_USER_REQUEST,
+  SET_NEW_USER_SUCCESS,
+  SET_NEW_USER_FAILURE,
   CLEAR_SEARCH,
   REDIRECT,
 } from '../actions/types';
@@ -25,6 +28,24 @@ const INITIAL_STATE = {
 
 const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case SET_NEW_USER_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+        error: '',
+      };
+    case SET_NEW_USER_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        error: '',
+      };
+    case SET_NEW_USER_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
     case GET_CONSULTANTS_REQUEST:
       return {
         ...state,

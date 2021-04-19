@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import { Link, useHistory, Redirect } from 'react-router-dom';
 import ReactFlagsSelect from 'react-flags-select';
 import CurrencyFormat from 'react-currency-format';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-auth';
-
-import axios from 'axios';
-import * as actionsStatus from '../actions';
+import { setNewUser } from '../actions/mrwit';
+import { setUser } from '../actions/index';
 
 import '../assets/styles/containers/Signup.scss';
 
@@ -28,21 +28,21 @@ import DataSectors from '../../sectors';
 
 import ScheduleModal from '../portals/Schedule';
 import Modal from '../portals/Modal';
+import Loading from '../components/Loading';
 
 const MyFacebookButton = ({ onClick }) => (
- 
-    <button
-      type='button'
-      onClick={onClick}
-      className='signup__facebook signup__button'
-    >
-      <img src={facebook} alt='icon' />
-      Registrarme Facebook
-    </button>
- 
+  <button
+    type='button'
+    onClick={onClick}
+    className='signup__facebook signup__button'
+  >
+    <img src={facebook} alt='icon' />
+    Registrarme Facebook
+  </button>
+
 );
 
-const Signup = ({ user, setUser }) => {
+const Signup = ({ status, mrwit, setUser, setNewUser }) => {
   const [input, setInput] = useState({
     name: '',
     lastname: '',
@@ -132,9 +132,12 @@ const Signup = ({ user, setUser }) => {
   const [specialities, setSpecialities] = useState([]);
   const history = useHistory();
 
+  console.log(mrwit)
+  const { user } = status;
+  const { isLoading } = mrwit;
+
   function handleSubmit(event) {
     event.preventDefault();
-
     if (!agreement) {
       alert('Debes aceptar los términos y condiciones');
     } else if (isValid && agreement) {
@@ -148,13 +151,7 @@ const Signup = ({ user, setUser }) => {
         country: input.country,
         rol: rol.value,
       };
-      const res = axios.post(`${axios.defaults.baseURL}/signup`, user)
-        .then((res) => {
-          console.log(res.data);
-          setUser(res.data);
-          history.push('/recargar');
-        })
-        .catch((e) => console.log(e));
+      setNewUser([user, '', '/recargar', setUser]);
     } else {
       alert('Debes comprobar todos los campos para registrarte');
     }
@@ -165,19 +162,20 @@ const Signup = ({ user, setUser }) => {
     const config = {
       headers: {
         'Accept': 'application/json',
-        'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8; application/json',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8; application/json',
       },
     };
-    const res = axios.post(`${axios.defaults.baseURL}/auth/google`,
+    axios.post(`${axios.defaults.baseURL}/auth/google`,
       data,
       config)
       .then((res) => {
         console.log(res.data);
-          setUser(res.data);
-          history.push('/recargar');
+        setUser(res.data);
+        history.push('/recargar');
 
       })
-      .catch((e) => console.log(e));  };
+      .catch((e) => console.log(e));
+  };
 
   const handleSignupFB = (response) => {
     //const data = JSON.stringify({ token: response.accessToken });
@@ -187,17 +185,17 @@ const Signup = ({ user, setUser }) => {
         'Content-Type': 'application/json',
       },
     };
-    const res = axios.post(`${axios.defaults.baseURL}/auth/facebook/callback`,
+    axios.post(`${axios.defaults.baseURL}/auth/facebook/callback`,
       response,
       config)
       .then((res) => {
-          console.log(res.data);
-          setUser(res.data);
-          history.push('/recargar');
+        console.log(res.data);
+        setUser(res.data);
+        history.push('/recargar');
 
       })
-      .catch((e) => console.log(e));      
-  }
+      .catch((e) => console.log(e));
+  };
 
   const handlepic = (e) => {
     const ca = document.getElementById('cameraIcon');
@@ -220,11 +218,10 @@ const Signup = ({ user, setUser }) => {
 
   function handleSubmitConsultant(event) {
     event.preventDefault();
-    
 
-      if (!agreement) {
-        alert('Debes aceptar los términos y condiciones');
-      } else if (isValid && agreement) {
+    if (!agreement) {
+      alert('Debes aceptar los términos y condiciones');
+    } else if (isValid && agreement) {
       const data = new FormData();
       data.append('name', input.name);
       data.append('lastname', input.lastname);
@@ -242,8 +239,7 @@ const Signup = ({ user, setUser }) => {
       data.append('abilities', input.abilities[1]);
       data.append('abilities', input.abilities[2]);
       data.append('policy', policy.value);
-      data.append('rol', rol.value);  
-
+      data.append('rol', rol.value);
 
       if (input.horario) {
         const { horario } = input;
@@ -293,30 +289,15 @@ const Signup = ({ user, setUser }) => {
         },
       };
 
-      
       try {
-        const res = axios.post(`${axios.defaults.baseURL}/signup`,
-        data,
-        config)
-        .then((res) => {
-          console.log(res.data);
-          setUser(res.data);
-          history.push('/');
-        })
-        .catch((e) => {
-          console.log(e)});
+        setNewUser([data, config, '/', setUser]);
       } catch (error) {
-            alert(error);      
-          }
+        alert(error);
+      }
 
-        } else {
-          alert('Debes comprobar todos los campos para registrarte');
-      }        
-     
-      
-      
-      
-    
+    } else {
+      alert('Debes comprobar todos los campos para registrarte');
+    }
   }
 
   function validate(name, value) {
@@ -797,12 +778,15 @@ const Signup = ({ user, setUser }) => {
 
   const handleAgreement = () => {
     setAgreement(!agreement);
-    setIsValid(validate())
+    setIsValid(validate());
   };
 
   if (user.rol.name === 'consultant') {
     return (
       <section className='Signup'>
+        <Modal transparent={true} noButton={true} isOpen={isLoading}>
+          <Loading />
+        </Modal>
         <h2 className='signupConsultant__text__h2'>¡Lleva tu talento a todo el mundo!</h2>
         <div className='signup__container'>
           <div className='signup__form__indicator'>
@@ -1064,6 +1048,9 @@ const Signup = ({ user, setUser }) => {
   if (user.rol.name === 'client') {
     return (
       <section className='Signup'>
+        <Modal transparent={true} noButton={true} isOpen={isLoading}>
+          <Loading />
+        </Modal>
         <img src={icon} alt='icon' className='signup__icon' />
         <h2 className='signup__text'>¡Un momento! Antes de pasar a la llamada debes registrarte</h2>
         <div className='signup__container'>
@@ -1135,23 +1122,21 @@ const Signup = ({ user, setUser }) => {
                 <input type='hidden' name='country' value={input.country} id='country' />
 
                 <button type='button' onClick={handleSignupClient} className='signup__submit signup__button'>Registrarme por mi cuenta</button>
-                
 
-                <FacebookLogin                   
-                  appId="268710051600270"
+                <FacebookLogin
+                  appId='268710051600270'
                   autoLoad={false}
-                  scope="public_profile,user_friends"
+                  scope='public_profile,user_friends'
                   callback={handleSignupFB}
                   component={MyFacebookButton}
-                  icon="fa-facebook" 
+                  icon='fa-facebook'
                 />
-                
+
                 {/* <button type='button' onClick={handleSignupClient} className='signup__facebook signup__button'>
                   <img src={facebook} alt='icon' />
                   Registrarme con Facebook
                 </button> */}
-               
-               
+
                 <button type='button' onClick={handleSignupClient} className='signup__linkedin signup__button'>
                   <img src={linkedin} alt='icon' />
                   Registrarme con LinkedIn
@@ -1259,7 +1244,17 @@ const Signup = ({ user, setUser }) => {
 };
 
 const mapStateToProps = (reducers) => {
-  return reducers.statusReducers;
+  return {
+    status: reducers.statusReducers,
+    mrwit: reducers.mrwitReducers,
+  };
 };
 
-export default connect(mapStateToProps, actionsStatus)(Signup);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUser: (e) => dispatch(setUser(e)),
+    setNewUser: (e) => dispatch(setNewUser(e)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);
