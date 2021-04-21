@@ -12,6 +12,7 @@ import darkArrow from '../assets/static/assets/darkgrey_arrow.svg';
 import lightArrow from '../assets/static/assets/lightgrey_arrow.svg';
 import Modal from '../portals/Modal';
 import Loading from '../components/Loading';
+import Fatal from '../components/Fatal';
 import { clearSearch } from '../actions/mrwit';
 
 const Consultants = (props) => {
@@ -72,9 +73,12 @@ const Consultants = (props) => {
               countries={["AR", "AG", "BB", "BM", "BO", "BR", "BS", "BZ", "CL", "CO", "CR", "CU", "CW", "DM", "DO", "EC", "SV", "GT", "JM", "MX", "PA", "PY", "PE", "PR", "UY", "VE"]}
             />
           </div>
-          <Results />
+          <Results goBack={handleBack} />
           <Modal transparent={true} noButton={true} isOpen={isLoading}>
             <Loading />
+          </Modal>
+          <Modal isOpen={mrwit.error} onClose={clearSearch}>
+            <Fatal message={mrwit.error} />
           </Modal>
         </div>
       );
@@ -105,9 +109,12 @@ const Consultants = (props) => {
           countries={["AR", "AG", "BB", "BM", "BO", "BR", "BS", "BZ", "CL", "CO", "CR", "CU", "CW", "DM", "DO", "EC", "SV", "GT", "JM", "MX", "PA", "PY", "PE", "PR", "UY", "VE"]}
         />
       </div>
-      <Results />
+      <Results goBack={handleBack} />
       <Modal transparent={true} noButton={true} isOpen={isLoading}>
         <Loading />
+      </Modal>
+      <Modal isOpen={mrwit.error} onClose={clearSearch}>
+        <Fatal message={mrwit.error} />
       </Modal>
     </div>
   );

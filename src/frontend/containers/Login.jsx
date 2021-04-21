@@ -6,10 +6,11 @@ import axios from 'axios';
 
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-auth';
-import { loginUser } from '../actions/mrwit';
+import { clearSearch, loginUser } from '../actions/mrwit';
 import { setUser } from '../actions/index';
 import Modal from '../portals/Modal';
 import Loading from '../components/Loading';
+import Fatal from '../components/Fatal';
 
 import '../assets/styles/containers/Login.scss';
 import icon from '../assets/static/logo/mrwit-logo.png';
@@ -33,7 +34,7 @@ const MyFacebookButton = ({ onClick }) => (
 
 const Login = (props) => {
 
-  const { statusState, mrwit, setUser, loginUser } = props;
+  const { statusState, mrwit, setUser, loginUser, clear } = props;
   const { status } = statusState.user;
   const { consultant, isLoading } = mrwit;
 
@@ -58,7 +59,6 @@ const Login = (props) => {
       loginUser(['/signin', user, '', setUser, '/recargar']);
     } else {
       loginUser(['/signin', user, '', setUser, '/']);
-      history.push('/');
     }
   }
 
@@ -107,6 +107,9 @@ const Login = (props) => {
     <section className='login'>
       <Modal transparent={true} noButton={true} isOpen={isLoading}>
         <Loading />
+      </Modal>
+      <Modal isOpen={mrwit.error} onClose={clear}>
+        <Fatal message={mrwit.error} />
       </Modal>
       <img className='background' src={background} alt='' />
       <div className='login__container'>
@@ -188,6 +191,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setUser: (e) => dispatch(setUser(e)),
     loginUser: (e) => dispatch(loginUser(e)),
+    clear: () => dispatch(clearSearch()),
   };
 };
 

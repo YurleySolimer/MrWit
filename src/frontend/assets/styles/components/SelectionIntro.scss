@@ -21,11 +21,7 @@
 }
 
 .alreadyAccount {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: -20%;
-    width: 70vw;
+    margin-top: 60px;
     text-align: center;
     animation: getInLogin .75s ease forwards 6s;
 }

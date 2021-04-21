@@ -13,16 +13,17 @@ import Feedback from '../components/Feedback';
 import DataJSON from '../../professions';
 import Modal from '../portals/Modal';
 import Loading from '../components/Loading';
+import Fatal from '../components/Fatal';
 
 import Searcher from '../components/Searcher';
 
-import { getConsultants } from '../actions/mrwit';
+import { clearSearch, getConsultants } from '../actions/mrwit';
 
 const Search = (props) => {
 
-  const { status, mrwit, getConsultants } = props;
+  const { status, mrwit, getConsultants, clear } = props;
   const { user } = status;
-  const { search, isLoading, redirectTo } = mrwit;
+  const { isLoading, redirectTo } = mrwit;
 
   const history = useHistory();
 
@@ -129,6 +130,9 @@ const Search = (props) => {
         <Modal transparent={true} noButton={true} isOpen={isLoading}>
           <Loading />
         </Modal>
+        <Modal isOpen={mrwit.error} onClose={clear}>
+          <Fatal message={mrwit.error} />
+        </Modal>
       </div>
     );
   };
@@ -154,6 +158,9 @@ const Search = (props) => {
         <Modal transparent={true} noButton={true} isOpen={isLoading}>
           <Loading />
         </Modal>
+        <Modal isOpen={mrwit.error} onClose={clear}>
+          <Fatal message={mrwit.error} />
+        </Modal>
       </div>
     );
   };
@@ -174,6 +181,9 @@ const Search = (props) => {
         <Modal transparent={true} noButton={true} isOpen={isLoading}>
           <Loading />
         </Modal>
+        <Modal isOpen={mrwit.error} onClose={clear}>
+          <Fatal message={mrwit.error} />
+        </Modal>
       </div>
     );
   };
@@ -191,6 +201,7 @@ const mapStateToProps = (reducers) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getConsultants: (e) => dispatch(getConsultants(e)),
+    clear: () => dispatch(clearSearch()),
   };
 };
 

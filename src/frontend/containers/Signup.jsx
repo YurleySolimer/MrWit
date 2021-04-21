@@ -6,7 +6,7 @@ import ReactFlagsSelect from 'react-flags-select';
 import CurrencyFormat from 'react-currency-format';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-auth';
-import { setNewUser } from '../actions/mrwit';
+import { setNewUser, clearSearch } from '../actions/mrwit';
 import { setUser } from '../actions/index';
 
 import '../assets/styles/containers/Signup.scss';
@@ -29,6 +29,7 @@ import DataSectors from '../../sectors';
 import ScheduleModal from '../portals/Schedule';
 import Modal from '../portals/Modal';
 import Loading from '../components/Loading';
+import Fatal from '../components/Fatal';
 
 const MyFacebookButton = ({ onClick }) => (
   <button
@@ -42,7 +43,7 @@ const MyFacebookButton = ({ onClick }) => (
 
 );
 
-const Signup = ({ status, mrwit, setUser, setNewUser }) => {
+const Signup = ({ status, mrwit, setUser, setNewUser, clear }) => {
   const [input, setInput] = useState({
     name: '',
     lastname: '',
@@ -787,6 +788,9 @@ const Signup = ({ status, mrwit, setUser, setNewUser }) => {
         <Modal transparent={true} noButton={true} isOpen={isLoading}>
           <Loading />
         </Modal>
+        <Modal isOpen={mrwit.error} onClose={clear}>
+          <Fatal message={mrwit.error} />
+        </Modal>
         <h2 className='signupConsultant__text__h2'>¡Lleva tu talento a todo el mundo!</h2>
         <div className='signup__container'>
           <div className='signup__form__indicator'>
@@ -1051,6 +1055,9 @@ const Signup = ({ status, mrwit, setUser, setNewUser }) => {
         <Modal transparent={true} noButton={true} isOpen={isLoading}>
           <Loading />
         </Modal>
+        <Modal isOpen={mrwit.error} onClose={clear}>
+          <Fatal message={mrwit.error} />
+        </Modal>
         <img src={icon} alt='icon' className='signup__icon' />
         <h2 className='signup__text'>¡Un momento! Antes de pasar a la llamada debes registrarte</h2>
         <div className='signup__container'>
@@ -1254,6 +1261,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setUser: (e) => dispatch(setUser(e)),
     setNewUser: (e) => dispatch(setNewUser(e)),
+    clear: () => dispatch(clearSearch()),
   };
 };
 

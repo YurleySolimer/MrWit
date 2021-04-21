@@ -8,7 +8,7 @@ import { getConsultants } from '../actions/mrwit';
 import '../assets/styles/components/Results.scss';
 import noresults from '../assets/static/icons/noresults.svg';
 
-const Results = ({ consultantData }) => {
+const Results = ({ consultantData, goBack }) => {
 
   const getCountry = (value) => {
     switch (value) {
@@ -67,6 +67,10 @@ const Results = ({ consultantData }) => {
     }
   };
 
+  const handleBack = () => {
+    goBack();
+  };
+
   return consultantData.isLoading ? (
     <h2>Loading</h2>
   ) : consultantData.error ? (
@@ -113,7 +117,7 @@ const Results = ({ consultantData }) => {
                   <br />
                   <p>¿Por qué no intentas más tarde o pruebas haciendo una busqueda diferente?</p>
                   <br />
-                  <Link to='/buscar'>Buscar otra vez</Link>
+                  <button type='button' onClick={handleBack}>Buscar otra vez</button>
                 </div>
               </div>
             )

@@ -190,7 +190,7 @@ fbCtrl.postLoginFB = async (req, res) => {
 
     else if (!userFound) {          
         
-        res.status(400).json({message: 'user not found'});
+        res.json({message: 'user not found'});
     }
     
 }

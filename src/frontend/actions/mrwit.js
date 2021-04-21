@@ -47,16 +47,18 @@ export const loginUserFailure = (error) => {
 export const loginUser = (arr) => {
   return (dispatch) => {
     dispatch(loginUserRequest());
-    try {
-      axios.post(`${axios.defaults.baseURL}${arr[0]}`, arr[1], arr[2])
-        .then((res) => {
-          arr[3](res.data);
-          dispatch(loginUserSuccess());
-          dispatch(redirect(arr[4]));
-        });
-    } catch (error) {
-      dispatch(loginUserFailure(error.message));
-    }
+    axios.post(`${axios.defaults.baseURL}${arr[0]}`, arr[1], arr[2])
+      .then((res) => {
+        if (res.data.message) {
+          throw res.data.message;
+        }
+        arr[3](res.data);
+        dispatch(loginUserSuccess());
+        dispatch(redirect(arr[4]));
+      })
+      .catch((err) => {
+        dispatch(loginUserFailure(err));
+      });
   };
 };
 export const setNewUserRequest = () => {
@@ -81,16 +83,15 @@ export const setNewUserFailure = (error) => {
 export const setNewUser = (arr) => {
   return (dispatch) => {
     dispatch(setNewUserRequest());
-    try {
-      axios.post(`${axios.defaults.baseURL}/signup`, arr[0], arr[1])
-        .then((res) => {
-          arr[3](res.data);
-          dispatch(setNewUserSuccess());
-          dispatch(redirect(arr[2]));
-        });
-    } catch (error) {
-      dispatch(setNewUserFailure(error.message));
-    }
+    axios.post(`${axios.defaults.baseURL}/signup`, arr[0], arr[1])
+      .then((res) => {
+        if (res.data.message) {
+          throw res.data.message;
+        }
+        arr[3](res.data);
+        dispatch(setNewUserSuccess());
+        dispatch(redirect(arr[2]));
+      });
   };
 };
 
@@ -117,20 +118,18 @@ export const getConsultantsFailure = (error) => {
 export const getConsultants = (arr) => {
   return (dispatch) => {
     dispatch(getConsultantsRequest());
-    try {
-      axios.post(`${axios.defaults.baseURL}/busqueda`, arr[0])
-        .then((response) => {
-          const consultants = response.data;
-          dispatch(getConsultantsSuccess(consultants));
-          dispatch(redirect(arr[1]));
-        })
-        .catch((error) => {
-          console.log('error');
-          dispatch(getConsultantsFailure(error.message));
-        });
-    } catch (err) {
-      dispatch(getConsultantsFailure(err.message));
-    }
+    axios.post(`${axios.defaults.baseURL}/busqueda`, arr[0])
+      .then((response) => {
+        if (res.data.message) {
+          throw res.data.message;
+        }
+        const consultants = response.data;
+        dispatch(getConsultantsSuccess(consultants));
+        dispatch(redirect(arr[1]));
+      })
+      .catch((error) => {
+        dispatch(getConsultantsFailure(error));
+      });
   };
 };
 
@@ -161,18 +160,16 @@ export const getConsultantFailure = (error) => {
 export const getConsultant = (id) => {
   return (dispatch) => {
     dispatch(getConsultantRequest());
-    console.log('estoy en el dispatch de getConsultant');
     axios.get(`${axios.defaults.baseURL}/consultor/${id}`)
       .then((response) => {
+        if (res.data.message) {
+          throw res.data.message;
+        }
         const consultant = response.data;
-        console.log(response);
-        console.log('Se consiguieron los consultores');
         dispatch(getConsultantSuccess(consultant));
       })
       .catch((error) => {
-        console.log('error');
-
-        dispatch(getConsultantFailure(error.message));
+        dispatch(getConsultantFailure(error));
       });
   };
 };
@@ -204,13 +201,14 @@ export const getWallet = () => {
     dispatch(getWalletRequest());
     axios.get(`${axios.defaults.baseURL}/user/client/:id/wallet`)
       .then((response) => {
+        if (res.data.message) {
+          throw res.data.message;
+        }
         const client = response.data;
         dispatch(getWalletSuccess(client));
       })
       .catch((error) => {
-        console.log('error');
-
-        dispatch(getWalletFailure(error.message));
+        dispatch(getWalletFailure(error));
       });
   };
 };
@@ -242,12 +240,13 @@ export const getHistory = () => {
     dispatch(getHistoryRequest());
     axios.get(`${axios.defaults.baseURL}/user/client/:id/history`)
       .then((response) => {
+        if (res.data.message) {
+          throw res.data.message;
+        }
         const client = response.data;
         dispatch(getHistorySuccess(client));
       })
       .catch((error) => {
-        console.log('error');
-
         dispatch(getHistoryFailure(error.message));
       });
   };
@@ -280,13 +279,14 @@ export const getAgenda = () => {
     dispatch(getAgendaRequest());
     axios.get(`${axios.defaults.baseURL}/user/client/:id/agenda`)
       .then((response) => {
+        if (res.data.message) {
+          throw res.data.message;
+        }
         const client = response.data;
         dispatch(getAgendaSuccess(client));
       })
       .catch((error) => {
-        console.log('error');
-
-        dispatch(getAgendaFailure(error.message));
+        dispatch(getAgendaFailure(error));
       });
   };
 };

@@ -1,11 +1,11 @@
 const authCtrl = {};
+const jwt = require('jsonwebtoken');
+const { cli } = require('webpack');
 const User = require('../models/Users');
 const Consultor = require('../models/Consultor');
 const Client = require('../models/Client');
-const jwt = require('jsonwebtoken');
 const config = require('../config');
 const Roles = require('../models/Roles');
-const { cli } = require('webpack');
 const { populate } = require('../models/Users');
 
 
@@ -235,10 +235,10 @@ authCtrl.postNewUser = async (req, res, next) => {
 
 authCtrl.postSignIn = async (req, res) => {
    const userFound = await User.findOne({email: req.body.email}).populate("rol");
-    if (!userFound) return res.json({message: "User not found"});
+    if (!userFound) return res.json({ message: "No se encontró el usuario" });
 
    const matchPassword = await User.comparePassword(req.body.password, userFound.password);
-   if(!matchPassword) return res.status(401).json({token: null, message: "Invalid password"});
+   if(!matchPassword) return res.json({ token: null, message: "Contraseña incorrecta" });
    
    const token = jwt.sign({id: userFound._id}, config.SECRET, {
        expiresIn: 315360000
