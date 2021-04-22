@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import '../assets/styles/components/SelectionIntro.scss';
 import comment from '../assets/static/assets/comment.png';
 
@@ -10,9 +9,6 @@ const SelectionIntro = ({ children }) => {
       <p aria-label='Te conectamos con el consultor a tu medida y paga por minuto.'>{' '}</p>
       <div className='logoSpace'>{' '}</div>
       {children}
-      <p className='alreadyAccount'>
-        ¿Ya tienes cuenta? <Link to='/login'><b>Inicia sesión</b></Link>
-      </p>
     </div>
   );
 };
