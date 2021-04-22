@@ -301,6 +301,10 @@ const Signup = ({ status, mrwit, setUser, setNewUser, clear }) => {
     }
   }
 
+  const handleBecomeConsultant = () => {
+    setUser({ rol: { name: 'consultant' } });
+  }
+
   function validate(name, value) {
 
     let valid = false;
@@ -991,7 +995,7 @@ const Signup = ({ status, mrwit, setUser, setNewUser, clear }) => {
                 <div><small className='signup__error'>{errors.abilities.message}</small></div>
 
                 <label htmlFor='cv' className='signup__input__cv'>
-                  <h3 className='signup__input__cv__title'>Ajunta tu hoja de vida (PDF)</h3>
+                  <h3 className='signup__input__cv__title'>Adjunta tu hoja de vida (PDF)</h3>
                   <input
                     type='file'
                     name='cv'
@@ -1167,7 +1171,13 @@ const Signup = ({ status, mrwit, setUser, setNewUser, clear }) => {
                   onFailure={handleSignupGoogle}
                   cookiePolicy='single_host_origin'
                 />
-
+                <div className="signup__login">
+                  <br />
+                  <small>
+                    ¿Ya tienes cuenta?
+                    <Link to='/login'>{' '} Inicia sesión</Link>
+                  </small>
+                </div>
               </fieldset>
 
               <fieldset className='signup__form__fieldset right client'>
@@ -1240,8 +1250,8 @@ const Signup = ({ status, mrwit, setUser, setNewUser, clear }) => {
 
         <div className='signup__login'>
           <small>
-            ¿Ya tienes cuenta?
-            <Link to='/login'>  Inicia sesión</Link>
+            ¿Quieres es ser consultor?
+            <Link to='/signup' onClick={handleBecomeConsultant}>  Registrate aquí</Link>
           </small>
         </div>
         <img src={background} alt='icon' className='signup__background' />

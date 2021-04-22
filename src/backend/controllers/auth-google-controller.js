@@ -207,8 +207,8 @@ googleCtrl.postLoginGoogle = async (req, res) => {
          }
     }
 
-    else if (!userFound) {        
-        res.status(400).json({message: 'User not found'});
+    else if (!userFound) {
+        res.json({message: 'User not found'});
     }
 }
 

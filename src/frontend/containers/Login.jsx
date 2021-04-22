@@ -49,6 +49,10 @@ const Login = (props) => {
     history.push('/signup');
   }
 
+  function handleClient() {
+    props.setUser({ rol: { name: 'client' } });
+  }
+
   function handleLogin() {
     const user = {
       email: email.value,
@@ -168,7 +172,7 @@ const Login = (props) => {
         <div className='login__footer'>
           <span className='signup__link'>
             ¿No tienes cuenta?
-            <Link to='/signup'><b> Regístrate</b></Link>
+            <Link to='/signup' onClick={handleClient}><b> Regístrate</b></Link>
           </span>
           <span className='signup__link'>
             ¿Quieres ser consultor?

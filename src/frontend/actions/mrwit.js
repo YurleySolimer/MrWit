@@ -91,6 +91,9 @@ export const setNewUser = (arr) => {
         arr[3](res.data);
         dispatch(setNewUserSuccess());
         dispatch(redirect(arr[2]));
+      })
+      .catch((err) => {
+        dispatch(setNewUserFailure(err));
       });
   };
 };
