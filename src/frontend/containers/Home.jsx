@@ -180,15 +180,18 @@ const Home = (props) => {
       <SelectionIntro>
         <div className='cardButton'>
           <button type='button' className='CardClientSelection' onClick={handleClickClients}>
-            Clientes
+            ¡Haz una consulta!
           </button>
-          <h3 className='cardButton__title'>¡CONSULTAR AHORA!</h3>
+          <h3 className='cardButton__title'>Recibe respuesta en minutos</h3>
         </div>
         <div className='cardButton'>
           <button type='button' className='CardConsultorSelection' onClick={handleClickConsultants}>
-            Consultores
+            Ser Consultor
           </button>
-          <h3 className='cardButton__title'>¡REGÍSTRATE!</h3>
+        </div>
+        <div className='alreadyAccount'>
+          <p>¿Sin nada que buscar por ahora? <Link to='/signup'><b>Registrate</b></Link></p>
+          <p>¿Ya tienes cuenta? <Link to='/login'><b>Inicia sesión</b></Link></p>
         </div>
       </SelectionIntro>
     </div>

@@ -12,6 +12,7 @@ import HistoryList from '../components/HistoryList';
 import CallingModal from '../portals/Calling';
 import Loading from '../components/Loading';
 import Modal from '../portals/Modal';
+import Fatal from '../components/Fatal';
 
 import '../assets/styles/portals/Modal.scss';
 import close from '../assets/static/icons/closeDark.svg';
@@ -19,7 +20,7 @@ import close from '../assets/static/icons/closeDark.svg';
 const Consultant = (props) => {
 
   const history = useHistory();
-  const { getConsultant, consultantData, statusData } = props;
+  const { getConsultant, consultantData, statusData, clear } = props;
   const [isOpen, setIsOpen] = useState(false);
 
   const getCountry = (value) => {
@@ -228,8 +229,11 @@ const Consultant = (props) => {
   const infoConsultorOffline = () => {
     return (
       <>
-        <Modal isOpen={consultantData.isLoading}>
+        <Modal transparent={true} noButton={true} isOpen={consultantData.isLoading}>
           <Loading />
+        </Modal>
+        <Modal isOpen={consultantData.error}>
+          <Fatal message={consultantData.error} onClose={clear} />
         </Modal>
         <div className='consultant__since'>
           <span>{consultantData.consultant.category}</span>
@@ -370,7 +374,7 @@ const Consultant = (props) => {
     return consultantData.isLoading ? (
       <Loading />
     ) : consultantData.error ? (
-      <h2>{consultantData.error}</h2>
+      <Fatal message={consultantData.error} />
     ) : (
       <div className='consultant__page'>
         <Link to='/resultados' className='consultant__back__button'><img src={back} alt='Volver a los resultados' /></Link>
@@ -382,7 +386,7 @@ const Consultant = (props) => {
   return consultantData.isLoading ? (
     <Loading />
   ) : consultantData.error ? (
-    <h2>{consultantData.error}</h2>
+    <Fatal message={consultantData.error} />
   ) : (
     <div className='consultant__page' onScroll={handleHeader} id='consultant__page'>
       <Link to='/resultados' className='consultant__back__button'><img src={back} alt='Volver a los resultados' /></Link>
@@ -402,6 +406,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getConsultant: (id) => dispatch(mrwitActions.getConsultant(id)),
     setHeader: (value) => dispatch(statusActions.setHeader(value)),
+    clear: () => dispatch(mrwitActions.clearSearch()),
   };
 };
 

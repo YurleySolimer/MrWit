@@ -13,6 +13,7 @@ const client = new OAuth2Client('1070484053881-kie1fjjloi981aesbh7538h6h724g1g9.
 
 
 googleCtrl.postAuthGoogle = async (req, res) => {
+    console.log('Entré en googleCtrl.postAuthGoogle');
     const { token }  = req.body
     const ticket = await client.verifyIdToken({
         idToken: token,
@@ -36,7 +37,7 @@ googleCtrl.postAuthGoogle = async (req, res) => {
              };        
              await Client.findOneAndUpdate({ email: req.body.email }, NewStatatus);  
      
-             const cliente =  await Client.findOne({email: req.body.email});
+             const cliente = await Client.findOne({email: req.body.email});
              const userCliente = {
                  name: userFound.name || '',
                  lastname: userFound.lastname || '',
@@ -207,6 +208,7 @@ googleCtrl.postLoginGoogle = async (req, res) => {
          }
     }
 
+<<<<<<< HEAD
     else if (!userFound) {        
         const newUser = new User ({
             name,
@@ -256,6 +258,10 @@ googleCtrl.postLoginGoogle = async (req, res) => {
         }
         console.log("new user created");
         res.status(200).json(userCliente);
+=======
+    else if (!userFound) {
+        res.json({message: 'User not found'});
+>>>>>>> bf261af7f27eb562d50431c214eb0e78457a48d2
     }
 }
 

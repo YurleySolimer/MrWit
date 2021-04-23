@@ -152,7 +152,7 @@ mrwitCtrl.getConsultor = async (req, res) => {
     res.status(200).json(userConsultor);
     }
     else if (!consultor) {
-        res.status(404).json({message: 'Not Found'});
+        res.json({message: 'Not Found'});
     }
 };
 

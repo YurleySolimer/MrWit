@@ -190,6 +190,7 @@ fbCtrl.postLoginFB = async (req, res) => {
 
     else if (!userFound) {          
         
+<<<<<<< HEAD
         const newUser = new User ({
             name,
             email,
@@ -235,6 +236,9 @@ fbCtrl.postLoginFB = async (req, res) => {
         }
         console.log("new user created");
         res.status(200).json(userCliente);
+=======
+        res.json({message: 'user not found'});
+>>>>>>> bf261af7f27eb562d50431c214eb0e78457a48d2
     }
     
 }
