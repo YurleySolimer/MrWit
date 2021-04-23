@@ -77,10 +77,11 @@ io.on('connection', socket => {
 
 
 
-
-
 //Routes
-
+app.get('/', (req, res) => {
+    res.send('Welcome to sockets in MrWit');
+})
+   
 
 //SOCKET SERVER
 server.listen(4000, function() {

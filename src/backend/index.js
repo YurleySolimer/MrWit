@@ -39,7 +39,8 @@ app.set('port', process.env.PORT || 3000);
 //Middelwares
 
 app.use(express.urlencoded({limit: '500mb', extended: false}));
-app.use(express.json({limit: '500mb', extended: true}));app.use(morgan('dev'));
+app.use(express.json({limit: '500mb', extended: true}));
+app.use(morgan('dev'));
 app.use(session({
     resave: false,
     saveUninitialized: true,
@@ -49,6 +50,7 @@ app.use(session({
 //Static Files
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.static(path.join(__dirname, '/images')));
+
 
 //Passport setting
 app.use(passport.initialize());
@@ -81,7 +83,7 @@ app.use(require('./routes/blog'));
 app.use(require('./routes/auth'));
 app.use(require('./routes/auth-google'));
 app.use(require('./routes/auth-fb'));
-
+app.use(require('./routes/pay'));
 
 
 

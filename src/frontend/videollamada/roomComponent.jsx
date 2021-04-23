@@ -93,7 +93,10 @@ const Room = (props) => {
     useEffect(() => {
 		const URL = process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : 'https://mrwit.co/socket/' || 'http://localhost:4000' ;
 
-        socketRef.current = io.connect(URL);
+        socketRef.current = io.connect(URL, { 
+			withCredentials: true,
+			transports: ["websocket", "polling"]
+		});
 
         navigator.mediaDevices.getUserMedia({ video: videoConstraints, audio: true }).then(stream => {
             userVideo.current.srcObject = stream;
