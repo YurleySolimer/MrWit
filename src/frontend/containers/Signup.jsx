@@ -6,7 +6,7 @@ import ReactFlagsSelect from 'react-flags-select';
 import CurrencyFormat from 'react-currency-format';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-auth';
-import MyFacebookButton from '../tools/FacebookButton';
+import MyFacebookButton from '../Tools/FacebookButton';
 import { setNewUser, clearSearch } from '../actions/mrwit';
 import { setUser } from '../actions/index';
 
