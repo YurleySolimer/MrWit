@@ -6,6 +6,7 @@ import axios from 'axios';
 
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-auth';
+import MyFacebookButton from '../Tools/FacebookButton';
 import { clearSearch, loginUser } from '../actions/mrwit';
 import { setUser } from '../actions/index';
 import Modal from '../portals/Modal';
@@ -15,22 +16,9 @@ import Fatal from '../components/Fatal';
 import '../assets/styles/containers/Login.scss';
 import icon from '../assets/static/logo/mrwit-logo.png';
 import background from '../assets/static/images/background1.png';
-import facebook from '../assets/static/icons/facebook.svg';
 import linkedin from '../assets/static/icons/linkedin.svg';
 import google from '../assets/static/icons/google.svg';
 
-const MyFacebookButton = ({ onClick }) => (
-
-  <button
-    type='button'
-    onClick={onClick}
-    className='signup__facebook signup__button'
-  >
-    <img src={facebook} alt='icon' />
-    Registrarme Facebook
-  </button>
-
-);
 
 const Login = (props) => {
 

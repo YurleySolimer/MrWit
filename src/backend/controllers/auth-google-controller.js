@@ -13,6 +13,7 @@ const client = new OAuth2Client('1070484053881-kie1fjjloi981aesbh7538h6h724g1g9.
 
 
 googleCtrl.postAuthGoogle = async (req, res) => {
+    console.log('Entré en googleCtrl.postAuthGoogle');
     const { token }  = req.body
     const ticket = await client.verifyIdToken({
         idToken: token,
@@ -36,7 +37,7 @@ googleCtrl.postAuthGoogle = async (req, res) => {
              };        
              await Client.findOneAndUpdate({ email: req.body.email }, NewStatatus);  
      
-             const cliente =  await Client.findOne({email: req.body.email});
+             const cliente = await Client.findOne({email: req.body.email});
              const userCliente = {
                  name: userFound.name || '',
                  lastname: userFound.lastname || '',
