@@ -16,7 +16,7 @@ const app = express();
 
 
 var allowedOrigins = ['http://localhost:8080',
-                     'https://mrwit.co'];
+                     'https://app.mrwit.co', '*'];
 app.use(cors({
   origin: function(origin, callback){
     if(!origin) return callback(null, true);

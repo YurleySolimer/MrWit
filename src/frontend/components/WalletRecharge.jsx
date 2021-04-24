@@ -77,7 +77,11 @@ const WalletRecharge = (props) => {
   
 
   function payumoney(event) {
-//Metodo pra mostrar el checkout form  
+    data = {
+      name: 'lely',
+      email: 'blabla.com',
+      amount: '100000'
+    }
 
   }
 
