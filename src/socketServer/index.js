@@ -9,7 +9,7 @@ const server = require("http").Server(app);
 //Socket
 const io = require("socket.io")(server, {
 	cors: {
-		origin: ["https://mrwit.co", "http://localhost:8080", "https://localhost:8080" ]   ,
+		origin: ["https://mrwit.co", "http://localhost:8080", "https://localhost:8080", "*" ]   ,
 		methods: [ "GET", "POST" ],
         credentials: true,
         allowedHeaders: ["Content-Type", "Accept"],

@@ -91,11 +91,10 @@ const Room = (props) => {
 	const [yourID, setYourID] = useState();
 
      useEffect(() => {
-		const URL = 'http://localhost:4000' ;
+		const URL = process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : 'https://mrwit.co/socket' || 'http://localhost:4000' ;
 
         socketRef.current = io.connect(URL, { 
-			withCredentials: true,
-			transports: ["websocket", "polling"]
+			withCredentials: true
 		});
 
         navigator.mediaDevices.getUserMedia({ video: videoConstraints, audio: true }).then(stream => {
