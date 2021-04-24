@@ -52,6 +52,21 @@ const SearchType = (props) => {
     );
   }
 
+  if (value) {
+    return (
+      <div className='SearchType'>
+        <h2>
+          No tenemos
+          {value}
+          {' '}
+          entre nuestros Sectores o Profesiones ¿Qué tal si buscas por...?
+        </h2>
+        <button type='button' className='ability' onClick={handleAbility}>Habilidad</button>
+        <button type='button' className='id' onClick={handleID}>ID</button>
+      </div>
+    );
+  }
+
   return (
     <div className='SearchType'>
       <h2>¿Qué quieres buscar?</h2>
@@ -61,6 +76,7 @@ const SearchType = (props) => {
       <button type='button' className='id' onClick={handleID}>ID</button>
     </div>
   );
+
 };
 
 export default SearchType;
