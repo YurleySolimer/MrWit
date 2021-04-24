@@ -1,0 +1,111 @@
+@import '../Vars';
+
+.header {
+    width: 100vw;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    background: transparent;
+    z-index: 4;
+    box-shadow: none;
+    transition: all .3s ease;
+}
+
+.header.active {
+    background: rgb(241, 241, 241);
+    box-shadow: $outter-shadow;
+}
+
+.header__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 20px 12px;
+}
+
+
+.header__container__img {
+    width: 60px;
+    height: auto;
+}
+
+.header__container__button {
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.config__menu {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    transform: translateX(100%);
+    background-color: rgba($color: #313131, $alpha: 0.7);
+    transition: .5s ease transform;
+}
+
+.config__menu.active {
+    transform: translateX(0);
+}
+
+.config__menu__close {
+    background-color: transparent;
+    border: none;
+    padding: 15px 10px;
+    margin: 20px;
+    float: right;
+}
+
+.config__menu__body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100% - 80px);
+    width: 100%;
+}
+
+.config__menu__body ul {
+    padding: 0;
+}
+
+.config__menu__body ul li {
+    padding: 30px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.config__menu__body ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    font-family: $h-regular;
+}
+
+.config__menu__body ul li button {
+    color: white;
+    background-color: transparent;
+    border: none;
+    font-family: 'Arial Narrow';
+    font-size: 24px;
+}
+
+.config__menu__body ul li:nth-child(2) {
+    border-top: 1px solid white; 
+    border-bottom: 1px solid white; 
+}
+
+#headerOpenMenu.hidden {
+    display: none;
+}

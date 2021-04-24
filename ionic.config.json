@@ -1,0 +1,7 @@
+{
+    "name": "MrWit",
+    "integrations": {
+      "capacitor": {}
+    },
+    "type": "react"
+  }

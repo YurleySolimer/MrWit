@@ -1,0 +1,38 @@
+@import '../Vars';
+
+.CancelRecharge {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+
+    & img {}
+
+    & h2 {
+        font-weight: 600;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    & .buttons {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+
+        & button {
+            width: 100px;
+            padding: 10px 0;
+            background-color: white;
+            border-radius: 5px;
+            font-size: 16px;
+            color: $gray;
+            border: none;
+            box-shadow: $outter-shadow;
+        }
+
+        & .cancel_recharge_button {
+            color: $red;
+        }
+    }
+}

@@ -1,0 +1,62 @@
+@import '../Vars.scss';
+
+.SearchElements {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.SearchElements__circle {
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    box-shadow: $outter-shadow;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.SearchElements__title {
+    margin: 5px
+}
+
+.one, .two, .three, .four, .five, .six, .seven, .eight {
+    display: grid;
+    text-decoration: none;
+    font-size: 11px;
+    color: $gray;
+}
+
+.one {
+    grid-area: one;
+}
+
+.two {
+    grid-area: two;
+}
+
+.three {
+    grid-area: three;
+}
+
+.four {
+    grid-area: four;
+}
+
+.five {
+    grid-area: five;
+}
+
+.six {
+    grid-area: six;
+}
+
+.seven {
+    grid-area: seven;
+}
+
+.eight {
+    grid-area: eight;
+}

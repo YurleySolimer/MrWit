@@ -1,0 +1,60 @@
+@import '../Vars';
+
+.cardButton {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 20px;
+    right: -100%;
+    animation: getInButtons .75s ease forwards 6s;
+
+    & h3 {
+        text-align: center;
+        margin: 0;
+        width: 100%;
+        font-weight: 600;
+        font-size: 16px;
+        color: $half-gray;
+    }
+}
+
+@keyframes getInButtons {
+    from {
+        right: -100%;
+    }
+    to {
+        right: 0;
+    }
+}
+
+.cardButton__title {
+    color: $gray;
+    width: 40%;
+    height: auto;
+    margin: auto 0 auto 20px;
+}
+
+.CardConsultorSelection, .CardClientSelection {
+    margin: 10px auto;
+    padding: 10px 20px;
+    color: white;
+    width: 200px;
+    border-radius: 5px;
+    box-shadow: $outter-shadow;
+    text-align: center;
+    font-family: $h-regular;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 20px;
+    border: none;
+}
+
+.CardConsultorSelection {
+    background-color: $blue;
+}
+
+.CardClientSelection {
+    background: $yellow;
+}

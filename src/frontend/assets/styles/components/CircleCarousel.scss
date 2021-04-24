@@ -1,0 +1,218 @@
+@import '../Vars.scss';
+
+.circle-container {
+    position: relative;
+    width: 16em;
+    height: 16em;
+    padding: 0;
+    border-radius: 50%;
+    list-style: none;
+    margin: 5em auto 0;
+
+    >* {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 6em;
+        height: 6em;
+        margin: -(6em / 2);
+
+        &:nth-of-type(1) {
+            transform:
+                rotate(270deg) translate(8em) rotate(-270deg)
+        }
+
+        &:nth-of-type(2) {
+            transform:
+                rotate(315deg) translate(8em) rotate(-315deg)
+        }
+
+        &:nth-of-type(3) {
+            transform:
+                rotate(0deg) translate(8em) rotate(0deg)
+        }
+
+        &:nth-of-type(4) {
+            transform:
+                rotate(45deg) translate(8em) rotate(-45deg)
+        }
+
+        &:nth-of-type(5) {
+            transform:
+                rotate(90deg) translate(8em) rotate(-90deg)
+        }
+
+        &:nth-of-type(6) {
+            transform:
+                rotate(135deg) translate(8em) rotate(-135deg)
+        }
+
+        &:nth-of-type(7) {
+            transform:
+                rotate(180deg) translate(8em) rotate(-180deg)
+        }
+
+        &:nth-of-type(8) {
+            transform:
+                rotate(225deg) translate(8em) rotate(-225deg)
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+            border-radius: 50%;
+            transition: .15s;
+
+            &:hover,
+            &:active {
+                filter: grayscale(0);
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 400px) {
+    
+    .circle-container {
+        position: relative;
+        width: 20em;
+        height: 20em;
+        padding: 0;
+        border-radius: 50%;
+        list-style: none;
+        margin: 5em auto 0;
+    
+        >* {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 6em;
+            height: 6em;
+            margin: -(6em / 2);
+    
+            &:nth-of-type(1) {
+                transform:
+                    rotate(270deg) translate(10em) rotate(-270deg)
+            }
+    
+            &:nth-of-type(2) {
+                transform:
+                    rotate(315deg) translate(10em) rotate(-315deg)
+            }
+    
+            &:nth-of-type(3) {
+                transform:
+                    rotate(0deg) translate(10em) rotate(0deg)
+            }
+    
+            &:nth-of-type(4) {
+                transform:
+                    rotate(45deg) translate(10em) rotate(-45deg)
+            }
+    
+            &:nth-of-type(5) {
+                transform:
+                    rotate(90deg) translate(10em) rotate(-90deg)
+            }
+    
+            &:nth-of-type(6) {
+                transform:
+                    rotate(135deg) translate(10em) rotate(-135deg)
+            }
+    
+            &:nth-of-type(7) {
+                transform:
+                    rotate(180deg) translate(10em) rotate(-180deg)
+            }
+    
+            &:nth-of-type(8) {
+                transform:
+                    rotate(225deg) translate(10em) rotate(-225deg)
+            }
+    
+            img {
+                display: block;
+                max-width: 100%;
+                border-radius: 50%;
+                transition: .15s;
+    
+                &:hover,
+                &:active {
+                    filter: grayscale(0);
+                }
+            }
+        }
+    }
+}
+
+.CircleCarousel {
+    display: flex;
+    flex-direction: column;
+
+    & .CircleCarousel__carousel {
+        position: relative;
+        width: 100%;
+    }
+
+    & .CircleCarousel__list {
+        display: flex;
+        flex-wrap: wrap;
+        display: none;
+        justify-content: center;
+    }
+}
+
+.CircleCarousel.active {
+    display: flex;
+    flex-direction: column;
+    transition: all .5s ease;
+
+    & .CircleCarousel__carousel {
+        position: relative;
+        width: 100%;
+        display: none;
+    }
+
+    & .CircleCarousel__list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+.Search-Item {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+}
+
+
+.CircleCarousel__list.element {
+    background: white;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: $outter-shadow;
+}
+
+.CircleCarousel__list.element.back {
+    background-color: $blue;
+}
+
+button.SearchElements {
+    background-color: transparent;
+    border: none;
+}
+
+.SearchElements.more .SearchElements__circle {
+    background-color: $blue;
+}

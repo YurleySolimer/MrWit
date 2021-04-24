@@ -1,0 +1,8 @@
+{
+    "appId": "io.ionic.MrWit",
+    "appName": "MrWit",
+    "bundledWebRuntime": false,
+    "npmClient": "npm",
+    "webDir": "dist",
+    "cordova": {}
+  }

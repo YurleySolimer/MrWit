@@ -1,0 +1,47 @@
+@import './Vars.scss';
+@import './Media.scss';
+
+body {
+    margin: 0px;
+    background-color: white;
+    font-family: $p-regular, sans-serif;
+    color: $gray;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h1 {
+    font-family: $h-bold, sans-serif;
+}
+
+h2 {
+    font-weight: 100;
+    font-family: $font-special, sans-serif;
+}
+
+h3 {
+    font-family: $h-regular, sans-serif;
+}
+
+p {
+    font-size: 16px;
+}
+
+a {
+    color: $gray;
+    text-decoration: none;
+}
+
+// Components
+
+button:focus {
+    outline: none;
+}
+
+.App {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+}
