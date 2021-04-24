@@ -126,6 +126,7 @@ export const getConsultants = (arr) => {
         if (res.data.message) {
           throw res.data.message;
         }
+        console.log(res.data);
         const consultants = res.data;
         dispatch(getConsultantsSuccess(consultants));
         dispatch(redirect(arr[1]));

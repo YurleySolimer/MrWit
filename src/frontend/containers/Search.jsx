@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
 
 import '../assets/styles/containers/Search.scss';
 import '../assets/styles/components/Searcher.scss';
@@ -24,8 +23,6 @@ const Search = (props) => {
   const { status, mrwit, getConsultants, clear } = props;
   const { user } = status;
   const { isLoading, redirectTo } = mrwit;
-
-  const history = useHistory();
 
   // El tipo indica el tipo de busqueda que se está realizando (Sector, Profesión, Habilidad, ID)
   const [type, setType] = useState('');
@@ -68,7 +65,12 @@ const Search = (props) => {
 
   useEffect(() => {
     if (type === 'profession' && !ready) {
-      if (valueSelection !== '' && specialities === []) {
+      if (valueResult === '' && valueSelection !== '') {
+        const data = new FormData();
+        data.append('profession', valueSelection);
+        setQueryParams(data);
+        setReady(true);
+      } else if (valueSelection !== '' && specialities === []) {
         const data = new FormData();
         data.append('proffession', valueResult);
         setQueryParams(data);
@@ -89,7 +91,12 @@ const Search = (props) => {
         data.append('proffession', valueSelection);
         setQueryParams(data);
         setReady(true);
-      }
+      } else if (valueResult === '' && valueSelection !== '') {
+        const data = new FormData();
+        data.append('category', valueSelection);
+        setQueryParams(data);
+        setReady(true);
+      };
     }
   }, [valueSelection]);
 

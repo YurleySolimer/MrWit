@@ -113,11 +113,11 @@ const Results = ({ consultantData, goBack }) => {
               <div className='Consultant__result'>
                 <div className='Results__profiles__profile no_results'>
                   <img src={noresults} alt='No hay resultados' className='OtherResults__noresults__img' />
-                  <p>Parece que no hay consultores conectados estas caracteristicas en este momento.</p>
+                  <p>Parece que no hay consultores conectados con estas caracteristicas en este momento.</p>
                   <br />
                   <p>¿Por qué no intentas más tarde o pruebas haciendo una busqueda diferente?</p>
                   <br />
-                  <button type='button' onClick={handleBack}>Buscar otra vez</button>
+                  <button className='Consultant__result--noresults' type='button' onClick={handleBack}>Buscar otra vez</button>
                 </div>
               </div>
             )
