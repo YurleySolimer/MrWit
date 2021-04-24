@@ -90,8 +90,8 @@ const Room = (props) => {
   	const [message, setMessage] = useState("");
 	const [yourID, setYourID] = useState();
 
-    useEffect(() => {
-		const URL = process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : 'https://mrwit.co/socket/' || 'http://localhost:4000' ;
+     useEffect(() => {
+		const URL = 'http://localhost:4000' ;
 
         socketRef.current = io.connect(URL, { 
 			withCredentials: true,
