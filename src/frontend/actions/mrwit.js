@@ -122,11 +122,12 @@ export const getConsultants = (arr) => {
   return (dispatch) => {
     dispatch(getConsultantsRequest());
     axios.post(`${axios.defaults.baseURL}/busqueda`, arr[0])
-      .then((response) => {
+      .then((res) => {
         if (res.data.message) {
           throw res.data.message;
         }
-        const consultants = response.data;
+        console.log(res.data);
+        const consultants = res.data;
         dispatch(getConsultantsSuccess(consultants));
         dispatch(redirect(arr[1]));
       })
@@ -145,7 +146,7 @@ export const getConsultantRequest = () => {
 };
 
 export const getConsultantSuccess = (consultant) => {
-  console.log('entre en getConsultantSuccess')
+  console.log('entre en getConsultantSuccess');
   return {
     type: GET_CONSULTANT_SUCCESS,
     payload: consultant,
@@ -153,7 +154,7 @@ export const getConsultantSuccess = (consultant) => {
 };
 
 export const getConsultantFailure = (error) => {
-  console.log('entre en getConsultantFailure')
+  console.log('entre en getConsultantFailure');
   return {
     type: GET_CONSULTANT_FAILURE,
     payload: error,
@@ -164,11 +165,11 @@ export const getConsultant = (id) => {
   return (dispatch) => {
     dispatch(getConsultantRequest());
     axios.get(`${axios.defaults.baseURL}/consultor/${id}`)
-      .then((response) => {
+      .then((res) => {
         if (res.data.message) {
           throw res.data.message;
         }
-        const consultant = response.data;
+        const consultant = res.data;
         dispatch(getConsultantSuccess(consultant));
       })
       .catch((error) => {
@@ -203,11 +204,11 @@ export const getWallet = () => {
   return (dispatch) => {
     dispatch(getWalletRequest());
     axios.get(`${axios.defaults.baseURL}/user/client/:id/wallet`)
-      .then((response) => {
+      .then((res) => {
         if (res.data.message) {
           throw res.data.message;
         }
-        const client = response.data;
+        const client = res.data;
         dispatch(getWalletSuccess(client));
       })
       .catch((error) => {
@@ -242,11 +243,11 @@ export const getHistory = () => {
   return (dispatch) => {
     dispatch(getHistoryRequest());
     axios.get(`${axios.defaults.baseURL}/user/client/:id/history`)
-      .then((response) => {
+      .then((res) => {
         if (res.data.message) {
           throw res.data.message;
         }
-        const client = response.data;
+        const client = res.data;
         dispatch(getHistorySuccess(client));
       })
       .catch((error) => {
@@ -281,11 +282,11 @@ export const getAgenda = () => {
   return (dispatch) => {
     dispatch(getAgendaRequest());
     axios.get(`${axios.defaults.baseURL}/user/client/:id/agenda`)
-      .then((response) => {
+      .then((res) => {
         if (res.data.message) {
           throw res.data.message;
         }
-        const client = response.data;
+        const client = res.data;
         dispatch(getAgendaSuccess(client));
       })
       .catch((error) => {

@@ -100,3 +100,15 @@
     padding: 10px;
     text-align: center;
 }
+
+.Consultant__result--noresults {
+    border: none;
+    border-radius: 5px;
+    box-shadow: $outter-shadow;
+    background-color: $gray;
+    color: white;
+    height: 35px;
+    font-size: 1.2em;
+    width: 200px;
+    margin: auto;
+}

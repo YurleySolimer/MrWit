@@ -15,10 +15,32 @@ const Searcher = (props) => {
     setIsOpen(false);
   }
 
-  function handleOpen(e) {
+  function handleChange(e) {
+    setValue(e.target.value);
+  }
+
+  function handleClick() {
+
     const input = document.getElementById('searcher');
     setValue(input.value);
-    setIsOpen(true);
+    const regSector = /( - Sector)/g;
+    const regProfesion = /( - Profesión)/g;
+
+    const sector = regSector.test(input.value);
+    const profesion = regProfesion.test(input.value);
+
+    if (sector) {
+      setType('sector');
+      const val = input.value.replace(' - Sector', '');
+      setValueResult(val);
+    } else if (profesion) {
+      setType('profession');
+      const val = input.value.replace(' - Profesión', '');
+      setValueResult(val);
+    } else {
+      setIsOpen(true);
+    }
+
   }
 
   function autocomplete(inp, arr) {
@@ -132,8 +154,8 @@ const Searcher = (props) => {
   if (isHome) {
     return (
       <div className='Search autocomplete'>
-        <input type='text' placeholder='¿Qué necesitas?' className='Search__input' id='searcher' />
-        <button type='submit' onClick={handleOpen} className='Search__submit'>
+        <input type='text' placeholder='¿Qué necesitas?' value={value} onChange={handleChange} className='Search__input' id='searcher' />
+        <button type='submit' onClick={handleClick} className='Search__submit'>
           <img src={lupa} alt='Buscador' />
         </button>
         <Modal isOpen={isOpen} onClose={handleClose}>
@@ -146,8 +168,8 @@ const Searcher = (props) => {
   if (isOffline) {
     return (
       <div className='Search autocomplete offline'>
-        <input type='text' placeholder='¿Qué necesitas?' className='Search__input' id='searcher' />
-        <button type='submit' onClick={handleOpen} className='Search__submit'>
+        <input type='text' placeholder='¿Qué necesitas?' value={value} onChange={handleChange} className='Search__input' id='searcher' />
+        <button type='submit' onClick={handleClick} className='Search__submit'>
           <img src={lupa} alt='Buscador' />
         </button>
         <Modal isOpen={isOpen} onClose={handleClose}>
@@ -159,8 +181,8 @@ const Searcher = (props) => {
 
   return (
     <div className='Search autocomplete'>
-      <input type='text' placeholder='¿Qué necesitas?' className='Search__input' id='searcher' />
-      <button type='submit' onClick={handleOpen} className='Search__submit'>
+      <input type='text' placeholder='¿Qué necesitas?' value={value} onChange={handleChange} className='Search__input' id='searcher' />
+      <button type='submit' onClick={handleClick} className='Search__submit'>
         <img src={lupa} alt='Buscador' />
       </button>
       <Modal isOpen={isOpen} onClose={handleClose}>

@@ -52,11 +52,11 @@ const Consultants = (props) => {
           </span>
           <div className='Consultants__headlin'>
             <div className='Results__headlineSearch__word'>
-              <p>{search.busqueda === 'Sector y Profesion' ? search.sector : (search.busqueda === 'Profesion y especialidad' ? search.proffession : '')}</p>
+              <p>{search.busqueda === 'Sector y Profesion' ? search.sector : (search.busqueda === 'Profesion y especialidad' ? search.proffession : (search.busqueda === 'ability' ? 'Habilidad' : ''))}</p>
               <img src={darkArrow} alt='' />
             </div>
             <div className='Results__headlineSearch__type'>
-              <p>{search.busqueda === 'Sector y Profesion' ? search.proffession : (search.busqueda === 'Profesion y especialidad' ? search.especialidad : '')}</p>
+              <p>{search.busqueda === 'Sector y Profesion' ? search.proffession : (search.busqueda === 'Profesion y especialidad' ? search.especialidad : (search.busqueda === 'ability' ? search.ability : ''))}</p>
               <img src={lightArrow} alt='' />
             </div>
             <button type='button' className='Results__headlineSearch__search' onClick={handleBack}>
@@ -88,11 +88,11 @@ const Consultants = (props) => {
     <div className='Consultants'>
       <div className='Consultants__headlin'>
         <div className='Results__headlineSearch__word'>
-          <p>{search.busqueda === 'Sector y Profesion' ? search.sector : (search.busqueda === 'Profesion y especialidad' ? search.proffession : '')}</p>
+          <p>{search.busqueda === 'Sector y Profesion' ? search.sector : (search.busqueda === 'Profesion y especialidad' ? search.proffession : (search.busqueda === 'ability' ? 'Habilidad' : ''))}</p>
           <img src={darkArrow} alt='' />
         </div>
         <div className='Results__headlineSearch__type'>
-          <p>{search.busqueda === 'Sector y Profesion' ? search.proffession : (search.busqueda === 'Profesion y especialidad' ? search.especialidad : '')}</p>
+          <p>{search.busqueda === 'Sector y Profesion' ? search.proffession : (search.busqueda === 'Profesion y especialidad' ? search.especialidad : (search.busqueda === 'ability' ? search.ability : ''))}</p>
           <img src={lightArrow} alt='' />
         </div>
         <button className='Results__headlineSearch__search' type='button' onClick={handleBack}>
