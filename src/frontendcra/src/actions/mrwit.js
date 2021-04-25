@@ -58,7 +58,6 @@ export const loginUser = (arr) => {
     dispatch(loginUserRequest());
     axios.post(`${axios.defaults.baseURL}${arr[0]}`, arr[1], arr[2])
       .then((res) => {
-        alert(res)
         if (res.data.message) {
           throw res.data;
         }
