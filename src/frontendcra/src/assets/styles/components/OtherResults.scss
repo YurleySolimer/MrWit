@@ -1,0 +1,99 @@
+@import '../Vars';
+
+.OtherResults {
+    position: relative;
+    width: 90%;
+    margin: 0 auto 30px auto;
+    padding: 10px;
+    background-color: white;
+    box-shadow: $outter-shadow;
+    border-radius: 5px;
+    z-index: -1;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+}
+.OtherResults__category {
+    font-family: $font-special;
+    font-size: 16px;
+    color: $half-gray;
+    height: 25px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    margin: 5px 10px 0px 0px;
+}
+
+.OtherResults__category__name {
+    padding-right: 5px;
+}
+
+.OtherResults__category__img {
+    max-width: 57px;
+    height: auto;
+}
+
+.OtherResults__profiles {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.profileOtherResults {
+    display: inline-block;
+    margin: auto;
+}
+
+.OtherResults__profiles__profile {
+    margin: 0 5px;
+    padding: 10px;
+    text-align: center;
+    padding-bottom: 0;
+
+    & svg {
+        display: block;
+        margin: auto;
+    }
+}
+
+.OtherResults__profiles__profile .profile__img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-size: cover;
+    object-fit: cover;
+}
+
+.OtherResults__profiles__profile .profile__name {
+    font-family: $h-regular;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+    margin-top: 3px;
+    color: $gray;
+    max-width: 100px;
+}
+
+.OtherResults__profiles__profile .profile__title {
+    font-family: $h-regular;
+    font-size: 1em;
+    color: $gray;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.OtherResults__profiles__profile .profile__time {
+    color: $half-gray;
+    margin-top: 4px;
+}
+
+.OtherResults__noresults__img {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.OtherResults__noresults__text {
+    margin: 0;
+    text-align: center;
+    font-size: 16px;
+}

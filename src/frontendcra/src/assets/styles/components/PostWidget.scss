@@ -1,0 +1,70 @@
+@import '../Vars';
+
+.Post {
+    border-radius: 0 0 5px 5px;
+    background-color: white;
+    box-shadow: $outter-shadow;
+    width: 100%;
+    max-height: 350px;
+    margin-bottom: 30px;
+}
+
+.post__img {
+    width: 100%;
+    max-height: 186px;
+    background-position: center center;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.post__img__img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.post__structure {
+    padding: 5px;
+}
+
+.post__structure__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.post__structure__header a {
+    text-decoration: none;
+    color: $gray;
+}
+
+.header__title {
+    margin: 5px;
+    font-family: $h-regular;
+    font-size: 22px;
+    color: $gray;
+}
+
+.header__autor {
+    font-family: $font-special;
+    font-size: 16px;
+    font-weight: 100;
+}
+
+.post__structure__content {
+    padding: 5px;
+    font-size: 11px;
+    font-family: $p-regular;
+    color: $gray;
+    margin: 5px 0;
+}
+
+.post__structure__footer span, .post__structure__footer span a {
+    margin: 5px;
+    font-family: $font-special;
+    font-size: 14px;
+    font-weight: 100;
+    color: $gray;
+    text-decoration: none;
+}

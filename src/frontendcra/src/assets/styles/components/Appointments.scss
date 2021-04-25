@@ -1,0 +1,55 @@
+@import '../Vars';
+
+.Appointments {
+    width: 100%;
+    max-height: 200px;
+    overflow: scroll;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.appointment {
+    width: 100%;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: $outter-shadow;
+    display: flex;
+    margin-bottom: 20px;
+    padding: 5px;
+    justify-content: space-evenly;
+}
+
+.appointment__img {
+    width: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.appointment__img__profile {
+    width: 100%;
+    border-radius: 50%;
+}
+
+.appointment__name span {
+    font-size: 12px;
+    font-family: $p-bold;
+    white-space: nowrap;
+    color: $gray;
+}
+
+.appointment__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.appointment__info span {
+    text-align: right;
+    font-family: $p-regular;
+    font-size: 11px;
+    color: $gray;
+    display: block;
+    margin-bottom: 5px;
+    width: 100%;
+}

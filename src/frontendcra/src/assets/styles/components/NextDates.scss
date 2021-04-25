@@ -1,0 +1,53 @@
+@import '../Vars';
+
+.NextDates {
+    margin: 20px;
+}
+
+.NextDates.noresults {
+    margin: 20px;
+    padding: 0 20px;
+    border-radius: 5px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    box-shadow: $outter-shadow;
+
+    & p {
+        text-align: center;
+        color: $gray;
+    }
+}
+
+.NextDates__date {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: $outter-shadow;
+    align-items: center;
+    height: 40px;
+    margin: 10px 0;
+}
+
+.NextDates__date--info {
+    font-family: $p-regular;
+    font-size: 16px;
+    color: $gray;
+    margin-left: 10px;
+}
+
+.NextDates__date--icons {
+    width: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 30px;
+
+    & button {
+        border: none;
+        background-color: transparent;
+        padding: 0 10px;
+    }
+}

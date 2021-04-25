@@ -1,0 +1,68 @@
+@import '../Vars';
+
+.CallingModal {
+    max-width: 300px;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.CallingModal__icon.active {
+    transform: rotate(225deg);
+    animation-name: ring; 
+    animation-delay: .5s;
+    animation-duration: 1.5s;
+    animation-iteration-count: 3;
+}
+
+.CallingModal__icon {
+    transform: rotate(225deg);
+}
+
+@keyframes ring {
+    0% {transform: rotate(200deg);}
+    5% {transform: rotate(225deg);}
+    10% {transform: rotate(250deg);}
+    15% {transform: rotate(225deg);}
+    20% {transform: rotate(200deg);}
+    25% {transform: rotate(225deg);}
+    30% {transform: rotate(250deg);}
+    35% {transform: rotate(225deg);}
+    100% {transform: rotate(225deg);}
+}
+
+.CallingModal__icon.ended {
+    transform: rotate(0deg);
+    transition: transform .5s ease;
+}
+
+.CallingModal__text {
+    font-size: 1em;
+    font-family: $font-special;
+    text-align: center;
+}
+
+.callingButtons {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.CallingModal__button {
+    border: none;
+    border-radius: 5px;
+    width: 120px;
+    background-color: white;
+    height: 28px;
+    box-shadow: $outter-shadow;
+}
+
+.back {
+    color: $red;
+}
+
+.call {
+    color: $green;
+}

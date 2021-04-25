@@ -1,0 +1,146 @@
+@import '../Vars';
+
+.intro {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: white;
+    opacity: 1;
+    
+    & .background {
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+& #logo, #logo2, #logo3 {
+    position: absolute;
+    top: 50%;
+    width: 30vw;
+    height: auto;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: intro 1s ease forwards 5.5s;
+    }
+}
+
+#paint0_linear {
+    --color-stop0: #00F7FF;
+    --color-stop1: #23CBDA;
+    --color-stop2: #4F94AB;
+    --color-stop3: #746684;
+    --color-stop4: #904266;
+    --color-stop5: #A42951;
+    --color-stop6: #B11944;
+    --color-stop7: #B5143F;
+}
+
+#logo path:nth-child(1) {
+    stroke-dasharray: 862.51;
+    stroke-dashoffset: 862.51;
+    animation: line-anim 3s ease forwards;
+}
+
+#logo2 path:nth-child(1) {
+    stroke-dasharray: 168.46;
+    stroke-dashoffset: 168.46;
+    animation: line-anim 3s ease forwards 0.3s;
+}
+
+#logo2 path:nth-child(2) {
+    stroke-dasharray: 56.20;
+    stroke-dashoffset: 56.20;
+    animation: line-anim 3s ease forwards 0.6s;
+}
+
+#logo2 path:nth-child(3) {
+    stroke-dasharray: 12.10;
+    stroke-dashoffset: 12.10;
+    animation: line-anim 3s ease forwards 0.9s;
+}
+
+#logo3 path:nth-child(1) {
+    stroke-dasharray: 198.8;
+    stroke-dashoffset: 198.8;
+    animation: line-anim 3s ease forwards 1.2s;
+}
+
+#logo3 path:nth-child(2) {
+    stroke-dasharray: 45.69;
+    stroke-dashoffset: 45.69;
+    animation: line-anim 3s ease forwards 1.5s;
+}
+
+#logo3 path:nth-child(3) {
+    stroke-dasharray: 86.43;
+    stroke-dashoffset: 86.43;
+    animation: line-anim 3s ease forwards 1.8s;
+}
+
+#pathFilled {
+    opacity: 0;
+    animation: fill1 .5s ease forwards 3.5s;
+}
+
+#logo2 {
+    animation: fill2 .5s ease forwards 3.5s;
+}
+
+#logo3 {
+    animation: fill3 .5s ease forwards 3.5s;
+}
+
+@keyframes intro {
+    from { 
+        width: 30vw;
+        top: 50%;
+    }
+    to {
+        width: 40vw;
+        top: 42%;
+    }
+}
+
+@keyframes intro2 {
+    from { 
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes line-anim {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes fill1 {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fill2 {
+    from {
+        fill: transparent;
+    }
+    to {
+        fill: $yellow;
+    }
+}
+
+@keyframes fill3 {
+    from {
+        fill: transparent;
+    }
+    to {
+        fill: $gray;
+    }
+}

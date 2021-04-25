@@ -1,0 +1,303 @@
+@import '../Vars';
+
+.consultant__page {
+    overflow: scroll;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding-top: 80px;
+}
+
+.consultant__back__button {
+    position: absolute;
+    left: 20px;
+    top: 45px;
+}
+
+.consultant__profession {
+    font-family: $h-regular;
+    font-size: 1.5em;
+    margin: 12px;
+    color: $gray;
+}
+
+.consultant__avatar__container {
+    position: relative;
+}
+
+.consultant__avatar {
+    border-radius: 50%;
+    object-fit: cover;
+    width: 130px;
+    height: 130px;
+    margin: 4px;
+}
+
+.consultant__status {
+    width: 25px;
+    height: 25px;
+    background-color: $green;
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    transform: translate(-35%, -35%);
+}
+
+.consultant__country {
+    font-family: $font-special;
+    display: flex;
+    align-items: center;
+
+    & span {
+        margin-left: 10px;
+    }
+
+}
+
+.consultant__name {
+    font-size: 1.5em;
+    font-family: $font-special;
+    color: $gray;
+    margin-top: 8px;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.consultant__specialization {
+    margin-top: 0;
+    font-family: $h-bold;
+    margin-bottom: 4px;
+}
+
+.consultant__rating__stars {
+    transform: scale(1.5);
+    margin-bottom: 20px;
+}
+
+.consultant__since span {
+    font-family: $font-special;
+    font-weight: 100;
+    color: $half-gray;
+    margin: 0 0 8px;
+    font-size: 1em;
+
+}
+
+.consultant__multimedia__content {
+    margin-top: 8px;
+    margin-bottom: 12px;
+}
+
+.consultant__cv {
+    margin-right: 16px;
+    border: none;
+    padding: 10px 20px; 
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: $outter-shadow;
+    font-family: $h-regular;
+    font-size: 1em;
+    color: $gray;
+    transition: background-color .75s ease;
+}
+
+.consultant__cv:hover {
+    background-color: $gray;
+    color: white;
+} 
+.consultant__cv:focus {
+    background-color: $gray;
+    color: white;
+    outline: none;
+} 
+.consultant__cv:active {
+    background-color: $gray;
+    color: white;
+    outline: none;
+}
+
+.consultant__Reel {
+    margin-left: 16px;
+    border: none;
+    padding: 10px 20px; 
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: $outter-shadow;
+    font-family: $h-regular;
+    font-size: 1em;
+    color: $gray;
+    transition: background-color .75s ease;
+}
+
+.consultant__Reel:hover {
+    background-color: $gray;
+    color: white;
+} 
+.consultant__Reel:focus {
+    background-color: $gray;
+    color: white;
+    outline: none;
+} 
+.consultant__Reel:active {
+    background-color: $gray;
+    color: white;
+    outline: none;
+}
+
+.consultant__callNow {
+    margin: 12px 0 20px;
+}
+
+.consultant__call__button {
+    border: none;
+    border-radius: 5px;
+    box-shadow: $outter-shadow;
+    padding: 12px 20px;
+    font-size: 1.5em;
+    background-color: white;
+    color: $green;
+    margin: 0 10px;
+    transition: background-color .75s ease;
+}
+
+.consultant__call__button:hover, .consultant__schedule__button:hover {
+    background-color: $green;
+    color: $gray;
+} 
+.consultant__call__button:focus, .consultant__schedule__button:hover {
+    background-color: $green;
+    color: $gray;
+    outline: none;
+} 
+.consultant__call__button:active, .consultant__schedule__button:hover {
+    background-color: $green;
+    color: $gray;
+    outline: none;
+}
+
+
+.consultant__data {
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    margin: 4px 10px;
+    width: 300px;
+}
+
+.consultant__hours, .consultant__topic {
+    text-align: center;
+    background-color: white;
+    margin: 0 10px;
+    border-radius: 5px;
+    padding: 5px;
+    width: 120px;
+    
+    & span {
+        font-size: 12px;
+        font-family: $p-bold;
+        color: $half-gray;
+    }
+}
+
+.consultant__topic {
+    
+    box-shadow: 0px 4px 8px $red-10;
+    
+    & .consultant__main__topic {
+        margin-top: 8px; 
+        margin-bottom: 4px;
+        font-size: 1.2em;
+        color: $gray;
+        font-family: $p-bold;
+    }
+}
+
+.consultant__hours {
+    
+    box-shadow: 0px 4px 8px $yellow-30;
+    
+    & .consultant__given__hours {
+        margin-top: 8px; 
+        margin-bottom: 4px;
+        font-size: 1.2em;
+        color: $gray;
+        font-family: $p-bold;
+    }
+}
+
+.consultant__description {
+    margin: 20px;
+    padding: 20px;
+    color: $gray;
+    width: calc(100vw - 40px);
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: $outter-shadow;
+}
+
+.consultant__category {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 100;
+    
+    & .consultant__category__main {
+        font-size: 1.2em;
+    }
+    
+    & .consultant__category__subcategory {
+        font-size: 1em;
+    }
+}
+
+.consultant__abilities {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    
+    @media (max-width: 385px) {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+}
+
+
+.consultant__ability {
+    font-family: $font-special;
+    font-weight: 100;
+    margin-left: 20px;
+    @media (max-width: 385px) {
+        margin: 4px 0;
+    }
+}
+
+.consultant__ratings {
+    width: calc(100vw - 40px);
+    margin: 12px 20px;
+}
+
+.consultant__favorite {
+    display: block;
+    text-align: center;
+    margin-top: 40px;
+    padding: 10px 20px;
+    border-radius: 50px;
+    background: white;
+    box-shadow: $outter-shadow;
+    color: gold;
+}
+
+.consultant__schedule__button {
+    border: none;
+    border-radius: 5px;
+    box-shadow: $outter-shadow;
+    padding: 12px 20px;
+    font-size: 1.5em;
+    background-color: white;
+    color: $gray;
+    margin: 0 10px;
+    transition: background-color .75s ease;
+}

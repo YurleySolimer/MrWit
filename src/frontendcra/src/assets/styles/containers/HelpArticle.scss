@@ -1,0 +1,27 @@
+@import '../Vars';
+
+.HelpArticle {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.post__footer {
+    text-align: center;
+    margin: 20px;
+}
+
+.post__footer--title {
+    font-size: 18px;
+    font-weight: 100;
+}
+
+.post__footer--CAT {
+    padding: 10px 20px; 
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background: $gradiant;
+    font-family: $h-bold;
+}

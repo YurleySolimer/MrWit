@@ -1,0 +1,192 @@
+@import '../Vars';
+
+.WalletRecharge {
+    margin: 110px 30px 15px 30px;
+    border-radius: 5px; 
+    box-shadow: $outter-shadow;
+    background-color: white;
+    width: 90%;
+}
+
+.Recharge {
+    .WalletRecharge {
+        margin: 15px 30px;
+        border-radius: 5px; 
+        box-shadow: $outter-shadow;
+        background-color: white;
+        width: 90%;
+    }
+}
+
+.WalletRechargeOffline {
+    margin: 0px 30px;
+    border-radius: 5px; 
+    box-shadow: $outter-shadow;
+    background-color: white;
+}
+
+.WalletRecharge__header {
+    position: relative;
+    padding: 20px;
+    background-color: $green;
+    box-shadow: $outter-shadow;
+    border-radius: 5px 5px 15px 15px;
+}
+
+.WalletRecharge__header__title {
+    color: white;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-family: $h-bold;
+    font-size: 1.375em;
+}
+
+.WalletRecharge__header__balance {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: $gray;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.WalletRechage__header__balance__clarify {
+    color: $half-gray;
+}
+
+.WalletRecharge__body {
+    background-color: white;
+    padding: 10px 20px 0 20px;
+    color: $gray;
+    display: flex;
+    flex-direction: column;
+}
+
+.WalletRecharge__body__title {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    font-family: $h-bold;
+}
+
+.WalletRecharge__body__minutes {
+    margin-top: 6px;
+    margin-bottom: 20px;
+}
+
+.WalletRecharge__body__input {
+    width: 45px;
+    height: 25px;
+    box-shadow: $inner-shadow;
+    border-radius: 5px;
+    border:none;
+    padding: 8px;
+    text-align: center;
+    color: $gray;
+    margin-right: 5px;
+}
+
+.WalletRecharge__body__input:focus {
+    outline: none;
+    border: 1px solid $gray;
+    border-radius: 5px;
+}
+
+.WalletRecharge__body__input::placeholder {
+    color: $half-gray;
+    text-align: center;
+}
+
+.WalletRecharge__body hr {
+    background: $gray;
+    opacity: .3;
+    width: 100%;
+}
+
+.WalletRecharge__body__amount {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.WalletRecharge__body__info {
+    color: $gray;
+    opacity: .7;
+    font-size: 1em;
+    
+}
+
+.WalletRecharge__body__total {
+    font-family: $p-bold;
+    color: $gray;
+    font-size: 1em;
+}
+
+.WalletRecharge__body__payment {
+    margin: auto;
+    margin-top: 30px;
+    width: 200px;
+    height: 40px;
+    color: white;
+    background-color: $green;
+    border-radius: 5px;
+    font-family: $h-bold;
+    font-size: 1.5em;
+    text-align: center;
+    border: none;
+}
+
+.WalletRecharge__footer {
+    margin-top: 35px;
+    margin-bottom: 0px; 
+    opacity: .3;
+    font-family: $font-special;
+    font-weight: 100;
+    width: 100%;
+    text-align: center;
+}
+
+.WalletRecharge__footerOffline {
+    margin-top: 10px;
+    margin-bottom: 0px; 
+    opacity: .3;
+    font-family: $font-special;
+    font-weight: 100;
+    width: 100%;
+    text-align: center;
+}
+
+.WalletRecharge__body--newAccount {
+    text-align: center;
+
+    & span {
+        color: $gray;
+        font-size: 11px;
+        font-family: $p-regular;
+        
+        & a {
+            text-decoration: none;
+            font-weight: bold;
+            color: $gray;
+        }
+    }
+}
+
+.WalletRecharge__body--buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    & .icon {
+        border: none;
+        background-color: transparent;
+        margin-top: 30px;
+    }
+}
+
+.wallet__noneButton {
+    background-color: transparent;
+    padding: none;
+    margin: none;
+    border: none;
+    font-family: $p-bold;
+    color: $gray;
+}

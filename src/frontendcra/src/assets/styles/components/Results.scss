@@ -1,0 +1,114 @@
+@import '../Vars';
+
+.Results {
+    position: relative;
+    min-height: 37%;
+    width: calc(100% - 40px);
+    margin: 20px;
+    padding: 10px 10px 0px 10px;
+    background-color: white;
+    box-shadow: $outter-shadow;
+    border-radius: 25px;
+    z-index: -1;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.profile__time {
+    font-size: .75em;
+    color: $half-gray;
+    maring-top: 0;
+    margin-bottom: 8px;
+}
+
+.profile__phrase {
+    font-size: .8em;
+    white-space: normal;
+    text-align: justify;
+}
+
+.Results__title {
+    color: $gray;
+    margin-bottom: 30px;
+}
+
+.Results__profiles__profile {
+    margin: auto;
+    padding: 10px;
+    width: 250px;
+    text-align: center;
+    padding-bottom: 0;
+
+    & .rating {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.Results__profiles__profile.no_results {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: $half-gray;
+
+    & a {
+        display: block;
+        margin: auto;
+        padding: 8px 16px;
+        background-color: #7c7c7b;
+        border-radius: 10px;
+        font-size: 1.2em;
+        color: white;
+        margin-bottom: 30px;
+        cursor: pointer;
+    }
+}
+
+.profile__img {
+    width: 136px;
+    height: 136px;
+    border-radius: 50%;
+    background-size: cover;
+    object-fit: cover;
+}
+
+.profile__name {
+    font-family: $h-regular;
+    font-size: 1.5em;
+    margin-bottom: 5px;
+    margin-top: 4px;
+    color: $gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & span {
+        margin-left: 1em;
+    }
+}
+
+.profile__title {
+    font-family: $h-regular;
+    font-size: 1.25em;
+    color: $half-gray;
+    margin-bottom: 0;
+    margin-top: 4px;
+}
+
+.Consultant__result {
+    padding: 10px;
+    text-align: center;
+}
+
+.Consultant__result--noresults {
+    border: none;
+    border-radius: 5px;
+    box-shadow: $outter-shadow;
+    background-color: $gray;
+    color: white;
+    height: 35px;
+    font-size: 1.2em;
+    width: 200px;
+    margin: auto;
+}
