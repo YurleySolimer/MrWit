@@ -58,15 +58,16 @@ export const loginUser = (arr) => {
     dispatch(loginUserRequest());
     axios.post(`${axios.defaults.baseURL}${arr[0]}`, arr[1], arr[2])
       .then((res) => {
+        alert(res)
         if (res.data.message) {
-          throw res.data.message;
+          throw res.data;
         }
         arr[3](res.data);
         dispatch(loginUserSuccess());
         dispatch(redirect(arr[4]));
       })
       .catch((err) => {
-        dispatch(loginUserFailure(err));
+        dispatch(loginUserFailure(err.message));
       });
   };
 };
@@ -102,7 +103,7 @@ export const setNewUser = (arr) => {
         dispatch(redirect(arr[2]));
       })
       .catch((err) => {
-        dispatch(setNewUserFailure(err));
+        dispatch(setNewUserFailure(err.message));
       });
   };
 };
