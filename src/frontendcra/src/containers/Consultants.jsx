@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { useHistory, Redirect } from 'react-router-dom';
 import ReactFlagsSelect from 'react-flags-select';
 import CurrencyFormat from 'react-currency-format';
-import * as actionsStatus from '../actions';
 import '../assets/styles/containers/Consultants.scss';
 import background from '../assets/static/images/background1.png';
 import Results from '../components/Results';
@@ -13,11 +12,12 @@ import lightArrow from '../assets/static/assets/lightgrey_arrow.svg';
 import Modal from '../portals/Modal';
 import Loading from '../components/Loading';
 import Fatal from '../components/Fatal';
+import { setHeader } from '../actions';
 import { clearSearch } from '../actions/mrwit';
 
 const Consultants = (props) => {
   const [selected, setSelected] = useState('');
-  const { status, mrwit, clearSearch } = props;
+  const { status, mrwit, clearSearch, setHeader } = props;
   const { user, currency } = status;
   const { search, isLoading } = mrwit;
   const history = useHistory();
@@ -37,9 +37,9 @@ const Consultants = (props) => {
     const handleHeader = () => {
       const d = document.getElementById('consultants');
       if (d.scrollTop >= 50) {
-        props.setHeader(true);
+        setHeader(true);
       } else {
-        props.setHeader(false);
+        setHeader(false);
       }
     };
 
@@ -129,6 +129,7 @@ const mapStateToProps = (reducers) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    setHeader: (e) => dispatch(setHeader(e)),
     clearSearch: () => dispatch(clearSearch()),
   };
 };
