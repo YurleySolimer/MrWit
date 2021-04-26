@@ -479,7 +479,7 @@ const Signup = ({ status, mrwit, setUser, setNewUser, clear }) => {
     icon.classList.remove('active')
     check.classList.add('active')
   }
-  
+
   if (input.horario.lunes) {
     handleHorario()
   }
@@ -1265,7 +1265,7 @@ const Signup = ({ status, mrwit, setUser, setNewUser, clear }) => {
         <div className='signup__login'>
           <small>
             ¿Quieres es ser consultor?
-            <Link to='/signup' onClick={handleBecomeConsultant}>  Registrate aquí</Link>
+            <Link to='/signup' onClick={handleBecomeConsultant}>  Regístrate aquí</Link>
           </small>
         </div>
         <img src={background} alt='icon' className='signup__background' />

@@ -93,7 +93,7 @@ const Room = (props) => {
 	const ref = useRef();
 	
     useEffect(() => {
-		const URL = process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : 'https://app.mrwit.co/sockets/' || 'ws://app.mrwit.co/sockets/' || 'http://localhost:4000' ;
+		const URL =  window.location.hostname === 'app.mrwit.co' ? 'https://app.mrwit.co/sockets' : 'http://localhost:4000';
 
         socketRef.current = io.connect(URL, { 
 			withCredentials: true,

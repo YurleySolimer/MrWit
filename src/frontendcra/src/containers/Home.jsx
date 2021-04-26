@@ -190,7 +190,7 @@ const Home = (props) => {
           </button>
         </div>
         <div className='alreadyAccount'>
-          <p>¿Sin nada que buscar por ahora? <Link to='/signup'><b>Registrate</b></Link></p>
+          <p>¿Sin nada qué buscar por ahora? <Link to='/signup'><b>Registrate</b></Link></p>
           <p>¿Ya tienes cuenta? <Link to='/login'><b>Inicia sesión</b></Link></p>
         </div>
       </SelectionIntro>
