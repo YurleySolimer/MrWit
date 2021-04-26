@@ -67,7 +67,7 @@ const Search = (props) => {
     if (type === 'profession' && !ready) {
       if (valueResult === '' && valueSelection !== '') {
         const data = new FormData();
-        data.append('profession', valueSelection);
+        data.append('proffession', valueSelection);
         setQueryParams(data);
         setReady(true);
       } else if (valueSelection !== '' && specialities === []) {
