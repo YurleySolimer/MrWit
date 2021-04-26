@@ -667,6 +667,7 @@ const Signup = ({ status, mrwit, setUser, setNewUser, clear }) => {
   }
 
   const handleBecomeConsultant = () => {
+    setAgreement(false);
     setUser({ rol: { name: 'consultant' } });
   };
 
