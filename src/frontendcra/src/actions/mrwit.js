@@ -141,7 +141,7 @@ export const getConsultants = (arr) => {
         dispatch(redirect(arr[1]));
       })
       .catch((error) => {
-        dispatch(getConsultantsFailure(error));
+        dispatch(getConsultantsFailure(error.message));
       });
   };
 };
