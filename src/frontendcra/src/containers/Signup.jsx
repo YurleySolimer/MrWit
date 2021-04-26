@@ -471,6 +471,19 @@ const Signup = ({ status, mrwit, setUser, setNewUser, clear }) => {
     return valid;
   }
 
+
+  const handleHorario = () => {
+    const icon = document.getElementById('iconSchedule');
+    const check = document.getElementById('checkSchedule');
+
+    icon.classList.remove('active')
+    check.classList.add('active')
+  }
+  
+  if (input.horario.lunes) {
+    handleHorario()
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
     if (!agreement) {
@@ -551,6 +564,17 @@ const Signup = ({ status, mrwit, setUser, setNewUser, clear }) => {
   };
 
   const handleCV = (e) => {
+    const clip = document.getElementById('clipCV');
+    const check = document.getElementById('checkCV');
+
+    if (e.target.files[0]) {
+      check.classList.add('active');
+      clip.classList.remove('active');
+    } else {
+      clip.classList.add('active');
+      check.classList.remove('active');
+    }
+
     setFile2(e.target.files[0]);
   };
 
@@ -998,12 +1022,14 @@ const Signup = ({ status, mrwit, setUser, setNewUser, clear }) => {
                     accept='application/pdf'
                     onChange={handleCV}
                   />
-                  <img className='signup__input__cv__icon' src={clip} alt='adjunta tu CV' />
+                  <img className='signup__input__cv__icon' id='checkCV' src={check} alt='adjunta tu CV' />
+                  <img className='signup__input__cv__icon active' id='clipCV' src={clip} alt='adjunta tu CV' />
                 </label>
 
                 <button type='button' onClick={handleOpenModal} id='horario' name='horario' className='signup__input__schedule'>
                   <h3 className='signup__input__schedule__title'>Definir horario de atención*</h3>
-                  <img className='signup__input__schedule__icon' src={schedule} alt='Define tu horario' />
+                  <img className='signup__input__schedule__icon active' id='iconSchedule' src={schedule} alt='Define tu horario' />
+                  <img className='signup__input__schedule__icon' id='checkSchedule' src={check} alt='Define tu horario' />
                 </button>
 
                 <Modal onClose={handleCloseModal} isOpen={modalIsOpen}>

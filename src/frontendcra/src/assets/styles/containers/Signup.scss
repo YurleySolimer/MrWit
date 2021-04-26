@@ -293,6 +293,8 @@
     margin: 10px;
     border: none;
     color: $gray;
+    padding-left: 5px;
+    font-size: .8em;
 }
 
 .signup__policy {
@@ -335,11 +337,21 @@
     color: $half-gray;
 }
 
-#cameraIcon.active, #checkIcon.active {
+#cameraIcon.active, 
+#checkIcon.active,
+#checkCV.active,
+#clipCV.active,
+#iconSchedule.active,
+#checkSchedule.active {
     display: block;
 }
 
-#cameraIcon, #checkIcon {
+#cameraIcon, 
+#checkIcon, 
+#checkCV,
+#clipCV,
+#iconSchedule,
+#checkSchedule {
     display: none;
 }
 

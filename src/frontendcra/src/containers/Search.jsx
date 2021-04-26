@@ -67,7 +67,7 @@ const Search = (props) => {
     if (type === 'profession' && !ready) {
       if (valueResult === '' && valueSelection !== '') {
         const data = new FormData();
-        data.append('profession', valueSelection);
+        data.append('proffession', valueSelection);
         setQueryParams(data);
         setReady(true);
       } else if (valueSelection !== '' && specialities === []) {
@@ -85,15 +85,15 @@ const Search = (props) => {
     }
 
     if (type === 'sector' && !ready) {
-      if (valueSelection !== '') {
+      if (valueSelection === '' && valueSelection !== '') {
+        const data = new FormData();
+        data.append('category', valueSelection);
+        setQueryParams(data);
+        setReady(true);
+      } else if (valueResult !== '' && valueSelection !== '') {
         const data = new FormData();
         data.append('category', valueResult);
         data.append('proffession', valueSelection);
-        setQueryParams(data);
-        setReady(true);
-      } else if (valueResult === '' && valueSelection !== '') {
-        const data = new FormData();
-        data.append('category', valueSelection);
         setQueryParams(data);
         setReady(true);
       };
