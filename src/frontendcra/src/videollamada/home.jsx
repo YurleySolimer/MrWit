@@ -26,6 +26,7 @@ function App() {
   const connectionRef = useRef();
 
   useEffect(() => {
+    
     socket.on('callUser', (data) => {
       setReceivingCall(true);
       setCaller(data.from);

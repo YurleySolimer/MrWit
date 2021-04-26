@@ -8,6 +8,12 @@ import { v4 as uuidv4 } from 'uuid';
 import * as actionsStatus from '../actions';
 import socket from '../socket';
 import phone from '../assets/static/icons/phone.svg';
+import io from "socket.io-client";
+
+var me = socket.on("me", id => {
+  console.log('yo', id)
+  //setMe(id);
+})
 
 const CallingModal = (props) => {
 
@@ -17,25 +23,29 @@ const CallingModal = (props) => {
   const { user } = statusData;
 
   const idToCall = consultant.socket.socketID;
-  const me = user.socket.socketID;
 
 
   console.log('el idToCall es', idToCall);
 
   const [stream, setStream] = useState();
   const [caller, setCaller] = useState('');
+  const socketRef = useRef();
+  const connectionRef = useRef();
+
 
   const [receivingCall, setReceivingCall] = useState(false);
   const [callerSignal, setCallerSignal] = useState();
   const [name, setName] = useState('');
+  //const [me, setMe] = useState('');
+
   const [idRoom, setIdRoom] = useState('');
   const [call, setCall] = useState(false);
   const [calling, setCalling] = useState(false);
   const [dontAnswered, setDontAnswered] = useState(false);
 
-  const connectionRef = useRef();
 
-  useEffect(() => {
+  
+  useEffect(() => {    
    
     socket.on('callUser', (data) => {
       setReceivingCall(true);
@@ -47,6 +57,8 @@ const CallingModal = (props) => {
     });
   }, []);
 
+
+
   const callUser = (idToCall) => {
     setCalling(true);
     const peer = new Peer({
@@ -55,11 +67,11 @@ const CallingModal = (props) => {
       stream,
     });
     peer.on('signal', (data) => {
-      console.log('me socketid', me);
+      console.log('me socketid', me.id);
       socket.emit('callUser', {
         userToCall: idToCall,
         signalData: data,
-        from: me,
+        from: me.id,
         name: user.name,
       });
     });
