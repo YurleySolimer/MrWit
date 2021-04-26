@@ -19,6 +19,7 @@ const store = createStore(
 
 axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://app.mrwit.co/api';
 console.log(axios.defaults.baseURL);
+console.log(window.location.href);
 
 ReactDOM.render(
   <Provider store={store}>
