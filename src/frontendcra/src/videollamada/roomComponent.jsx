@@ -93,11 +93,11 @@ const Room = (props) => {
 	const ref = useRef();
 	
     useEffect(() => {
-		const URL = process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : 'https://mrwit.co/socket/' || 'http://localhost:4000' ;
-		
+		const URL = process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : 'https://app.mrwit.co/sockets/' || 'ws://app.mrwit.co/sockets/' || 'http://localhost:4000' ;
+
         socketRef.current = io.connect(URL, { 
 			withCredentials: true,
-			transports: ["websocket", "polling"]
+			transports: ["websocket"]
 		});
 
         navigator.mediaDevices.getUserMedia({ video: videoConstraints, audio: true }).then(stream => {
