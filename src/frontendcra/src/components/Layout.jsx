@@ -62,23 +62,25 @@ const Layout = ({ children, user, setIsCall, isCall }) => {
       stream,
     });
     peer.on('signal', (data) => {
-      console.log('caller', caller);
       socket.emit('answerCall', { signal: data, to: caller, idRoom });
     });
 
     peer.signal(callerSignal);
     connectionRef.current = peer;
     setIsCall(true);
-    history.push(`/join/${idRoom}`);
+    if(isCall) {
+      history.push(`/join/${idRoom}`);
+
+    }
   };
 
-  if (user.status && isCall) {
+ /* if (user.status && isCall) {
     return (
       <div className='App'>
         {children}
       </div>
     );
-  };
+  }; */
 
   if (user.status && user.status.logueado && user.rol.name === 'consultant') {
     return (

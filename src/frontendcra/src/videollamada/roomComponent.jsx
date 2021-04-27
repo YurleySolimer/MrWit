@@ -230,7 +230,7 @@ const Room = (props) => {
 
 	  const leaveCall = () => {
 		setCallEnded(true)
-		ref.current.destroy()
+		//ref.current.destroy()
 	}
 	
 	  function handleChat() {

@@ -79,11 +79,12 @@ const CallingModal = (props) => {
     socket.on('callAccepted', (signal, idRoom) => {
       console.log('Acepta')
       setCall(true);
-      peer.signal(signal);
+      //peer.signal(signal);
       setIdRoom(idRoom);
       console.log('El id en callAccepted es ', idRoom);
-      setIsCall(true);
-      history.push(`/join/${idRoom}`);
+      //setIsCall(true);
+        history.push(`/join/${idRoom}`);
+       
     });
 
     connectionRef.current = peer;
