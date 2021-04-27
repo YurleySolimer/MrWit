@@ -17,10 +17,11 @@ import Fatal from '../components/Fatal';
 import Searcher from '../components/Searcher';
 
 import { clearSearch, getConsultants } from '../actions/mrwit';
+import { setHeader } from '../actions/index';
 
 const Search = (props) => {
 
-  const { status, mrwit, getConsultants, clear } = props;
+  const { status, mrwit, getConsultants, clear, setHeader } = props;
   const { user } = status;
   const { isLoading, redirectTo } = mrwit;
 
@@ -39,9 +40,9 @@ const Search = (props) => {
   const handleHeader = () => {
     const d = document.getElementById('searchConsultant');
     if (d.scrollTop >= 50) {
-      props.setHeader(true);
+      setHeader(true);
     } else {
-      props.setHeader(false);
+      setHeader(false);
     }
   };
 
@@ -209,6 +210,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getConsultants: (e) => dispatch(getConsultants(e)),
     clear: () => dispatch(clearSearch()),
+    setHeader: (e) => dispatch(setHeader(e))
   };
 };
 
