@@ -82,7 +82,7 @@ const Menu = (props) => {
         </Link>
         <Link to='/historial' className='menu__item'>
           <div className='menu__item__inner'>
-            <img src={history} alt='Ir al historial' />
+            <img src={historyIcon} alt='Ir al historial' />
             <span>Historial</span>
           </div>
         </Link>

@@ -1,14 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import '../assets/styles/portals/SearchType.scss';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 import { getConsultants } from '../actions/mrwit';
 
 const SearchType = (props) => {
 
-  const { setType, onClose, setValueResult, value, isHome, getConsultants } = props;
+  const { setType, onClose, setValueResult, value, isHome, getConsultants, mrwit } = props;
+  const { redirectTo } = mrwit;
+
   const history = useHistory();
 
   function handleSector(e) {
@@ -25,7 +27,7 @@ const SearchType = (props) => {
     onClose(e);
   }
 
-  function handleAbility(e) {
+  function handleAbility() {
     const data = new FormData();
     data.append('ability', value);
     getConsultants([data, '/resultados']);
@@ -41,10 +43,24 @@ const SearchType = (props) => {
       .catch((e) => console.log(e));
   }
 
+  if (redirectTo) {
+    return (
+      <Redirect to={redirectTo} />
+    );
+  }
+
   if (isHome) {
     return (
       <div className='SearchType'>
-        <h2>¿Qué quieres buscar?</h2>
+        <h2>
+          ¿Cómo quieres buscar
+          {' '}
+          <b>
+          {value}?
+          </b>
+          {' '}
+          ¿Habilidad o ID?
+          </h2>
         <button type='button' className='ability' onClick={handleAbility}>Habilidad</button>
         <button type='button' className='id' onClick={handleID}>ID</button>
       </div>
