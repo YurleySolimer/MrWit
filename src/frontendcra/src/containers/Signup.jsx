@@ -673,6 +673,17 @@ const Signup = ({ status, mrwit, setUser, setNewUser, clear }) => {
 
   function handleChange(event) {
     const { name, value } = event.target;
+    
+    console.log('The name is: ', name, ' the value is: ', value);
+
+    if (name === 'sector' && value === '') {
+      const select = document.getElementById('sector');
+      const input = document.getElementById('sector2');
+
+      select.classList.add('hidden');
+      input.classList.remove('hidden');
+    }
+
     setInput({
       ...input,
       [name]: value,
@@ -738,6 +749,19 @@ const Signup = ({ status, mrwit, setUser, setNewUser, clear }) => {
   function handleSpecialities() {
     const profSelected = document.getElementById('profesion');
     const { value } = profSelected;
+
+    if (value === '') {
+      const input = document.getElementById('profesion2');
+      const select = document.getElementById('especialidad');
+      const inputE = document.getElementById('especialidad2');
+
+      profSelected.classList.add('hidden');
+      input.classList.remove('hidden');
+
+      inputE.classList.remove('hidden');
+      select.classList.add('hidden');
+    }
+
     for (let i = 0; i < DataJSON.length; i++) {
       if (Object.getOwnPropertyNames(DataJSON[i])[0] === value) {
         const info = DataJSON[i];
@@ -973,7 +997,9 @@ const Signup = ({ status, mrwit, setUser, setNewUser, clear }) => {
                 >
                   <option value=''>Sector</option>
                   {Sector}
+                  <option value=''>Otro</option>
                 </select>
+                <input type='text' value={input.sector} placeholder='¡Especifíca tu sector!' onChange={handleChange} name='sector' id='sector2' className='signup__input sector hidden' />
                 <div><small className='signup__error'>{errors.sector.message}</small></div>
 
                 <select
@@ -985,7 +1011,9 @@ const Signup = ({ status, mrwit, setUser, setNewUser, clear }) => {
                 >
                   <option value=''>Profesión</option>
                   {Professions}
+                  <option value=''>Otro</option>
                 </select>
+                <input type='text' value={input.profesion} placeholder='¿Cuál es tu profesión?' onChange={handleChange} name='profesion' id='profesion2' className='signup__input profesion hidden' />
                 <div><small className='signup__error'>{errors.profesion.message}</small></div>
 
                 <select

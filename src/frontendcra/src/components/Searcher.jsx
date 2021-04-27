@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import '../assets/styles/components/Searcher.scss';
+import { connect } from 'react-redux';
 import lupa from '../assets/static/icons/lupa.svg';
 import Modal from '../portals/Modal';
 import SearchType from '../portals/SearchType';
 import DataMatrix from '../consultantMatrix';
+import { clearSearch } from '../actions/mrwit';
 
 const Searcher = (props) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [value, setValue] = useState('');
-  const { setType, isHome, setValueResult, isOffline } = props;
+  const { setType, isHome, setValueResult, isOffline, clearSearch } = props;
 
   function handleClose(e) {
     setIsOpen(false);
@@ -20,7 +22,7 @@ const Searcher = (props) => {
   }
 
   function handleClick() {
-
+    clearSearch();
     const input = document.getElementById('searcher');
     setValue(input.value);
     const regSector = /( - Sector)/g;
@@ -192,4 +194,10 @@ const Searcher = (props) => {
   );
 };
 
-export default Searcher;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    clearSearch: () => dispatch(clearSearch()),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Searcher);

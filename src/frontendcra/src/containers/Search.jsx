@@ -110,7 +110,7 @@ const Search = (props) => {
     }
   }, [ready, queryParams]);
 
-  if (redirectTo) {
+  if (redirectTo === '/resultados') {
     return (
       <Redirect to={redirectTo} />
     );

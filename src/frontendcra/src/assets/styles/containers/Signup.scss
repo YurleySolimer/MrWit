@@ -355,7 +355,9 @@
     display: none;
 }
 
-.signup__input.especialidad.hidden {
+.signup__input.especialidad.hidden, 
+.signup__input.profesion.hidden, 
+.signup__input.sector.hidden {
     display: none;
 }
 
