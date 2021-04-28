@@ -86,7 +86,10 @@ const Search = (props) => {
     }
 
     if (type === 'sector' && !ready) {
-      if (valueSelection === '' && valueSelection !== '') {
+      console.log('entre en el primer if')
+      console.log('Type is ', type, ' valueSelection es ', valueSelection, ' cal')
+      if (valueResult === '' && valueSelection !== '') {
+        console.log('entre en el segundo if')
         const data = new FormData();
         data.append('category', valueSelection);
         setQueryParams(data);

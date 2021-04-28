@@ -138,7 +138,7 @@ const Login = (props) => {
         />
         <button type='button' onClick={handleLogin} className='signup__linkedin signup__button'>
           <img src={linkedin} alt='icon' />
-          Registrarme con LinkedIn
+          Iniciar sesión con LinkedIn
         </button>
 
         <GoogleLogin
@@ -151,7 +151,7 @@ const Login = (props) => {
               className='signup__google signup__button'
             >
               <img src={google} alt='google icon' />
-              Registrarme con Google
+              Iniciar sesión con Google
             </button>
           )}
           buttonText='Registrarme con Google'
