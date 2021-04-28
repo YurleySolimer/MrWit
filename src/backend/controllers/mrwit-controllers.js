@@ -95,7 +95,12 @@ mrwitCtrl.getConsultores = async (req, res) => {
             ],
           },
         );
-        res.status(200).json(consultores);
+        const resultados = {
+          busqueda: 'Sector',
+          sector: category,
+          consultores,
+        }
+        res.status(200).json(resultados);
       }
     } else if (req.body.proffession) {
       const consultores = await Consultor.find(
