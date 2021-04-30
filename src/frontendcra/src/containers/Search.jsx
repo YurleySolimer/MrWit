@@ -17,10 +17,11 @@ import Fatal from '../components/Fatal';
 import Searcher from '../components/Searcher';
 
 import { clearSearch, getConsultants } from '../actions/mrwit';
+import { setHeader } from '../actions/index';
 
 const Search = (props) => {
 
-  const { status, mrwit, getConsultants, clear } = props;
+  const { status, mrwit, getConsultants, clear, setHeader } = props;
   const { user } = status;
   const { isLoading, redirectTo } = mrwit;
 
@@ -39,9 +40,9 @@ const Search = (props) => {
   const handleHeader = () => {
     const d = document.getElementById('searchConsultant');
     if (d.scrollTop >= 50) {
-      props.setHeader(true);
+      setHeader(true);
     } else {
-      props.setHeader(false);
+      setHeader(false);
     }
   };
 
@@ -85,7 +86,10 @@ const Search = (props) => {
     }
 
     if (type === 'sector' && !ready) {
-      if (valueSelection === '' && valueSelection !== '') {
+      console.log('entre en el primer if')
+      console.log('Type is ', type, ' valueSelection es ', valueSelection, ' cal')
+      if (valueResult === '' && valueSelection !== '') {
+        console.log('entre en el segundo if')
         const data = new FormData();
         data.append('category', valueSelection);
         setQueryParams(data);
@@ -209,6 +213,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getConsultants: (e) => dispatch(getConsultants(e)),
     clear: () => dispatch(clearSearch()),
+    setHeader: (e) => dispatch(setHeader(e))
   };
 };
 

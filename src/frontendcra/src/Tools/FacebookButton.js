@@ -8,7 +8,7 @@ const MyFacebookButton = ({ onClick }) => (
     className='signup__facebook signup__button'
   >
     <img src={facebook} alt='icon' />
-    Registrarme Facebook
+    {window.location.pathname === '/signup' ?  'Registrarme Facebook' : 'Iniciar sesión con Facebook'}
   </button>
 
 );
