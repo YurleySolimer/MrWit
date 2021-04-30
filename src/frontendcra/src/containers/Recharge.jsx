@@ -42,7 +42,7 @@ const Recharge = ({ consultantData, statusData }) => {
           <img src={logo} alt='' className='Recharge__img' />
           <h2 className='Recharge__header__text'>Ahora debes recargar saldo para ingresar a la llamada</h2>
         </div>
-        <WalletRecharge amount='10.000' balance='0' method={handlePayment} />
+        <WalletRecharge amount='10.000' name={name} id={id} balance='0' method={handlePayment} />
         <Modal onClose={handleCloseModal} noButton={true} isOpen={isOpen}>
           <CallingModal name={user.name} onClose={handleCloseModal} />
         </Modal>

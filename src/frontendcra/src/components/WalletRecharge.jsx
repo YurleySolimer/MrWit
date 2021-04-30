@@ -35,7 +35,7 @@ const WalletRecharge = (props) => {
   const history = useHistory();
 
 
-  const { balance, method, user, currency } = props;
+  const { balance, name, id, user, currency } = props;
   const [amount, setAmount] = useState('');
   const [resp, setResp] = useState(false);
 
@@ -159,6 +159,9 @@ const WalletRecharge = (props) => {
             </span>
           </div>
           <form onSubmit={payumoney} method="POST" action="http://localhost:3000/pay/payumoney">
+            <input type="hidden" name='name' id='name' value={name} />
+            <input type="hidden" name='id' id='id' value={id} />
+            <input type="hidden" name='amount' id='amount' value={amountToPay} />
             <button type='submit' className='WalletRecharge__body__payment'>Pagar</button>
           </form>
           <div className='Recharge__payu'>
