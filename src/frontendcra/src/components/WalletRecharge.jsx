@@ -11,6 +11,9 @@ import WalletHelpModal from '../portals/WalletHelpModal';
 import WalletNewAccountModal from '../portals/WalletNewAccountModal';
 import WalletNewWithdraw from '../portals/WalletNewWithdraw';
 
+import { useHistory } from 'react-router-dom';
+
+
 const WalletRecharge = (props) => {
 
   const [input, setInput] = useState({
@@ -29,10 +32,14 @@ const WalletRecharge = (props) => {
     confirmationUrl: '',
   });
 
+  const history = useHistory();
+
+
   const { balance, method, user, currency } = props;
   const [amount, setAmount] = useState('');
+  const [resp, setResp] = useState(false);
+
   const [page, setPage] = useState('');
-  const [recar, setRecar] = useState('');
   const [isOpenHelp, setIsOpenHelp] = useState(false);
   const [isOpenAccount, setIsOpenAccount] = useState(false);
   const [isOpenEditAccount, setIsOpenEditAccount] = useState(false);
@@ -76,10 +83,33 @@ const WalletRecharge = (props) => {
   }
   
 
-  function payumoney(event) {
-//Metodo pra mostrar el checkout form  
+  function payumoney() {
+      var pd = {
+        key: 'aaaaaa',
+        salt: 'aaaaaa',
+        txnid: 'aaaaaa',
+        amount: '100000',
+        firstname: 'aaaaaa',
+        lastname: 'aaaaaa',
+        email: 'aaaaaa',
+        phone: 'aaaaaa',
+        productinfo: 'aaaaaa',
+        service_provider: 'aaaaaa',
+        surl: 'aaaaaa',
+        furl: 'aaaaaa',
+        hash: ''
+      };
+      
+      
+      axios.post("/pay/payumoney",{
+        pd
+      }).then((res)=> {
+        console.log(res);
+      }).catch((error)=>{
+        console.log(error);
+      });
+  }  
 
-  }
 
 
  
@@ -95,7 +125,7 @@ const WalletRecharge = (props) => {
       .catch((err) => console.error(err));
   }, []);
 
-  if (recar === true) {
+  if (resp === true) {
     return (
       page
     )
@@ -116,7 +146,7 @@ const WalletRecharge = (props) => {
         <div className='WalletRecharge__body'>
           <h1 className='WalletRecharge__body__title'>Recargar</h1>
           <div className='WalletRecharge__body__minutes'>
-            <input type='number' name='minutes' id='minutes' value={amount} onChange={handleChange} min='10' placeholder='10' className='WalletRecharge__body__input' />
+            <input type='number' name='minutes' id='minutes' value={amount} onChange={handleChange} min='10000' placeholder='10000' className='WalletRecharge__body__input' />
             <span className='WalletRecharge__body__text'>Minutos</span>
           </div>
           <hr />
@@ -128,7 +158,9 @@ const WalletRecharge = (props) => {
               {currency}
             </span>
           </div>
-          <button type='button' onClick={payumoney} className='WalletRecharge__body__payment'>Pagar</button>
+          <form onSubmit={payumoney} method="POST" action="http://localhost:3000/pay/payumoney">
+            <button type='submit' className='WalletRecharge__body__payment'>Pagar</button>
+          </form>
           <div className='Recharge__payu'>
             <small>Powered by: </small>
             <img src={payu} alt='' className='Recharge__payuIcon' />
@@ -214,8 +246,9 @@ const WalletRecharge = (props) => {
             {currency}
           </span>
         </div>
-        <button type='button' onClick={payumoney} className='WalletRecharge__body__payment'>Pagar</button>
-       
+        <form onSubmit={payumoney} method="POST" action="http://localhost:3000/pay/payumoney">
+            <button type='submit' className='WalletRecharge__body__payment'>Pagar</button>
+          </form>
         
         <br />
         <small className='WalletRecharge__footerOffline'>Recarga mínima: 10 minutos</small>
