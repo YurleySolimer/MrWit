@@ -26,6 +26,7 @@ import HomeCall from '../videollamada/home';
 import RoomComponent from '../videollamada/roomComponent';
 import socket from '../socket';
 
+
 const App = ({ user }) => {
 
   function handleSocketID(id, value) {
