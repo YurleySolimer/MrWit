@@ -15,6 +15,10 @@ const Recharge = ({ consultantData, statusData }) => {
   const { user } = statusData;
   const { consultant } = consultantData;
 
+  const { id, name } = user;
+
+  console.log('El nombre es ', name)
+  console.log('El id es ', id)
   console.log(consultant);
   const [isOpen, setIsOpen] = useState(false);
 
