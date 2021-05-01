@@ -4,29 +4,55 @@ var jsSHA = require("jssha");
 var md5 = require('md5');
 
 payCtrl.payUMoneyPayment = async (req, res) => {
+    console.log(req.body)
+   var id = 'name';
+   var name = 'id';
+    var total = 0;
+
+    if(!req.body) {
+        total = 10000;
+    }
+
+    else{ 
+
+          id = req.body.id;
+          name = req.body.name;
+
+        if (req.body.amount == 0) {
+            total = 10000;
+        }
+        else {
+            total = req.body.amount;
+        }
+    }
+
     const pay = {
         merchantId: '508029',
         ApiKey: '4Vj8eK4rloUd272L48hsrarnUA',
-       // referenceCode: '87g104',
         accountId: '512321',
         description: 'Consultoría MrWit App',
-        amount: 10000,
+        amount: total,
         tax: '0',
         taxReturnBase: '0',
         currency: 'COP',
-       // signature: '3fa940a9ab2abefdab2e1f01885773ef',
-        test: '1',
-        responseUrl: 'http://localhost:8080/recargar',
+        test: '1'
     }
 
-    var ref1 = 'client' + '|' + Math.random() + '|' + Math.random() + '|' + Math.random()
-    var ref2 = md5(ref1);
-    pay.referenceCode = ref2;
+    var refHash = id + '|' + total + '|' + Math.random() + '|' + Math.random() + '|' + Math.random()
+    var ref2Hash = md5(refHash);
+    pay.referenceCode = ref2Hash+Math.random();
+
+     const responseUrl = req.headers.origin === 'app.mrwit.co' 
+    ? `https://app.mrwit.co/transaction/${id}/${name}/${pay.amount}/${pay.referenceCode}`
+    : `http://localhost:8080/transaction/${id}/${name}/${pay.amount}/${pay.referenceCode}`;
+    pay.responseUrl = responseUrl;
 
      //Generate new Hash 
      var hashString = pay.ApiKey + '~' + pay.merchantId + '~' + pay.referenceCode + '~' + pay.amount + '~' + pay.currency 
      var hash = md5(hashString);
      pay.signature = hash;
+
+     console.log(pay)
 
     request.post({
         headers: {

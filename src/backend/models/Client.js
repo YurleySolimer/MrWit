@@ -37,7 +37,9 @@ const clientSchema = new Schema({
         saldo: Number,
         Transacciones: [{
             date: Date,
-            total: Number
+            total: Number,
+            status: String,
+            id: String
         }]
     },
     history: [{
