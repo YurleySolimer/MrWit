@@ -9,13 +9,9 @@ import {
     CForm,
     CFormGroup,
     CFormText,
-    CTextarea,
     CInput,
     CInputFile,
-    CInputCheckbox,
-    CInputRadio,
     CLabel,
-    CSelect,
     CRow,
     CSwitch
 } from '@coreui/react'

@@ -12,7 +12,7 @@ const Team = React.lazy(() => import('./views/team/index'));
 const NewMember = React.lazy(() => import('./views/team/NewMember'));
 
 const routes = [
-  { path: '/', exact: true, name: 'Inicio', component: Dashboard, exact: true },
+  { path: '/', exact: true, name: 'Inicio', component: Dashboard },
   { path: '/usuarios', name: 'Usuarios', component: Users, exact: true },
   { path: '/consultas', name: 'Consultas', component: Consults },
   { path: '/operaciones', name: 'Operaciones', component: Operations },
