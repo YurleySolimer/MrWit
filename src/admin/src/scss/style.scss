@@ -1,0 +1,68 @@
+// If you want to override variables do it here
+@import "variables";
+
+// Import CoreUI styles
+@import "~@coreui/coreui/scss/coreui.scss";
+
+// Some temp fixes
+@import "fixes";
+
+// If you want to add something do it here
+@import "custom";
+
+main {
+  background: url('../assets/background1.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.custom-input {
+  position: relative;
+}
+
+@media (hover: hover),
+not all {
+
+  .c-sidebar .c-sidebar-nav-link:hover,
+  .c-sidebar .c-sidebar-nav-dropdown-toggle:hover {
+    color: #fff;
+    background: #B5143F;
+  }
+}
+
+@media (hover: hover),
+not all {
+  a:hover {
+    text-decoration: underline;
+    color: #B5143F;
+  }
+}
+
+.page-item.active .page-link {
+  z-index: 3;
+  color: #fff;
+  background-color: #B5143F;
+  border-color: #B5143F;
+}
+
+html:not([dir=rtl]) .page-link {
+  margin-left: -1px;
+}
+
+.page-link {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  line-height: 1.25;
+  border: 1px solid;
+  color: #B5143F;
+  background-color: #fff;
+  border-color: #d8dbe0;
+}
+
+a {
+  text-decoration: none;
+  background-color: transparent;
+  color: #B5143F;
+}
