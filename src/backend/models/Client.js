@@ -35,11 +35,16 @@ const clientSchema = new Schema({
     },
     wallet: {
         saldo: Number,
-        Transacciones: [{
-            date: Date,
+        transacciones: [{
+            date: String,
             total: Number,
+            currency: String,
+            paymentMethod: String,
             status: String,
-            id: String
+            transactionId: String,
+            referenceCode: String,
+            buyerEmail: String
+
         }]
     },
     history: [{

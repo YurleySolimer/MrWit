@@ -56,7 +56,7 @@ const App = ({ user }) => {
         <Switch>
           <Route exact path='/' component={Home} />
 
-          <Route exact path ='/transaction/:id_client/:name/:amount/:id_transaction' component={Transaction} />
+          <Route exact path ='/transaction' component={Transaction} />
           
           <Route exact path='/homeCall' component={HomeCall} />
           <Route path='/join/:id' component={RoomComponent} />

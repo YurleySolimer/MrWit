@@ -68,7 +68,6 @@ const WalletRecharge = (props) => {
 
   
   function payumoney() {
-    console.log(user)
 /*       var pd = {
         name: user.name,
         id: user.id,

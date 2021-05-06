@@ -3,10 +3,12 @@ const request = require('request');
 var jsSHA = require("jssha");
 var md5 = require('md5');
 
+const Client = require('../models/Client');
+
+
 payCtrl.payUMoneyPayment = async (req, res) => {
-    console.log(req.body)
-   var id = 'name';
-   var name = 'id';
+   var id = req.body.id;
+   var name = req.body.name;
     var total = 0;
 
     if(!req.body) {
@@ -35,24 +37,26 @@ payCtrl.payUMoneyPayment = async (req, res) => {
         tax: '0',
         taxReturnBase: '0',
         currency: 'COP',
-        test: '1'
+        test: '1',
+        extra1: id
     }
 
     var refHash = id + '|' + total + '|' + Math.random() + '|' + Math.random() + '|' + Math.random()
     var ref2Hash = md5(refHash);
     pay.referenceCode = ref2Hash+Math.random();
 
-     const responseUrl = req.headers.origin === 'app.mrwit.co' 
-    ? `https://app.mrwit.co/transaction/${id}/${name}/${pay.amount}/${pay.referenceCode}`
-    : `http://localhost:8080/transaction/${id}/${name}/${pay.amount}/${pay.referenceCode}`;
+    const responseUrl = req.headers.origin === 'app.mrwit.co' 
+    ? `https://app.mrwit.co/transaction`
+    : `http://localhost:8080/transaction`;
+
     pay.responseUrl = responseUrl;
+
 
      //Generate new Hash 
      var hashString = pay.ApiKey + '~' + pay.merchantId + '~' + pay.referenceCode + '~' + pay.amount + '~' + pay.currency 
      var hash = md5(hashString);
      pay.signature = hash;
 
-     console.log(pay)
 
     request.post({
         headers: {
@@ -75,6 +79,37 @@ payCtrl.payUMoneyPayment = async (req, res) => {
         }
     )
    
+}
+
+
+payCtrl.payVerification = async (req, res) => {
+
+    const pd = req.body.pd;
+    const client = await Client.findOne({_id: pd.clientId });
+    console.log(client.wallet.transacciones.length)
+    var array = client.wallet.transacciones;
+    const transacciones = {
+        status: pd.status,
+        referenceCode: pd.referenceCode,
+        transactionId: pd.transactionId,
+        paymentMethod: pd.paymentMethod,
+        total: pd.total,
+        currency: pd.currency,
+        buyerEmail: pd.buyerEmail,
+        date: pd.date
+    }
+
+    array.push(transacciones)
+
+
+    const newClient = {
+        wallet: {
+            transacciones: array
+        }
+    };
+
+   await Client.findOneAndUpdate({_id: pd.clientId }, newClient);    
+    res.send('Data saved')
 }
 
 
