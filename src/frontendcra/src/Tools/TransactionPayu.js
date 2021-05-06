@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import axios from 'axios';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -64,4 +65,30 @@ const Transaction = (props) => {
     )
 }
 
+=======
+import React from 'react';
+
+const Transaction = (props) => {
+    const { params } = props.match;
+    const { amount, id_client, id_transaction, name } = params;
+
+    return (
+        <div className="Transaction">
+            <p>Holi</p>
+            <p>El amount es {amount}</p>
+            <input type="text" value={amount}/>
+            <p>El id_client es {id_client}</p>
+            <input type="text" value={id_client}/>
+            <p>El id_transaction es {id_transaction}</p>
+            <input type="text" value={id_transaction}/>
+            <p>El name es {name}</p>
+            <input type="text" value={name}/>
+            <button>
+                Enviar
+            </button>
+        </div>
+    )
+}
+
+>>>>>>> 4fb270da882d2eb2ca6b4257f0630ce95b96e71c
 export default Transaction;
