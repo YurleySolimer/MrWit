@@ -45,7 +45,7 @@ payCtrl.payUMoneyPayment = async (req, res) => {
     var ref2Hash = md5(refHash);
     pay.referenceCode = ref2Hash+Math.random();
 
-    const responseUrl = req.headers.origin === 'app.mrwit.co' 
+    const responseUrl = req.headers.origin === 'https://app.mrwit.co' 
     ? `https://app.mrwit.co/transaction`
     : `http://localhost:8080/transaction`;
 

@@ -131,7 +131,7 @@ const WalletRecharge = (props) => {
               {currency}
             </span>
           </div>
-          <form onSubmit={payumoney} method="POST" action="http://localhost:3000/pay/payumoney">
+          <form onSubmit={payumoney} method="POST" action={`${axios.defaults.baseURL}/pay/payumoney`}>
             <input type="hidden" name='name' id='name' value={user.name} />
             <input type="hidden" name='id' id='id' value={user.id} />
             <input type="hidden" name='amount' id='amount' value={amountToPay} />
@@ -222,7 +222,7 @@ const WalletRecharge = (props) => {
             {currency}
           </span>
         </div>
-        <form onSubmit={payumoney} method="POST" action="http://localhost:3000/pay/payumoney">
+        <form onSubmit={payumoney} method="POST" action={`${axios.defaults.baseURL}/pay/payumoney`}>
         <input type="hidden" name='name' id='name' value={user.name} />
             <input type="hidden" name='id' id='id' value={user.id} />
             <input type="hidden" name='amount' id='amount' value={amountToPay} />
