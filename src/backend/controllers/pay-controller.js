@@ -86,7 +86,9 @@ payCtrl.payVerification = async (req, res) => {
 
     const pd = req.body.pd;
     const client = await Client.findOne({_id: pd.clientId });
-    console.log(client.wallet.transacciones.length)
+
+    console.log(client)
+
     var array = client.wallet.transacciones;
     const transacciones = {
         status: pd.status,
@@ -99,11 +101,14 @@ payCtrl.payVerification = async (req, res) => {
         date: pd.date
     }
 
-    array.push(transacciones)
+    array.push(transacciones);
+
+    var saldo = ((client.wallet.saldo)*1) + ((pd.total)*1);
 
 
     const newClient = {
         wallet: {
+            saldo,
             transacciones: array
         }
     };

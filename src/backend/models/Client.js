@@ -34,7 +34,10 @@ const clientSchema = new Schema({
         },
     },
     wallet: {
-        saldo: Number,
+        saldo: {
+            type: Number,
+            default: 0
+        },
         transacciones: [{
             date: String,
             total: Number,
