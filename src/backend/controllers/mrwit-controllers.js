@@ -8,46 +8,66 @@ mrwitCtrl.getConsultores = async (req, res) => {
   const { category, proffession, especialidad, ability, id, country } = req.body;
   if (!req.body.category) {
     if (!req.body.proffession) {
-      if (!req.body.ability) {
-        if (!req.body.id) {
-          const consultores = await Consultor.find(
-            { 'status.logueado': true },
-          );
-          res.status(200).json(consultores);
-        } else if (req.body.id) {
+      if(!req.body.especialidad) { 
+        if (!req.body.ability) {
+          if (!req.body.id) {
+            const consultores = await Consultor.find(
+              { 'status.logueado': true },
+            );
+            res.status(200).json(consultores);
+          } else if (req.body.id) {
+            const consultores = await Consultor.find(
+              {
+                $and: [
+                  { _id: { $in: id } },
+                  { 'status.logueado': true },
+                ],
+              },
+            );
+            const resultados = {
+              busqueda: 'id',
+              id,
+              consultores,
+            };
+            res.status(200).json(resultados);
+          }
+        } else if (req.body.ability) {
           const consultores = await Consultor.find(
             {
               $and: [
-                { _id: { $in: id } },
+                { abilities: { $in: ability } },
                 { 'status.logueado': true },
               ],
             },
           );
           const resultados = {
-            busqueda: 'id',
-            id,
+            busqueda: 'ability',
+            ability,
             consultores,
           };
           res.status(200).json(resultados);
+
         }
-      } else if (req.body.ability) {
+      } else if (req.body.especialidad) {
         const consultores = await Consultor.find(
           {
             $and: [
-              { abilities: { $in: ability } },
+              { especialidad: { $in: especialidad } },
               { 'status.logueado': true },
+
             ],
           },
         );
         const resultados = {
-          busqueda: 'ability',
-          ability,
+          busqueda: 'Especialidad',
+          especialidad,
           consultores,
         };
         res.status(200).json(resultados);
 
       }
-    } else if (req.body.proffession) {
+    }    
+      else if (req.body.proffession) {
       if (!req.body.especialidad) {
         const consultores = await Consultor.find(
           {
@@ -87,44 +107,71 @@ mrwitCtrl.getConsultores = async (req, res) => {
   } else if (req.body.category) {
     if (!req.body.proffession) {
       if (!req.query.proffession) {
-        const consultores = await Consultor.find(
-          {
-            $and: [
-              { category: { $in: category } },
-              { 'status.logueado': true },
-            ],
-          },
-        );
-        const resultados = {
-          busqueda: 'Sector',
-          sector: category,
-          consultores,
-        }
-        res.status(200).json(resultados);
+        if(!req.query.especialidad) {
+          const consultores = await Consultor.find(
+            {
+              $and: [
+                { category: { $in: category } },
+                { 'status.logueado': true },
+              ],
+            },
+          );
+          const resultados = {
+            busqueda: 'Sector',
+            sector: category,
+            consultores,
+          }
+          res.status(200).json(resultados);
       }
-    } else if (req.body.proffession) {
-      const consultores = await Consultor.find(
-        {
-          $and: [
-            { category: { $in: category } },
-            { profession: { $in: proffession } },
-            { 'status.logueado': true },
-
-          ],
-        },
-      );
-      const resultados = {
-        busqueda: 'Sector y Profesion',
-        sector: category,
-        consultores,
-      };
-      res.status(200).json(resultados);
     }
+    } else if (req.body.proffession) {
+        if(!req.body.especialidad) {
+          const consultores = await Consultor.find(
+            {
+              $and: [
+                { category: { $in: category } },
+                { profession: { $in: proffession } },
+                { 'status.logueado': true },
+    
+              ],
+            },
+          );
+          const resultados = {
+            busqueda: 'Sector y Profesion',
+            sector: category,
+            proffession,
+            consultores,
+          };
+          res.status(200).json(resultados);
+        }
+        
+        else if (req.body.especialidad) {
+          const consultores = await Consultor.find(
+            {
+              $and: [
+                { category: { $in: category } },
+                { profession: { $in: proffession } },
+                { especialidad: { $in: especialidad } },
+                { 'status.logueado': true },    
+              ],
+            },
+          );
+          const resultados = {
+            busqueda: 'Sector, Profesion y Especialidad',
+            sector: category,
+            proffession,
+            especialidad,
+            consultores,
+          };
+          res.status(200).json(resultados);
+        }
+
+      }
+      
   }
 };
 
 mrwitCtrl.getConsultor = async (req, res) => {
-  console.log(req.params.id);
   const consultor = await Consultor.findById(req.params.id);
   if (consultor) {
     const userFound = await User.findOne({ email: consultor.email });
