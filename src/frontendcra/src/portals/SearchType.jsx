@@ -88,8 +88,6 @@ const SearchType = (props) => {
       <h2>¿Qué quieres buscar?</h2>
       <button type='button' className='profession' onClick={handleProfession}>Profesión</button>
       <button type='button' className='sector' onClick={handleSector}>Sector</button>
-      <button type='button' className='ability' onClick={handleAbility}>Habilidad</button>
-      <button type='button' className='id' onClick={handleID}>ID</button>
     </div>
   );
 
