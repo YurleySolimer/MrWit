@@ -62,6 +62,8 @@ export const loginUser = (arr) => {
           throw res.data;
         }
         arr[3](res.data);
+        localStorage.setItem('userID', res.data.id);
+        localStorage.setItem('userToken', res.data.token);
         dispatch(loginUserSuccess());
         dispatch(redirect(arr[4]));
       })
