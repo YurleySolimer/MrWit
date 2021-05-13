@@ -233,6 +233,44 @@ authCtrl.postNewUser = async (req, res, next) => {
     //res.status(200).json({token});
 };
 
+authCtrl.getSession = async (req, res) => {
+
+        const userId = req.body.id;
+
+        const cliente =  await Client.findOne({_id: userId});
+
+        if (cliente) {
+            const userSession = {
+                cliente,
+                id: userId,
+                sessionId: req.sessionID
+            }
+            res.send(userSession)
+        }
+
+        else if (!cliente) {
+            const consult =  await Consultor.findOne({_id: userId});
+            if(consult) {
+                const userSession = {
+                    cliente,
+                    id: userId,
+                    sessionId: req.sessionID
+                }
+                res.send(userSession)
+            }
+
+            else if (!consult) {
+                res.send({message: 'No encontrado'})
+
+            }
+
+
+        }
+
+
+    
+};
+
 authCtrl.postSignIn = async (req, res) => {
    const userFound = await User.findOne({email: req.body.email}).populate("rol");
     if (!userFound) return res.json({ message: "No se encontró el usuario" });
